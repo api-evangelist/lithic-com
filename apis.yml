@@ -1,0 +1,365 @@
+aid: lithic-com
+url: https://raw.githubusercontent.com/api-evangelist/lithic-com/refs/heads/main/apis.yml
+name: Lithic
+kind: company
+description: Lithic is a card issuing and issuer-processor API platform for building
+  virtual and physical card programs - authorization, clearing, KYC/KYB account
+  holder onboarding, programmable authorization rules, real-time Auth Stream Access
+  (ASA) decisioning, disputes, digital wallet tokenization, 3DS authentication,
+  ACH payments, ledgered financial accounts, and settlement reporting. Lithic
+  publishes a full OpenAPI 3.1 specification (github.com/lithic-com/lithic-openapi)
+  backing official Node, Python, Go, Java, and Kotlin SDKs, with a sandbox at
+  sandbox.lithic.com that mirrors production functionality.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Fintech
+- Card Issuing
+- Payments
+- Issuer Processor
+- KYC
+- Banking as a Service
+created: '2026-07-02'
+modified: '2026-07-02'
+specificationVersion: '0.19'
+apis:
+- aid: lithic-com:lithic-com-account-holders-api
+  name: Lithic Account Holders API
+  tags:
+  - Account Holders
+  - KYC
+  - KYB
+  - Onboarding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/account-holders-kyc
+    type: Documentation
+  - url: https://docs.lithic.com/docs/account-holders-kyb
+    type: Documentation
+  - url: https://docs.lithic.com/reference/getaccountholders
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Create and manage individual (KYC) and business (KYB) account holders -
+    identity verification workflows (KYC_BASIC, KYC_BYO, KYC_EXEMPT, KYB_BASIC),
+    document upload for remediation, and beneficial owner / control person
+    management.
+- aid: lithic-com:lithic-com-accounts-api
+  name: Lithic Accounts API
+  tags:
+  - Accounts
+  - Spend Limits
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/spend-limits
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/spend-limits
+    type: Documentation
+  - url: https://docs.lithic.com/reference/getaccounts
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: List and retrieve accounts (created 1:1 with an account holder), update
+    daily/monthly/lifetime spend limits, and fetch an account's available spend
+    limits and fraud/velocity signals.
+- aid: lithic-com:lithic-com-cards-api
+  name: Lithic Cards API
+  tags:
+  - Cards
+  - Virtual Cards
+  - Physical Cards
+  - Digital Wallets
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/cards
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/cards
+    type: Documentation
+  - url: https://docs.lithic.com/docs/managing-cards
+    type: Documentation
+  - url: https://docs.lithic.com/docs/physical-cards-setup-guide
+    type: Documentation
+  - url: https://docs.lithic.com/reference/postcards
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Issue and manage virtual and physical cards - create, update, reissue,
+    renew, and convert virtual cards to physical; card programs, digital card art,
+    bulk card orders, card balances and financial transactions, the embedded card
+    UI, and Apple Pay / Google Pay push provisioning.
+- aid: lithic-com:lithic-com-transactions-authorizations-api
+  name: Lithic Transactions & Authorizations API
+  tags:
+  - Transactions
+  - Authorizations
+  - Simulations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/transaction-flow
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/transaction-flow
+    type: Documentation
+  - url: https://docs.lithic.com/docs/transactions
+    type: Documentation
+  - url: https://docs.lithic.com/docs/simulating-transactions
+    type: Documentation
+  - url: https://docs.lithic.com/reference/postsimulateauthorize
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: List and retrieve card transactions, respond to authorization
+    challenges, expire authorizations, route transactions, pull enhanced
+    commercial (Level II/III) data, and fully simulate the authorization ->
+    clearing -> void/return lifecycle in Sandbox.
+- aid: lithic-com:lithic-com-authorization-rules-api
+  name: Lithic Authorization Rules API
+  tags:
+  - Authorization Rules
+  - Velocity Limits
+  - Risk
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/authorization-rules-v2
+  baseURL: https://api.lithic.com/v2
+  properties:
+  - url: https://docs.lithic.com/docs/authorization-rules-v2
+    type: Documentation
+  - url: https://docs.lithic.com/docs/about-authorization-intelligence
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Create, draft, promote, and backtest v2 programmable authorization
+    rules (velocity limits, MCC/country/risk-score conditions) scoped to a card,
+    account, or program, including calculated feature values and rule evaluation
+    result history.
+- aid: lithic-com:lithic-com-realtime-decisioning-api
+  name: Lithic Real-Time Decisioning API
+  tags:
+  - Auth Stream Access
+  - ASA
+  - 3DS
+  - Webhooks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/auth-stream-access-asa
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/auth-stream-access-asa
+    type: Documentation
+  - url: https://docs.lithic.com/docs/about-3ds
+    type: Documentation
+  - url: https://docs.lithic.com/docs/3ds-decisioning
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Register and manage the HTTP responder endpoint that receives
+    Auth Stream Access (ASA) requests synchronously inside the authorization
+    path (APPROVED/CHALLENGE/decline within a 6-second window), plus the
+    equivalent 3DS Decisioning webhook for step-up challenge decisions, and
+    HMAC secret retrieval/rotation for both.
+- aid: lithic-com:lithic-com-disputes-api
+  name: Lithic Disputes API
+  tags:
+  - Disputes
+  - Chargebacks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/disputes-api
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/disputes-api
+    type: Documentation
+  - url: https://docs.lithic.com/docs/tracking-disputes
+    type: Documentation
+  - url: https://docs.lithic.com/reference/postdisputes
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Submit and withdraw chargeback requests on settled transactions,
+    upload and manage evidence, and read v2 managed disputes for programs where
+    Lithic handles dispute processing on the issuer's behalf. Lithic documents
+    the Disputes API as an Enterprise product.
+- aid: lithic-com:lithic-com-events-webhooks-api
+  name: Lithic Events & Webhooks API
+  tags:
+  - Events
+  - Webhooks
+  - Event Subscriptions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/events-api
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/events-api
+    type: Documentation
+  - url: https://docs.lithic.com/docs/simulating-webhooks
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Manage event subscriptions (register a webhook URL, rotate its
+    signing secret, resend or replay-missing messages after downtime), list and
+    retrieve individual events and their delivery attempts, and simulate any of
+    the 60+ documented event types in Sandbox.
+- aid: lithic-com:lithic-com-financial-accounts-api
+  name: Lithic Financial Accounts & Statements API
+  tags:
+  - Financial Accounts
+  - Ledger
+  - Statements
+  - Credit
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/financial-accounts
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/financial-accounts
+    type: Documentation
+  - url: https://docs.lithic.com/docs/ledger-overview
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Create and manage ISSUING, OPERATING, RESERVE, and CHARGE_CARD
+    financial accounts, register account numbers, configure credit limits and
+    interest tier schedules, list account activity and financial transactions,
+    and retrieve statements, statement line items, and loan tapes.
+- aid: lithic-com:lithic-com-balances-holds-api
+  name: Lithic Balances & Holds API
+  tags:
+  - Balances
+  - Holds
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/ledger-overview
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/ledger-overview
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Read available and pending balances across all or a specific
+    financial account, and create, retrieve, or void holds placed against a
+    financial account's balance.
+- aid: lithic-com:lithic-com-payments-api
+  name: Lithic Payments (ACH) API
+  tags:
+  - ACH
+  - Payments
+  - Disbursements
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/payments-api
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/payments-api
+    type: Documentation
+  - url: https://docs.lithic.com/docs/ach-overview
+    type: Documentation
+  - url: https://docs.lithic.com/docs/ach-payments-lifecycle
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Move funds via ACH between a Lithic financial account and a
+    verified external bank account - create, retry, and return payments - with
+    Sandbox simulation of receipt, release, and return events across the ACH
+    lifecycle.
+- aid: lithic-com:lithic-com-ledger-settlement-api
+  name: Lithic Ledger, Transfers & Settlement API
+  tags:
+  - Book Transfers
+  - Settlement
+  - Funding
+  - Management Operations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/book-transfers
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/book-transfers
+    type: Documentation
+  - url: https://docs.lithic.com/docs/settlement-reporting
+    type: Documentation
+  - url: https://docs.lithic.com/reference/getsettlementdetails
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Move money internally between financial accounts with book
+    transfers, post and reverse manual management operations (ledger
+    corrections), enforce transfer limits, look up card network programs, and
+    reconcile daily cash movement with settlement detail/summary reports,
+    network totals, and per-program funding events. Lithic documents Settlement
+    as an Enterprise, production-only product.
+- aid: lithic-com:lithic-com-external-payments-api
+  name: Lithic External Payments & Bank Accounts API
+  tags:
+  - External Bank Accounts
+  - External Payments
+  - Prenote
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/external-accounts-api
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/external-accounts-api
+    type: Documentation
+  - url: https://docs.lithic.com/docs/disbursements
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: Add and verify external bank accounts via prenote or micro-deposits,
+    pause/unpause and retry verification, and create and manage external
+    payments - settle, release, cancel, or reverse - for funds movement that
+    occurs outside of Lithic-initiated ACH rails.
+- aid: lithic-com:lithic-com-tokenization-api
+  name: Lithic Tokenization & Digital Wallets API
+  tags:
+  - Tokenization
+  - Digital Wallets
+  - Apple Pay
+  - Google Pay
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/about-digital-wallets
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/about-digital-wallets
+    type: Documentation
+  - url: https://docs.lithic.com/docs/push-provisioning
+    type: Documentation
+  - url: https://docs.lithic.com/docs/web-push-provisioning
+    type: Documentation
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: List and manage a card's digital wallet tokenizations - pause,
+    unpause, activate, deactivate, resend activation codes, and update digital
+    card art - plus the Tokenization Decisioning HMAC secret used to verify
+    the real-time webhook Lithic sends when a cardholder adds a card to Apple
+    Pay, Google Pay, or Samsung Pay.
+- aid: lithic-com:lithic-com-fraud-monitoring-api
+  name: Lithic Fraud & Transaction Monitoring API
+  tags:
+  - Fraud
+  - Transaction Monitoring
+  - Case Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lithic.com/docs/about-authorization-intelligence
+  baseURL: https://api.lithic.com/v1
+  properties:
+  - url: https://docs.lithic.com/docs/about-authorization-intelligence
+    type: Documentation
+  - url: https://docs.lithic.com/reference/getfraudreport
+    type: APIReference
+  - url: openapi/lithic-com-openapi.yml
+    type: OpenAPI
+  description: File and retrieve fraud reports on card transactions, and manage
+    transaction monitoring cases and queues - case activity, linked
+    transactions and cards, comments, and file attachments - for AML/fraud
+    review workflows.
+common:
+- type: GitHubOrganization
+  url: https://github.com/lithic-com
+- type: LinkedIn
+  url: https://www.linkedin.com/company/lithic
+- type: Website
+  url: https://www.lithic.com
+- type: Documentation
+  url: https://docs.lithic.com
+- type: Plans
+  url: plans/lithic-com-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/lithic-com-rate-limits.yml
+- type: FinOps
+  url: finops/lithic-com-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

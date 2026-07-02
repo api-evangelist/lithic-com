@@ -1,0 +1,120 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Lithic
+providerId: lithic-com
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- Card Issuing
+- Fintech
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Lithic spend. Lithic's economics are not a simple per-call API
+  bill - a program's cost/revenue is dominated by card-network interchange
+  (Lithic shares a portion of interchange revenue back to the program) net of
+  negotiated per-card, per-transaction, ACH origination, and enterprise
+  add-on fees (Disputes, Settlement). Exact rates and revenue-share splits are
+  negotiated per program (Processing vs. Program Managed) and are not publicly
+  disclosed, so this artifact models the cost dimensions rather than reconciled
+  unit rates.
+notes: >-
+  Verify current interchange revenue share, per-card, and per-transaction
+  rates directly with a Lithic account executive; they are not published and
+  vary by program model, card network, and volume commitments.
+sources:
+- https://www.lithic.com/
+- https://www.lithic.com/blog/interchange
+- https://www.lithic.com/blog/maximizing-interchange
+- https://docs.lithic.com/docs/po-vs-pm
+- https://docs.lithic.com/docs/settlement-reporting
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Lithic
+serviceCategory: Fintech and Payments
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Lithic Card Issuing
+  ServiceCategory: Fintech and Payments
+  ProviderName: Lithic
+  PublisherName: Lithic
+  InvoiceIssuerName: Lithic
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: interchange_revenue_share
+  description: Portion of card-network interchange revenue shared back to the program per settled transaction, net of Lithic's take.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - card_program
+  - network
+- name: active_cards
+  description: Per-card fees, typically assessed per active/issued card per period.
+  unit: cards
+  aggregation: count
+  dimensions:
+  - account
+  - card_program
+- name: authorization_transactions
+  description: Authorization and clearing transaction volume processed through the issuer-processing platform.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - card_program
+- name: ach_originations
+  description: ACH payment originations and returns via the Payments API and external bank accounts.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - financial_account
+- name: disputes_processed
+  description: Chargebacks and v2 managed disputes processed under the Enterprise Disputes API add-on.
+  unit: disputes
+  aggregation: count
+  dimensions:
+  - account
+  - card_program
+- name: settlement_reporting
+  description: Enterprise, production-only Settlement API usage - settlement detail, summary, and network total reports reconciled.
+  unit: reports
+  aggregation: count
+  dimensions:
+  - account
+- name: sandbox_usage
+  description: Sandbox environment usage during development; free, but tracked for FinOps visibility into pre-production testing volume.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Reconcile daily settlement reports and funding events against transaction and interchange volume per card program.
+- name: Allocation
+  description: Tag financial accounts, card programs, and API keys per product/team so interchange revenue and fees map to internal cost centers.
+- name: Optimization
+  description: Route card programs to the interchange category (debit, prepaid, commercial, credit) and network that maximizes revenue share for the transaction mix; consolidate ACH batches to reduce origination fees.
+- name: Accountability
+  description: Assign a program owner responsible for the Processing vs. Program Managed commercial agreement and monthly review of interchange, fee, and dispute economics against forecast.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

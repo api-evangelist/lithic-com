@@ -1,0 +1,1775 @@
+{
+  "info": {
+    "name": "Lithic API",
+    "description": "Card issuing and issuer-processor API - authorization, clearing, KYC/KYB onboarding, authorization rules, real-time Auth Stream Access (ASA) and 3DS decisioning, disputes, digital wallet tokenization, ACH payments, ledgered financial accounts, and settlement reporting. Base URL: https://api.lithic.com (Production) or https://sandbox.lithic.com (Sandbox). All requests require an API key sent as the raw value of the Authorization header.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.lithic.com",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Account Holders",
+      "item": [
+        {
+          "name": "List account holders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/account_holders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "account_holders"
+              ]
+            },
+            "description": "Get a list of individual or business account holders and their KYC or KYB evaluation status."
+          }
+        },
+        {
+          "name": "Create an account holder",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/account_holders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "account_holders"
+              ]
+            },
+            "description": "Create an account holder and initiate the appropriate onboarding workflow.  Account holders and accounts have a 1:1 relationship. When an account holder is successfully created an associated account is also created.\nAll calls to this endpoint will return a synchronous response. The response time wil",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get an account holder",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/account_holders/:account_holder_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "account_holders",
+                ":account_holder_token"
+              ],
+              "variable": [
+                {
+                  "key": "account_holder_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get an Individual or Business Account Holder and/or their KYC or KYB evaluation status."
+          }
+        },
+        {
+          "name": "Update an account holder",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/account_holders/:account_holder_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "account_holders",
+                ":account_holder_token"
+              ],
+              "variable": [
+                {
+                  "key": "account_holder_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update the information associated with a particular account holder (including business owners and control persons associated to a business account).\nIf Lithic is performing KYB or KYC and additional verification is required we will run the individual's or business's updated information again and ret",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Initiate document upload",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/account_holders/:account_holder_token/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "account_holders",
+                ":account_holder_token",
+                "documents"
+              ],
+              "variable": [
+                {
+                  "key": "account_holder_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Use this endpoint to identify which type of supported government-issued documentation you will upload for further verification.\nIt will return two URLs to upload your document images to - one for the front image and one for the back image.\n\nThis endpoint is only valid for evaluations in a `PENDING_D",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "List accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "accounts"
+              ]
+            },
+            "description": "List account configurations.\n"
+          }
+        },
+        {
+          "name": "Get account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/accounts/:account_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "accounts",
+                ":account_token"
+              ],
+              "variable": [
+                {
+                  "key": "account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get account configuration such as spend limits."
+          }
+        },
+        {
+          "name": "Update account spend limit",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/accounts/:account_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "accounts",
+                ":account_token"
+              ],
+              "variable": [
+                {
+                  "key": "account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update account configuration such as state or spend limits. Can only be run on accounts that are part of the program managed by this API key.\nAccounts that are in the `PAUSED` state will not be able to transact or create new cards.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get account spend limits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/accounts/:account_token/spend_limits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "accounts",
+                ":account_token",
+                "spend_limits"
+              ],
+              "variable": [
+                {
+                  "key": "account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get an Account's available spend limits, which is based on the spend limit configured on the Account and the amount already spent over the spend limit's duration. For example, if the Account has a daily spend limit of $1000 configured, and has spent $600 in the last 24 hours, the available spend lim"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "item": [
+        {
+          "name": "List cards",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards"
+              ]
+            },
+            "description": "List cards."
+          }
+        },
+        {
+          "name": "Create card",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards"
+              ]
+            },
+            "description": "Create a new virtual or physical card. Parameters `shipping_address` and `product_id` only apply to physical cards.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get card",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards/:card_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards",
+                ":card_token"
+              ],
+              "variable": [
+                {
+                  "key": "card_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get card configuration such as spend limit and state."
+          }
+        },
+        {
+          "name": "Update card",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards/:card_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards",
+                ":card_token"
+              ],
+              "variable": [
+                {
+                  "key": "card_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update the specified properties of the card. Unsupplied properties will remain unchanged.\n\n*Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Reissue card",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards/:card_token/reissue",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards",
+                ":card_token",
+                "reissue"
+              ],
+              "variable": [
+                {
+                  "key": "card_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Initiate print and shipment of a duplicate physical card (e.g. card is physically damaged).  The PAN, expiry, and CVC2 will remain the same and the original card can continue to be used until the new card is activated.\nOnly applies to cards of type `PHYSICAL`.  A card can be reissued or renewed a to",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Convert virtual card to physical",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards/:card_token/convert_physical",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards",
+                ":card_token",
+                "convert_physical"
+              ],
+              "variable": [
+                {
+                  "key": "card_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Convert a virtual card into a physical card and manufacture it.\nCustomer must supply relevant fields for physical card creation including `product_id`, `carrier`, `shipping_method`, and `shipping_address`.\nThe card token will be unchanged.  The card's type will be altered to `PHYSICAL`.\nThe card wil",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get card balances",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards/:card_token/balances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards",
+                ":card_token",
+                "balances"
+              ],
+              "variable": [
+                {
+                  "key": "card_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get the balances for a given card."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List card transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/transactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "transactions"
+              ]
+            },
+            "description": "List card transactions. All amounts are in the smallest unit of their respective currency (e.g., cents for USD) and inclusive of any acquirer fees.\n"
+          }
+        },
+        {
+          "name": "Get card transaction",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/transactions/:transaction_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "transactions",
+                ":transaction_token"
+              ],
+              "variable": [
+                {
+                  "key": "transaction_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get a specific card transaction. All amounts are in the smallest unit of their respective currency (e.g., cents for USD).\n"
+          }
+        },
+        {
+          "name": "Simulate an authorization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/simulate/authorize",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "simulate",
+                "authorize"
+              ]
+            },
+            "description": "Simulates an authorization request from the card network as if it came from a merchant acquirer.\nIf you are configured for ASA, simulating authorizations requires your ASA client to be set up properly, i.e. be able to respond to the ASA request with a valid JSON. For users that are not configured fo",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Simulate clearing a transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/simulate/clearing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "simulate",
+                "clearing"
+              ]
+            },
+            "description": "Clears an existing authorization, either debit or credit. After this event, the transaction transitions from `PENDING` to `SETTLED` status.\n\nIf `amount` is not set, the full amount of the transaction will be cleared. Transactions that have already cleared, either partially or fully, cannot be cleare",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Simulate reversing a transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/simulate/void",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "simulate",
+                "void"
+              ]
+            },
+            "description": "Voids a pending authorization. If `amount` is not set, the full amount will be voided. Can be used on partially voided transactions but not partially cleared transactions. _Simulating an authorization expiry on credit authorizations or credit authorization advice is not currently supported but will ",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Authorization Rules",
+      "item": [
+        {
+          "name": "List rules",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v2/auth_rules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "auth_rules"
+              ]
+            },
+            "description": "Lists V2 Auth rules"
+          }
+        },
+        {
+          "name": "Create a new rule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/auth_rules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "auth_rules"
+              ]
+            },
+            "description": "Creates a new V2 Auth rule in draft mode",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Fetch a rule",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v2/auth_rules/:auth_rule_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "auth_rules",
+                ":auth_rule_token"
+              ],
+              "variable": [
+                {
+                  "key": "auth_rule_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetches a V2 Auth rule by its token"
+          }
+        },
+        {
+          "name": "Request a backtest",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/auth_rules/:auth_rule_token/backtests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "auth_rules",
+                ":auth_rule_token",
+                "backtests"
+              ],
+              "variable": [
+                {
+                  "key": "auth_rule_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Initiates a request to asynchronously generate a backtest for an Auth rule. During backtesting, both the active version (if one exists) and the draft version of the Auth Rule are evaluated by replaying historical transaction data against the rule's conditions. This process allows customers to simula",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Real-Time Decisioning (ASA + 3DS)",
+      "item": [
+        {
+          "name": "Enroll a responder endpoint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/responder_endpoints",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "responder_endpoints"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Check responder endpoint status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/responder_endpoints",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "responder_endpoints"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Retrieve the ASA HMAC secret key",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/auth_stream/secret",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "auth_stream",
+                "secret"
+              ]
+            },
+            "description": "Retrieve the ASA HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify webhooks) will begin appearing shortly after calling this endpoint for the first time. See [this page](https://docs.lithic.com/docs/au"
+          }
+        },
+        {
+          "name": "Retrieve the 3DS Decisioning HMAC secret key",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/three_ds_decisioning/secret",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "three_ds_decisioning",
+                "secret"
+              ]
+            },
+            "description": "Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify 3DS Decisioning requests) will begin appearing shortly after calling this endpoint for the first time. See [this page](htt"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disputes",
+      "item": [
+        {
+          "name": "List chargeback requests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/disputes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "disputes"
+              ]
+            },
+            "description": "List chargeback requests."
+          }
+        },
+        {
+          "name": "Request chargeback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/disputes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "disputes"
+              ]
+            },
+            "description": "Request a chargeback.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Upload evidence",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/disputes/:dispute_token/evidences",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "disputes",
+                ":dispute_token",
+                "evidences"
+              ],
+              "variable": [
+                {
+                  "key": "dispute_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Use this endpoint to upload evidence for a chargeback request. It will return a URL to upload your documents to. The URL will expire in 30 minutes.\n\nUploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be less than 5 GiB.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "List disputes (v2)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v2/disputes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "disputes"
+              ]
+            },
+            "description": "Returns a paginated list of disputes."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events & Webhooks",
+      "item": [
+        {
+          "name": "List event subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/event_subscriptions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "event_subscriptions"
+              ]
+            },
+            "description": "List all the event subscriptions."
+          }
+        },
+        {
+          "name": "Create event subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/event_subscriptions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "event_subscriptions"
+              ]
+            },
+            "description": "Create a new event subscription.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "List events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "events"
+              ]
+            },
+            "description": "List all events."
+          }
+        },
+        {
+          "name": "Get event",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/events/:event_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "events",
+                ":event_token"
+              ],
+              "variable": [
+                {
+                  "key": "event_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get an event."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Financial Accounts & Statements",
+      "item": [
+        {
+          "name": "List financial accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/financial_accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "financial_accounts"
+              ]
+            },
+            "description": "Retrieve information on your financial accounts including routing and account number."
+          }
+        },
+        {
+          "name": "Create financial account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/financial_accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "financial_accounts"
+              ]
+            },
+            "description": "Create a new financial account",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "List statements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/financial_accounts/:financial_account_token/statements",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "financial_accounts",
+                ":financial_account_token",
+                "statements"
+              ],
+              "variable": [
+                {
+                  "key": "financial_account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "List the statements for a given financial account."
+          }
+        },
+        {
+          "name": "List account activity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/account_activity",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "account_activity"
+              ]
+            },
+            "description": "Retrieve a list of transactions across all public accounts."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Balances & Holds",
+      "item": [
+        {
+          "name": "List balances",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/balances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "balances"
+              ]
+            },
+            "description": "Get the balances for a program, business, or a given end-user account"
+          }
+        },
+        {
+          "name": "List holds",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/financial_accounts/:financial_account_token/holds",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "financial_accounts",
+                ":financial_account_token",
+                "holds"
+              ],
+              "variable": [
+                {
+                  "key": "financial_account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "List holds for a financial account."
+          }
+        },
+        {
+          "name": "Create hold",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/financial_accounts/:financial_account_token/holds",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "financial_accounts",
+                ":financial_account_token",
+                "holds"
+              ],
+              "variable": [
+                {
+                  "key": "financial_account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Create a hold on a financial account. Holds reserve funds by moving them\nfrom available to pending balance. They can be resolved via settlement\n(linked to a payment or book transfer), voiding, or expiration.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Void hold",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/holds/:hold_token/void",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "holds",
+                ":hold_token",
+                "void"
+              ],
+              "variable": [
+                {
+                  "key": "hold_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Void an active hold. This returns the held funds from pending back to\navailable balance. Only holds in PENDING status can be voided.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments (ACH)",
+      "item": [
+        {
+          "name": "List payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "payments"
+              ]
+            },
+            "description": "List all the payments for the provided search criteria."
+          }
+        },
+        {
+          "name": "Create payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "payments"
+              ]
+            },
+            "description": "Initiates a payment between a financial account and an external bank account.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Retry payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments/:payment_token/retry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "payments",
+                ":payment_token",
+                "retry"
+              ],
+              "variable": [
+                {
+                  "key": "payment_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retry an origination which has been returned."
+          }
+        },
+        {
+          "name": "Return payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments/:payment_token/return",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "payments",
+                ":payment_token",
+                "return"
+              ],
+              "variable": [
+                {
+                  "key": "payment_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Return an ACH payment with a specified return reason code. Returns must be initiated\nwithin the time window specified by NACHA rules for each return code (typically 2 banking\ndays for most codes, 60 calendar days for unauthorized debits). For a complete list of\nreturn codes and their meanings, see t",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ledger, Transfers & Settlement",
+      "item": [
+        {
+          "name": "List book transfers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/book_transfers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "book_transfers"
+              ]
+            },
+            "description": "List book transfers"
+          }
+        },
+        {
+          "name": "Create book transfer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/book_transfers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "book_transfers"
+              ]
+            },
+            "description": "Book transfer funds between two financial accounts or between a financial account and card",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get settlement summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/reports/settlement/summary/:report_date",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "reports",
+                "settlement",
+                "summary",
+                ":report_date"
+              ],
+              "variable": [
+                {
+                  "key": "report_date",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get the settlement report for a specified report date. Not available in sandbox."
+          }
+        },
+        {
+          "name": "List funding events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/funding_events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "funding_events"
+              ]
+            },
+            "description": "Get all funding events for program"
+          }
+        }
+      ]
+    },
+    {
+      "name": "External Payments & Bank Accounts",
+      "item": [
+        {
+          "name": "Create external bank account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/external_bank_accounts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "external_bank_accounts"
+              ]
+            },
+            "description": "Creates an external bank account within a program or Lithic account.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Verify via micro deposits",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/external_bank_accounts/:external_bank_account_token/micro_deposits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "external_bank_accounts",
+                ":external_bank_account_token",
+                "micro_deposits"
+              ],
+              "variable": [
+                {
+                  "key": "external_bank_account_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Verify the external bank account by providing the micro deposit amounts.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "List external payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/external_payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "external_payments"
+              ]
+            },
+            "description": "List external payments"
+          }
+        },
+        {
+          "name": "Create external payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/external_payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "external_payments"
+              ]
+            },
+            "description": "Create external payment",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tokenization & Digital Wallets",
+      "item": [
+        {
+          "name": "List tokenizations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/tokenizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "tokenizations"
+              ]
+            },
+            "description": "List card tokenizations"
+          }
+        },
+        {
+          "name": "Get tokenization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/tokenizations/:tokenization_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "tokenizations",
+                ":tokenization_token"
+              ],
+              "variable": [
+                {
+                  "key": "tokenization_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Get tokenization"
+          }
+        },
+        {
+          "name": "Pause tokenization",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/tokenizations/:tokenization_token/pause",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "tokenizations",
+                ":tokenization_token",
+                "pause"
+              ],
+              "variable": [
+                {
+                  "key": "tokenization_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "This endpoint is used to ask the card network to pause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network pauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint"
+          }
+        },
+        {
+          "name": "Provision card in Google Pay",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/cards/:card_token/provision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "cards",
+                ":card_token",
+                "provision"
+              ],
+              "variable": [
+                {
+                  "key": "card_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app.\n\nThis requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Fraud & Transaction Monitoring",
+      "item": [
+        {
+          "name": "Get fraud report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/fraud/transactions/:transaction_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "fraud",
+                "transactions",
+                ":transaction_token"
+              ],
+              "variable": [
+                {
+                  "key": "transaction_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieve a fraud report for a specific transaction identified by its unique transaction token.\n"
+          }
+        },
+        {
+          "name": "Create or update fraud report",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/fraud/transactions/:transaction_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "fraud",
+                "transactions",
+                ":transaction_token"
+              ],
+              "variable": [
+                {
+                  "key": "transaction_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Report fraud for a specific transaction token by providing details such as fraud type, fraud status, and any additional comments.\n",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "List cases",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/transaction_monitoring/cases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "transaction_monitoring",
+                "cases"
+              ]
+            },
+            "description": "Lists transaction monitoring cases, optionally filtered."
+          }
+        },
+        {
+          "name": "Get case",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/transaction_monitoring/cases/:case_token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v1",
+                "transaction_monitoring",
+                "cases",
+                ":case_token"
+              ],
+              "variable": [
+                {
+                  "key": "case_token",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single transaction monitoring case."
+          }
+        }
+      ]
+    }
+  ]
+}

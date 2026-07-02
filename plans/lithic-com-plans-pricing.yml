@@ -1,0 +1,130 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Lithic
+providerId: lithic-com
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: false
+tags:
+- Card Issuing
+- Fintech
+- Pricing
+- Plans
+description: >-
+  Lithic does not publish self-serve plan tiers or a public price list. Access
+  is contact-sales / underwriting-gated: prospective programs apply, are
+  evaluated (including sponsor bank and network approval), and negotiate
+  commercial terms directly with Lithic. Lithic documents two structural
+  program models - Processing (the client brings or manages more of the bank
+  and compliance relationship) and Program Managed (Lithic handles more of the
+  bank sponsorship, compliance, and network relationships) - which affect fees
+  and revenue share rather than a tiered API price list. Lithic's monetization
+  is a hybrid of a share of card-network interchange revenue plus per-card and
+  usage-based fees; a Sandbox environment is free and available without a
+  sales conversation for building and testing against the full API surface.
+notes: >-
+  No numeric plan tiers, seat counts, or self-serve checkout exist for Lithic's
+  API. Verify current commercial terms, minimums, and revenue share directly
+  with a Lithic account executive during reconciliation.
+sources:
+- https://www.lithic.com/
+- https://www.lithic.com/pricing
+- https://docs.lithic.com/docs/po-vs-pm
+- https://www.lithic.com/blog/interchange
+plans:
+- id: lithic-sandbox
+  name: Sandbox
+  type: free
+  description: >-
+    Free Sandbox environment at sandbox.lithic.com mirroring production
+    functionality - full API access, simulation endpoints for authorizations,
+    clearing, disputes, payments, tokenizations, and webhook event types - for
+    building and testing a program before going live.
+  entries:
+  - label: Sandbox Access
+    name: sandbox_access
+    type: flat
+    metric: account
+    limit: -1
+    timeFrame: unlimited
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: Full API Surface
+  - name: Authorization / Clearing / Dispute Simulation
+  - name: Webhook Event Simulation
+- id: lithic-processing
+  name: Processing
+  type: enterprise
+  description: >-
+    Program model where the client retains more direct ownership of the bank
+    sponsorship and compliance relationship; Lithic provides the issuer
+    processing platform and API. Commercial terms (interchange share, per-card
+    and transaction fees) are negotiated per program.
+  entries:
+  - label: Processing Agreement
+    name: processing_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Issuer Processing Platform
+  - name: Interchange Revenue Share
+  - name: Negotiated Per-Card / Transaction Fees
+- id: lithic-program-managed
+  name: Program Managed
+  type: enterprise
+  description: >-
+    Program model where Lithic handles more of the sponsor bank relationship,
+    compliance, and network program management on the client's behalf, in
+    addition to the API and processing platform. Typically carries different
+    fee and revenue-share economics than Processing.
+  entries:
+  - label: Program Managed Agreement
+    name: program_managed_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Sponsor Bank Management
+  - name: Compliance Program Management
+  - name: Issuer Processing Platform
+  - name: Interchange Revenue Share
+- id: lithic-enterprise-disputes-settlement
+  name: Enterprise Add-Ons (Disputes / Settlement)
+  type: enterprise
+  description: >-
+    The Disputes API and Settlement API are documented by Lithic as Enterprise
+    products layered on top of a Processing or Program Managed agreement, with
+    Settlement available in production only. Contact Lithic for eligibility
+    and pricing.
+  entries:
+  - label: Enterprise Add-On
+    name: enterprise_addon
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Disputes API
+  - name: Settlement API
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

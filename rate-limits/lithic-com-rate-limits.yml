@@ -1,0 +1,109 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Lithic
+providerId: lithic-com
+created: '2026-07-02'
+modified: '2026-07-02'
+reconciled: true
+tags:
+- Card Issuing
+- Fintech
+- Rate Limiting
+- Quotas
+description: >-
+  Lithic publishes fixed numeric requests-per-second (RPS) limits, enforced
+  separately per resource and per HTTP method (a GET and a POST to the same
+  resource draw from independent counters, but multiple GET routes under the
+  same resource, e.g. GET /cards and GET /cards/{token}, share one counter).
+  Defaults differ between Production and Sandbox, with the cards and transfers
+  resources called out as documented exceptions to the default.
+notes: >-
+  Rate limiting applies to all endpoints except the embedded card UI. Account
+  holder creation via the KYC advanced workflow may see lower effective limits
+  due to third-party verification dependencies. Lithic reserves the right to
+  temporarily reduce limits during high load or incidents, and will raise
+  limits for one-time bulk operations on request.
+sources:
+- https://docs.lithic.com/docs/rate-limits
+- https://docs.lithic.com/docs/api-basics
+responseCodes:
+  throttled: 429
+limits:
+- name: Default Read (Production)
+  scope: resource
+  metric: requests
+  limit: 30 RPS
+  notes: Default GET rate limit per resource in Production, unless a resource-specific exception applies.
+- name: Default Write (Production)
+  scope: resource
+  metric: requests
+  limit: 5 RPS
+  notes: Default POST/PATCH/DELETE rate limit per resource in Production, unless a resource-specific exception applies.
+- name: Cards Read (Production)
+  scope: resource
+  metric: requests
+  limit: 15 RPS
+  notes: Documented exception for the cards resource in Production.
+- name: Cards Write (Production)
+  scope: resource
+  metric: requests
+  limit: 2 RPS
+  notes: Documented exception for the cards resource in Production.
+- name: Transfers Read (Production)
+  scope: resource
+  metric: requests
+  limit: 5 RPS
+  notes: Documented exception for the transfers resource in Production.
+- name: Transfers Write (Production)
+  scope: resource
+  metric: requests
+  limit: 2 RPS
+  notes: Documented exception for the transfers resource in Production.
+- name: Default Read (Sandbox)
+  scope: resource
+  metric: requests
+  limit: 15 RPS
+  notes: Default GET rate limit per resource in Sandbox, unless a resource-specific exception applies.
+- name: Default Write (Sandbox)
+  scope: resource
+  metric: requests
+  limit: 1 RPS
+  notes: Default POST/PATCH/DELETE rate limit per resource in Sandbox, unless a resource-specific exception applies.
+- name: Cards Read (Sandbox)
+  scope: resource
+  metric: requests
+  limit: 15 RPS
+  notes: Documented exception for the cards resource in Sandbox (same as Production default).
+- name: Cards Write (Sandbox)
+  scope: resource
+  metric: requests
+  limit: 2 RPS
+  notes: Documented exception for the cards resource in Sandbox (same as Production).
+- name: Transfers Read (Sandbox)
+  scope: resource
+  metric: requests
+  limit: 5 RPS
+  notes: Documented exception for the transfers resource in Sandbox (same as Production).
+- name: Transfers Write (Sandbox)
+  scope: resource
+  metric: requests
+  limit: 2 RPS
+  notes: Documented exception for the transfers resource in Sandbox (same as Production).
+- name: Embedded Card UI
+  scope: endpoint
+  metric: requests
+  limit: not rate limited
+  notes: GET /v1/embed/card is explicitly excluded from rate limiting.
+policies:
+- name: Per-Resource, Per-Method Enforcement
+  description: Limits are tracked independently for each resource and HTTP method; multiple routes under the same resource and method share one counter.
+- name: 429 Response Headers
+  description: A throttled request returns HTTP 429 with an x-requests-remaining header (RPS quota left in the current second) and a retry-after header (seconds to wait).
+- name: SDK Auto-Retry
+  description: Official Lithic SDKs natively honor the retry-after header and retry throttled requests automatically.
+- name: Temporary Reductions
+  description: Lithic reserves the right to temporarily lower limits during high load or service incidents, independent of the published defaults.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

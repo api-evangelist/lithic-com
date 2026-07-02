@@ -1,0 +1,1205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{apiKey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Holders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List account holders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_holders"
+          },
+          "docs": "Get a list of individual or business account holders and their KYC or KYB evaluation status."
+        },
+        {
+          "info": {
+            "name": "Create an account holder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/account_holders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an account holder and initiate the appropriate onboarding workflow.  Account holders and accounts have a 1:1 relationship. When an account holder is successfully created an associated account is also created.\nAll calls to this endpoint will return a synchronous response. The response time wil"
+        },
+        {
+          "info": {
+            "name": "Get an account holder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token",
+            "params": [
+              {
+                "name": "account_holder_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the account holder."
+              }
+            ]
+          },
+          "docs": "Get an Individual or Business Account Holder and/or their KYC or KYB evaluation status."
+        },
+        {
+          "info": {
+            "name": "Update an account holder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token",
+            "params": [
+              {
+                "name": "account_holder_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the account holder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the information associated with a particular account holder (including business owners and control persons associated to a business account).\nIf Lithic is performing KYB or KYC and additional verification is required we will run the individual's or business's updated information again and ret"
+        },
+        {
+          "info": {
+            "name": "Initiate document upload.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token/documents",
+            "params": [
+              {
+                "name": "account_holder_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the account holder."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to identify which type of supported government-issued documentation you will upload for further verification.\nIt will return two URLs to upload your document images to - one for the front image and one for the back image.\n\nThis endpoint is only valid for evaluations in a `PENDING_D"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts"
+          },
+          "docs": "List account configurations.\n"
+        },
+        {
+          "info": {
+            "name": "Get account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts/:account_token",
+            "params": [
+              {
+                "name": "account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the account."
+              }
+            ]
+          },
+          "docs": "Get account configuration such as spend limits."
+        },
+        {
+          "info": {
+            "name": "Update account spend limit.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/accounts/:account_token",
+            "params": [
+              {
+                "name": "account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update account configuration such as state or spend limits. Can only be run on accounts that are part of the program managed by this API key.\nAccounts that are in the `PAUSED` state will not be able to transact or create new cards.\n"
+        },
+        {
+          "info": {
+            "name": "Get account spend limits.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts/:account_token/spend_limits",
+            "params": [
+              {
+                "name": "account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the account."
+              }
+            ]
+          },
+          "docs": "Get an Account's available spend limits, which is based on the spend limit configured on the Account and the amount already spent over the spend limit's duration. For example, if the Account has a daily spend limit of $1000 configured, and has spent $600 in the last 24 hours, the available spend lim"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List cards.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards"
+          },
+          "docs": "List cards."
+        },
+        {
+          "info": {
+            "name": "Create card.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new virtual or physical card. Parameters `shipping_address` and `product_id` only apply to physical cards.\n"
+        },
+        {
+          "info": {
+            "name": "Get card.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the card."
+              }
+            ]
+          },
+          "docs": "Get card configuration such as spend limit and state."
+        },
+        {
+          "info": {
+            "name": "Update card.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/cards/:card_token",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the card."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the specified properties of the card. Unsupplied properties will remain unchanged.\n\n*Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*\n"
+        },
+        {
+          "info": {
+            "name": "Reissue card.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/reissue",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the card."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate print and shipment of a duplicate physical card (e.g. card is physically damaged).  The PAN, expiry, and CVC2 will remain the same and the original card can continue to be used until the new card is activated.\nOnly applies to cards of type `PHYSICAL`.  A card can be reissued or renewed a to"
+        },
+        {
+          "info": {
+            "name": "Convert virtual card to physical.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/convert_physical",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the card."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a virtual card into a physical card and manufacture it.\nCustomer must supply relevant fields for physical card creation including `product_id`, `carrier`, `shipping_method`, and `shipping_address`.\nThe card token will be unchanged.  The card's type will be altered to `PHYSICAL`.\nThe card wil"
+        },
+        {
+          "info": {
+            "name": "Get card balances.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token/balances",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the card."
+              }
+            ]
+          },
+          "docs": "Get the balances for a given card."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List card transactions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transactions"
+          },
+          "docs": "List card transactions. All amounts are in the smallest unit of their respective currency (e.g., cents for USD) and inclusive of any acquirer fees.\n"
+        },
+        {
+          "info": {
+            "name": "Get card transaction.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transactions/:transaction_token",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the transaction."
+              }
+            ]
+          },
+          "docs": "Get a specific card transaction. All amounts are in the smallest unit of their respective currency (e.g., cents for USD).\n"
+        },
+        {
+          "info": {
+            "name": "Simulate an authorization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/authorize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates an authorization request from the card network as if it came from a merchant acquirer.\nIf you are configured for ASA, simulating authorizations requires your ASA client to be set up properly, i.e. be able to respond to the ASA request with a valid JSON. For users that are not configured fo"
+        },
+        {
+          "info": {
+            "name": "Simulate clearing a transaction.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/clearing",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clears an existing authorization, either debit or credit. After this event, the transaction transitions from `PENDING` to `SETTLED` status.\n\nIf `amount` is not set, the full amount of the transaction will be cleared. Transactions that have already cleared, either partially or fully, cannot be cleare"
+        },
+        {
+          "info": {
+            "name": "Simulate reversing a transaction.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/void",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Voids a pending authorization. If `amount` is not set, the full amount will be voided. Can be used on partially voided transactions but not partially cleared transactions. _Simulating an authorization expiry on credit authorizations or credit authorization advice is not currently supported but will "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Authorization Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List rules.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v2/auth_rules"
+          },
+          "docs": "Lists V2 Auth rules"
+        },
+        {
+          "info": {
+            "name": "Create a new rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v2/auth_rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new V2 Auth rule in draft mode"
+        },
+        {
+          "info": {
+            "name": "Fetch a rule.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v2/auth_rules/:auth_rule_token",
+            "params": [
+              {
+                "name": "auth_rule_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the auth rule."
+              }
+            ]
+          },
+          "docs": "Fetches a V2 Auth rule by its token"
+        },
+        {
+          "info": {
+            "name": "Request a backtest.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v2/auth_rules/:auth_rule_token/backtests",
+            "params": [
+              {
+                "name": "auth_rule_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the auth rule."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a request to asynchronously generate a backtest for an Auth rule. During backtesting, both the active version (if one exists) and the draft version of the Auth Rule are evaluated by replaying historical transaction data against the rule's conditions. This process allows customers to simula"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Real-Time Decisioning (ASA + 3DS)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enroll a responder endpoint.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/responder_endpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": ""
+        },
+        {
+          "info": {
+            "name": "Check responder endpoint status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/responder_endpoints"
+          },
+          "docs": ""
+        },
+        {
+          "info": {
+            "name": "Retrieve the ASA HMAC secret key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/auth_stream/secret"
+          },
+          "docs": "Retrieve the ASA HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify webhooks) will begin appearing shortly after calling this endpoint for the first time. See [this page](https://docs.lithic.com/docs/au"
+        },
+        {
+          "info": {
+            "name": "Retrieve the 3DS Decisioning HMAC secret key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/three_ds_decisioning/secret"
+          },
+          "docs": "Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify 3DS Decisioning requests) will begin appearing shortly after calling this endpoint for the first time. See [this page](htt"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Disputes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List chargeback requests.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/disputes"
+          },
+          "docs": "List chargeback requests."
+        },
+        {
+          "info": {
+            "name": "Request chargeback.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/disputes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a chargeback."
+        },
+        {
+          "info": {
+            "name": "Upload evidence.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token/evidences",
+            "params": [
+              {
+                "name": "dispute_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the dispute."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to upload evidence for a chargeback request. It will return a URL to upload your documents to. The URL will expire in 30 minutes.\n\nUploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be less than 5 GiB.\n"
+        },
+        {
+          "info": {
+            "name": "List disputes (v2).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v2/disputes"
+          },
+          "docs": "Returns a paginated list of disputes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events & Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List event subscriptions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/event_subscriptions"
+          },
+          "docs": "List all the event subscriptions."
+        },
+        {
+          "info": {
+            "name": "Create event subscription.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/event_subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new event subscription."
+        },
+        {
+          "info": {
+            "name": "List events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/events"
+          },
+          "docs": "List all events."
+        },
+        {
+          "info": {
+            "name": "Get event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/events/:event_token",
+            "params": [
+              {
+                "name": "event_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event."
+              }
+            ]
+          },
+          "docs": "Get an event."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Financial Accounts & Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List financial accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts"
+          },
+          "docs": "Retrieve information on your financial accounts including routing and account number."
+        },
+        {
+          "info": {
+            "name": "Create financial account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/financial_accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new financial account"
+        },
+        {
+          "info": {
+            "name": "List statements.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/statements",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the financial account."
+              }
+            ]
+          },
+          "docs": "List the statements for a given financial account."
+        },
+        {
+          "info": {
+            "name": "List account activity.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_activity"
+          },
+          "docs": "Retrieve a list of transactions across all public accounts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Balances & Holds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List balances.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/balances"
+          },
+          "docs": "Get the balances for a program, business, or a given end-user account"
+        },
+        {
+          "info": {
+            "name": "List holds.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/holds",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the financial account."
+              }
+            ]
+          },
+          "docs": "List holds for a financial account."
+        },
+        {
+          "info": {
+            "name": "Create hold.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/holds",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the financial account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a hold on a financial account. Holds reserve funds by moving them\nfrom available to pending balance. They can be resolved via settlement\n(linked to a payment or book transfer), voiding, or expiration.\n"
+        },
+        {
+          "info": {
+            "name": "Void hold.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/holds/:hold_token/void",
+            "params": [
+              {
+                "name": "hold_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the hold."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Void an active hold. This returns the held funds from pending back to\navailable balance. Only holds in PENDING status can be voided.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments (ACH)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List payments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/payments"
+          },
+          "docs": "List all the payments for the provided search criteria."
+        },
+        {
+          "info": {
+            "name": "Create payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a payment between a financial account and an external bank account."
+        },
+        {
+          "info": {
+            "name": "Retry payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/payments/:payment_token/retry",
+            "params": [
+              {
+                "name": "payment_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the payment."
+              }
+            ]
+          },
+          "docs": "Retry an origination which has been returned."
+        },
+        {
+          "info": {
+            "name": "Return payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/payments/:payment_token/return",
+            "params": [
+              {
+                "name": "payment_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the payment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return an ACH payment with a specified return reason code. Returns must be initiated\nwithin the time window specified by NACHA rules for each return code (typically 2 banking\ndays for most codes, 60 calendar days for unauthorized debits). For a complete list of\nreturn codes and their meanings, see t"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Ledger, Transfers & Settlement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List book transfers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/book_transfers"
+          },
+          "docs": "List book transfers"
+        },
+        {
+          "info": {
+            "name": "Create book transfer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/book_transfers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Book transfer funds between two financial accounts or between a financial account and card"
+        },
+        {
+          "info": {
+            "name": "Get settlement summary.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/reports/settlement/summary/:report_date",
+            "params": [
+              {
+                "name": "report_date",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the report date."
+              }
+            ]
+          },
+          "docs": "Get the settlement report for a specified report date. Not available in sandbox."
+        },
+        {
+          "info": {
+            "name": "List funding events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/funding_events"
+          },
+          "docs": "Get all funding events for program"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "External Payments & Bank Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create external bank account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an external bank account within a program or Lithic account."
+        },
+        {
+          "info": {
+            "name": "Verify via micro deposits.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/micro_deposits",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external bank account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify the external bank account by providing the micro deposit amounts."
+        },
+        {
+          "info": {
+            "name": "List external payments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/external_payments"
+          },
+          "docs": "List external payments"
+        },
+        {
+          "info": {
+            "name": "Create external payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create external payment"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tokenization & Digital Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tokenizations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/tokenizations"
+          },
+          "docs": "List card tokenizations"
+        },
+        {
+          "info": {
+            "name": "Get tokenization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/tokenizations/:tokenization_token",
+            "params": [
+              {
+                "name": "tokenization_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the tokenization."
+              }
+            ]
+          },
+          "docs": "Get tokenization"
+        },
+        {
+          "info": {
+            "name": "Pause tokenization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/tokenizations/:tokenization_token/pause",
+            "params": [
+              {
+                "name": "tokenization_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the tokenization."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to ask the card network to pause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network pauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint"
+        },
+        {
+          "info": {
+            "name": "Provision card in Google Pay.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/provision",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the card."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app.\n\nThis requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fraud & Transaction Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get fraud report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/fraud/transactions/:transaction_token",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the transaction."
+              }
+            ]
+          },
+          "docs": "Retrieve a fraud report for a specific transaction identified by its unique transaction token.\n"
+        },
+        {
+          "info": {
+            "name": "Create or update fraud report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/fraud/transactions/:transaction_token",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Report fraud for a specific transaction token by providing details such as fraud type, fraud status, and any additional comments.\n"
+        },
+        {
+          "info": {
+            "name": "List cases.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases"
+          },
+          "docs": "Lists transaction monitoring cases, optionally filtered."
+        },
+        {
+          "info": {
+            "name": "Get case.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token",
+            "params": [
+              {
+                "name": "case_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the case."
+              }
+            ]
+          },
+          "docs": "Retrieves a single transaction monitoring case."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

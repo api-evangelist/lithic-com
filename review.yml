@@ -1,0 +1,163 @@
+aid: lithic-com
+name: Lithic
+review:
+  question: Does Lithic expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-02'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Lithic's real-time surfaces - Auth
+    Stream Access (ASA), 3DS Decisioning, Tokenization Decisioning, and the
+    Events API - are all HTTP webhook/callback mechanisms (Lithic makes a
+    synchronous POST to a URL the customer registers, or an asynchronous POST
+    for events) rather than a server-push transport like WebSocket or SSE.
+    Per API Evangelist's updated 2026-05-29 scope, AsyncAPI is used to model
+    SSE; it is not used to model plain HTTP webhook callbacks, so no AsyncAPI
+    document was created for Lithic.
+findings:
+  summary: |
+    Lithic does not publish a documented public WebSocket API. Lithic is a
+    card issuing / issuer-processor API (base https://api.lithic.com/v1 in
+    production, https://sandbox.lithic.com/v1 in Sandbox), authenticated with
+    an API key sent as the raw value of the Authorization header. The entire
+    documented surface - Account Holders, Accounts, Cards, Transactions, Auth
+    Rules, Disputes, Financial Accounts, Payments, Tokenizations, and more -
+    is request/response REST over HTTPS.
+    Lithic's real-time authorization decisioning, called Auth Stream Access
+    (ASA), is explicitly HTTP, not WebSocket: during authorization Lithic
+    sends transaction metadata as an HTTP POST to a responder endpoint the
+    customer registers (POST/GET/DELETE /v1/responder_endpoints), and expects
+    a synchronous HTTP 200 response containing a result field (APPROVED,
+    CHALLENGE, or a decline reason) within 6 seconds (Lithic recommends
+    responding within 3 seconds to avoid merchant/acquirer-side timeouts and
+    subsequent voids). ASA requests can optionally be HMAC-signed with
+    webhook-id / webhook-timestamp / webhook-signature headers, using the same
+    verification scheme as the Events API. The 3DS Decisioning webhook and the
+    Tokenization Decisioning webhook (for Apple Pay / Google Pay / Samsung Pay
+    provisioning approvals) follow the same synchronous HTTP callback pattern
+    with their own rotatable HMAC secrets. Standard notifications (60+ event
+    types - card, transaction, dispute, tokenization, financial account,
+    settlement, etc.) are delivered asynchronously and at-least-once via the
+    Events API's webhook event subscriptions, which is a fire-and-forget HTTP
+    POST, not a persistent connection. No realtime, bidirectional, or
+    streaming WebSocket (ws:// or wss://) endpoint is documented anywhere in
+    Lithic's published OpenAPI specification (github.com/lithic-com/lithic-openapi)
+    or developer documentation as of the review date.
+  openSource: |
+    Lithic's core platform is not open source; it is a commercial,
+    contact-sales / underwriting-gated issuer-processing platform. Lithic does
+    publish an open-source (Apache-2.0) OpenAPI 3.1 specification repository
+    (github.com/lithic-com/lithic-openapi) that generates its official Node,
+    Python, Go, Java, and Kotlin SDKs, plus open-source ASA responder demo
+    apps (asa-demo-node, asa-demo-python).
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.lithic.com/v1
+      documented: true
+      note: Primary documented surface for nearly all resources (v1); Auth Rules and Managed Disputes use a /v2 prefix on the same host.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Events API delivers 60+ event types asynchronously, at-least-once, via HTTP POST to a registered event subscription URL. Subscriptions auto-disable after 5 days of continuous failure.
+    - protocol: Synchronous Webhook (Real-Time Decisioning)
+      scheme: https
+      documented: true
+      note: Auth Stream Access (ASA), 3DS Decisioning, and Tokenization Decisioning each POST to a customer-registered endpoint and require a synchronous HTTP 200 decision response within a documented time budget (6-second hard timeout for ASA).
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Lithic's API reference, guides, or published OpenAPI specification as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.lithic.com/v1/account_holders
+    - POST   https://api.lithic.com/v1/account_holders
+    - GET    https://api.lithic.com/v1/account_holders/{account_holder_token}
+    - PATCH  https://api.lithic.com/v1/account_holders/{account_holder_token}
+    - GET    https://api.lithic.com/v1/accounts
+    - GET    https://api.lithic.com/v1/accounts/{account_token}
+    - PATCH  https://api.lithic.com/v1/accounts/{account_token}
+    - GET    https://api.lithic.com/v1/cards
+    - POST   https://api.lithic.com/v1/cards
+    - GET    https://api.lithic.com/v1/cards/{card_token}
+    - PATCH  https://api.lithic.com/v1/cards/{card_token}
+    - POST   https://api.lithic.com/v1/cards/{card_token}/reissue
+    - POST   https://api.lithic.com/v1/cards/{card_token}/convert_physical
+    - GET    https://api.lithic.com/v1/transactions
+    - GET    https://api.lithic.com/v1/transactions/{transaction_token}
+    - POST   https://api.lithic.com/v1/simulate/authorize
+    - POST   https://api.lithic.com/v1/simulate/clearing
+    - POST   https://api.lithic.com/v1/simulate/void
+    - GET    https://api.lithic.com/v2/auth_rules
+    - POST   https://api.lithic.com/v2/auth_rules
+    - GET    https://api.lithic.com/v2/auth_rules/{auth_rule_token}
+    - POST   https://api.lithic.com/v1/responder_endpoints
+    - GET    https://api.lithic.com/v1/responder_endpoints
+    - DELETE https://api.lithic.com/v1/responder_endpoints
+    - GET    https://api.lithic.com/v1/auth_stream/secret
+    - POST   https://api.lithic.com/v1/auth_stream/secret/rotate
+    - GET    https://api.lithic.com/v1/disputes
+    - POST   https://api.lithic.com/v1/disputes
+    - GET    https://api.lithic.com/v2/disputes
+    - GET    https://api.lithic.com/v1/event_subscriptions
+    - POST   https://api.lithic.com/v1/event_subscriptions
+    - GET    https://api.lithic.com/v1/events
+    - GET    https://api.lithic.com/v1/financial_accounts
+    - POST   https://api.lithic.com/v1/financial_accounts
+    - GET    https://api.lithic.com/v1/financial_accounts/{financial_account_token}/statements
+    - GET    https://api.lithic.com/v1/balances
+    - GET    https://api.lithic.com/v1/financial_accounts/{financial_account_token}/holds
+    - POST   https://api.lithic.com/v1/financial_accounts/{financial_account_token}/holds
+    - GET    https://api.lithic.com/v1/payments
+    - POST   https://api.lithic.com/v1/payments
+    - GET    https://api.lithic.com/v1/book_transfers
+    - POST   https://api.lithic.com/v1/book_transfers
+    - GET    https://api.lithic.com/v1/reports/settlement/summary/{report_date}
+    - GET    https://api.lithic.com/v1/funding_events
+    - POST   https://api.lithic.com/v1/external_bank_accounts
+    - POST   https://api.lithic.com/v1/external_payments
+    - GET    https://api.lithic.com/v1/tokenizations
+    - POST   https://api.lithic.com/v1/tokenizations/{tokenization_token}/pause
+    - GET    https://api.lithic.com/v1/fraud/transactions/{transaction_token}
+    - POST   https://api.lithic.com/v1/fraud/transactions/{transaction_token}
+    - GET    https://api.lithic.com/v1/transaction_monitoring/cases
+    - GET    https://api.lithic.com/v1/three_ds_authentication/{three_ds_authentication_token}
+    - GET    https://api.lithic.com/v1/status
+  endpointsModeled: []
+sources:
+  - url: https://github.com/lithic-com/lithic-openapi
+    type: OpenAPI
+    note: Real, published Apache-2.0 OpenAPI 3.1 specification (lithic-openapi.yml, ~1.1MB, 171 paths across 30 tags) backing Lithic's official SDKs; all endpointsConfirmedRest above were read directly from this file.
+  - url: https://docs.lithic.com/docs/api-basics
+    type: Documentation
+    note: Production base URL https://api.lithic.com/v1, Authorization-header API key auth, cursor pagination.
+  - url: https://docs.lithic.com/docs/rate-limits
+    type: Documentation
+    note: Numeric per-resource, per-method RPS limits; all REST, 429 on throttle.
+  - url: https://docs.lithic.com/docs/auth-stream-access-asa
+    type: Documentation
+    note: ASA is a synchronous HTTP POST to a registered responder endpoint, 6-second timeout, optional HMAC signing. Not WebSocket.
+  - url: https://docs.lithic.com/docs/events-api
+    type: Documentation
+    note: Events API webhooks are asynchronous, at-least-once HTTP POST notifications, not a persistent connection.
+  - url: https://docs.lithic.com/docs/disputes-api
+    type: Documentation
+    note: Disputes API documented as an Enterprise product; REST only.
+  - url: https://docs.lithic.com/docs/settlement-reporting
+    type: Documentation
+    note: Settlement API documented as an Enterprise, production-only REST reporting surface.
+  - url: https://github.com/lithic-com/asa-demo-node
+    type: SourceCode
+    note: Open-source demo of an ASA responder implemented as a plain HTTP server.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists anywhere in Lithic's published
+    OpenAPI specification or documentation. Lithic's real-time behavior (ASA,
+    3DS Decisioning, Tokenization Decisioning, and standard Events webhooks)
+    is implemented entirely as HTTP POST callbacks - synchronous
+    request/response for the time-critical decisioning surfaces, asynchronous
+    fire-and-forget for event notifications. No AsyncAPI document was created
+    because current scope reserves AsyncAPI for SSE; plain webhook callbacks
+    are documented here in findings.transports instead.
