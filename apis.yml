@@ -346,6 +346,14 @@ apis:
     transactions and cards, comments, and file attachments - for AML/fraud
     review workflows.
 common:
+- type: TrustCenter
+  url: security/lithic-com-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/lithic-com-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/lithic-com-domain-security.yml
+- type: Authentication
+  url: authentication/lithic-com-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/lithic-com
 - type: LinkedIn
@@ -360,6 +368,8 @@ common:
   url: rate-limits/lithic-com-rate-limits.yml
 - type: FinOps
   url: finops/lithic-com-finops.yml
+- url: https://www.lithic.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

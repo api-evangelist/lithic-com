@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/lithic-com-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Raw API secret key value (not prefixed with "Bearer").
+  sources:
+  - openapi/lithic-com-openapi.yml
