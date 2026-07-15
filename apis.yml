@@ -346,6 +346,8 @@ apis:
     transactions and cards, comments, and file attachments - for AML/fraud
     review workflows.
 common:
+- type: AgenticAccess
+  url: agentic-access/lithic-com-agentic-access.yml
 - type: TrustCenter
   url: security/lithic-com-trust-center.yml
 - type: VulnerabilityDisclosure
