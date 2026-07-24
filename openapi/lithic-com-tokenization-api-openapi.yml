@@ -1,0 +1,358 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Tokenization API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Tokenization
+  description: Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning.
+paths:
+  /v1/digital_card_art:
+    get:
+      operationId: getDigitalCardArt
+      tags:
+      - Tokenization
+      summary: List digital card art
+      description: List digital card art.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/digital_card_art/{digital_card_art_token}:
+    get:
+      operationId: getDigitalCardArtByToken
+      tags:
+      - Tokenization
+      summary: Get digital card art by token
+      description: Get digital card art by token.
+      parameters:
+      - name: digital_card_art_token
+        in: path
+        required: true
+        description: Specifies the digital card art to be displayed in the user’s digital wallet after tokenization. This artwork must be approved by Mastercard
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/tokenizations:
+    post:
+      operationId: postSimulateTokenizations
+      tags:
+      - Tokenization
+      summary: Simulate a card's tokenization
+      description: This endpoint is used to simulate a card's tokenization in the Digital Wallet and merchant tokenization ecosystem.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenization_decisioning/secret:
+    get:
+      operationId: getTokenizationDecisioningSecret
+      tags:
+      - Tokenization
+      summary: Retrieve the Tokenization Decisioning HMAC secret key
+      description: Retrieve the Tokenization Decisioning secret key. If one does not exist your program yet, calling this endpoint will create one for you. The headers of the Tokenization Decisioning request will contain a hmac signature which you can use to verify requests originate from Lithic. See [this page](https
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenization_decisioning/secret/rotate:
+    post:
+      operationId: rotateTokenizationDecisioningSecret
+      tags:
+      - Tokenization
+      summary: Rotate the Tokenization Decisioning HMAC secret key
+      description: Generate a new Tokenization Decisioning secret key. The old Tokenization Decisioning secret key will be deactivated 24 hours after a successful request to this endpoint.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations:
+    get:
+      operationId: getTokenizations
+      tags:
+      - Tokenization
+      summary: Get a card's tokenizations
+      description: List card tokenizations
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}:
+    get:
+      operationId: getTokenization
+      tags:
+      - Tokenization
+      summary: Get a single card tokenization
+      description: Get tokenization
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/pause:
+    post:
+      operationId: pauseTokenization
+      tags:
+      - Tokenization
+      summary: Pause a card tokenization
+      description: This endpoint is used to ask the card network to pause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network pauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/unpause:
+    post:
+      operationId: unpauseTokenization
+      tags:
+      - Tokenization
+      summary: Unpause a card tokenization
+      description: This endpoint is used to ask the card network to unpause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network unpauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endp
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/deactivate:
+    post:
+      operationId: deactivateTokenization
+      tags:
+      - Tokenization
+      summary: Deactivate a card tokenization
+      description: This endpoint is used to ask the card network to deactivate a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network deactivates the tokenization, the state will be updated and a tokenization.updated event will be sent. Au
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/activate:
+    post:
+      operationId: activateTokenization
+      tags:
+      - Tokenization
+      summary: Activate a card tokenization
+      description: This endpoint is used to ask the card network to activate a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network activates the tokenization, the state will be updated and a tokenization.updated event will be sent. The en
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/resend_activation_code:
+    post:
+      operationId: resendActivationCodeForTokenization
+      tags:
+      - Tokenization
+      summary: Resend activation code for a card tokenization
+      description: This endpoint is used to ask the card network to send another activation code to a cardholder that has already tried tokenizing a card. A successful response indicates that the request was successfully delivered to the card network. The endpoint may only be used on Mastercard digital wallet tokeniza
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/update_digital_card_art:
+    post:
+      operationId: updateDigitalCardArtForTokenization
+      tags:
+      - Tokenization
+      summary: Update digital card art for a card tokenization
+      description: This endpoint is used update the digital card art for a digital wallet tokenization. A successful response indicates that the card network has updated the tokenization's art, and the tokenization's `digital_cart_art_token` field was updated. The endpoint may not be used on tokenizations with status
+      parameters:
+      - name: tokenization_token
+        in: path
+        required: true
+        description: Tokenization token
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    Tokenization:
+      type: object
+      description: Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

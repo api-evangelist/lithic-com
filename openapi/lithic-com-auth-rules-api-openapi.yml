@@ -1,0 +1,309 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Auth Rules API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Auth Rules
+  description: Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results.
+paths:
+  /v2/auth_rules:
+    post:
+      tags:
+      - Auth Rules
+      summary: Create a new rule
+      description: Creates a new V2 Auth rule in draft mode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      tags:
+      - Auth Rules
+      summary: List rules
+      description: Lists V2 Auth rules
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}:
+    get:
+      tags:
+      - Auth Rules
+      summary: Fetch a rule
+      description: Fetches a V2 Auth rule by its token
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      tags:
+      - Auth Rules
+      summary: Update a rule
+      description: Updates a V2 Auth rule's properties If `account_tokens`, `card_tokens`, `program_level`, `excluded_card_tokens`, `excluded_account_tokens`, or `excluded_business_account_tokens` is provided, this will replace existing associations with the provided list of entities.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags:
+      - Auth Rules
+      summary: Delete a rule
+      description: Deletes a V2 Auth rule
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/draft:
+    post:
+      tags:
+      - Auth Rules
+      summary: Draft a new rule version
+      description: Creates a new draft version of a rule that will be ran in shadow mode. This can also be utilized to reset the draft parameters, causing a draft version to no longer be ran in shadow mode.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/features:
+    get:
+      tags:
+      - Auth Rules
+      summary: Calculated Feature values
+      description: Fetches the current calculated Feature values for the given Auth Rule This only calculates the features for the active version. - VelocityLimit Rules calculates the current Velocity Feature data. This requires a `card_token` or `account_token` matching what the rule is Scoped to. - ConditionalBlock
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/promote:
+    post:
+      tags:
+      - Auth Rules
+      summary: Promote a rule version
+      description: Promotes the draft version of an Auth rule to the currently active version such that it is enforced in the respective stream.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/versions:
+    get:
+      tags:
+      - Auth Rules
+      summary: List rule versions
+      description: Returns all versions of an auth rule, sorted by version number descending (newest first).
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/report:
+    get:
+      tags:
+      - Auth Rules
+      summary: Retrieve a performance report
+      description: Retrieves a performance report for an Auth rule containing daily statistics and evaluation outcomes. **Time Range Limitations:** - Reports are supported for the past 3 months only - Maximum interval length is 1 month - Report data is available only through the previous day in UTC (current day data
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/backtests:
+    get:
+      tags:
+      - Auth Rules
+      summary: List backtests
+      description: Lists backtests for an Auth Rule
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      tags:
+      - Auth Rules
+      summary: Request a backtest
+      description: Initiates a request to asynchronously generate a backtest for an Auth rule. During backtesting, both the active version (if one exists) and the draft version of the Auth Rule are evaluated by replaying historical transaction data against the rule's conditions. This process allows customers to simula
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}:
+    get:
+      tags:
+      - Auth Rules
+      summary: Retrieve backtest results
+      description: Returns the backtest results of an Auth rule (if available). Backtesting is an asynchronous process that requires time to complete. If a customer retrieves the backtest results using this endpoint before the report is fully generated, the response will return null for `results.current_version` and
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/results:
+    get:
+      tags:
+      - Auth Rules
+      summary: List rule evaluation results
+      description: Lists Auth Rule evaluation results. **Limitations:** - Results are available for the past 3 months only - At least one filter (`event_token` or `auth_rule_token`) must be provided - When filtering by `event_token`, pagination is not supported
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    AuthRules:
+      type: object
+      description: Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: 3DS
+  description: 3D Secure e-commerce authentication and decisioning.
+paths:
+  /v1/three_ds_authentication/simulate:
+    post:
+      operationId: postSimulateAuthentication
+      tags:
+      - 3DS
+      summary: Simulate 3DS authentication
+      description: Simulates a 3DS authentication request from the payment network as if it came from an ACS. If you're configured for 3DS Customer Decisioning, simulating authentications requires your customer decisioning endpoint to be set up properly (respond with a valid JSON). If the authentication decision is to
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/simulate/enter_otp:
+    post:
+      tags:
+      - 3DS
+      summary: Simulate entering OTP into 3DS Challenge UI
+      description: Endpoint for simulating entering OTP into 3DS Challenge UI. A call to [/v1/three_ds_authentication/simulate](https://docs.lithic.com/reference/postsimulateauthentication) that resulted in triggered SMS-OTP challenge must precede. Only a single attempt is supported; upon entering OTP, the challenge i
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_authentication/{three_ds_authentication_token}:
+    get:
+      operationId: getThreeDsAuthenticationByToken
+      tags:
+      - 3DS
+      summary: Get 3DS authentication
+      description: Get 3DS Authentication by token
+      parameters:
+      - name: three_ds_authentication_token
+        in: path
+        required: true
+        description: Globally unique identifier for the 3DS authentication.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/secret:
+    get:
+      operationId: getThreeDsDecisioningSecret
+      tags:
+      - 3DS
+      summary: Retrieve the 3DS Decisioning HMAC secret key
+      description: Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify 3DS Decisioning requests) will begin appearing shortly after calling this endpoint for the first time. See [this page](htt
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/secret/rotate:
+    post:
+      operationId: rotateThreeDsDecisioningSecret
+      tags:
+      - 3DS
+      summary: Rotate the 3DS Decisioning HMAC secret key
+      description: Generate a new 3DS Decisioning HMAC secret key. The old secret key will be deactivated 24 hours after a successful request to this endpoint. Make a [`GET /three_ds_decisioning/secret`](https://docs.lithic.com/reference/getthreedsdecisioningsecret) request to retrieve the new secret key.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/challenge_response:
+    post:
+      tags:
+      - 3DS
+      summary: Respond to a Challenge Request
+      description: Card program's response to a 3DS Challenge Request. Challenge Request is emitted as a webhook [three_ds_authentication.challenge](https://docs.lithic.com/reference/post_three-ds-authentication-challenge) and your Card Program needs to be configured with Out of Band (OOB) Challenges in order to recei
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+    ValidationError:
+      description: The request failed validation.
+  schemas:
+    3DS:
+      type: object
+      description: 3D Secure e-commerce authentication and decisioning.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

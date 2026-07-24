@@ -1,0 +1,432 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Card API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Card
+  description: Virtual and physical card issuance, lifecycle, and digital wallet provisioning.
+paths:
+  /v1/cards/{card_token}/signals:
+    get:
+      operationId: getCardSignals
+      tags:
+      - Card
+      summary: Fetch card signals
+      description: 'Returns behavioral feature state derived from a card''s transaction history. These signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients'
+      parameters:
+      - name: card_token
+        in: path
+        required: true
+        description: The token of the card to fetch signals for.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_programs:
+    get:
+      operationId: getCardPrograms
+      tags:
+      - Card
+      summary: List card programs
+      description: List card programs.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_programs/{card_program_token}:
+    get:
+      operationId: getCardProgram
+      tags:
+      - Card
+      summary: Get card program
+      description: Get card program.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards:
+    get:
+      operationId: getCards
+      tags:
+      - Card
+      summary: List cards
+      description: List cards.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postCards
+      tags:
+      - Card
+      summary: Create card
+      description: Create a new virtual or physical card. Parameters `shipping_address` and `product_id` only apply to physical cards.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/search_by_pan:
+    post:
+      operationId: searchCardByPan
+      tags:
+      - Card
+      summary: Search for card by PAN
+      description: 'Get card configuration such as spend limit and state. Customers must be PCI compliant to use this endpoint. Please contact [support.lithic.com](https://support.lithic.com/) for questions. *Note: this is a `POST` endpoint because it is more secure to send sensitive data in a request body than in a UR'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}:
+    get:
+      operationId: getCardByToken
+      tags:
+      - Card
+      summary: Get card
+      description: Get card configuration such as spend limit and state.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchCardByToken
+      tags:
+      - Card
+      summary: Update card
+      description: 'Update the specified properties of the card. Unsupplied properties will remain unchanged. *Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/balances:
+    get:
+      operationId: getCardBalance
+      tags:
+      - Card
+      summary: Get card balances
+      description: Get the balances for a given card.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/financial_transactions:
+    get:
+      operationId: getCardFinancialTransactions
+      tags:
+      - Card
+      summary: List card financial transactions
+      description: List the financial transactions for a given card.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/financial_transactions/{financial_transaction_token}:
+    get:
+      operationId: getCardFinancialTransactionByToken
+      tags:
+      - Card
+      summary: Get card financial transaction
+      description: Get the card financial transaction for the provided token.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/provision:
+    post:
+      operationId: postCardProvision
+      tags:
+      - Card
+      summary: Provision card (Digital Wallet)
+      description: Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app. This requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/web_provision:
+    post:
+      operationId: postCardWebProvision
+      tags:
+      - Card
+      summary: Web Push Provision card (Digital Wallet)
+      description: Allow your cardholders to directly add payment cards to the device's digital wallet from a browser on the web. This requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/reissue:
+    post:
+      operationId: postCardReissue
+      tags:
+      - Card
+      summary: Reissue physical card
+      description: Initiate print and shipment of a duplicate physical card (e.g. card is physically damaged). The PAN, expiry, and CVC2 will remain the same and the original card can continue to be used until the new card is activated. Only applies to cards of type `PHYSICAL`. A card can be reissued or renewed a to
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/renew:
+    post:
+      operationId: postCardRenew
+      tags:
+      - Card
+      summary: Renew a card
+      description: Applies to card types `PHYSICAL` and `VIRTUAL`. For `PHYSICAL`, creates a new card with the same card token and PAN, but updated expiry and CVC2 code. The original card will keep working for card-present transactions until the new card is activated. For card-not-present transactions, the original ca
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/convert_physical:
+    post:
+      operationId: postConvertPhysical
+      tags:
+      - Card
+      summary: Convert virtual to physical card
+      description: Convert a virtual card into a physical card and manufacture it. Customer must supply relevant fields for physical card creation including `product_id`, `carrier`, `shipping_method`, and `shipping_address`. The card token will be unchanged. The card's type will be altered to `PHYSICAL`. The card wil
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/spend_limits:
+    get:
+      operationId: getCardSpendLimits
+      tags:
+      - Card
+      summary: Get card's available spend limit
+      description: Get a Card's available spend limit, which is based on the spend limit configured on the Card and the amount already spent over the spend limit's duration. For example, if the Card has a monthly spend limit of $1000 configured, and has spent $600 in the last month, the available spend limit returned
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/embed/card:
+    get:
+      operationId: getEmbedCard
+      tags:
+      - Card
+      summary: Embedded card UI
+      description: Handling full card PANs and CVV codes requires that you comply with the Payment Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce their compliance obligations by leveraging our embedded card UI solution documented below. In this setup, PANs and CVV codes are presented t
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    Card:
+      type: object
+      description: Virtual and physical card issuance, lifecycle, and digital wallet provisioning.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

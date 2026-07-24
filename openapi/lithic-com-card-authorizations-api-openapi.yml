@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Card Authorizations API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Card Authorizations
+  description: Responses to real-time authorization challenges.
+paths:
+  /v1/card_authorizations/{event_token}/challenge_response:
+    post:
+      operationId: respondToAuthorizationChallenge
+      tags:
+      - Card Authorizations
+      summary: Respond to Authorization Challenge
+      description: Card program's response to Authorization Challenge. Programs that have Authorization Challenges configured as Out of Band receive a [card_authorization.challenge](https://docs.lithic.com/reference/post_card-authorization-challenge) webhook when an authorization attempt triggers a challenge. The card
+      parameters:
+      - name: event_token
+        in: path
+        required: true
+        description: Globally unique identifier for the authorization event that triggered the challenge
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardAuthorizations'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    CardAuthorizations:
+      type: object
+      description: Responses to real-time authorization challenges.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

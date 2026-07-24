@@ -1,0 +1,316 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Financial Account API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Financial Account
+  description: Ledgered financial accounts, credit configuration, and account activity.
+paths:
+  /v1/financial_accounts:
+    get:
+      operationId: getFinancialAccounts
+      tags:
+      - Financial Account
+      summary: List financial accounts
+      description: Retrieve information on your financial accounts including routing and account number.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createFinancialAccount
+      tags:
+      - Financial Account
+      summary: Create financial account
+      description: Create a new financial account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}:
+    get:
+      operationId: getFinancialAccountByToken
+      tags:
+      - Financial Account
+      summary: Get financial account
+      description: Get a financial account
+      parameters:
+      - name: financial_account_token
+        in: path
+        required: true
+        description: The token identifying the financial_account_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateFinancialAccountByToken
+      tags:
+      - Financial Account
+      summary: Update financial account
+      description: Update a financial account
+      parameters:
+      - name: financial_account_token
+        in: path
+        required: true
+        description: The token identifying the financial_account_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/credit_configuration:
+    get:
+      operationId: getAccountCreditConfiguration
+      tags:
+      - Financial Account
+      summary: Get account credit configuration
+      description: Get an Account's credit configuration
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchAccountCreditConfiguration
+      tags:
+      - Financial Account
+      summary: Update account credit configuration
+      description: Update an account's credit configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/financial_transactions:
+    get:
+      operationId: getFinancialTransactions
+      tags:
+      - Financial Account
+      summary: List financial transactions
+      description: List the financial transactions for a given financial account.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}:
+    get:
+      operationId: getFinancialTransactionByToken
+      tags:
+      - Financial Account
+      summary: Get financial transaction
+      description: Get the financial transaction for the provided token.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/register_account_number:
+    post:
+      operationId: registerAccountNumber
+      tags:
+      - Financial Account
+      summary: Register Account Number
+      description: Register account number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/update_status:
+    post:
+      operationId: updateFinancialAccountStatus
+      tags:
+      - Financial Account
+      summary: Update financial account status
+      description: Update financial account status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_activity:
+    get:
+      operationId: listAccountActivity
+      tags:
+      - Financial Account
+      summary: List Account Activity
+      description: Retrieve a list of transactions across all public accounts.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_activity/{transaction_token}:
+    get:
+      operationId: getAccountActivity
+      tags:
+      - Financial Account
+      summary: Get Single Transaction from Account Activity
+      description: Retrieve a single transaction
+      parameters:
+      - name: transaction_token
+        in: path
+        required: true
+        description: The unique identifier for the transaction
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    FinancialAccount:
+      type: object
+      description: Ledgered financial accounts, credit configuration, and account activity.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

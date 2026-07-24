@@ -1,0 +1,432 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Event API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Event
+  description: Events API and webhook event subscription management.
+paths:
+  /v1/event_subscriptions:
+    get:
+      operationId: getEventSubscriptions
+      tags:
+      - Event
+      summary: List event subscriptions
+      description: List all the event subscriptions.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createEventSubscription
+      tags:
+      - Event
+      summary: Create event subscription
+      description: Create a new event subscription.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}:
+    delete:
+      operationId: deleteEventSubscription
+      tags:
+      - Event
+      summary: Delete event subscription
+      description: Delete an event subscription.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: getEventSubscription
+      tags:
+      - Event
+      summary: Get event subscription
+      description: Get an event subscription.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateEventSubscription
+      tags:
+      - Event
+      summary: Update event subscription
+      description: Update an event subscription.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/attempts:
+    get:
+      operationId: getMessageAttemptsForEventSubscription
+      tags:
+      - Event
+      summary: List message attempts for an event subscription
+      description: List all the message attempts for a given event subscription.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/recover:
+    post:
+      operationId: recoverEventSubscription
+      tags:
+      - Event
+      summary: Resend failed messages
+      description: Resend all failed messages since a given time.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/replay_missing:
+    post:
+      operationId: replayMissingEventSubscription
+      tags:
+      - Event
+      summary: Replay missing messages
+      description: Replays messages to the endpoint. Only messages that were created after `begin` will be sent. Messages that were previously sent to the endpoint are not resent. Message will be retried if endpoint responds with a non-2xx status code. See [Retry Schedule](https://docs.lithic.com/docs/events-api#retry
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/secret:
+    get:
+      operationId: getEventSubscriptionSecret
+      tags:
+      - Event
+      summary: Get event subscription secret
+      description: Get the secret for an event subscription.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/secret/rotate:
+    post:
+      operationId: rotateEventSubscriptionSecret
+      tags:
+      - Event
+      summary: Rotate event subscription secret
+      description: Rotate the secret for an event subscription. The previous secret will be valid for the next 24 hours.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events:
+    get:
+      operationId: getEvents
+      tags:
+      - Event
+      summary: List events
+      description: List all events.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events/{event_token}:
+    get:
+      operationId: getEvent
+      tags:
+      - Event
+      summary: Get event
+      description: Get an event.
+      parameters:
+      - name: event_token
+        in: path
+        required: true
+        description: The token identifying the event_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events/{event_token}/attempts:
+    get:
+      operationId: getMessageAttemptsForEvent
+      tags:
+      - Event
+      summary: List message attempts for an event
+      description: List all the message attempts for a given event.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events/{event_token}/event_subscriptions/{event_subscription_token}/resend:
+    post:
+      operationId: resendEvent
+      tags:
+      - Event
+      summary: Resend event
+      description: Resend an event to an event subscription.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      - name: event_token
+        in: path
+        required: true
+        description: The token identifying the event_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/event_subscriptions/{event_subscription_token}/send_example:
+    post:
+      operationId: sendEventSubscriptionExample
+      tags:
+      - Event
+      summary: Send event type example message
+      description: Send an example message for event.
+      parameters:
+      - name: event_subscription_token
+        in: path
+        required: true
+        description: The token identifying the event_subscription_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    Event:
+      type: object
+      description: Events API and webhook event subscription management.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

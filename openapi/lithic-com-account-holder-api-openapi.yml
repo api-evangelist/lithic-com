@@ -1,0 +1,284 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Account Holder API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Account Holder
+  description: KYC/KYB onboarding and management of individual and business account holders.
+paths:
+  /v1/account_holders:
+    get:
+      operationId: getAccountHolders
+      tags:
+      - Account Holder
+      summary: Get a list of individual or business account holders
+      description: Get a list of individual or business account holders and their KYC or KYB evaluation status.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postAccountHolders
+      tags:
+      - Account Holder
+      summary: Create an individual or business account holder
+      description: Create an account holder and initiate the appropriate onboarding workflow. Account holders and accounts have a 1:1 relationship. When an account holder is successfully created an associated account is also created. All calls to this endpoint will return a synchronous response. The response time wil
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}:
+    get:
+      operationId: getAccountHolder
+      tags:
+      - Account Holder
+      summary: Get an individual or business account holder
+      description: Get an Individual or Business Account Holder and/or their KYC or KYB evaluation status.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchAccountHolder
+      tags:
+      - Account Holder
+      summary: Update account holder information and possibly resubmit for evaluation
+      description: Update the information associated with a particular account holder (including business owners and control persons associated to a business account). If Lithic is performing KYB or KYC and additional verification is required we will run the individual's or business's updated information again and ret
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/documents:
+    get:
+      operationId: getAccountHolderDocuments
+      tags:
+      - Account Holder
+      summary: Get account holder document uploads
+      description: Retrieve the status of account holder document uploads, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event you
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postAccountHolderDocuments
+      tags:
+      - Account Holder
+      summary: Initiate account holder document upload
+      description: Use this endpoint to identify which type of supported government-issued documentation you will upload for further verification. It will return two URLs to upload your document images to - one for the front image and one for the back image. This endpoint is only valid for evaluations in a `PENDING_D
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/documents/{document_token}:
+    get:
+      operationId: getAccountHolderDocumentByToken
+      tags:
+      - Account Holder
+      summary: Get account holder document upload status
+      description: Check the status of an account holder document upload, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event your
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/entities:
+    post:
+      operationId: postAccountHolderEntities
+      tags:
+      - Account Holder
+      summary: Create a new beneficial owner individual or replace the existing control person entity
+      description: Create a new beneficial owner individual or replace the control person entity on an existing KYB account holder. This endpoint is only applicable for account holders enrolled through a KYB workflow with the Persona KYB provider. A new control person can only replace the existing one. A maximum of 4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/entities/{entity_token}:
+    delete:
+      operationId: deleteAccountHolderEntity
+      tags:
+      - Account Holder
+      summary: Deactivate a beneficial owner individual
+      description: Deactivate a beneficial owner individual on an existing KYB account holder. Only beneficial owner individuals can be deactivated.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/account_holders/enrollment_review:
+    post:
+      operationId: simulateAccountHolderEnrollmentReview
+      tags:
+      - Account Holder
+      summary: Simulate an account holder's enrollment review
+      description: Simulates an enrollment review for an account holder. This endpoint is only applicable for workflows that may required intervention such as `KYB_BASIC`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/account_holders/enrollment_document_review:
+    post:
+      operationId: simulateAccountHolderEnrollmentDocumentReview
+      tags:
+      - Account Holder
+      summary: Simulate an account holder document upload's review
+      description: Simulates a review for an account holder document upload.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    AccountHolder:
+      type: object
+      description: KYC/KYB onboarding and management of individual and business account holders.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

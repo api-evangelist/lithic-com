@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Card Bulk Orders API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Card Bulk Orders
+  description: Bulk physical card ordering.
+paths:
+  /v1/card_bulk_orders:
+    get:
+      operationId: getCardBulkOrders
+      tags:
+      - Card Bulk Orders
+      summary: List bulk orders
+      description: List bulk orders for physical card shipments
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postCardBulkOrder
+      tags:
+      - Card Bulk Orders
+      summary: Create bulk order
+      description: Create a new bulk order for physical card shipments. Cards can be added to the order via the POST /v1/cards endpoint by specifying the bulk_order_token. Lock the order via PATCH /v1/card_bulk_orders/{bulk_order_token} to prepare for shipment. Please work with your Customer Success Manager and card p
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_bulk_orders/{bulk_order_token}:
+    get:
+      operationId: getCardBulkOrder
+      tags:
+      - Card Bulk Orders
+      summary: Get bulk order
+      description: Retrieve a specific bulk order by token
+      parameters:
+      - name: bulk_order_token
+        in: path
+        required: true
+        description: Globally unique identifier for the bulk order
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchCardBulkOrder
+      tags:
+      - Card Bulk Orders
+      summary: Update bulk order
+      description: Update a bulk order. Primarily used to lock the order, preventing additional cards from being added
+      parameters:
+      - name: bulk_order_token
+        in: path
+        required: true
+        description: Globally unique identifier for the bulk order
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    CardBulkOrders:
+      type: object
+      description: Bulk physical card ordering.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

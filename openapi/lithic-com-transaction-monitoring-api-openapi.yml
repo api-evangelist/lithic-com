@@ -1,0 +1,406 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Transaction Monitoring API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Transaction Monitoring
+  description: Fraud/AML case and queue management for flagged transactions.
+paths:
+  /v1/transaction_monitoring/cases:
+    get:
+      operationId: listTransactionMonitoringCases
+      tags:
+      - Transaction Monitoring
+      summary: List cases
+      description: Lists transaction monitoring cases, optionally filtered.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}:
+    get:
+      operationId: getTransactionMonitoringCase
+      tags:
+      - Transaction Monitoring
+      summary: Get case
+      description: Retrieves a single transaction monitoring case.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateTransactionMonitoringCase
+      tags:
+      - Transaction Monitoring
+      summary: Update case
+      description: Updates a transaction monitoring case.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/activity:
+    get:
+      operationId: listTransactionMonitoringCaseActivity
+      tags:
+      - Transaction Monitoring
+      summary: List case activity
+      description: Lists the activity feed for a case.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/transactions:
+    get:
+      operationId: listTransactionMonitoringCaseTransactions
+      tags:
+      - Transaction Monitoring
+      summary: List case transactions
+      description: Lists the transactions associated with a case.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/cards:
+    get:
+      operationId: listTransactionMonitoringCaseCards
+      tags:
+      - Transaction Monitoring
+      summary: List case cards
+      description: Lists the cards involved in a case, with per-card transaction counts.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/comments:
+    post:
+      operationId: createTransactionMonitoringCaseComment
+      tags:
+      - Transaction Monitoring
+      summary: Add case comment
+      description: Adds a comment to a case.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}:
+    patch:
+      operationId: updateTransactionMonitoringCaseComment
+      tags:
+      - Transaction Monitoring
+      summary: Update case comment
+      description: Edits an existing comment on a case.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTransactionMonitoringCaseComment
+      tags:
+      - Transaction Monitoring
+      summary: Delete case comment
+      description: Deletes a comment from a case.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/files:
+    post:
+      operationId: createTransactionMonitoringCaseFile
+      tags:
+      - Transaction Monitoring
+      summary: Create case file
+      description: Creates a file record and returns a presigned URL for uploading the file to the case.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: listTransactionMonitoringCaseFiles
+      tags:
+      - Transaction Monitoring
+      summary: List case files
+      description: Lists the files attached to a case.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/files/{file_token}:
+    get:
+      operationId: getTransactionMonitoringCaseFile
+      tags:
+      - Transaction Monitoring
+      summary: Get case file
+      description: Retrieves a single file attached to a case, including a presigned download URL when the file is ready.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTransactionMonitoringCaseFile
+      tags:
+      - Transaction Monitoring
+      summary: Delete case file
+      description: Deletes a file from a case.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/queues:
+    post:
+      operationId: createTransactionMonitoringQueue
+      tags:
+      - Transaction Monitoring
+      summary: Create queue
+      description: Creates a new queue for grouping transaction monitoring cases.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: listTransactionMonitoringQueues
+      tags:
+      - Transaction Monitoring
+      summary: List queues
+      description: Lists transaction monitoring queues.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/queues/{queue_token}:
+    get:
+      operationId: getTransactionMonitoringQueue
+      tags:
+      - Transaction Monitoring
+      summary: Get queue
+      description: Retrieves a single transaction monitoring queue.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateTransactionMonitoringQueue
+      tags:
+      - Transaction Monitoring
+      summary: Update queue
+      description: Updates a transaction monitoring queue.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTransactionMonitoringQueue
+      tags:
+      - Transaction Monitoring
+      summary: Delete queue
+      description: Deletes a transaction monitoring queue.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  schemas:
+    TransactionMonitoring:
+      type: object
+      description: Fraud/AML case and queue management for flagged transactions.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

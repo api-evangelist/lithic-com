@@ -1,0 +1,365 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Transaction API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Transaction
+  description: Card transaction authorization, clearing, and simulation.
+paths:
+  /v1/transactions/{transaction_token}/enhanced_commercial_data:
+    get:
+      operationId: listEnhancedTransactionData
+      tags:
+      - Transaction
+      summary: List enhanced commercial data
+      description: Get all L2/L3 enhanced commercial data associated with a transaction. Not available in sandbox.
+      parameters:
+      - name: transaction_token
+        in: path
+        required: true
+        description: The token of the transaction that the enhanced data is associated with.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}/expire_authorization:
+    post:
+      operationId: expireAuthorization
+      tags:
+      - Transaction
+      summary: Expire an authorization
+      description: Expire authorization
+      parameters:
+      - name: transaction_token
+        in: path
+        required: true
+        description: The token of the transaction to expire.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}/route:
+    post:
+      operationId: routeTransaction
+      tags:
+      - Transaction
+      summary: Route a transaction
+      description: Route a card transaction to a financial account. Only available for select use cases and programs.
+      parameters:
+      - name: transaction_token
+        in: path
+        required: true
+        description: The token of the transaction to route.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/events/{event_token}/enhanced_commercial_data:
+    get:
+      operationId: getEnhancedTransactionData
+      tags:
+      - Transaction
+      summary: Get enhanced commercial data
+      description: Get L2/L3 enhanced commercial data associated with a transaction event. Not available in sandbox.
+      parameters:
+      - name: event_token
+        in: path
+        required: true
+        description: The token of the transaction event that the enhanced data is associated with.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/authorization_advice:
+    post:
+      operationId: postSimulateAuthorizationAdvice
+      tags:
+      - Transaction
+      summary: Simulate authorization advice
+      description: Simulates an authorization advice from the card network as if it came from a merchant acquirer. An authorization advice changes the pending amount of the transaction.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/authorize:
+    post:
+      operationId: postSimulateAuthorize
+      tags:
+      - Transaction
+      summary: Simulate authorization
+      description: Simulates an authorization request from the card network as if it came from a merchant acquirer. If you are configured for ASA, simulating authorizations requires your ASA client to be set up properly, i.e. be able to respond to the ASA request with a valid JSON. For users that are not configured fo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/clearing:
+    post:
+      operationId: postSimulateClearing
+      tags:
+      - Transaction
+      summary: Simulate clearing
+      description: Clears an existing authorization, either debit or credit. After this event, the transaction transitions from `PENDING` to `SETTLED` status. If `amount` is not set, the full amount of the transaction will be cleared. Transactions that have already cleared, either partially or fully, cannot be cleare
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/credit_authorization_advice:
+    post:
+      operationId: postSimulateCreditAuthorizationAdvice
+      tags:
+      - Transaction
+      summary: Simulate credit authorization advice
+      description: Simulates a credit authorization advice from the card network. This message indicates that the network approved a credit authorization on your behalf.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/return:
+    post:
+      operationId: postSimulateReturn
+      tags:
+      - Transaction
+      summary: Simulate return
+      description: Returns, or refunds, an amount back to a card. Returns simulated via this endpoint clear immediately, without prior authorization, and result in a `SETTLED` transaction status.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/return_reversal:
+    post:
+      operationId: postSimulateReturnReversal
+      tags:
+      - Transaction
+      summary: Simulate return reversal
+      description: Reverses a return, i.e. a credit transaction with a `SETTLED` status. Returns can be financial credit authorizations, or credit authorizations that have cleared.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/void:
+    post:
+      operationId: postSimulateVoid
+      tags:
+      - Transaction
+      summary: Simulate void
+      description: Voids a pending authorization. If `amount` is not set, the full amount will be voided. Can be used on partially voided transactions but not partially cleared transactions. _Simulating an authorization expiry on credit authorizations or credit authorization advice is not currently supported but will
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions:
+    get:
+      operationId: getTransactions
+      tags:
+      - Transaction
+      summary: List card transactions
+      description: List card transactions. All amounts are in the smallest unit of their respective currency (e.g., cents for USD) and inclusive of any acquirer fees.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}:
+    get:
+      operationId: getTransactionByToken
+      tags:
+      - Transaction
+      summary: Get card transaction
+      description: Get a specific card transaction. All amounts are in the smallest unit of their respective currency (e.g., cents for USD).
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  schemas:
+    Transaction:
+      type: object
+      description: Card transaction authorization, clearing, and simulation.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").

@@ -1,0 +1,278 @@
+openapi: 3.0.3
+info:
+  title: Lithic 3DS Payment API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  version: 1.0.0
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+- url: https://api.lithic.com
+  description: Production
+- url: https://sandbox.lithic.com
+  description: Sandbox (mirrors production functionality)
+security:
+- ApiKeyAuth: []
+tags:
+- name: Payment
+  description: ACH payments between Lithic financial accounts and external bank accounts.
+paths:
+  /v1/payments:
+    get:
+      operationId: searchPayments
+      tags:
+      - Payment
+      summary: List payments
+      description: List all the payments for the provided search criteria.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createPayment
+      tags:
+      - Payment
+      summary: Create payment
+      description: Initiates a payment between a financial account and an external bank account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments/{payment_token}:
+    get:
+      operationId: getPaymentByToken
+      tags:
+      - Payment
+      summary: Get payment by token
+      description: Get the payment by token.
+      parameters:
+      - name: payment_token
+        in: path
+        required: true
+        description: The token identifying the payment_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments/{payment_token}/retry:
+    post:
+      operationId: retryPayment
+      tags:
+      - Payment
+      summary: Retry payment
+      description: Retry an origination which has been returned.
+      parameters:
+      - name: payment_token
+        in: path
+        required: true
+        description: The token identifying the payment_token.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments/{payment_token}/return:
+    post:
+      operationId: returnPayment
+      tags:
+      - Payment
+      summary: Return payment
+      description: Return an ACH payment with a specified return reason code. Returns must be initiated within the time window specified by NACHA rules for each return code (typically 2 banking days for most codes, 60 calendar days for unauthorized debits). For a complete list of return codes and their meanings, see t
+      parameters:
+      - name: payment_token
+        in: path
+        required: true
+        description: The token identifying the payment_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/receipt:
+    post:
+      operationId: simulatePaymentsReceipt
+      tags:
+      - Payment
+      summary: Simulate receipt
+      description: Simulates a receipt of a Payment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/release:
+    post:
+      operationId: simulatePaymentsRelease
+      tags:
+      - Payment
+      summary: Simulate release payment
+      description: Simulates a release of a Payment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/return:
+    post:
+      operationId: simulatePaymentsReturn
+      tags:
+      - Payment
+      summary: Simulate return payment
+      description: Simulates a return of a Payment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/{payment_token}/action:
+    post:
+      operationId: simulatePaymentAction
+      tags:
+      - Payment
+      summary: Simulate payment lifecycle event
+      description: Simulate payment lifecycle event
+      parameters:
+      - name: payment_token
+        in: path
+        required: true
+        description: The token identifying the payment_token.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+    ValidationError:
+      description: The request failed validation.
+  schemas:
+    Payment:
+      type: object
+      description: ACH payments between Lithic financial accounts and external bank accounts.
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").
