@@ -10,7 +10,20 @@ description: Lithic is a card issuing and issuer-processor API platform for buil
   publishes a full OpenAPI 3.1 specification (github.com/lithic-com/lithic-openapi)
   backing official Node, Python, Go, Java, and Kotlin SDKs, with a sandbox at
   sandbox.lithic.com that mirrors production functionality.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lithic-com.png
 tags:
 - Fintech
 - Card Issuing
@@ -22,329 +35,2613 @@ created: '2026-07-02'
 modified: '2026-07-02'
 specificationVersion: '0.19'
 apis:
-- aid: lithic-com:lithic-com-account-holders-api
-  name: Lithic Account Holders API
-  tags:
-  - Account Holders
-  - KYC
-  - KYB
-  - Onboarding
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: lithic-com:lithic-com-3ds-api
+  name: Lithic 3DS API
+  description: 3D Secure e-commerce authentication and decisioning.
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
-  properties:
-  - url: https://docs.lithic.com/docs/account-holders-kyc
-    type: Documentation
-  - url: https://docs.lithic.com/docs/account-holders-kyb
-    type: Documentation
-  - url: https://docs.lithic.com/reference/getaccountholders
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Create and manage individual (KYC) and business (KYB) account holders -
-    identity verification workflows (KYC_BASIC, KYC_BYO, KYC_EXEMPT, KYB_BASIC),
-    document upload for remediation, and beneficial owner / control person
-    management.
-- aid: lithic-com:lithic-com-accounts-api
-  name: Lithic Accounts API
   tags:
-  - Accounts
-  - Spend Limits
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/spend-limits
-  baseURL: https://api.lithic.com/v1
-  properties:
-  - url: https://docs.lithic.com/docs/spend-limits
-    type: Documentation
-  - url: https://docs.lithic.com/reference/getaccounts
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: List and retrieve accounts (created 1:1 with an account holder), update
-    daily/monthly/lifetime spend limits, and fetch an account's available spend
-    limits and fraud/velocity signals.
-- aid: lithic-com:lithic-com-cards-api
-  name: Lithic Cards API
-  tags:
-  - Cards
-  - Virtual Cards
-  - Physical Cards
-  - Digital Wallets
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/cards
-  baseURL: https://api.lithic.com/v1
-  properties:
-  - url: https://docs.lithic.com/docs/cards
-    type: Documentation
-  - url: https://docs.lithic.com/docs/managing-cards
-    type: Documentation
-  - url: https://docs.lithic.com/docs/physical-cards-setup-guide
-    type: Documentation
-  - url: https://docs.lithic.com/reference/postcards
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Issue and manage virtual and physical cards - create, update, reissue,
-    renew, and convert virtual cards to physical; card programs, digital card art,
-    bulk card orders, card balances and financial transactions, the embedded card
-    UI, and Apple Pay / Google Pay push provisioning.
-- aid: lithic-com:lithic-com-transactions-authorizations-api
-  name: Lithic Transactions & Authorizations API
-  tags:
-  - Transactions
-  - Authorizations
-  - Simulations
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/transaction-flow
-  baseURL: https://api.lithic.com/v1
-  properties:
-  - url: https://docs.lithic.com/docs/transaction-flow
-    type: Documentation
-  - url: https://docs.lithic.com/docs/transactions
-    type: Documentation
-  - url: https://docs.lithic.com/docs/simulating-transactions
-    type: Documentation
-  - url: https://docs.lithic.com/reference/postsimulateauthorize
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: List and retrieve card transactions, respond to authorization
-    challenges, expire authorizations, route transactions, pull enhanced
-    commercial (Level II/III) data, and fully simulate the authorization ->
-    clearing -> void/return lifecycle in Sandbox.
-- aid: lithic-com:lithic-com-authorization-rules-api
-  name: Lithic Authorization Rules API
-  tags:
-  - Authorization Rules
-  - Velocity Limits
-  - Risk
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/authorization-rules-v2
-  baseURL: https://api.lithic.com/v2
-  properties:
-  - url: https://docs.lithic.com/docs/authorization-rules-v2
-    type: Documentation
-  - url: https://docs.lithic.com/docs/about-authorization-intelligence
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Create, draft, promote, and backtest v2 programmable authorization
-    rules (velocity limits, MCC/country/risk-score conditions) scoped to a card,
-    account, or program, including calculated feature values and rule evaluation
-    result history.
-- aid: lithic-com:lithic-com-realtime-decisioning-api
-  name: Lithic Real-Time Decisioning API
-  tags:
-  - Auth Stream Access
-  - ASA
   - 3DS
-  - Webhooks
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/auth-stream-access-asa
-  baseURL: https://api.lithic.com/v1
   properties:
-  - url: https://docs.lithic.com/docs/auth-stream-access-asa
-    type: Documentation
-  - url: https://docs.lithic.com/docs/about-3ds
-    type: Documentation
-  - url: https://docs.lithic.com/docs/3ds-decisioning
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Register and manage the HTTP responder endpoint that receives
-    Auth Stream Access (ASA) requests synchronously inside the authorization
-    path (APPROVED/CHALLENGE/decline within a 6-second window), plus the
-    equivalent 3DS Decisioning webhook for step-up challenge decisions, and
-    HMAC secret retrieval/rotation for both.
-- aid: lithic-com:lithic-com-disputes-api
-  name: Lithic Disputes API
+  - type: OpenAPI
+    url: openapi/lithic-com-3ds-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-account-api
+  name: Lithic Account API
+  description: Top-level program accounts and their spend limits.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - Disputes
-  - Chargebacks
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/disputes-api
-  baseURL: https://api.lithic.com/v1
+  - Account
   properties:
-  - url: https://docs.lithic.com/docs/disputes-api
-    type: Documentation
-  - url: https://docs.lithic.com/docs/tracking-disputes
-    type: Documentation
-  - url: https://docs.lithic.com/reference/postdisputes
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Submit and withdraw chargeback requests on settled transactions,
-    upload and manage evidence, and read v2 managed disputes for programs where
-    Lithic handles dispute processing on the issuer's behalf. Lithic documents
-    the Disputes API as an Enterprise product.
-- aid: lithic-com:lithic-com-events-webhooks-api
-  name: Lithic Events & Webhooks API
+  - type: OpenAPI
+    url: openapi/lithic-com-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-account-holder-api
+  name: Lithic Account Holder API
+  description: KYC/KYB onboarding and management of individual and business account holders.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - Events
-  - Webhooks
-  - Event Subscriptions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/events-api
-  baseURL: https://api.lithic.com/v1
+  - Account Holder
   properties:
-  - url: https://docs.lithic.com/docs/events-api
-    type: Documentation
-  - url: https://docs.lithic.com/docs/simulating-webhooks
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Manage event subscriptions (register a webhook URL, rotate its
-    signing secret, resend or replay-missing messages after downtime), list and
-    retrieve individual events and their delivery attempts, and simulate any of
-    the 60+ documented event types in Sandbox.
-- aid: lithic-com:lithic-com-financial-accounts-api
-  name: Lithic Financial Accounts & Statements API
+  - type: OpenAPI
+    url: openapi/lithic-com-account-holder-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-auth-rules-api
+  name: Lithic Auth Rules API
+  description: >-
+    Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - Financial Accounts
-  - Ledger
-  - Statements
-  - Credit
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/financial-accounts
-  baseURL: https://api.lithic.com/v1
+  - Auth Rules
   properties:
-  - url: https://docs.lithic.com/docs/financial-accounts
-    type: Documentation
-  - url: https://docs.lithic.com/docs/ledger-overview
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Create and manage ISSUING, OPERATING, RESERVE, and CHARGE_CARD
-    financial accounts, register account numbers, configure credit limits and
-    interest tier schedules, list account activity and financial transactions,
-    and retrieve statements, statement line items, and loan tapes.
-- aid: lithic-com:lithic-com-balances-holds-api
-  name: Lithic Balances & Holds API
+  - type: OpenAPI
+    url: openapi/lithic-com-auth-rules-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-auth-stream-access-asa-api
+  name: Lithic Auth Stream Access (ASA) API
+  description: Real-time HTTP webhook authorization decisioning in the transaction path.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - Balances
-  - Holds
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/ledger-overview
-  baseURL: https://api.lithic.com/v1
+  - Auth Stream Access (ASA)
   properties:
-  - url: https://docs.lithic.com/docs/ledger-overview
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Read available and pending balances across all or a specific
-    financial account, and create, retrieve, or void holds placed against a
-    financial account's balance.
-- aid: lithic-com:lithic-com-payments-api
-  name: Lithic Payments (ACH) API
+  - type: OpenAPI
+    url: openapi/lithic-com-auth-stream-access-asa-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-balance-api
+  name: Lithic Balance API
+  description: Available and pending balances for financial accounts.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - ACH
-  - Payments
-  - Disbursements
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/payments-api
-  baseURL: https://api.lithic.com/v1
+  - Balance
   properties:
-  - url: https://docs.lithic.com/docs/payments-api
-    type: Documentation
-  - url: https://docs.lithic.com/docs/ach-overview
-    type: Documentation
-  - url: https://docs.lithic.com/docs/ach-payments-lifecycle
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Move funds via ACH between a Lithic financial account and a
-    verified external bank account - create, retry, and return payments - with
-    Sandbox simulation of receipt, release, and return events across the ACH
-    lifecycle.
-- aid: lithic-com:lithic-com-ledger-settlement-api
-  name: Lithic Ledger, Transfers & Settlement API
+  - type: OpenAPI
+    url: openapi/lithic-com-balance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-book-transfer-api
+  name: Lithic Book Transfer API
+  description: Internal ledger transfers between financial accounts.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - Book Transfers
-  - Settlement
-  - Funding
-  - Management Operations
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/book-transfers
-  baseURL: https://api.lithic.com/v1
+  - Book Transfer
   properties:
-  - url: https://docs.lithic.com/docs/book-transfers
-    type: Documentation
-  - url: https://docs.lithic.com/docs/settlement-reporting
-    type: Documentation
-  - url: https://docs.lithic.com/reference/getsettlementdetails
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Move money internally between financial accounts with book
-    transfers, post and reverse manual management operations (ledger
-    corrections), enforce transfer limits, look up card network programs, and
-    reconcile daily cash movement with settlement detail/summary reports,
-    network totals, and per-program funding events. Lithic documents Settlement
-    as an Enterprise, production-only product.
+  - type: OpenAPI
+    url: openapi/lithic-com-book-transfer-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-card-api
+  name: Lithic Card API
+  description: Virtual and physical card issuance, lifecycle, and digital wallet provisioning.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Card
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-card-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-card-authorizations-api
+  name: Lithic Card Authorizations API
+  description: Responses to real-time authorization challenges.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Card Authorizations
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-card-authorizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-card-bulk-orders-api
+  name: Lithic Card Bulk Orders API
+  description: Bulk physical card ordering.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Card Bulk Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-card-bulk-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-chargeback-api
+  name: Lithic Chargeback API
+  description: Legacy v1 dispute (chargeback) submission and evidence.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Chargeback
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-chargeback-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-credit-product-api
+  name: Lithic Credit Product API
+  description: Credit product configuration, extended credit, and prime rates.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Credit Product
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-credit-product-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-event-api
+  name: Lithic Event API
+  description: Events API and webhook event subscription management.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Event
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-event-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-external-bank-account-api
+  name: Lithic External Bank Account API
+  description: >-
+    External bank accounts used for ACH payments, with prenote and micro-deposit verification.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - External Bank Account
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-external-bank-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
 - aid: lithic-com:lithic-com-external-payments-api
-  name: Lithic External Payments & Bank Accounts API
-  tags:
-  - External Bank Accounts
-  - External Payments
-  - Prenote
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/external-accounts-api
+  name: Lithic External Payments API
+  description: Recording and reconciling payments that move outside of Lithic-initiated rails.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
+  tags:
+  - External Payments
   properties:
-  - url: https://docs.lithic.com/docs/external-accounts-api
-    type: Documentation
-  - url: https://docs.lithic.com/docs/disbursements
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: Add and verify external bank accounts via prenote or micro-deposits,
-    pause/unpause and retry verification, and create and manage external
-    payments - settle, release, cancel, or reverse - for funds movement that
-    occurs outside of Lithic-initiated ACH rails.
+  - type: OpenAPI
+    url: openapi/lithic-com-external-payments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-financial-account-api
+  name: Lithic Financial Account API
+  description: Ledgered financial accounts, credit configuration, and account activity.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Financial Account
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-financial-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-fraud-report-api
+  name: Lithic Fraud Report API
+  description: Fraud reporting on card transactions.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Fraud Report
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-fraud-report-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-funding-events-api
+  name: Lithic Funding Events API
+  description: Card program funding event reporting.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Funding Events
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-funding-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-hold-api
+  name: Lithic Hold API
+  description: Holds placed against financial account balances.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Hold
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-hold-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-managed-disputes-api
+  name: Lithic Managed Disputes API
+  description: v2 managed disputes (read surface for Lithic-managed dispute handling).
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Managed Disputes
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-managed-disputes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-management-operations-api
+  name: Lithic Management Operations API
+  description: Manual ledger adjustments and corrections.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Management Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-management-operations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-network-program-api
+  name: Lithic Network Program API
+  description: Card network program metadata.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Network Program
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-network-program-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-payment-api
+  name: Lithic Payment API
+  description: ACH payments between Lithic financial accounts and external bank accounts.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Payment
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-payment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-responder-endpoints-api
+  name: Lithic Responder Endpoints API
+  description: Registration of HTTP endpoints that receive Auth Stream Access (ASA) requests.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Responder Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-responder-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-settlement-report-api
+  name: Lithic Settlement Report API
+  description: Daily settlement detail, summary, and network total reporting.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Settlement Report
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-settlement-report-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-statements-api
+  name: Lithic Statements API
+  description: Financial account statements, line items, and loan tapes for credit products.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-statements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-status-api
+  name: Lithic Status API
+  description: API status check.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-status-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
 - aid: lithic-com:lithic-com-tokenization-api
-  name: Lithic Tokenization & Digital Wallets API
+  name: Lithic Tokenization API
+  description: >-
+    Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
   - Tokenization
-  - Digital Wallets
-  - Apple Pay
-  - Google Pay
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/about-digital-wallets
-  baseURL: https://api.lithic.com/v1
   properties:
-  - url: https://docs.lithic.com/docs/about-digital-wallets
-    type: Documentation
-  - url: https://docs.lithic.com/docs/push-provisioning
-    type: Documentation
-  - url: https://docs.lithic.com/docs/web-push-provisioning
-    type: Documentation
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: List and manage a card's digital wallet tokenizations - pause,
-    unpause, activate, deactivate, resend activation codes, and update digital
-    card art - plus the Tokenization Decisioning HMAC secret used to verify
-    the real-time webhook Lithic sends when a cardholder adds a card to Apple
-    Pay, Google Pay, or Samsung Pay.
-- aid: lithic-com:lithic-com-fraud-monitoring-api
-  name: Lithic Fraud & Transaction Monitoring API
+  - type: OpenAPI
+    url: openapi/lithic-com-tokenization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-transaction-api
+  name: Lithic Transaction API
+  description: Card transaction authorization, clearing, and simulation.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
   tags:
-  - Fraud
-  - Transaction Monitoring
-  - Case Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lithic.com/docs/about-authorization-intelligence
-  baseURL: https://api.lithic.com/v1
+  - Transaction
   properties:
-  - url: https://docs.lithic.com/docs/about-authorization-intelligence
-    type: Documentation
-  - url: https://docs.lithic.com/reference/getfraudreport
-    type: APIReference
-  - url: openapi/lithic-com-openapi.yml
-    type: OpenAPI
-  description: File and retrieve fraud reports on card transactions, and manage
-    transaction monitoring cases and queues - case activity, linked
-    transactions and cards, comments, and file attachments - for AML/fraud
-    review workflows.
+  - type: OpenAPI
+    url: openapi/lithic-com-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-transaction-monitoring-api
+  name: Lithic Transaction Monitoring API
+  description: Fraud/AML case and queue management for flagged transactions.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Transaction Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-transaction-monitoring-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
+- aid: lithic-com:lithic-com-transfer-limits-api
+  name: Lithic Transfer Limits API
+  description: The Transfer Limits API from Lithic — 1 operation(s) for transfer limits.
+  humanURL: https://docs.lithic.com/docs/account-holders-kyc
+  baseURL: https://api.lithic.com/v1
+  tags:
+  - Transfer Limits
+  properties:
+  - type: OpenAPI
+    url: openapi/lithic-com-transfer-limits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyc
+  - type: Documentation
+    url: https://docs.lithic.com/docs/account-holders-kyb
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccountholders
+  - type: Documentation
+    url: https://docs.lithic.com/docs/spend-limits
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getaccounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/managing-cards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/physical-cards-setup-guide
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postcards
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transaction-flow
+  - type: Documentation
+    url: https://docs.lithic.com/docs/transactions
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-transactions
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postsimulateauthorize
+  - type: Documentation
+    url: https://docs.lithic.com/docs/authorization-rules-v2
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-authorization-intelligence
+  - type: Documentation
+    url: https://docs.lithic.com/docs/auth-stream-access-asa
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-3ds
+  - type: Documentation
+    url: https://docs.lithic.com/docs/3ds-decisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disputes-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/tracking-disputes
+  - type: APIReference
+    url: https://docs.lithic.com/reference/postdisputes
+  - type: Documentation
+    url: https://docs.lithic.com/docs/events-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/simulating-webhooks
+  - type: Documentation
+    url: https://docs.lithic.com/docs/financial-accounts
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ledger-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/payments-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-overview
+  - type: Documentation
+    url: https://docs.lithic.com/docs/ach-payments-lifecycle
+  - type: Documentation
+    url: https://docs.lithic.com/docs/book-transfers
+  - type: Documentation
+    url: https://docs.lithic.com/docs/settlement-reporting
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getsettlementdetails
+  - type: Documentation
+    url: https://docs.lithic.com/docs/external-accounts-api
+  - type: Documentation
+    url: https://docs.lithic.com/docs/disbursements
+  - type: Documentation
+    url: https://docs.lithic.com/docs/about-digital-wallets
+  - type: Documentation
+    url: https://docs.lithic.com/docs/push-provisioning
+  - type: Documentation
+    url: https://docs.lithic.com/docs/web-push-provisioning
+  - type: APIReference
+    url: https://docs.lithic.com/reference/getfraudreport
 common:
 - type: AgenticAccess
   url: agentic-access/lithic-com-agentic-access.yml
