@@ -1,0 +1,5479 @@
+openapi: 3.0.3
+info:
+  title: Lithic API
+  description: >-
+    The Lithic API is a card issuing and issuer-processor platform for issuing
+    virtual and physical cards, authorizing and clearing transactions, moving
+    money across ledgered financial accounts, and managing the full card
+    lifecycle - KYC/KYB account holder onboarding, authorization rules and
+    real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into
+    digital wallets, 3DS authentication, ACH payments, book transfers, external
+    payments, settlement reporting, and fraud/transaction monitoring. This
+    document curates the real, published Lithic OpenAPI 3.1 definitions
+    (https://github.com/lithic-com/lithic-openapi) into the endpoint surface
+    referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight
+    response schemas. Requests are authenticated with an API key sent as the
+    raw value of the Authorization header (not a Bearer token).
+  version: "1.0.0"
+  contact:
+    name: Lithic
+    url: https://www.lithic.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.txt
+servers:
+  - url: https://api.lithic.com
+    description: Production
+  - url: https://sandbox.lithic.com
+    description: Sandbox (mirrors production functionality)
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: "3DS"
+    description: "3D Secure e-commerce authentication and decisioning."
+  - name: "Account"
+    description: "Top-level program accounts and their spend limits."
+  - name: "Account Holder"
+    description: "KYC/KYB onboarding and management of individual and business account holders."
+  - name: "Auth Stream Access (ASA)"
+    description: "Real-time HTTP webhook authorization decisioning in the transaction path."
+  - name: "Auth Rules"
+    description: "Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results."
+  - name: "Balance"
+    description: "Available and pending balances for financial accounts."
+  - name: "Book Transfer"
+    description: "Internal ledger transfers between financial accounts."
+  - name: "Card"
+    description: "Virtual and physical card issuance, lifecycle, and digital wallet provisioning."
+  - name: "Card Authorizations"
+    description: "Responses to real-time authorization challenges."
+  - name: "Card Bulk Orders"
+    description: "Bulk physical card ordering."
+  - name: "Credit Product"
+    description: "Credit product configuration, extended credit, and prime rates."
+  - name: "Chargeback"
+    description: "Legacy v1 dispute (chargeback) submission and evidence."
+  - name: "Event"
+    description: "Events API and webhook event subscription management."
+  - name: "External Bank Account"
+    description: "External bank accounts used for ACH payments, with prenote and micro-deposit verification."
+  - name: "External Payments"
+    description: "Recording and reconciling payments that move outside of Lithic-initiated rails."
+  - name: "Financial Account"
+    description: "Ledgered financial accounts, credit configuration, and account activity."
+  - name: "Fraud Report"
+    description: "Fraud reporting on card transactions."
+  - name: "Funding Events"
+    description: "Card program funding event reporting."
+  - name: "Hold"
+    description: "Holds placed against financial account balances."
+  - name: "Managed Disputes"
+    description: "v2 managed disputes (read surface for Lithic-managed dispute handling)."
+  - name: "Management Operations"
+    description: "Manual ledger adjustments and corrections."
+  - name: "Network Program"
+    description: "Card network program metadata."
+  - name: "Payment"
+    description: "ACH payments between Lithic financial accounts and external bank accounts."
+  - name: "Responder Endpoints"
+    description: "Registration of HTTP endpoints that receive Auth Stream Access (ASA) requests."
+  - name: "Settlement Report"
+    description: "Daily settlement detail, summary, and network total reporting."
+  - name: "Statements"
+    description: "Financial account statements, line items, and loan tapes for credit products."
+  - name: "Status"
+    description: "API status check."
+  - name: "Tokenization"
+    description: "Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning."
+  - name: "Transaction"
+    description: "Card transaction authorization, clearing, and simulation."
+  - name: "Transaction Monitoring"
+    description: "Fraud/AML case and queue management for flagged transactions."
+paths:
+  /v1/account_holders:
+    get:
+      operationId: getAccountHolders
+      tags:
+        - "Account Holder"
+      summary: "Get a list of individual or business account holders"
+      description: "Get a list of individual or business account holders and their KYC or KYB evaluation status."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postAccountHolders
+      tags:
+        - "Account Holder"
+      summary: "Create an individual or business account holder"
+      description: "Create an account holder and initiate the appropriate onboarding workflow. Account holders and accounts have a 1:1 relationship. When an account holder is successfully created an associated account is also created. All calls to this endpoint will return a synchronous response. The response time wil"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}:
+    get:
+      operationId: getAccountHolder
+      tags:
+        - "Account Holder"
+      summary: "Get an individual or business account holder"
+      description: "Get an Individual or Business Account Holder and/or their KYC or KYB evaluation status."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchAccountHolder
+      tags:
+        - "Account Holder"
+      summary: "Update account holder information and possibly resubmit for evaluation"
+      description: "Update the information associated with a particular account holder (including business owners and control persons associated to a business account). If Lithic is performing KYB or KYC and additional verification is required we will run the individual's or business's updated information again and ret"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/documents:
+    get:
+      operationId: getAccountHolderDocuments
+      tags:
+        - "Account Holder"
+      summary: "Get account holder document uploads"
+      description: "Retrieve the status of account holder document uploads, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event you"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postAccountHolderDocuments
+      tags:
+        - "Account Holder"
+      summary: "Initiate account holder document upload"
+      description: "Use this endpoint to identify which type of supported government-issued documentation you will upload for further verification. It will return two URLs to upload your document images to - one for the front image and one for the back image. This endpoint is only valid for evaluations in a `PENDING_D"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/documents/{document_token}:
+    get:
+      operationId: getAccountHolderDocumentByToken
+      tags:
+        - "Account Holder"
+      summary: "Get account holder document upload status"
+      description: "Check the status of an account holder document upload, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event your"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/entities:
+    post:
+      operationId: postAccountHolderEntities
+      tags:
+        - "Account Holder"
+      summary: "Create a new beneficial owner individual or replace the existing control person entity"
+      description: "Create a new beneficial owner individual or replace the control person entity on an existing KYB account holder. This endpoint is only applicable for account holders enrolled through a KYB workflow with the Persona KYB provider. A new control person can only replace the existing one. A maximum of 4"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_holders/{account_holder_token}/entities/{entity_token}:
+    delete:
+      operationId: deleteAccountHolderEntity
+      tags:
+        - "Account Holder"
+      summary: "Deactivate a beneficial owner individual"
+      description: "Deactivate a beneficial owner individual on an existing KYB account holder. Only beneficial owner individuals can be deactivated."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/accounts:
+    get:
+      operationId: getAccounts
+      tags:
+        - "Account"
+      summary: "List accounts"
+      description: "List account configurations."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/accounts/{account_token}:
+    get:
+      operationId: getAccountByToken
+      tags:
+        - "Account"
+      summary: "Get account"
+      description: "Get account configuration such as spend limits."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchAccountByToken
+      tags:
+        - "Account"
+      summary: "Update account"
+      description: "Update account configuration such as state or spend limits. Can only be run on accounts that are part of the program managed by this API key. Accounts that are in the `PAUSED` state will not be able to transact or create new cards."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/accounts/{account_token}/spend_limits:
+    get:
+      operationId: getAccountSpendLimits
+      tags:
+        - "Account"
+      summary: "Get account's available spend limits"
+      description: "Get an Account's available spend limits, which is based on the spend limit configured on the Account and the amount already spent over the spend limit's duration. For example, if the Account has a daily spend limit of $1000 configured, and has spent $600 in the last 24 hours, the available spend lim"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules:
+    post:
+      tags:
+        - "Auth Rules"
+      summary: "Create a new rule"
+      description: "Creates a new V2 Auth rule in draft mode"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "List rules"
+      description: "Lists V2 Auth rules"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "Fetch a rule"
+      description: "Fetches a V2 Auth rule by its token"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      tags:
+        - "Auth Rules"
+      summary: "Update a rule"
+      description: "Updates a V2 Auth rule's properties If `account_tokens`, `card_tokens`, `program_level`, `excluded_card_tokens`, `excluded_account_tokens`, or `excluded_business_account_tokens` is provided, this will replace existing associations with the provided list of entities."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags:
+        - "Auth Rules"
+      summary: "Delete a rule"
+      description: "Deletes a V2 Auth rule"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/draft:
+    post:
+      tags:
+        - "Auth Rules"
+      summary: "Draft a new rule version"
+      description: "Creates a new draft version of a rule that will be ran in shadow mode. This can also be utilized to reset the draft parameters, causing a draft version to no longer be ran in shadow mode."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/features:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "Calculated Feature values"
+      description: "Fetches the current calculated Feature values for the given Auth Rule This only calculates the features for the active version. - VelocityLimit Rules calculates the current Velocity Feature data. This requires a `card_token` or `account_token` matching what the rule is Scoped to. - ConditionalBlock"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/promote:
+    post:
+      tags:
+        - "Auth Rules"
+      summary: "Promote a rule version"
+      description: "Promotes the draft version of an Auth rule to the currently active version such that it is enforced in the respective stream."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/versions:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "List rule versions"
+      description: "Returns all versions of an auth rule, sorted by version number descending (newest first)."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/report:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "Retrieve a performance report"
+      description: "Retrieves a performance report for an Auth rule containing daily statistics and evaluation outcomes. **Time Range Limitations:** - Reports are supported for the past 3 months only - Maximum interval length is 1 month - Report data is available only through the previous day in UTC (current day data"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/backtests:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "List backtests"
+      description: "Lists backtests for an Auth Rule"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      tags:
+        - "Auth Rules"
+      summary: "Request a backtest"
+      description: "Initiates a request to asynchronously generate a backtest for an Auth rule. During backtesting, both the active version (if one exists) and the draft version of the Auth Rule are evaluated by replaying historical transaction data against the rule's conditions. This process allows customers to simula"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "Retrieve backtest results"
+      description: "Returns the backtest results of an Auth rule (if available). Backtesting is an asynchronous process that requires time to complete. If a customer retrieves the backtest results using this endpoint before the report is fully generated, the response will return null for `results.current_version` and"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/auth_rules/results:
+    get:
+      tags:
+        - "Auth Rules"
+      summary: "List rule evaluation results"
+      description: "Lists Auth Rule evaluation results. **Limitations:** - Results are available for the past 3 months only - At least one filter (`event_token` or `auth_rule_token`) must be provided - When filtering by `event_token`, pagination is not supported"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthRules'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/signals:
+    get:
+      operationId: getCardSignals
+      tags:
+        - "Card"
+      summary: "Fetch card signals"
+      description: "Returns behavioral feature state derived from a card's transaction history. These signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients"
+      parameters:
+        - name: card_token
+          in: path
+          required: true
+          description: "The token of the card to fetch signals for."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/accounts/{account_token}/signals:
+    get:
+      operationId: getAccountSignals
+      tags:
+        - "Account"
+      summary: "Fetch account signals"
+      description: "Returns behavioral feature state derived from an account's transaction history. These signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: ACCOUNT`, `IS_NEW_COUNTRY` with `scope: ACCOUNT`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowin"
+      parameters:
+        - name: account_token
+          in: path
+          required: true
+          description: "The token of the account to fetch signals for."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/auth_stream/secret:
+    get:
+      operationId: getAuthStreamSecret
+      tags:
+        - "Auth Stream Access (ASA)"
+      summary: "Retrieve the ASA HMAC secret key"
+      description: "Retrieve the ASA HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify webhooks) will begin appearing shortly after calling this endpoint for the first time. See [this page](https://docs.lithic.com/docs/au"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthStreamAccessASA'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/auth_stream/secret/rotate:
+    post:
+      operationId: rotateAuthStreamSecret
+      tags:
+        - "Auth Stream Access (ASA)"
+      summary: "Rotate the ASA HMAC secret key"
+      description: "Generate a new ASA HMAC secret key. The old ASA HMAC secret key will be deactivated 24 hours after a successful request to this endpoint. Make a [`GET /auth_stream/secret`](https://docs.lithic.com/reference/getauthstreamsecret) request to retrieve the new secret key."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthStreamAccessASA'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/balances:
+    get:
+      operationId: getBalances
+      tags:
+        - "Balance"
+      summary: "List balances"
+      description: "Get the balances for a program, business, or a given end-user account"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_programs:
+    get:
+      operationId: getCardPrograms
+      tags:
+        - "Card"
+      summary: "List card programs"
+      description: "List card programs."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_programs/{card_program_token}:
+    get:
+      operationId: getCardProgram
+      tags:
+        - "Card"
+      summary: "Get card program"
+      description: "Get card program."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards:
+    get:
+      operationId: getCards
+      tags:
+        - "Card"
+      summary: "List cards"
+      description: "List cards."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postCards
+      tags:
+        - "Card"
+      summary: "Create card"
+      description: "Create a new virtual or physical card. Parameters `shipping_address` and `product_id` only apply to physical cards."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/search_by_pan:
+    post:
+      operationId: searchCardByPan
+      tags:
+        - "Card"
+      summary: "Search for card by PAN"
+      description: "Get card configuration such as spend limit and state. Customers must be PCI compliant to use this endpoint. Please contact [support.lithic.com](https://support.lithic.com/) for questions. *Note: this is a `POST` endpoint because it is more secure to send sensitive data in a request body than in a UR"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}:
+    get:
+      operationId: getCardByToken
+      tags:
+        - "Card"
+      summary: "Get card"
+      description: "Get card configuration such as spend limit and state."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchCardByToken
+      tags:
+        - "Card"
+      summary: "Update card"
+      description: "Update the specified properties of the card. Unsupplied properties will remain unchanged. *Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/balances:
+    get:
+      operationId: getCardBalance
+      tags:
+        - "Card"
+      summary: "Get card balances"
+      description: "Get the balances for a given card."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/financial_transactions:
+    get:
+      operationId: getCardFinancialTransactions
+      tags:
+        - "Card"
+      summary: "List card financial transactions"
+      description: "List the financial transactions for a given card."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/financial_transactions/{financial_transaction_token}:
+    get:
+      operationId: getCardFinancialTransactionByToken
+      tags:
+        - "Card"
+      summary: "Get card financial transaction"
+      description: "Get the card financial transaction for the provided token."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/provision:
+    post:
+      operationId: postCardProvision
+      tags:
+        - "Card"
+      summary: "Provision card (Digital Wallet)"
+      description: "Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app. This requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/web_provision:
+    post:
+      operationId: postCardWebProvision
+      tags:
+        - "Card"
+      summary: "Web Push Provision card (Digital Wallet)"
+      description: "Allow your cardholders to directly add payment cards to the device's digital wallet from a browser on the web. This requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/reissue:
+    post:
+      operationId: postCardReissue
+      tags:
+        - "Card"
+      summary: "Reissue physical card"
+      description: "Initiate print and shipment of a duplicate physical card (e.g. card is physically damaged). The PAN, expiry, and CVC2 will remain the same and the original card can continue to be used until the new card is activated. Only applies to cards of type `PHYSICAL`. A card can be reissued or renewed a to"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/renew:
+    post:
+      operationId: postCardRenew
+      tags:
+        - "Card"
+      summary: "Renew a card"
+      description: "Applies to card types `PHYSICAL` and `VIRTUAL`. For `PHYSICAL`, creates a new card with the same card token and PAN, but updated expiry and CVC2 code. The original card will keep working for card-present transactions until the new card is activated. For card-not-present transactions, the original ca"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/convert_physical:
+    post:
+      operationId: postConvertPhysical
+      tags:
+        - "Card"
+      summary: "Convert virtual to physical card"
+      description: "Convert a virtual card into a physical card and manufacture it. Customer must supply relevant fields for physical card creation including `product_id`, `carrier`, `shipping_method`, and `shipping_address`. The card token will be unchanged. The card's type will be altered to `PHYSICAL`. The card wil"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/cards/{card_token}/spend_limits:
+    get:
+      operationId: getCardSpendLimits
+      tags:
+        - "Card"
+      summary: "Get card's available spend limit"
+      description: "Get a Card's available spend limit, which is based on the spend limit configured on the Card and the amount already spent over the spend limit's duration. For example, if the Card has a monthly spend limit of $1000 configured, and has spent $600 in the last month, the available spend limit returned"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_authorizations/{event_token}/challenge_response:
+    post:
+      operationId: respondToAuthorizationChallenge
+      tags:
+        - "Card Authorizations"
+      summary: "Respond to Authorization Challenge"
+      description: "Card program's response to Authorization Challenge. Programs that have Authorization Challenges configured as Out of Band receive a [card_authorization.challenge](https://docs.lithic.com/reference/post_card-authorization-challenge) webhook when an authorization attempt triggers a challenge. The card"
+      parameters:
+        - name: event_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the authorization event that triggered the challenge"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardAuthorizations'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_bulk_orders:
+    get:
+      operationId: getCardBulkOrders
+      tags:
+        - "Card Bulk Orders"
+      summary: "List bulk orders"
+      description: "List bulk orders for physical card shipments"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postCardBulkOrder
+      tags:
+        - "Card Bulk Orders"
+      summary: "Create bulk order"
+      description: "Create a new bulk order for physical card shipments. Cards can be added to the order via the POST /v1/cards endpoint by specifying the bulk_order_token. Lock the order via PATCH /v1/card_bulk_orders/{bulk_order_token} to prepare for shipment. Please work with your Customer Success Manager and card p"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/card_bulk_orders/{bulk_order_token}:
+    get:
+      operationId: getCardBulkOrder
+      tags:
+        - "Card Bulk Orders"
+      summary: "Get bulk order"
+      description: "Retrieve a specific bulk order by token"
+      parameters:
+        - name: bulk_order_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the bulk order"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchCardBulkOrder
+      tags:
+        - "Card Bulk Orders"
+      summary: "Update bulk order"
+      description: "Update a bulk order. Primarily used to lock the order, preventing additional cards from being added"
+      parameters:
+        - name: bulk_order_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the bulk order"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardBulkOrders'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/digital_card_art:
+    get:
+      operationId: getDigitalCardArt
+      tags:
+        - "Tokenization"
+      summary: "List digital card art"
+      description: "List digital card art."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/digital_card_art/{digital_card_art_token}:
+    get:
+      operationId: getDigitalCardArtByToken
+      tags:
+        - "Tokenization"
+      summary: "Get digital card art by token"
+      description: "Get digital card art by token."
+      parameters:
+        - name: digital_card_art_token
+          in: path
+          required: true
+          description: "Specifies the digital card art to be displayed in the user\u2019s digital wallet after tokenization. This artwork must be approved by Mastercard"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/disputes:
+    get:
+      operationId: getDisputes
+      tags:
+        - "Chargeback"
+      summary: "List chargeback requests"
+      description: "List chargeback requests."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postDisputes
+      tags:
+        - "Chargeback"
+      summary: "Request chargeback"
+      description: "Request a chargeback."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/disputes/{dispute_token}:
+    delete:
+      operationId: deleteDisputeByToken
+      tags:
+        - "Chargeback"
+      summary: "Withdraw chargeback request"
+      description: "Withdraw chargeback request."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: getDisputeByToken
+      tags:
+        - "Chargeback"
+      summary: "Get chargeback request"
+      description: "Get chargeback request."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateDisputeByToken
+      tags:
+        - "Chargeback"
+      summary: "Update chargeback request"
+      description: "Update chargeback request. Can only be modified if status is `NEW`."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/disputes/{dispute_token}/evidences:
+    get:
+      operationId: getDisputeEvidences
+      tags:
+        - "Chargeback"
+      summary: "List evidence"
+      description: "List evidence for a chargeback request."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postEvidenceDocument
+      tags:
+        - "Chargeback"
+      summary: "Upload evidence"
+      description: "Use this endpoint to upload evidence for a chargeback request. It will return a URL to upload your documents to. The URL will expire in 30 minutes. Uploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be less than 5 GiB."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/disputes/{dispute_token}/evidences/{evidence_token}:
+    delete:
+      operationId: deleteDisputeEvidenceByToken
+      tags:
+        - "Chargeback"
+      summary: "Delete evidence"
+      description: "Soft delete evidence for a chargeback request. Evidence will not be reviewed or submitted by Lithic after it is withdrawn."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: getDisputeEvidenceByToken
+      tags:
+        - "Chargeback"
+      summary: "Get evidence"
+      description: "Get evidence for a chargeback request."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chargeback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/embed/card:
+    get:
+      operationId: getEmbedCard
+      tags:
+        - "Card"
+      summary: "Embedded card UI"
+      description: "Handling full card PANs and CVV codes requires that you comply with the Payment Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce their compliance obligations by leveraging our embedded card UI solution documented below. In this setup, PANs and CVV codes are presented t"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/fraud/transactions/{transaction_token}:
+    get:
+      operationId: getFraudReport
+      tags:
+        - "Fraud Report"
+      summary: "Get a fraud report for a transaction"
+      description: "Retrieve a fraud report for a specific transaction identified by its unique transaction token."
+      parameters:
+        - name: transaction_token
+          in: path
+          required: true
+          description: "The token of the transaction that the enhanced data is associated with."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FraudReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createUpdateFraudReport
+      tags:
+        - "Fraud Report"
+      summary: "Create or update a fraud report for a transaction"
+      description: "Report fraud for a specific transaction token by providing details such as fraud type, fraud status, and any additional comments."
+      parameters:
+        - name: transaction_token
+          in: path
+          required: true
+          description: "The token of the transaction that the enhanced data is associated with."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FraudReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}/enhanced_commercial_data:
+    get:
+      operationId: listEnhancedTransactionData
+      tags:
+        - "Transaction"
+      summary: "List enhanced commercial data"
+      description: "Get all L2/L3 enhanced commercial data associated with a transaction. Not available in sandbox."
+      parameters:
+        - name: transaction_token
+          in: path
+          required: true
+          description: "The token of the transaction that the enhanced data is associated with."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}/expire_authorization:
+    post:
+      operationId: expireAuthorization
+      tags:
+        - "Transaction"
+      summary: "Expire an authorization"
+      description: "Expire authorization"
+      parameters:
+        - name: transaction_token
+          in: path
+          required: true
+          description: "The token of the transaction to expire."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}/route:
+    post:
+      operationId: routeTransaction
+      tags:
+        - "Transaction"
+      summary: "Route a transaction"
+      description: "Route a card transaction to a financial account. Only available for select use cases and programs."
+      parameters:
+        - name: transaction_token
+          in: path
+          required: true
+          description: "The token of the transaction to route."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/events/{event_token}/enhanced_commercial_data:
+    get:
+      operationId: getEnhancedTransactionData
+      tags:
+        - "Transaction"
+      summary: "Get enhanced commercial data"
+      description: "Get L2/L3 enhanced commercial data associated with a transaction event. Not available in sandbox."
+      parameters:
+        - name: event_token
+          in: path
+          required: true
+          description: "The token of the transaction event that the enhanced data is associated with."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions:
+    get:
+      operationId: getEventSubscriptions
+      tags:
+        - "Event"
+      summary: "List event subscriptions"
+      description: "List all the event subscriptions."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createEventSubscription
+      tags:
+        - "Event"
+      summary: "Create event subscription"
+      description: "Create a new event subscription."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}:
+    delete:
+      operationId: deleteEventSubscription
+      tags:
+        - "Event"
+      summary: "Delete event subscription"
+      description: "Delete an event subscription."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: getEventSubscription
+      tags:
+        - "Event"
+      summary: "Get event subscription"
+      description: "Get an event subscription."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateEventSubscription
+      tags:
+        - "Event"
+      summary: "Update event subscription"
+      description: "Update an event subscription."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/attempts:
+    get:
+      operationId: getMessageAttemptsForEventSubscription
+      tags:
+        - "Event"
+      summary: "List message attempts for an event subscription"
+      description: "List all the message attempts for a given event subscription."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/recover:
+    post:
+      operationId: recoverEventSubscription
+      tags:
+        - "Event"
+      summary: "Resend failed messages"
+      description: "Resend all failed messages since a given time."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/replay_missing:
+    post:
+      operationId: replayMissingEventSubscription
+      tags:
+        - "Event"
+      summary: "Replay missing messages"
+      description: "Replays messages to the endpoint. Only messages that were created after `begin` will be sent. Messages that were previously sent to the endpoint are not resent. Message will be retried if endpoint responds with a non-2xx status code. See [Retry Schedule](https://docs.lithic.com/docs/events-api#retry"
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/secret:
+    get:
+      operationId: getEventSubscriptionSecret
+      tags:
+        - "Event"
+      summary: "Get event subscription secret"
+      description: "Get the secret for an event subscription."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/event_subscriptions/{event_subscription_token}/secret/rotate:
+    post:
+      operationId: rotateEventSubscriptionSecret
+      tags:
+        - "Event"
+      summary: "Rotate event subscription secret"
+      description: "Rotate the secret for an event subscription. The previous secret will be valid for the next 24 hours."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events:
+    get:
+      operationId: getEvents
+      tags:
+        - "Event"
+      summary: "List events"
+      description: "List all events."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events/{event_token}:
+    get:
+      operationId: getEvent
+      tags:
+        - "Event"
+      summary: "Get event"
+      description: "Get an event."
+      parameters:
+        - name: event_token
+          in: path
+          required: true
+          description: "The token identifying the event_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events/{event_token}/attempts:
+    get:
+      operationId: getMessageAttemptsForEvent
+      tags:
+        - "Event"
+      summary: "List message attempts for an event"
+      description: "List all the message attempts for a given event."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/events/{event_token}/event_subscriptions/{event_subscription_token}/resend:
+    post:
+      operationId: resendEvent
+      tags:
+        - "Event"
+      summary: "Resend event"
+      description: "Resend an event to an event subscription."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+        - name: event_token
+          in: path
+          required: true
+          description: "The token identifying the event_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts:
+    get:
+      operationId: searchExternalBankAccounts
+      tags:
+        - "External Bank Account"
+      summary: "List external bank accounts"
+      description: "List all the external bank accounts for the provided search criteria."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createExternalBankAccount
+      tags:
+        - "External Bank Account"
+      summary: "Create external bank account"
+      description: "Creates an external bank account within a program or Lithic account."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}:
+    get:
+      operationId: getExternalBankAccountByToken
+      tags:
+        - "External Bank Account"
+      summary: "Get external bank account by token"
+      description: "Get the external bank account by token."
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchExternalBankAccountByToken
+      tags:
+        - "External Bank Account"
+      summary: "Update external bank account"
+      description: "Update the external bank account by token."
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}/micro_deposits:
+    post:
+      operationId: verifyExternalBankAccountByMicroDeposits
+      tags:
+        - "External Bank Account"
+      summary: "Verify external bank account via micro deposit amounts"
+      description: "Verify the external bank account by providing the micro deposit amounts."
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}/pause:
+    post:
+      operationId: pauseExternalBankAccount
+      tags:
+        - "External Bank Account"
+      summary: "Pause external bank account"
+      description: "Pause an external bank account"
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}/retry_micro_deposits:
+    post:
+      operationId: retryMicroDeposit
+      tags:
+        - "External Bank Account"
+      summary: "Retry external bank account via micro deposit"
+      description: "Retry external bank account micro deposit verification."
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}/retry_prenote:
+    post:
+      operationId: retryPrenote
+      tags:
+        - "External Bank Account"
+      summary: "Retry external bank account via prenote"
+      description: "Retry external bank account prenote verification."
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}/set_verification_method:
+    post:
+      operationId: setVerificationMethod
+      tags:
+        - "External Bank Account"
+      summary: "Set verification method"
+      description: "Update the verification method for an external bank account. Verification method can only be updated if the `verification_state` is `PENDING`."
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_bank_accounts/{external_bank_account_token}/unpause:
+    post:
+      operationId: unpauseExternalBankAccount
+      tags:
+        - "External Bank Account"
+      summary: "Unpause external bank account"
+      description: "Unpause an external bank account"
+      parameters:
+        - name: external_bank_account_token
+          in: path
+          required: true
+          description: "The token identifying the external_bank_account_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBankAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/credit_products/{credit_product_token}/extended_credit:
+    get:
+      operationId: getExtendedCredit
+      tags:
+        - "Credit Product"
+      summary: "Get extended credit"
+      description: "Get the extended credit for a given credit product under a program"
+      parameters:
+        - name: credit_product_token
+          in: path
+          required: true
+          description: "Credit Product Token"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditProduct'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/credit_products/{credit_product_token}/prime_rates:
+    get:
+      operationId: getPrimeRates
+      tags:
+        - "Credit Product"
+      summary: "Get Credit Product Prime Rates"
+      description: "Get Credit Product Prime Rates"
+      parameters:
+        - name: credit_product_token
+          in: path
+          required: true
+          description: "Globally unique identifier for credit products."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditProduct'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createPrimeRates
+      tags:
+        - "Credit Product"
+      summary: "Post Credit Product Prime Rate"
+      description: "Post Credit Product Prime Rate"
+      parameters:
+        - name: credit_product_token
+          in: path
+          required: true
+          description: "Globally unique identifier for credit products."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditProduct'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts:
+    get:
+      operationId: getFinancialAccounts
+      tags:
+        - "Financial Account"
+      summary: "List financial accounts"
+      description: "Retrieve information on your financial accounts including routing and account number."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createFinancialAccount
+      tags:
+        - "Financial Account"
+      summary: "Create financial account"
+      description: "Create a new financial account"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}:
+    get:
+      operationId: getFinancialAccountByToken
+      tags:
+        - "Financial Account"
+      summary: "Get financial account"
+      description: "Get a financial account"
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "The token identifying the financial_account_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateFinancialAccountByToken
+      tags:
+        - "Financial Account"
+      summary: "Update financial account"
+      description: "Update a financial account"
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "The token identifying the financial_account_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/balances:
+    get:
+      operationId: getBalance
+      tags:
+        - "Balance"
+      summary: "Get balances"
+      description: "Get the balances for a given financial account."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/credit_configuration:
+    get:
+      operationId: getAccountCreditConfiguration
+      tags:
+        - "Financial Account"
+      summary: "Get account credit configuration"
+      description: "Get an Account's credit configuration"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: patchAccountCreditConfiguration
+      tags:
+        - "Financial Account"
+      summary: "Update account credit configuration"
+      description: "Update an account's credit configuration"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/financial_transactions:
+    get:
+      operationId: getFinancialTransactions
+      tags:
+        - "Financial Account"
+      summary: "List financial transactions"
+      description: "List the financial transactions for a given financial account."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}:
+    get:
+      operationId: getFinancialTransactionByToken
+      tags:
+        - "Financial Account"
+      summary: "Get financial transaction"
+      description: "Get the financial transaction for the provided token."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/register_account_number:
+    post:
+      operationId: registerAccountNumber
+      tags:
+        - "Financial Account"
+      summary: "Register Account Number"
+      description: "Register account number"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/holds:
+    get:
+      operationId: getFinancialAccountHolds
+      tags:
+        - "Hold"
+      summary: "List holds"
+      description: "List holds for a financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the financial account."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hold'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createHold
+      tags:
+        - "Hold"
+      summary: "Create hold"
+      description: "Create a hold on a financial account. Holds reserve funds by moving them from available to pending balance. They can be resolved via settlement (linked to a payment or book transfer), voiding, or expiration."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the financial account."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hold'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/holds/{hold_token}:
+    get:
+      operationId: getHold
+      tags:
+        - "Hold"
+      summary: "Get hold"
+      description: "Get hold by token."
+      parameters:
+        - name: hold_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the hold."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hold'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/holds/{hold_token}/void:
+    post:
+      operationId: voidHold
+      tags:
+        - "Hold"
+      summary: "Void hold"
+      description: "Void an active hold. This returns the held funds from pending back to available balance. Only holds in PENDING status can be voided."
+      parameters:
+        - name: hold_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the hold."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hold'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/statements:
+    get:
+      operationId: getStatements
+      tags:
+        - "Statements"
+      summary: "List statements"
+      description: "List the statements for a given financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/statements/{statement_token}:
+    get:
+      operationId: getStatement
+      tags:
+        - "Statements"
+      summary: "Get statement by token"
+      description: "Get a specific statement for a given financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account."
+          schema:
+            type: string
+        - name: statement_token
+          in: path
+          required: true
+          description: "Globally unique identifier for statements."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/statements/{statement_token}/line_items:
+    get:
+      operationId: getStatementLineItems
+      tags:
+        - "Statements"
+      summary: "List line items for a statement"
+      description: "List the line items for a given statement within a given financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account."
+          schema:
+            type: string
+        - name: statement_token
+          in: path
+          required: true
+          description: "Globally unique identifier for statements."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/loan_tapes:
+    get:
+      operationId: getLoanTapes
+      tags:
+        - "Statements"
+      summary: "List loan tapes"
+      description: "List the loan tapes for a given financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}:
+    get:
+      operationId: getLoanTape
+      tags:
+        - "Statements"
+      summary: "Get loan tape by token"
+      description: "Get a specific loan tape for a given financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account."
+          schema:
+            type: string
+        - name: loan_tape_token
+          in: path
+          required: true
+          description: "Globally unique identifier for loan tape."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/loan_tape_configuration:
+    get:
+      operationId: getLoanTapeConfiguration
+      tags:
+        - "Statements"
+      summary: "Get loan tape configuration"
+      description: "Get the loan tape configuration for a given financial account."
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/interest_tier_schedule:
+    get:
+      operationId: listInterestTierSchedules
+      tags:
+        - "Statements"
+      summary: "List interest tier schedules"
+      description: "List interest tier schedules for a financial account with optional date filtering. If no date parameters are provided, returns all tier schedules. If date parameters are provided, uses filtering to return matching schedules (max 100). - for_date: Returns exact match (takes precedence over other dat"
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createInterestTierSchedule
+      tags:
+        - "Statements"
+      summary: "Create interest tier schedule"
+      description: "Create a new interest tier schedule entry for a supported financial account"
+      parameters:
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}:
+    delete:
+      operationId: deleteInterestTierSchedule
+      tags:
+        - "Statements"
+      summary: "Delete interest tier schedule"
+      description: "Delete an interest tier schedule entry. Returns: - 400 Bad Request: Invalid effective_date format OR attempting to delete the earliest tier schedule entry for a non-PENDING account - 404 Not Found: Tier schedule entry not found for the given effective_date OR ledger account not found Note: PENDI"
+      parameters:
+        - name: effective_date
+          in: path
+          required: true
+          description: "Effective date in ISO format (YYYY-MM-DD)"
+          schema:
+            type: string
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: getInterestTierSchedule
+      tags:
+        - "Statements"
+      summary: "Get interest tier schedule"
+      description: "Get a specific interest tier schedule by effective date"
+      parameters:
+        - name: effective_date
+          in: path
+          required: true
+          description: "Effective date in ISO format (YYYY-MM-DD)"
+          schema:
+            type: string
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    put:
+      operationId: updateInterestTierSchedule
+      tags:
+        - "Statements"
+      summary: "Update interest tier schedule"
+      description: "Update an existing interest tier schedule"
+      parameters:
+        - name: effective_date
+          in: path
+          required: true
+          description: "Effective date in ISO format (YYYY-MM-DD)"
+          schema:
+            type: string
+        - name: financial_account_token
+          in: path
+          required: true
+          description: "Globally unique identifier for financial account"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statements'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/financial_accounts/{financial_account_token}/update_status:
+    post:
+      operationId: updateFinancialAccountStatus
+      tags:
+        - "Financial Account"
+      summary: "Update financial account status"
+      description: "Update financial account status"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_activity:
+    get:
+      operationId: listAccountActivity
+      tags:
+        - "Financial Account"
+      summary: "List Account Activity"
+      description: "Retrieve a list of transactions across all public accounts."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/account_activity/{transaction_token}:
+    get:
+      operationId: getAccountActivity
+      tags:
+        - "Financial Account"
+      summary: "Get Single Transaction from Account Activity"
+      description: "Retrieve a single transaction"
+      parameters:
+        - name: transaction_token
+          in: path
+          required: true
+          description: "The unique identifier for the transaction"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinancialAccount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments:
+    get:
+      operationId: searchPayments
+      tags:
+        - "Payment"
+      summary: "List payments"
+      description: "List all the payments for the provided search criteria."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: createPayment
+      tags:
+        - "Payment"
+      summary: "Create payment"
+      description: "Initiates a payment between a financial account and an external bank account."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments/{payment_token}:
+    get:
+      operationId: getPaymentByToken
+      tags:
+        - "Payment"
+      summary: "Get payment by token"
+      description: "Get the payment by token."
+      parameters:
+        - name: payment_token
+          in: path
+          required: true
+          description: "The token identifying the payment_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments/{payment_token}/retry:
+    post:
+      operationId: retryPayment
+      tags:
+        - "Payment"
+      summary: "Retry payment"
+      description: "Retry an origination which has been returned."
+      parameters:
+        - name: payment_token
+          in: path
+          required: true
+          description: "The token identifying the payment_token."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/payments/{payment_token}/return:
+    post:
+      operationId: returnPayment
+      tags:
+        - "Payment"
+      summary: "Return payment"
+      description: "Return an ACH payment with a specified return reason code. Returns must be initiated within the time window specified by NACHA rules for each return code (typically 2 banking days for most codes, 60 calendar days for unauthorized debits). For a complete list of return codes and their meanings, see t"
+      parameters:
+        - name: payment_token
+          in: path
+          required: true
+          description: "The token identifying the payment_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/reports/settlement/details/{report_date}:
+    get:
+      operationId: getSettlementDetails
+      tags:
+        - "Settlement Report"
+      summary: "List settlement details"
+      description: "List details."
+      parameters:
+        - name: report_date
+          in: path
+          required: true
+          description: "Date of the settlement report to retrieve. Not available in sandbox."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/reports/settlement/summary/{report_date}:
+    get:
+      operationId: getSummary
+      tags:
+        - "Settlement Report"
+      summary: "Get settlement summary"
+      description: "Get the settlement report for a specified report date. Not available in sandbox."
+      parameters:
+        - name: report_date
+          in: path
+          required: true
+          description: "Date of the settlement report to retrieve."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/reports/settlement/network_totals:
+    get:
+      operationId: listNetworkTotals
+      tags:
+        - "Settlement Report"
+      summary: "List network totals"
+      description: "List network total records with optional filters. Not available in sandbox."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/reports/settlement/network_totals/{token}:
+    get:
+      operationId: getNetworkTotal
+      tags:
+        - "Settlement Report"
+      summary: "Get network total"
+      description: "Retrieve a specific network total record by token. Not available in sandbox."
+      parameters:
+        - name: token
+          in: path
+          required: true
+          description: "Token of the network total record to retrieve"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettlementReport'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/responder_endpoints:
+    delete:
+      operationId: deleteResponderEndpoint
+      tags:
+        - "Responder Endpoints"
+      summary: "Disenroll a responder endpoint"
+      description: "Disenroll a responder endpoint"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponderEndpoints'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: getResponderEndpoints
+      tags:
+        - "Responder Endpoints"
+      summary: "Check the status of a responder endpoint"
+      description: "Check the status of a responder endpoint"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponderEndpoints'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postResponderEndpoints
+      tags:
+        - "Responder Endpoints"
+      summary: "Enroll a responder endpoint"
+      description: "Enroll a responder endpoint"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponderEndpoints'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/authorization_advice:
+    post:
+      operationId: postSimulateAuthorizationAdvice
+      tags:
+        - "Transaction"
+      summary: "Simulate authorization advice"
+      description: "Simulates an authorization advice from the card network as if it came from a merchant acquirer. An authorization advice changes the pending amount of the transaction."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/authorize:
+    post:
+      operationId: postSimulateAuthorize
+      tags:
+        - "Transaction"
+      summary: "Simulate authorization"
+      description: "Simulates an authorization request from the card network as if it came from a merchant acquirer. If you are configured for ASA, simulating authorizations requires your ASA client to be set up properly, i.e. be able to respond to the ASA request with a valid JSON. For users that are not configured fo"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/clearing:
+    post:
+      operationId: postSimulateClearing
+      tags:
+        - "Transaction"
+      summary: "Simulate clearing"
+      description: "Clears an existing authorization, either debit or credit. After this event, the transaction transitions from `PENDING` to `SETTLED` status. If `amount` is not set, the full amount of the transaction will be cleared. Transactions that have already cleared, either partially or fully, cannot be cleare"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/credit_authorization_advice:
+    post:
+      operationId: postSimulateCreditAuthorizationAdvice
+      tags:
+        - "Transaction"
+      summary: "Simulate credit authorization advice"
+      description: "Simulates a credit authorization advice from the card network. This message indicates that the network approved a credit authorization on your behalf."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/event_subscriptions/{event_subscription_token}/send_example:
+    post:
+      operationId: sendEventSubscriptionExample
+      tags:
+        - "Event"
+      summary: "Send event type example message"
+      description: "Send an example message for event."
+      parameters:
+        - name: event_subscription_token
+          in: path
+          required: true
+          description: "The token identifying the event_subscription_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/receipt:
+    post:
+      operationId: simulatePaymentsReceipt
+      tags:
+        - "Payment"
+      summary: "Simulate receipt"
+      description: "Simulates a receipt of a Payment."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/release:
+    post:
+      operationId: simulatePaymentsRelease
+      tags:
+        - "Payment"
+      summary: "Simulate release payment"
+      description: "Simulates a release of a Payment."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/return:
+    post:
+      operationId: simulatePaymentsReturn
+      tags:
+        - "Payment"
+      summary: "Simulate return payment"
+      description: "Simulates a return of a Payment."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/payments/{payment_token}/action:
+    post:
+      operationId: simulatePaymentAction
+      tags:
+        - "Payment"
+      summary: "Simulate payment lifecycle event"
+      description: "Simulate payment lifecycle event"
+      parameters:
+        - name: payment_token
+          in: path
+          required: true
+          description: "The token identifying the payment_token."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/return:
+    post:
+      operationId: postSimulateReturn
+      tags:
+        - "Transaction"
+      summary: "Simulate return"
+      description: "Returns, or refunds, an amount back to a card. Returns simulated via this endpoint clear immediately, without prior authorization, and result in a `SETTLED` transaction status."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/return_reversal:
+    post:
+      operationId: postSimulateReturnReversal
+      tags:
+        - "Transaction"
+      summary: "Simulate return reversal"
+      description: "Reverses a return, i.e. a credit transaction with a `SETTLED` status. Returns can be financial credit authorizations, or credit authorizations that have cleared."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/tokenizations:
+    post:
+      operationId: postSimulateTokenizations
+      tags:
+        - "Tokenization"
+      summary: "Simulate a card's tokenization"
+      description: "This endpoint is used to simulate a card's tokenization in the Digital Wallet and merchant tokenization ecosystem."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/void:
+    post:
+      operationId: postSimulateVoid
+      tags:
+        - "Transaction"
+      summary: "Simulate void"
+      description: "Voids a pending authorization. If `amount` is not set, the full amount will be voided. Can be used on partially voided transactions but not partially cleared transactions. _Simulating an authorization expiry on credit authorizations or credit authorization advice is not currently supported but will"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/account_holders/enrollment_review:
+    post:
+      operationId: simulateAccountHolderEnrollmentReview
+      tags:
+        - "Account Holder"
+      summary: "Simulate an account holder's enrollment review"
+      description: "Simulates an enrollment review for an account holder. This endpoint is only applicable for workflows that may required intervention such as `KYB_BASIC`."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/simulate/account_holders/enrollment_document_review:
+    post:
+      operationId: simulateAccountHolderEnrollmentDocumentReview
+      tags:
+        - "Account Holder"
+      summary: "Simulate an account holder document upload's review"
+      description: "Simulates a review for an account holder document upload."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountHolder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/status:
+    get:
+      operationId: getStatus
+      tags:
+        - "Status"
+      summary: "API status check"
+      description: "Status of api"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_authentication/simulate:
+    post:
+      operationId: postSimulateAuthentication
+      tags:
+        - "3DS"
+      summary: "Simulate 3DS authentication"
+      description: "Simulates a 3DS authentication request from the payment network as if it came from an ACS. If you're configured for 3DS Customer Decisioning, simulating authentications requires your customer decisioning endpoint to be set up properly (respond with a valid JSON). If the authentication decision is to"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/simulate/enter_otp:
+    post:
+      tags:
+        - "3DS"
+      summary: "Simulate entering OTP into 3DS Challenge UI"
+      description: "Endpoint for simulating entering OTP into 3DS Challenge UI. A call to [/v1/three_ds_authentication/simulate](https://docs.lithic.com/reference/postsimulateauthentication) that resulted in triggered SMS-OTP challenge must precede. Only a single attempt is supported; upon entering OTP, the challenge i"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_authentication/{three_ds_authentication_token}:
+    get:
+      operationId: getThreeDsAuthenticationByToken
+      tags:
+        - "3DS"
+      summary: "Get 3DS authentication"
+      description: "Get 3DS Authentication by token"
+      parameters:
+        - name: three_ds_authentication_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the 3DS authentication."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/secret:
+    get:
+      operationId: getThreeDsDecisioningSecret
+      tags:
+        - "3DS"
+      summary: "Retrieve the 3DS Decisioning HMAC secret key"
+      description: "Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify 3DS Decisioning requests) will begin appearing shortly after calling this endpoint for the first time. See [this page](htt"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/secret/rotate:
+    post:
+      operationId: rotateThreeDsDecisioningSecret
+      tags:
+        - "3DS"
+      summary: "Rotate the 3DS Decisioning HMAC secret key"
+      description: "Generate a new 3DS Decisioning HMAC secret key. The old secret key will be deactivated 24 hours after a successful request to this endpoint. Make a [`GET /three_ds_decisioning/secret`](https://docs.lithic.com/reference/getthreedsdecisioningsecret) request to retrieve the new secret key."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/three_ds_decisioning/challenge_response:
+    post:
+      tags:
+        - "3DS"
+      summary: "Respond to a Challenge Request"
+      description: "Card program's response to a 3DS Challenge Request. Challenge Request is emitted as a webhook [three_ds_authentication.challenge](https://docs.lithic.com/reference/post_three-ds-authentication-challenge) and your Card Program needs to be configured with Out of Band (OOB) Challenges in order to recei"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/3DS'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenization_decisioning/secret:
+    get:
+      operationId: getTokenizationDecisioningSecret
+      tags:
+        - "Tokenization"
+      summary: "Retrieve the Tokenization Decisioning HMAC secret key"
+      description: "Retrieve the Tokenization Decisioning secret key. If one does not exist your program yet, calling this endpoint will create one for you. The headers of the Tokenization Decisioning request will contain a hmac signature which you can use to verify requests originate from Lithic. See [this page](https"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenization_decisioning/secret/rotate:
+    post:
+      operationId: rotateTokenizationDecisioningSecret
+      tags:
+        - "Tokenization"
+      summary: "Rotate the Tokenization Decisioning HMAC secret key"
+      description: "Generate a new Tokenization Decisioning secret key. The old Tokenization Decisioning secret key will be deactivated 24 hours after a successful request to this endpoint."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations:
+    get:
+      operationId: getTokenizations
+      tags:
+        - "Tokenization"
+      summary: "Get a card's tokenizations"
+      description: "List card tokenizations"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}:
+    get:
+      operationId: getTokenization
+      tags:
+        - "Tokenization"
+      summary: "Get a single card tokenization"
+      description: "Get tokenization"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/pause:
+    post:
+      operationId: pauseTokenization
+      tags:
+        - "Tokenization"
+      summary: "Pause a card tokenization"
+      description: "This endpoint is used to ask the card network to pause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network pauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/unpause:
+    post:
+      operationId: unpauseTokenization
+      tags:
+        - "Tokenization"
+      summary: "Unpause a card tokenization"
+      description: "This endpoint is used to ask the card network to unpause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network unpauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endp"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/deactivate:
+    post:
+      operationId: deactivateTokenization
+      tags:
+        - "Tokenization"
+      summary: "Deactivate a card tokenization"
+      description: "This endpoint is used to ask the card network to deactivate a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network deactivates the tokenization, the state will be updated and a tokenization.updated event will be sent. Au"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/activate:
+    post:
+      operationId: activateTokenization
+      tags:
+        - "Tokenization"
+      summary: "Activate a card tokenization"
+      description: "This endpoint is used to ask the card network to activate a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network activates the tokenization, the state will be updated and a tokenization.updated event will be sent. The en"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/resend_activation_code:
+    post:
+      operationId: resendActivationCodeForTokenization
+      tags:
+        - "Tokenization"
+      summary: "Resend activation code for a card tokenization"
+      description: "This endpoint is used to ask the card network to send another activation code to a cardholder that has already tried tokenizing a card. A successful response indicates that the request was successfully delivered to the card network. The endpoint may only be used on Mastercard digital wallet tokeniza"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/tokenizations/{tokenization_token}/update_digital_card_art:
+    post:
+      operationId: updateDigitalCardArtForTokenization
+      tags:
+        - "Tokenization"
+      summary: "Update digital card art for a card tokenization"
+      description: "This endpoint is used update the digital card art for a digital wallet tokenization. A successful response indicates that the card network has updated the tokenization's art, and the tokenization's `digital_cart_art_token` field was updated. The endpoint may not be used on tokenizations with status"
+      parameters:
+        - name: tokenization_token
+          in: path
+          required: true
+          description: "Tokenization token"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tokenization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions:
+    get:
+      operationId: getTransactions
+      tags:
+        - "Transaction"
+      summary: "List card transactions"
+      description: "List card transactions. All amounts are in the smallest unit of their respective currency (e.g., cents for USD) and inclusive of any acquirer fees."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transactions/{transaction_token}:
+    get:
+      operationId: getTransactionByToken
+      tags:
+        - "Transaction"
+      summary: "Get card transaction"
+      description: "Get a specific card transaction. All amounts are in the smallest unit of their respective currency (e.g., cents for USD)."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases:
+    get:
+      operationId: listTransactionMonitoringCases
+      tags:
+        - "Transaction Monitoring"
+      summary: "List cases"
+      description: "Lists transaction monitoring cases, optionally filtered."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}:
+    get:
+      operationId: getTransactionMonitoringCase
+      tags:
+        - "Transaction Monitoring"
+      summary: "Get case"
+      description: "Retrieves a single transaction monitoring case."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateTransactionMonitoringCase
+      tags:
+        - "Transaction Monitoring"
+      summary: "Update case"
+      description: "Updates a transaction monitoring case."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/activity:
+    get:
+      operationId: listTransactionMonitoringCaseActivity
+      tags:
+        - "Transaction Monitoring"
+      summary: "List case activity"
+      description: "Lists the activity feed for a case."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/transactions:
+    get:
+      operationId: listTransactionMonitoringCaseTransactions
+      tags:
+        - "Transaction Monitoring"
+      summary: "List case transactions"
+      description: "Lists the transactions associated with a case."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/cards:
+    get:
+      operationId: listTransactionMonitoringCaseCards
+      tags:
+        - "Transaction Monitoring"
+      summary: "List case cards"
+      description: "Lists the cards involved in a case, with per-card transaction counts."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/comments:
+    post:
+      operationId: createTransactionMonitoringCaseComment
+      tags:
+        - "Transaction Monitoring"
+      summary: "Add case comment"
+      description: "Adds a comment to a case."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}:
+    patch:
+      operationId: updateTransactionMonitoringCaseComment
+      tags:
+        - "Transaction Monitoring"
+      summary: "Update case comment"
+      description: "Edits an existing comment on a case."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTransactionMonitoringCaseComment
+      tags:
+        - "Transaction Monitoring"
+      summary: "Delete case comment"
+      description: "Deletes a comment from a case."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/files:
+    post:
+      operationId: createTransactionMonitoringCaseFile
+      tags:
+        - "Transaction Monitoring"
+      summary: "Create case file"
+      description: "Creates a file record and returns a presigned URL for uploading the file to the case."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: listTransactionMonitoringCaseFiles
+      tags:
+        - "Transaction Monitoring"
+      summary: "List case files"
+      description: "Lists the files attached to a case."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/cases/{case_token}/files/{file_token}:
+    get:
+      operationId: getTransactionMonitoringCaseFile
+      tags:
+        - "Transaction Monitoring"
+      summary: "Get case file"
+      description: "Retrieves a single file attached to a case, including a presigned download URL when the file is ready."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTransactionMonitoringCaseFile
+      tags:
+        - "Transaction Monitoring"
+      summary: "Delete case file"
+      description: "Deletes a file from a case."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/queues:
+    post:
+      operationId: createTransactionMonitoringQueue
+      tags:
+        - "Transaction Monitoring"
+      summary: "Create queue"
+      description: "Creates a new queue for grouping transaction monitoring cases."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      operationId: listTransactionMonitoringQueues
+      tags:
+        - "Transaction Monitoring"
+      summary: "List queues"
+      description: "Lists transaction monitoring queues."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transaction_monitoring/queues/{queue_token}:
+    get:
+      operationId: getTransactionMonitoringQueue
+      tags:
+        - "Transaction Monitoring"
+      summary: "Get queue"
+      description: "Retrieves a single transaction monitoring queue."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    patch:
+      operationId: updateTransactionMonitoringQueue
+      tags:
+        - "Transaction Monitoring"
+      summary: "Update queue"
+      description: "Updates a transaction monitoring queue."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      operationId: deleteTransactionMonitoringQueue
+      tags:
+        - "Transaction Monitoring"
+      summary: "Delete queue"
+      description: "Deletes a transaction monitoring queue."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoring'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transfer:
+    post:
+      operationId: postTransfer
+      tags:
+        - "Book Transfer"
+      summary: "Transfer funds within Lithic"
+      description: "Transfer funds between two financial accounts or between a financial account and card"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookTransfer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/transfer_limits:
+    get:
+      operationId: getTransferLimits
+      tags:
+        - "Transfer Limits"
+      summary: "Get transfer limits"
+      description: "Get transfer limits for a specified date"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferLimits'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/book_transfers:
+    get:
+      operationId: getBookTransfers
+      tags:
+        - "Book Transfer"
+      summary: "List book transfers"
+      description: "List book transfers"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookTransfer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postBookTransfers
+      tags:
+        - "Book Transfer"
+      summary: "Create book transfer"
+      description: "Book transfer funds between two financial accounts or between a financial account and card"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookTransfer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/book_transfers/{book_transfer_token}:
+    get:
+      operationId: getBookTransfer
+      tags:
+        - "Book Transfer"
+      summary: "Get book transfer by token"
+      description: "Get book transfer by token"
+      parameters:
+        - name: book_transfer_token
+          in: path
+          required: true
+          description: "Id of the book transfer to retrieve"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookTransfer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/book_transfers/{book_transfer_token}/retry:
+    post:
+      operationId: retryBookTransfer
+      tags:
+        - "Book Transfer"
+      summary: "Retry book transfer"
+      description: "Retry a book transfer that has been declined"
+      parameters:
+        - name: book_transfer_token
+          in: path
+          required: true
+          description: "Token of the book transfer to retry"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookTransfer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/book_transfers/{book_transfer_token}/reverse:
+    post:
+      operationId: reverseBookTransfer
+      tags:
+        - "Book Transfer"
+      summary: "Reverse book transfer"
+      description: "Reverse a book transfer"
+      parameters:
+        - name: book_transfer_token
+          in: path
+          required: true
+          description: "Id of the book transfer to retrieve"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookTransfer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_payments:
+    get:
+      operationId: getExternalPayments
+      tags:
+        - "External Payments"
+      summary: "List external payments"
+      description: "List external payments"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postExternalPayments
+      tags:
+        - "External Payments"
+      summary: "Create external payment"
+      description: "Create external payment"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_payments/{external_payment_token}:
+    get:
+      operationId: getExternalPayment
+      tags:
+        - "External Payments"
+      summary: "Get external payment"
+      description: "Get external payment"
+      parameters:
+        - name: external_payment_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the external payment"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_payments/{external_payment_token}/settle:
+    post:
+      operationId: settleExternalPayment
+      tags:
+        - "External Payments"
+      summary: "Settle external payment"
+      description: "Settle external payment"
+      parameters:
+        - name: external_payment_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the external payment"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_payments/{external_payment_token}/release:
+    post:
+      operationId: releaseExternalPayment
+      tags:
+        - "External Payments"
+      summary: "Release external payment"
+      description: "Release external payment"
+      parameters:
+        - name: external_payment_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the external payment"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_payments/{external_payment_token}/cancel:
+    post:
+      operationId: cancelExternalPayment
+      tags:
+        - "External Payments"
+      summary: "Cancel external payment"
+      description: "Cancel external payment"
+      parameters:
+        - name: external_payment_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the external payment"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/external_payments/{external_payment_token}/reverse:
+    post:
+      operationId: reverseExternalPayment
+      tags:
+        - "External Payments"
+      summary: "Reverse external payment"
+      description: "Reverse external payment"
+      parameters:
+        - name: external_payment_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the external payment"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalPayments'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/management_operations:
+    get:
+      operationId: getManagementOperations
+      tags:
+        - "Management Operations"
+      summary: "List management operations"
+      description: "List management operations"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagementOperations'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    post:
+      operationId: postManagementOperations
+      tags:
+        - "Management Operations"
+      summary: "Create management operation"
+      description: "Create management operation"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagementOperations'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/management_operations/{management_operation_token}:
+    get:
+      operationId: getManagementOperation
+      tags:
+        - "Management Operations"
+      summary: "Get management operation"
+      description: "Get management operation"
+      parameters:
+        - name: management_operation_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the management operation"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagementOperations'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/management_operations/{management_operation_token}/reverse:
+    post:
+      operationId: reverseManagementOperation
+      tags:
+        - "Management Operations"
+      summary: "Reverse management operation"
+      description: "Reverse a management operation"
+      parameters:
+        - name: management_operation_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the management operation"
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagementOperations'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/network_programs:
+    get:
+      operationId: getNetworkPrograms
+      tags:
+        - "Network Program"
+      summary: "List network programs"
+      description: "List network programs."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkProgram'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/network_programs/{network_program_token}:
+    get:
+      operationId: getNetworkProgram
+      tags:
+        - "Network Program"
+      summary: "Get network program"
+      description: "Get network program."
+      parameters:
+        - name: network_program_token
+          in: path
+          required: true
+          description: "Globally unique identifier for the network program."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkProgram'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/funding_events:
+    get:
+      operationId: getFundingEvents
+      tags:
+        - "Funding Events"
+      summary: "List funding events"
+      description: "Get all funding events for program"
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingEvents'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/funding_events/{funding_event_token}:
+    get:
+      operationId: getFundingEventById
+      tags:
+        - "Funding Events"
+      summary: "Get funding event by ID"
+      description: "Get funding event for program by id"
+      parameters:
+        - name: funding_event_token
+          in: path
+          required: true
+          description: "Globally unique identifier for funding event."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingEvents'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v1/funding_events/{funding_event_token}/details:
+    get:
+      operationId: getFundingEventDetailsById
+      tags:
+        - "Funding Events"
+      summary: "Get funding event details"
+      description: "Get funding event details by id"
+      parameters:
+        - name: funding_event_token
+          in: path
+          required: true
+          description: "Globally unique identifier for funding event."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingEvents'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/disputes:
+    get:
+      operationId: getDisputesV2
+      tags:
+        - "Managed Disputes"
+      summary: "List disputes"
+      description: "Returns a paginated list of disputes."
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedDisputes'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /v2/disputes/{dispute_token}:
+    get:
+      operationId: getDisputeByTokenV2
+      tags:
+        - "Managed Disputes"
+      summary: "Retrieve a dispute"
+      description: "Retrieves a specific dispute by its token."
+      parameters:
+        - name: dispute_token
+          in: path
+          required: true
+          description: "Token of the dispute to retrieve."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedDisputes'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Raw API secret key value (not prefixed with "Bearer").
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+    ValidationError:
+      description: The request failed validation.
+  schemas:
+    3DS:
+      type: object
+      description: "3D Secure e-commerce authentication and decisioning."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Account:
+      type: object
+      description: "Top-level program accounts and their spend limits."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    AccountHolder:
+      type: object
+      description: "KYC/KYB onboarding and management of individual and business account holders."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    AuthStreamAccessASA:
+      type: object
+      description: "Real-time HTTP webhook authorization decisioning in the transaction path."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    AuthRules:
+      type: object
+      description: "Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Balance:
+      type: object
+      description: "Available and pending balances for financial accounts."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    BookTransfer:
+      type: object
+      description: "Internal ledger transfers between financial accounts."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Card:
+      type: object
+      description: "Virtual and physical card issuance, lifecycle, and digital wallet provisioning."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    CardAuthorizations:
+      type: object
+      description: "Responses to real-time authorization challenges."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    CardBulkOrders:
+      type: object
+      description: "Bulk physical card ordering."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    CreditProduct:
+      type: object
+      description: "Credit product configuration, extended credit, and prime rates."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Chargeback:
+      type: object
+      description: "Legacy v1 dispute (chargeback) submission and evidence."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Event:
+      type: object
+      description: "Events API and webhook event subscription management."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    ExternalBankAccount:
+      type: object
+      description: "External bank accounts used for ACH payments, with prenote and micro-deposit verification."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    ExternalPayments:
+      type: object
+      description: "Recording and reconciling payments that move outside of Lithic-initiated rails."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    FinancialAccount:
+      type: object
+      description: "Ledgered financial accounts, credit configuration, and account activity."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    FraudReport:
+      type: object
+      description: "Fraud reporting on card transactions."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    FundingEvents:
+      type: object
+      description: "Card program funding event reporting."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Hold:
+      type: object
+      description: "Holds placed against financial account balances."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    ManagedDisputes:
+      type: object
+      description: "v2 managed disputes (read surface for Lithic-managed dispute handling)."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    ManagementOperations:
+      type: object
+      description: "Manual ledger adjustments and corrections."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    NetworkProgram:
+      type: object
+      description: "Card network program metadata."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Payment:
+      type: object
+      description: "ACH payments between Lithic financial accounts and external bank accounts."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    ResponderEndpoints:
+      type: object
+      description: "Registration of HTTP endpoints that receive Auth Stream Access (ASA) requests."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    SettlementReport:
+      type: object
+      description: "Daily settlement detail, summary, and network total reporting."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Statements:
+      type: object
+      description: "Financial account statements, line items, and loan tapes for credit products."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Status:
+      type: object
+      description: "API status check."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Tokenization:
+      type: object
+      description: "Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    Transaction:
+      type: object
+      description: "Card transaction authorization, clearing, and simulation."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
+    TransactionMonitoring:
+      type: object
+      description: "Fraud/AML case and queue management for flagged transactions."
+      properties:
+        token:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the object.
+        created:
+          type: string
+          format: date-time
+      additionalProperties: true
