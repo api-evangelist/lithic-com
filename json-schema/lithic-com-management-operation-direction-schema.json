@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/management_operation_direction",
+  "title": "Management Operation Direction",
+  "type": "string",
+  "enum": [
+    "CREDIT",
+    "DEBIT"
+  ]
+}

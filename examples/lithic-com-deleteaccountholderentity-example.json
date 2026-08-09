@@ -1,0 +1,32 @@
+{
+  "operationId": "deleteAccountHolderEntity",
+  "method": "DELETE",
+  "path": "/v1/account_holders/{account_holder_token}/entities/{entity_token}",
+  "summary": "Deactivate a beneficial owner individual",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "deactivatedEntityResponse",
+      "example": {
+        "account_holder_token": "fa68ed76-9d02-4d45-8a3f-782f3b6a8b3f",
+        "token": "49c978db-20c4-46d8-9db4-b0ef28c03533",
+        "type": "BENEFICIAL_OWNER_INDIVIDUAL",
+        "status": "INACTIVE",
+        "first_name": "Timmy",
+        "last_name": "Turner",
+        "email": "tim@left-earth.com",
+        "phone_number": "+15555555555",
+        "dob": "1991-03-08T08:00:00Z",
+        "address": {
+          "address1": "300 Normal Forest Way",
+          "city": "Portland",
+          "country": "USA",
+          "postal_code": "90210",
+          "state": "OR"
+        }
+      }
+    }
+  ]
+}

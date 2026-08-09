@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-event",
+  "title": "Tokenization Event",
+  "properties": {
+    "created_at": {
+      "description": "Date and time when the tokenization event first occurred. UTC time zone.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "result": {
+      "$ref": "#/components/schemas/tokenization-event-outcome"
+    },
+    "token": {
+      "description": "Globally unique identifier for a Tokenization Event",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "Enum representing the type of tokenization event that occurred",
+      "enum": [
+        "TOKENIZATION_2FA",
+        "TOKENIZATION_AUTHORIZATION",
+        "TOKENIZATION_DECISIONING",
+        "TOKENIZATION_ELIGIBILITY_CHECK",
+        "TOKENIZATION_UPDATED"
+      ],
+      "type": "string"
+    },
+    "tokenization_decline_reasons": {
+      "description": "List of reasons why the tokenization was declined",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/tokenization-decline-reason"
+      }
+    },
+    "tokenization_tfa_reasons": {
+      "description": "List of reasons why two-factor authentication was required",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/tokenization-tfa-reason"
+      }
+    },
+    "rule_results": {
+      "description": "Results from rules that were evaluated for this tokenization",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/tokenization-rule-result"
+      }
+    }
+  }
+}

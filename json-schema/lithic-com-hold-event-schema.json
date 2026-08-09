@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/hold_event",
+  "title": "Hold Event",
+  "description": "Event representing a lifecycle change to a hold",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "$ref": "#/components/schemas/hold_event_type"
+    },
+    "result": {
+      "$ref": "#/components/schemas/transaction_result"
+    },
+    "detailed_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/detailed_results"
+      }
+    },
+    "amount": {
+      "type": "integer",
+      "description": "Amount in cents"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "memo": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "settling_transaction_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid",
+      "description": "Transaction token of the payment that settled this hold (only populated for HOLD_SETTLED events)"
+    }
+  },
+  "required": [
+    "token",
+    "type",
+    "result",
+    "detailed_results",
+    "amount",
+    "created",
+    "memo",
+    "settling_transaction_token"
+  ]
+}

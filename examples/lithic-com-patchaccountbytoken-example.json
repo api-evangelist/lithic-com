@@ -1,0 +1,41 @@
+{
+  "operationId": "patchAccountByToken",
+  "method": "PATCH",
+  "path": "/v1/accounts/{account_token}",
+  "summary": "Update account",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "setDailySpendLimit",
+      "example": {
+        "daily_spend_limit": 1000
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "exampleResponse",
+      "example": {
+        "cardholder_currency": "USD",
+        "spend_limit": {
+          "daily": 1000,
+          "lifetime": 100000,
+          "monthly": 40000
+        },
+        "state": "ACTIVE",
+        "token": "ecbd1d58-0299-48b3-84da-6ed7f5bf9ec1",
+        "created": "2024-01-11T19:50:36Z",
+        "verification_address": {
+          "address1": "5 Broad Street",
+          "address2": "",
+          "city": "New York",
+          "country": "USA",
+          "postal_code": "10001",
+          "state": "NY"
+        }
+      }
+    }
+  ]
+}

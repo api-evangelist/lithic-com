@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/statement_totals",
+  "title": "Statement Totals",
+  "type": "object",
+  "properties": {
+    "payments": {
+      "type": "integer",
+      "description": "Any funds transfers which affective the balance in cents"
+    },
+    "payment_details": {
+      "$ref": "#/components/schemas/payment_details"
+    },
+    "purchases": {
+      "type": "integer",
+      "description": "Net card transaction volume less any cash advances in cents"
+    },
+    "fees": {
+      "type": "integer",
+      "description": "Volume of debit management operation transactions less any interest in cents"
+    },
+    "debits": {
+      "type": "integer",
+      "description": "Volume of debit management operation transactions less any interest in cents"
+    },
+    "debit_details": {
+      "$ref": "#/components/schemas/debit_details"
+    },
+    "credits": {
+      "type": "integer",
+      "description": "Volume of credit management operation transactions less any balance transfers in cents"
+    },
+    "credit_details": {
+      "$ref": "#/components/schemas/credit_details"
+    },
+    "interest": {
+      "type": "integer",
+      "description": "Interest accrued in cents"
+    },
+    "cash_advances": {
+      "type": "integer",
+      "description": "ATM and cashback transactions in cents"
+    },
+    "balance_transfers": {
+      "type": "integer",
+      "description": "Opening balance transferred from previous account in cents"
+    }
+  },
+  "required": [
+    "payments",
+    "purchases",
+    "fees",
+    "debits",
+    "credits",
+    "interest",
+    "cash_advances",
+    "balance_transfers"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-feature-state",
+  "title": "Auth Rule Feature State",
+  "type": "object",
+  "properties": {
+    "evaluated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp at which the Features were evaluated"
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/spend-feature-state"
+          }
+        ]
+      },
+      "description": "Calculated Features used for evaluation of the provided Auth Rule"
+    }
+  },
+  "required": [
+    "evaluated",
+    "features"
+  ]
+}

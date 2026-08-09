@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/book-transfer-transaction",
+  "title": "Book Transfer Transaction",
+  "description": "Book transfer transaction",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/base_transaction"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "const": "TRANSFER",
+          "description": "TRANSFER - Book Transfer Transaction"
+        },
+        "result": {
+          "$ref": "#/components/schemas/transaction_result"
+        },
+        "category": {
+          "$ref": "#/components/schemas/book_transfer_category"
+        },
+        "currency": {
+          "type": "string",
+          "description": "3-character alphabetic ISO 4217 code for the settling currency of the transaction",
+          "example": "USD"
+        },
+        "settled_amount": {
+          "type": "integer",
+          "description": "Amount of the transaction that has been settled in the currency's smallest unit (e.g., cents)",
+          "example": 500
+        },
+        "pending_amount": {
+          "type": "integer",
+          "description": "Pending amount of the transaction in the currency's smallest unit (e.g., cents), including any acquirer fees.\n\nThe value of this field will go to zero over time once the financial transaction is settled.\n",
+          "example": 1000
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/book_transfer_event"
+          },
+          "description": "A list of all financial events that have modified this transfer"
+        },
+        "from_financial_account_token": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Globally unique identifier for the financial account or card that will send the funds. Accepted type dependent on the program's use case"
+        },
+        "to_financial_account_token": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Globally unique identifier for the financial account or card that will receive the funds. Accepted type dependent on the program's use case"
+        },
+        "external_id": {
+          "description": "External ID defined by the customer",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transaction_series": {
+          "description": "A series of transactions that are grouped together",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/transaction_series"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "external_resource": {
+          "description": "An external resource associated with the transfer",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/external_resource"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "family",
+        "result",
+        "category",
+        "currency",
+        "settled_amount",
+        "pending_amount",
+        "events",
+        "from_financial_account_token",
+        "to_financial_account_token"
+      ]
+    }
+  ]
+}

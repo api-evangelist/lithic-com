@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/KycIndividual",
+  "title": "KycIndividual",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Individual"
+    },
+    {
+      "required": [
+        "address",
+        "dob",
+        "email",
+        "first_name",
+        "government_id",
+        "last_name",
+        "phone_number"
+      ],
+      "type": "object"
+    }
+  ],
+  "description": "Individuals associated with a KYC application.",
+  "x-stainless-naming": {
+    "java": {
+      "type_name": "Individual"
+    }
+  }
+}

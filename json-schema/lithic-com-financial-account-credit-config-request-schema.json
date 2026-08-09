@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-account-credit-config-request",
+  "title": "Financial Account Credit Configuration Request",
+  "type": "object",
+  "properties": {
+    "credit_limit": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "external_bank_account_token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "credit_product_token": {
+      "type": "string",
+      "description": "Globally unique identifier for the credit product"
+    },
+    "tier": {
+      "type": "string",
+      "description": "Tier to assign to a financial account",
+      "minLength": 1
+    },
+    "auto_collection_configuration": {
+      "$ref": "#/components/schemas/auto-collection-configuration-request"
+    }
+  },
+  "required": []
+}

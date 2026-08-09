@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account-holder-document-updated",
+  "title": "Account Holder Document Updated",
+  "examples": [
+    {
+      "account_holder_token": "2b52494a-ae73-4ab1-97e8-2dd1d51d18b0",
+      "created": "2023-09-26 16:41:40.530987",
+      "document_type": "EIN_LETTER",
+      "entity_token": "c5f2d594-d957-4781-8877-fbea31f5944a",
+      "required_document_uploads": [
+        {
+          "accepted_entity_status_reasons": [],
+          "created": "2024-08-05 20:48:51.746833",
+          "image_type": "FRONT",
+          "rejected_entity_status_reasons": [],
+          "status": "UPLOADED",
+          "status_reasons": [],
+          "token": "9e1d69a1-377b-463a-b991-01b3c81519b6",
+          "updated": "2024-08-05 21:08:23.635573"
+        },
+        {
+          "accepted_entity_status_reasons": [],
+          "created": "2024-08-04 01:32:44.113765",
+          "image_type": "FRONT",
+          "rejected_entity_status_reasons": [
+            "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE"
+          ],
+          "status": "REJECTED",
+          "status_reasons": [
+            "DOCUMENT_MISSING_REQUIRED_DATA"
+          ],
+          "token": "9e1d69a1-377b-463a-b991-01b3c81519b6",
+          "updated": "2024-08-04 02:18:47.113773"
+        }
+      ],
+      "token": "9175a05c-a9da-4082-8e14-9296427ebba7"
+    }
+  ],
+  "properties": {
+    "account_holder_token": {
+      "description": "The token of the account_holder that the document belongs to",
+      "example": "2b52494a-ae73-4ab1-97e8-2dd1d51d18b0",
+      "format": "uuid",
+      "type": "string"
+    },
+    "created": {
+      "description": "When the account_holder was created",
+      "format": "date-time",
+      "type": "string"
+    },
+    "document_type": {
+      "$ref": "#/components/schemas/document-type"
+    },
+    "entity_token": {
+      "description": "The token of the entity that the document belongs to",
+      "example": "c5f2d594-d957-4781-8877-fbea31f5944a",
+      "format": "uuid",
+      "type": "string"
+    },
+    "required_document_uploads": {
+      "items": {
+        "description": "A document upload that belongs to the overall account holder document",
+        "properties": {
+          "created": {
+            "description": "When the document upload was created",
+            "format": "date-time",
+            "type": "string"
+          },
+          "image_type": {
+            "description": "The type of image that was uploaded",
+            "enum": [
+              "FRONT",
+              "BACK"
+            ],
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the document upload",
+            "$ref": "#/components/schemas/document-upload-status"
+          },
+          "status_reasons": {
+            "items": {
+              "description": "If status is REJECTED, status_reasons provides the reasons the document was rejected.",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "accepted_entity_status_reasons": {
+            "items": {
+              "description": "A list of status reasons associated with a KYB account holder that have been satisfied by the document upload",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rejected_entity_status_reasons": {
+            "items": {
+              "description": "A list of status reasons associated with a KYB account holder that have not been satisfied by the document upload",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "token": {
+            "description": "The token of the document upload",
+            "format": "uuid",
+            "type": "string"
+          },
+          "updated": {
+            "description": "When the document upload was last updated",
+            "format": "date-time",
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "token": {
+      "description": "The token of the account holder document",
+      "example": "9175a05c-a9da-4082-8e14-9296427ebba7",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

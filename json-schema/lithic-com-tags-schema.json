@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tags",
+  "title": "Tags",
+  "description": "Key-value pairs for tagging resources. Tags allow you to associate arbitrary metadata with a resource for your own purposes.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "string"
+  },
+  "example": {
+    "risk-level": "high"
+  }
+}

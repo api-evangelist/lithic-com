@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/service_location",
+  "title": "Service Location",
+  "description": "Where the cardholder received the service, when different from the card acceptor location. This is populated from network data elements such as Mastercard DE-122 SE1 SF9-14 and Visa F34 DS02.",
+  "type": "object",
+  "properties": {
+    "street_address": {
+      "description": "Street address of service location.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "city": {
+      "description": "City of service location.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "description": "State/province code of service location, ISO 3166-2.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "country": {
+      "description": "Country code of service location, ISO 3166-1 alpha-3.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "postal_code": {
+      "description": "Postal code of service location.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "street_address",
+    "city",
+    "state",
+    "country",
+    "postal_code"
+  ]
+}

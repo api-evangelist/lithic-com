@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/funding_events_created_webhook",
+  "title": "Funding Event Webhook",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/funding_event_response"
+    }
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "funding_event.created"
+      ]
+    }
+  },
+  "required": [
+    "event_type"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/disputes-response",
+  "title": "Disputes Response",
+  "description": "Response for listing disputes",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "Array of dispute objects",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/dispute"
+      }
+    },
+    "has_more": {
+      "description": "Whether there are more results available",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

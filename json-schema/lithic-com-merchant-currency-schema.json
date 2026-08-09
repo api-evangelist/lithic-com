@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/merchant_currency",
+  "title": "Merchant Currency",
+  "description": "3-character alphabetic ISO 4217 code for the local currency of the transaction.",
+  "example": "USD",
+  "type": "string"
+}

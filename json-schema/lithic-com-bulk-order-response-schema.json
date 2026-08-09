@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/bulk-order-response",
+  "title": "Bulk Order Response",
+  "description": "Represents a bulk order for physical card shipments",
+  "type": "object",
+  "properties": {
+    "token": {
+      "description": "Globally unique identifier for the bulk order",
+      "example": "7ef7d65c-9023-4da3-b113-3b8583fd7951",
+      "format": "uuid",
+      "type": "string"
+    },
+    "status": {
+      "description": "Status of the bulk order. OPEN indicates the order is accepting cards. LOCKED indicates the order is finalized and no more cards can be added",
+      "enum": [
+        "OPEN",
+        "LOCKED"
+      ],
+      "type": "string"
+    },
+    "shipping_address": {
+      "description": "Shipping address for all cards in this bulk order",
+      "type": "object"
+    },
+    "shipping_method": {
+      "description": "Shipping method for all cards in this bulk order. BULK_PRIORITY, BULK_2_DAY, and BULK_EXPRESS are only available with Perfect Plastic Printing",
+      "enum": [
+        "BULK_EXPEDITED",
+        "BULK_PRIORITY",
+        "BULK_2_DAY",
+        "BULK_EXPRESS"
+      ],
+      "type": "string"
+    },
+    "customer_product_id": {
+      "description": "Customer-specified product configuration for physical card manufacturing. This must be configured with Lithic before use",
+      "example": "custom-card-design-123",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "card_tokens": {
+      "description": "List of card tokens associated with this bulk order",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "created": {
+      "description": "An RFC 3339 timestamp for when the bulk order was created. UTC time zone",
+      "example": "2021-06-28T22:53:15Z",
+      "format": "date-time",
+      "type": "string"
+    },
+    "updated": {
+      "description": "An RFC 3339 timestamp for when the bulk order was last updated. UTC time zone",
+      "example": "2021-06-28T22:53:15Z",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "status",
+    "shipping_address",
+    "shipping_method",
+    "customer_product_id",
+    "card_tokens",
+    "created",
+    "updated"
+  ]
+}

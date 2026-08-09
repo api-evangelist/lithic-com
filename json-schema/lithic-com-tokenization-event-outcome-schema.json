@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-event-outcome",
+  "title": "Tokenization Event Outcome",
+  "description": "Enum representing the result of the tokenization event",
+  "type": "string",
+  "enum": [
+    "APPROVED",
+    "DECLINED",
+    "NOTIFICATION_DELIVERED",
+    "REQUIRE_ADDITIONAL_AUTHENTICATION",
+    "TOKEN_ACTIVATED",
+    "TOKEN_CREATED",
+    "TOKEN_DEACTIVATED",
+    "TOKEN_DELETED_FROM_CONSUMER_APP",
+    "TOKEN_INACTIVE",
+    "TOKEN_STATE_UNKNOWN",
+    "TOKEN_SUSPENDED",
+    "TOKEN_UPDATED"
+  ]
+}

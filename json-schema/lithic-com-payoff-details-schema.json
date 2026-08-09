@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/payoff_details",
+  "title": "Payoff Details",
+  "description": "Details on number and size of payments to pay off balance",
+  "type": "object",
+  "properties": {
+    "minimum_payment_months": {
+      "description": "The number of months it would take to pay off the balance in full by only paying the minimum payment. \"NA\" will signal negative or zero amortization",
+      "type": "string"
+    },
+    "minimum_payment_total": {
+      "description": "The sum of all interest and principal paid, in cents, when only paying minimum monthly payment. \"NA\" will signal negative or zero amortization",
+      "type": "string"
+    },
+    "payoff_period_length_months": {
+      "description": "Number of months to full pay off",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "payoff_period_monthly_payment_amount": {
+      "description": "The amount needed to be paid, in cents, each month in order to pay off current balance in the payoff period",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "payoff_period_payment_total": {
+      "description": "The sum of all interest and principal paid, in cents, when paying off in the payoff period",
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "minimum_payment_months",
+    "minimum_payment_total",
+    "payoff_period_length_months",
+    "payoff_period_monthly_payment_amount",
+    "payoff_period_payment_total"
+  ]
+}

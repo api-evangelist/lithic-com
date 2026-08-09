@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/visa_network_specific_data",
+  "title": "Visa Network Specific Data",
+  "type": "object",
+  "properties": {
+    "business_application_identifier": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "Business application identifier not available."
+        },
+        {
+          "type": "string",
+          "description": "Identifies the purpose or category of a transaction, used to classify and process transactions according to Visa\u2019s rules.",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      ]
+    }
+  },
+  "required": [
+    "business_application_identifier"
+  ]
+}

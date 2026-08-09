@@ -1,0 +1,25 @@
+{
+  "operationId": "postSimulateClearing",
+  "method": "POST",
+  "path": "/v1/simulate/clearing",
+  "summary": "Simulate clearing",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "simulateClear",
+      "example": {
+        "amount": 0,
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "example": {
+        "debugging_request_id": "3ec51ef1-b68d-4243-be6c-2204229b09cf"
+      }
+    }
+  ]
+}

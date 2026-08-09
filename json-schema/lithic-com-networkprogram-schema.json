@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkProgram",
+  "title": "NetworkProgram",
+  "properties": {
+    "token": {
+      "description": "Lithic-generated unique identifier for the program",
+      "format": "uuid",
+      "type": "string"
+    },
+    "registered_program_identification_number": {
+      "description": "RPIN value assigned by the network.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the network program.",
+      "type": "string"
+    },
+    "default_product_code": {
+      "description": "Network product ID associated with this program.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "registered_program_identification_number",
+    "name",
+    "default_product_code"
+  ],
+  "type": "object"
+}

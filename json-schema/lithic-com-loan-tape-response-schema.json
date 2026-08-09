@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/loan_tape_response",
+  "title": "Loan Tape Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Globally unique identifier for a loan tape",
+      "title": "Loan Tape Token"
+    },
+    "financial_account_token": {
+      "description": "Globally unique identifier for a financial account",
+      "type": "string",
+      "format": "uuid"
+    },
+    "date": {
+      "description": "Date of transactions that this loan tape covers",
+      "type": "string",
+      "format": "date"
+    },
+    "created": {
+      "description": "Timestamp of when the loan tape was created",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "description": "Timestamp of when the loan tape was updated",
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "description": "Version number of the loan tape. This starts at 1",
+      "type": "integer"
+    },
+    "ytd_totals": {
+      "$ref": "#/components/schemas/statement_totals"
+    },
+    "period_totals": {
+      "$ref": "#/components/schemas/statement_totals"
+    },
+    "day_totals": {
+      "$ref": "#/components/schemas/statement_totals"
+    },
+    "balances": {
+      "$ref": "#/components/schemas/balances"
+    },
+    "starting_balance": {
+      "description": "Balance at the start of the day",
+      "type": "integer"
+    },
+    "ending_balance": {
+      "description": "Balance at the end of the day",
+      "type": "integer"
+    },
+    "credit_limit": {
+      "description": "For prepay accounts, this is the minimum prepay balance that must be maintained. For charge card accounts, this is the maximum credit balance extended by a lender",
+      "type": "integer"
+    },
+    "available_credit": {
+      "description": "Amount of credit available to spend in cents",
+      "type": "integer"
+    },
+    "excess_credits": {
+      "description": "Excess credits in the form of provisional credits, payments, or purchase refunds. If positive, the account is in net credit state with no outstanding balances. An overpayment could land an account in this state",
+      "type": "integer"
+    },
+    "account_standing": {
+      "$ref": "#/components/schemas/account_standing"
+    },
+    "credit_product_token": {
+      "description": "Globally unique identifier for a credit product",
+      "type": "string"
+    },
+    "tier": {
+      "description": "Interest tier to which this account belongs to",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payment_allocation": {
+      "$ref": "#/components/schemas/payment_allocation"
+    },
+    "minimum_payment_balance": {
+      "$ref": "#/components/schemas/balance_details"
+    },
+    "previous_statement_balance": {
+      "$ref": "#/components/schemas/balance_details"
+    },
+    "interest_details": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/interest_details"
+        }
+      ]
+    }
+  },
+  "required": [
+    "token",
+    "financial_account_token",
+    "date",
+    "created",
+    "updated",
+    "version",
+    "ytd_totals",
+    "period_totals",
+    "day_totals",
+    "credit_limit",
+    "excess_credits",
+    "account_standing",
+    "credit_product_token",
+    "payment_allocation",
+    "balances",
+    "minimum_payment_balance",
+    "previous_statement_balance",
+    "starting_balance",
+    "ending_balance",
+    "available_credit",
+    "interest_details"
+  ]
+}

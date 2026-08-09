@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/base-transaction-response",
+  "title": "Transaction Response",
+  "description": "Response containing multiple transaction types. The `family` field determines which transaction type is returned: INTERNAL returns FinancialTransaction, TRANSFER returns BookTransferTransaction, CARD returns CardTransaction, PAYMENT returns PaymentTransaction, EXTERNAL_PAYMENT returns ExternalPaymentResponse, MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns HoldTransaction",
+  "discriminator": {
+    "propertyName": "family",
+    "mapping": {
+      "INTERNAL": "#/components/schemas/financial-transaction",
+      "TRANSFER": "#/components/schemas/book-transfer-transaction",
+      "CARD": "#/components/schemas/card-transaction",
+      "PAYMENT": "#/components/schemas/payment-transaction",
+      "EXTERNAL_PAYMENT": "#/components/schemas/external_payment_response",
+      "MANAGEMENT_OPERATION": "#/components/schemas/management_operation_transaction",
+      "HOLD": "#/components/schemas/hold_transaction"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/financial-transaction"
+    },
+    {
+      "$ref": "#/components/schemas/book-transfer-transaction"
+    },
+    {
+      "$ref": "#/components/schemas/card-transaction"
+    },
+    {
+      "$ref": "#/components/schemas/payment-transaction"
+    },
+    {
+      "$ref": "#/components/schemas/external_payment_response"
+    },
+    {
+      "$ref": "#/components/schemas/management_operation_transaction"
+    },
+    {
+      "$ref": "#/components/schemas/hold_transaction"
+    }
+  ]
+}

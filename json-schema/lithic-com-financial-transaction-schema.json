@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-transaction",
+  "title": "Financial Transaction",
+  "description": "Financial transaction with inheritance from unified base transaction",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/base_transaction"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "const": "INTERNAL",
+          "description": "INTERNAL - Financial Transaction"
+        },
+        "category": {
+          "$ref": "#/components/schemas/transaction_category",
+          "description": "Transaction category"
+        },
+        "result": {
+          "$ref": "#/components/schemas/transaction_result",
+          "description": "Transaction result"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency of the transaction, represented in ISO 4217 format",
+          "example": "USD"
+        },
+        "settled_amount": {
+          "type": "integer",
+          "description": "Settled amount in cents",
+          "example": 200
+        },
+        "pending_amount": {
+          "type": "integer",
+          "description": "Pending amount in cents",
+          "example": 500
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/financial_event"
+          },
+          "description": "List of transaction events"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Transaction descriptor"
+        },
+        "financial_account_token": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Financial account token associated with the transaction",
+          "example": "0cc87075-57cf-4607-8722-f42e2cb2c0cd"
+        }
+      },
+      "required": [
+        "category",
+        "currency",
+        "family",
+        "result",
+        "settled_amount",
+        "pending_amount",
+        "events",
+        "descriptor",
+        "financial_account_token"
+      ]
+    }
+  ]
+}

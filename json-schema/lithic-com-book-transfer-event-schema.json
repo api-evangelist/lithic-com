@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/book_transfer_event",
+  "title": "Book Transfer Event",
+  "description": "Book transfer Event",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "Amount of the financial event that has been settled in the currency's smallest unit (e.g., cents).",
+      "type": "integer"
+    },
+    "type": {
+      "$ref": "#/components/schemas/book_transfer_type"
+    },
+    "result": {
+      "description": "APPROVED financial events were successful while DECLINED financial events were declined by user, Lithic, or the network.",
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "DECLINED"
+      ]
+    },
+    "created": {
+      "description": "Date and time when the financial event occurred. UTC time zone.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "subtype": {
+      "description": "The program specific subtype code for the specified category/type.",
+      "type": "string"
+    },
+    "memo": {
+      "description": "Memo for the transfer.",
+      "type": "string"
+    },
+    "detailed_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/book_transfer_detailed_results"
+      }
+    }
+  },
+  "required": [
+    "amount",
+    "type",
+    "result",
+    "created",
+    "token",
+    "subtype",
+    "memo",
+    "detailed_results"
+  ]
+}

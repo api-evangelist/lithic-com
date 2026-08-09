@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/network_total",
+  "title": "Network Total",
+  "type": "object",
+  "required": [
+    "token",
+    "network",
+    "institution_id",
+    "settlement_institution_id",
+    "settlement_service",
+    "report_date",
+    "currency",
+    "is_complete",
+    "amounts",
+    "created",
+    "updated"
+  ],
+  "properties": {
+    "token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier."
+    },
+    "network": {
+      "type": "string",
+      "enum": [
+        "AMEX",
+        "VISA",
+        "MASTERCARD",
+        "MAESTRO",
+        "INTERLINK"
+      ],
+      "description": "Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO, or INTERLINK."
+    },
+    "institution_id": {
+      "type": "string",
+      "description": "The institution that activity occurred on. For Mastercard: ICA (Interbank Card Association). For Maestro: institution ID. For Visa: lowest level SRE (Settlement Reporting Entity)."
+    },
+    "settlement_institution_id": {
+      "type": "string",
+      "description": "The institution responsible for settlement. For Mastercard: same as `institution_id`. For Maestro: billing ICA. For Visa: Funds Transfer SRE (FTSRE)."
+    },
+    "settlement_service": {
+      "type": "string",
+      "description": "Settlement service."
+    },
+    "report_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date that the network total record applies to. YYYY-MM-DD format."
+    },
+    "cycle": {
+      "type": "integer",
+      "description": "The clearing cycle that the network total record applies to. Mastercard only."
+    },
+    "currency": {
+      "type": "string",
+      "description": "3-character alphabetic ISO 4217 code."
+    },
+    "is_complete": {
+      "type": "boolean",
+      "description": "Indicates that all settlement records related to this Network Total are available in the details endpoint."
+    },
+    "amounts": {
+      "type": "object",
+      "required": [
+        "gross_settlement",
+        "interchange_fees",
+        "net_settlement"
+      ],
+      "properties": {
+        "gross_settlement": {
+          "type": "integer",
+          "description": "Total settlement amount excluding interchange, in currency's smallest unit."
+        },
+        "interchange_fees": {
+          "type": "integer",
+          "description": "Interchange amount, in currency's smallest unit."
+        },
+        "visa_charges": {
+          "type": "integer",
+          "description": "Charges specific to Visa/Interlink, in currency's smallest unit."
+        },
+        "net_settlement": {
+          "type": "integer",
+          "description": "`gross_settlement` net of `interchange_fees` and `visa_charges` (if applicable), in currency's smallest unit."
+        }
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp for when the record was created. UTC time zone."
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp for when the record was last updated. UTC time zone."
+    }
+  },
+  "examples": [
+    {
+      "token": "12cf7505-06a8-435e-b1c7-4c430d02f6c3",
+      "network": "VISA",
+      "institution_id": "1000000000",
+      "settlement_institution_id": "1000000001",
+      "settlement_service": "015",
+      "report_date": "2025-02-25",
+      "currency": "CAD",
+      "is_complete": true,
+      "amounts": {
+        "gross_settlement": 100,
+        "interchange_fees": -25,
+        "visa_charges": 10,
+        "net_settlement": 85
+      },
+      "created": "2025-02-25T13:07:31.419631Z",
+      "updated": "2025-02-25T13:07:31.419631Z"
+    }
+  ]
+}

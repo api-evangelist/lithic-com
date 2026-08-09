@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate-authentication-request",
+  "title": "3DS Simulation Request object",
+  "type": "object",
+  "description": "Request object for simulating a 3DS authentication",
+  "properties": {
+    "merchant": {
+      "type": "object",
+      "description": "Merchant information for the simulated transaction",
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "Country of the address provided by the cardholder in ISO 3166-1 alpha-3 format (e.g. USA)",
+          "example": "USA"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier to identify the payment card acceptor. Corresponds to `merchant_acceptor_id` in authorization.",
+          "example": "OODKZAPJVN4YS7O",
+          "maxLength": 15,
+          "minLength": 1
+        },
+        "mcc": {
+          "type": "string",
+          "description": "Merchant category code for the transaction to be simulated. A four-digit number listed in ISO 18245. Supported merchant category codes can be found [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).",
+          "example": "5812"
+        },
+        "name": {
+          "type": "string",
+          "description": "Merchant descriptor, corresponds to `descriptor` in authorization. If CHALLENGE keyword is included, Lithic will trigger a challenge.",
+          "example": "COFFEE SHOP",
+          "maxLength": 25,
+          "minLength": 1
+        }
+      },
+      "required": [
+        "country",
+        "id",
+        "mcc",
+        "name"
+      ]
+    },
+    "pan": {
+      "type": "string",
+      "description": "Sixteen digit card number.",
+      "example": "4111111289144142",
+      "maxLength": 16,
+      "minLength": 16
+    },
+    "transaction": {
+      "type": "object",
+      "description": "Transaction details for the simulation",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "description": "Amount (in cents) to authenticate.",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "description": "3-character alphabetic ISO 4217 currency code.",
+          "example": "GBP"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "card_expiry_check": {
+      "type": "string",
+      "description": "When set will use the following values as part of the Simulated Authentication. When not set defaults to MATCH",
+      "enum": [
+        "MATCH",
+        "MISMATCH",
+        "NOT_PRESENT"
+      ]
+    }
+  },
+  "required": [
+    "merchant",
+    "pan",
+    "transaction"
+  ]
+}

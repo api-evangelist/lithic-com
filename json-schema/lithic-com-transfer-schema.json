@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Transfer",
+  "title": "Transfer",
+  "properties": {
+    "category": {
+      "description": "Status types:\n* `TRANSFER` - Internal transfer of funds between financial accounts in your program.\n",
+      "enum": [
+        "TRANSFER"
+      ],
+      "type": "string"
+    },
+    "created": {
+      "description": "Date and time when the transfer occurred. UTC time zone.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "description": "3-character alphabetic ISO 4217 code for the settling currency of the transaction.",
+      "type": "string"
+    },
+    "descriptor": {
+      "description": "A string that provides a description of the transfer; may be useful to display to users.",
+      "type": "string"
+    },
+    "events": {
+      "description": "A list of all financial events that have modified this trasnfer.",
+      "items": {
+        "$ref": "#/components/schemas/financial_event"
+      },
+      "type": "array"
+    },
+    "from_balance": {
+      "description": "The updated balance of the sending financial account.",
+      "items": {
+        "$ref": "#/components/schemas/balance"
+      },
+      "type": "array"
+    },
+    "pending_amount": {
+      "description": "Pending amount of the transaction in the currency's smallest unit (e.g., cents), including any acquirer fees.\nThe value of this field will go to zero over time once the financial transaction is settled.\n",
+      "type": "integer"
+    },
+    "result": {
+      "description": "APPROVED transactions were successful while DECLINED transactions were declined by user, Lithic, or the network.",
+      "enum": [
+        "APPROVED",
+        "DECLINED"
+      ],
+      "type": "string"
+    },
+    "settled_amount": {
+      "description": "Amount of the transaction that has been settled in the currency's smallest unit (e.g., cents).",
+      "type": "integer"
+    },
+    "status": {
+      "description": "Status types:\n* `DECLINED` - The transfer was declined.\n* `EXPIRED` - The transfer was held in pending for too long and expired.\n* `PENDING` - The transfer is pending release from a hold.\n* `SETTLED` - The transfer is completed.\n* `VOIDED` - The transfer was reversed before it settled.\n",
+      "enum": [
+        "DECLINED",
+        "EXPIRED",
+        "PENDING",
+        "SETTLED",
+        "VOIDED"
+      ],
+      "type": "string"
+    },
+    "to_balance": {
+      "description": "The updated balance of the receiving financial account.",
+      "items": {
+        "$ref": "#/components/schemas/balance"
+      },
+      "type": "array"
+    },
+    "token": {
+      "description": "Globally unique identifier for the transfer event.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "updated": {
+      "description": "Date and time when the financial transaction was last updated. UTC time zone.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

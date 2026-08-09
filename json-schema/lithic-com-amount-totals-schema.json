@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/amount-totals",
+  "title": "AmountTotals",
+  "type": "object",
+  "properties": {
+    "gross_sale": {
+      "title": "Gross Sale",
+      "description": "The gross sale amount.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "discount": {
+      "title": "Discount",
+      "description": "The discount applied to the gross sale amount.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "net_sale": {
+      "title": "Net Sale",
+      "description": "The amount after discount.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  }
+}

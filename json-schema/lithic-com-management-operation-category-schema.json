@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/management_operation_category",
+  "title": "Management Operation Category",
+  "type": "string",
+  "enum": [
+    "MANAGEMENT_FEE",
+    "MANAGEMENT_DISPUTE",
+    "MANAGEMENT_REWARD",
+    "MANAGEMENT_ADJUSTMENT",
+    "MANAGEMENT_DISBURSEMENT"
+  ]
+}

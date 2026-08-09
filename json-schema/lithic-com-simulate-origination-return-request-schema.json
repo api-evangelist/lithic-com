@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate_origination_return_request",
+  "title": "Simulate Origination Return Request",
+  "type": "object",
+  "properties": {
+    "payment_token": {
+      "description": "Payment Token",
+      "type": "string",
+      "format": "uuid"
+    },
+    "return_reason_code": {
+      "description": "Return Reason Code",
+      "type": "string",
+      "default": "R01",
+      "pattern": "^R[0-9][0-9]$",
+      "example": "R12"
+    }
+  },
+  "required": [
+    "payment_token"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AppleWebPushProvisioningResponse",
+  "title": "AppleWebPushProvisioningResponse",
+  "properties": {
+    "jws": {
+      "$ref": "#/components/schemas/WebPushProvisioningResponseJws",
+      "description": "JWS object required for handoff to Apple's script."
+    },
+    "state": {
+      "description": "A unique identifier for the JWS object.",
+      "example": "3cc4c292-727b-4ca8-b9a8-f96c15485f4e",
+      "type": "string"
+    }
+  },
+  "required": [
+    "jws",
+    "state"
+  ],
+  "type": "object"
+}

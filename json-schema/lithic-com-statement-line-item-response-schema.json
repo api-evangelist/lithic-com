@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/statement_line_item_response",
+  "title": "Statement Line Item Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Globally unique identifier for a Statement Line Item"
+    },
+    "financial_account_token": {
+      "description": "Globally unique identifier for a financial account",
+      "type": "string",
+      "format": "uuid"
+    },
+    "card_token": {
+      "description": "Globally unique identifier for a card",
+      "type": "string",
+      "format": "uuid"
+    },
+    "financial_transaction_token": {
+      "description": "Globally unique identifier for a financial transaction",
+      "type": "string",
+      "format": "uuid"
+    },
+    "financial_transaction_event_token": {
+      "description": "Globally unique identifier for a financial transaction event",
+      "type": "string",
+      "format": "uuid"
+    },
+    "category": {
+      "$ref": "#/components/schemas/transaction_category"
+    },
+    "event_type": {
+      "$ref": "#/components/schemas/financial_event_type"
+    },
+    "event_subtype": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Subtype of the event that generated the line items"
+    },
+    "loan_tape_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "description": "Date of the loan tape that generated this line item"
+    },
+    "effective_date": {
+      "description": "Date that the transaction effected the account balance",
+      "type": "string",
+      "format": "date"
+    },
+    "descriptor": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "integer",
+      "description": "Transaction amount in cents"
+    },
+    "currency": {
+      "type": "string",
+      "description": "3-character alphabetic ISO 4217 code for the settling currency of the transaction"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the line item was generated"
+    }
+  },
+  "required": [
+    "token",
+    "financial_account_token",
+    "financial_transaction_token",
+    "financial_transaction_event_token",
+    "category",
+    "event_type",
+    "effective_date",
+    "amount",
+    "currency",
+    "created"
+  ]
+}

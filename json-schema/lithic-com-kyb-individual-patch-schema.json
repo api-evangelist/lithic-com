@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/kyb-individual-patch",
+  "title": "KYB Individual",
+  "type": "object",
+  "description": "Individuals associated with a KYB application. Phone number is optional.",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/individual-patch"
+    },
+    {
+      "required": [
+        "entity_token"
+      ]
+    }
+  ]
+}

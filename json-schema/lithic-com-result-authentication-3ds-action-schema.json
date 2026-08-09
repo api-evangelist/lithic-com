@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/result-authentication-3ds-action",
+  "title": "Authentication (3DS) Action (Result)",
+  "type": "object",
+  "properties": {
+    "type": {
+      "$ref": "#/components/schemas/authentication-3ds-action"
+    }
+  },
+  "required": [
+    "type"
+  ]
+}

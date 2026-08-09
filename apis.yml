@@ -2,14 +2,12 @@ aid: lithic-com
 url: https://raw.githubusercontent.com/api-evangelist/lithic-com/refs/heads/main/apis.yml
 name: Lithic
 kind: company
-description: Lithic is a card issuing and issuer-processor API platform for building
-  virtual and physical card programs - authorization, clearing, KYC/KYB account
-  holder onboarding, programmable authorization rules, real-time Auth Stream Access
-  (ASA) decisioning, disputes, digital wallet tokenization, 3DS authentication,
-  ACH payments, ledgered financial accounts, and settlement reporting. Lithic
-  publishes a full OpenAPI 3.1 specification (github.com/lithic-com/lithic-openapi)
-  backing official Node, Python, Go, Java, and Kotlin SDKs, with a sandbox at
-  sandbox.lithic.com that mirrors production functionality.
+description: Lithic is a card issuing and issuer-processor API platform for building virtual and physical
+  card programs - authorization, clearing, KYC/KYB account holder onboarding, programmable authorization
+  rules, real-time Auth Stream Access (ASA) decisioning, disputes, digital wallet tokenization, 3DS authentication,
+  ACH payments, ledgered financial accounts, and settlement reporting. Lithic publishes a full OpenAPI
+  3.1 specification (github.com/lithic-com/lithic-openapi) backing official Node, Python, Go, Java, and
+  Kotlin SDKs, with a sandbox at sandbox.lithic.com that mirrors production functionality.
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -32,7 +30,7 @@ tags:
 - KYC
 - Banking as a Service
 created: '2026-07-02'
-modified: '2026-07-02'
+modified: '2026-08-08'
 specificationVersion: '0.19'
 apis:
 - aid: lithic-com:lithic-com-3ds-api
@@ -289,8 +287,7 @@ apis:
     url: https://docs.lithic.com/reference/getfraudreport
 - aid: lithic-com:lithic-com-auth-rules-api
   name: Lithic Auth Rules API
-  description: >-
-    Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results.
+  description: Programmable v2 authorization rules, versions, drafts, backtests, and evaluation results.
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
@@ -1130,8 +1127,7 @@ apis:
     url: https://docs.lithic.com/reference/getfraudreport
 - aid: lithic-com:lithic-com-external-bank-account-api
   name: Lithic External Bank Account API
-  description: >-
-    External bank accounts used for ACH payments, with prenote and micro-deposit verification.
+  description: External bank accounts used for ACH payments, with prenote and micro-deposit verification.
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
@@ -2307,8 +2303,7 @@ apis:
     url: https://docs.lithic.com/reference/getfraudreport
 - aid: lithic-com:lithic-com-tokenization-api
   name: Lithic Tokenization API
-  description: >-
-    Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning.
+  description: Digital wallet tokenization (Apple Pay / Google Pay / Samsung Pay) lifecycle and decisioning.
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
@@ -2669,6 +2664,10 @@ common:
   url: finops/lithic-com-finops.yml
 - url: https://www.lithic.com/blog
   type: Blog
+- type: LlmsText
+  url: https://docs.lithic.com/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-merged-from:
+- lithic

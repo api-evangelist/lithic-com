@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create_external_bank_account_error_response",
+  "title": "Create External Bank Account Api Response",
+  "type": "object",
+  "properties": {
+    "debugging_request_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifier to help debug an error."
+    },
+    "message": {
+      "type": "string",
+      "description": "Explanation of error response."
+    },
+    "context": {
+      "description": "context",
+      "$ref": "#/components/schemas/create_external_bank_account_error_response_context"
+    }
+  },
+  "required": [
+    "debugging_request_id",
+    "message",
+    "context"
+  ]
+}

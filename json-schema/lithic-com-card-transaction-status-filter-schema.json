@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card_transaction_status_filter",
+  "title": "Card Transaction Status Filter",
+  "type": "string",
+  "enum": [
+    "PENDING",
+    "VOIDED",
+    "SETTLED",
+    "DECLINED",
+    "EXPIRED"
+  ]
+}

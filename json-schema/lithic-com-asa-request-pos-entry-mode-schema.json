@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/asa_request_pos_entry_mode",
+  "title": "asa_request_pos_entry_mode",
+  "description": "POS > Entry Mode object in ASA",
+  "type": "object",
+  "properties": {
+    "card": {
+      "description": "Card Presence Indicator",
+      "type": "string",
+      "enum": [
+        "PRESENT",
+        "NOT_PRESENT",
+        "UNKNOWN"
+      ]
+    },
+    "cardholder": {
+      "description": "Cardholder Presence Indicator",
+      "type": "string",
+      "enum": [
+        "DEFERRED_BILLING",
+        "ELECTRONIC_ORDER",
+        "INSTALLMENT",
+        "MAIL_ORDER",
+        "NOT_PRESENT",
+        "PRESENT",
+        "REOCCURRING",
+        "TELEPHONE_ORDER",
+        "UNKNOWN"
+      ]
+    },
+    "pan": {
+      "description": "Method of entry for the PAN",
+      "type": "string",
+      "enum": [
+        "AUTO_ENTRY",
+        "BAR_CODE",
+        "CONTACTLESS",
+        "ECOMMERCE",
+        "ERROR_KEYED",
+        "ERROR_MAGNETIC_STRIPE",
+        "ICC",
+        "KEY_ENTERED",
+        "MAGNETIC_STRIPE",
+        "MANUAL",
+        "OCR",
+        "SECURE_CARDLESS",
+        "UNSPECIFIED",
+        "UNKNOWN",
+        "CREDENTIAL_ON_FILE",
+        "ECOMMERCE"
+      ]
+    },
+    "pin_entered": {
+      "type": "boolean",
+      "description": "Indicates whether the cardholder entered the PIN. True if the PIN was entered."
+    }
+  }
+}

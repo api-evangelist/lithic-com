@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-authorization-challenge-response",
+  "title": "Card Authorization Challenge Response",
+  "examples": [
+    {
+      "event_type": "card_authorization.challenge_response",
+      "event_token": "00000000-0000-0000-0000-000000000001",
+      "transaction_token": "00000000-0000-0000-0000-000000000002",
+      "card_token": "00000000-0000-0000-0000-000000000003",
+      "challenge_method": "SMS",
+      "response": "APPROVE",
+      "created": "2025-07-17T07:07:29Z",
+      "completed": "2025-07-17T07:08:15Z"
+    }
+  ],
+  "properties": {
+    "event_type": {
+      "description": "Event type",
+      "const": "card_authorization.challenge_response",
+      "example": "card_authorization.challenge_response",
+      "type": "string"
+    },
+    "event_token": {
+      "description": "Globally unique identifier for the event",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    },
+    "transaction_token": {
+      "description": "The token of the transaction associated with the authorization event being challenged",
+      "example": "00000000-0000-0000-0000-000000000002",
+      "format": "uuid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "card_token": {
+      "description": "The token of the card associated with the challenge",
+      "example": "00000000-0000-0000-0000-000000000003",
+      "format": "uuid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "challenge_method": {
+      "description": "The method used to deliver the challenge to the cardholder",
+      "enum": [
+        "SMS"
+      ],
+      "example": "SMS",
+      "type": "string"
+    },
+    "response": {
+      "description": "The cardholder's response to the challenge",
+      "enum": [
+        "APPROVE",
+        "DECLINE"
+      ],
+      "example": "APPROVE",
+      "type": "string"
+    },
+    "created": {
+      "description": "The timestamp of when the challenge was created",
+      "example": "2025-07-17T07:07:29Z",
+      "format": "date-time",
+      "type": "string"
+    },
+    "completed": {
+      "description": "The timestamp of when the challenge was completed",
+      "example": "2025-07-17T07:08:15Z",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "event_type",
+    "event_token",
+    "transaction_token",
+    "card_token",
+    "challenge_method",
+    "response",
+    "created",
+    "completed"
+  ],
+  "type": "object"
+}

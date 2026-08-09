@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/digital-wallet-token-metadata",
+  "title": "digital-wallet-token-metadata",
+  "description": "Contains the metadata for the digital wallet being tokenized.",
+  "type": "object",
+  "properties": {
+    "payment_account_info": {
+      "description": "Contains the information of the account responsible for the payment.",
+      "type": "object",
+      "properties": {
+        "account_holder_data": {
+          "description": "Additional information that can be used to identify the account holder, such as name, address, etc",
+          "type": "object",
+          "properties": {
+            "phone_number": {
+              "description": "The phone number, may contain country code along with phone number when countryDialInCode is not present",
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 20
+            }
+          }
+        },
+        "pan_unique_reference": {
+          "description": "Reference to the PAN that is unique per Wallet Provider",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 64
+        },
+        "payment_account_reference": {
+          "description": "The unique account reference assigned to the PAN",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 29
+        },
+        "token_unique_reference": {
+          "description": "A unique reference assigned following the allocation of a token used to identify the token for the duration of its lifetime.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "account_holder_data"
+      ]
+    },
+    "payment_app_instance_id": {
+      "description": "The identifier of the Payment App instance within a device that will be provisioned with a token",
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 48
+    },
+    "status": {
+      "description": "The current status of the digital wallet token. Pending or declined.",
+      "type": "string"
+    },
+    "token_requestor_id": {
+      "description": "The party that requested the digitization",
+      "type": "string",
+      "minLength": 11,
+      "maxLength": 11
+    },
+    "token_requestor_name": {
+      "description": "Human-readable name of the wallet that the token_requestor_id maps to.",
+      "type": "string",
+      "enum": [
+        "AMAZON_ONE",
+        "ANDROID_PAY",
+        "APPLE_PAY",
+        "FACEBOOK",
+        "FITBIT_PAY",
+        "GARMIN_PAY",
+        "GOOGLE_PAY",
+        "MICROSOFT_PAY",
+        "NETFLIX",
+        "SAMSUNG_PAY",
+        "UNKNOWN",
+        "VISA_CHECKOUT"
+      ],
+      "example": "APPLE_PAY"
+    }
+  },
+  "required": [
+    "payment_account_info",
+    "status"
+  ]
+}

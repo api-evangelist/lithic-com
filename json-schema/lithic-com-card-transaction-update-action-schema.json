@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-transaction-update-action",
+  "title": "Card Transaction Update Action",
+  "oneOf": [
+    {
+      "title": "Tag Action",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "TAG"
+          ],
+          "description": "Tag the transaction with key-value metadata"
+        },
+        "key": {
+          "type": "string",
+          "description": "The key of the tag to apply to the transaction"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the tag to apply to the transaction"
+        }
+      },
+      "required": [
+        "type",
+        "key",
+        "value"
+      ]
+    },
+    {
+      "title": "Create Case Action",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CREATE_CASE"
+          ],
+          "description": "Create a case for the transaction"
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "CARD",
+            "ACCOUNT"
+          ],
+          "description": "The scope of the case to create"
+        },
+        "queue_token": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The token of the queue to create the case in"
+        }
+      },
+      "required": [
+        "type",
+        "scope",
+        "queue_token"
+      ]
+    }
+  ]
+}

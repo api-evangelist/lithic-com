@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/dispute-evidence",
+  "title": "Dispute Evidence",
+  "description": "Dispute evidence.",
+  "properties": {
+    "created": {
+      "description": "Timestamp of when dispute evidence was created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "dispute_token": {
+      "description": "Dispute token evidence is attached to.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "download_url": {
+      "description": "URL to download evidence. Only shown when `upload_status` is `UPLOADED`.",
+      "type": "string"
+    },
+    "filename": {
+      "description": "File name of evidence. Recommended to give the dispute evidence a human-readable identifier.",
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "upload_status": {
+      "description": "Upload status types:\n* `DELETED` - Evidence was deleted.\n* `ERROR` - Evidence upload failed.\n* `PENDING` - Evidence is pending upload.\n* `REJECTED` - Evidence was rejected.\n* `UPLOADED` - Evidence was uploaded.\n",
+      "enum": [
+        "DELETED",
+        "ERROR",
+        "PENDING",
+        "REJECTED",
+        "UPLOADED"
+      ],
+      "type": "string"
+    },
+    "upload_url": {
+      "description": "URL to upload evidence. Only shown when `upload_status` is `PENDING`.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "created",
+    "dispute_token",
+    "token",
+    "upload_status"
+  ],
+  "type": "object"
+}

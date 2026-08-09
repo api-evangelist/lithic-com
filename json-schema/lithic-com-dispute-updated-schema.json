@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/dispute-updated",
+  "title": "Dispute Updated",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/dispute-v1"
+    }
+  ],
+  "examples": [
+    {
+      "amount": 200,
+      "arbitration_date": null,
+      "created": "2023-07-19T18:39:34.768Z",
+      "customer_filed_date": "2023-07-20T09:00:00Z",
+      "customer_note": "I didn't receive the goods.",
+      "network_claim_ids": [
+        "CLAIM-001"
+      ],
+      "network_filed_date": "2023-07-21T11:00:00Z",
+      "network_reason_code": "4808",
+      "prearbitration_date": null,
+      "primary_claim_id": "CLAIM-001",
+      "reason": "GOODS_SERVICES_NOT_RECEIVED",
+      "representment_date": null,
+      "resolution_date": null,
+      "resolution_note": null,
+      "resolution_reason": null,
+      "status": "SUBMITTED",
+      "token": "b24230fa-181e-4b31-9a5c-276747e619a0",
+      "transaction_token": "12345624-aa69-4cbc-a946-30d90181b621"
+    }
+  ]
+}

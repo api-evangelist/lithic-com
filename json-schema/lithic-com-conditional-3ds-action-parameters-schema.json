@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/conditional-3ds-action-parameters",
+  "title": "Conditional Action (3DS) Parameters",
+  "type": "object",
+  "properties": {
+    "action": {
+      "description": "The action to take if the conditions are met.",
+      "$ref": "#/components/schemas/authentication-3ds-action"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "The attribute to target.\n\nThe following attributes may be targeted:\n* `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a business by the types of goods or services it provides.\n* `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for Netherlands Antilles.\n* `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of the transaction.\n* `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor (merchant).\n* `DESCRIPTOR`: Short description of card acceptor.\n* `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer fee field in the settlement/cardholder billing currency. This is the amount the issuer should authorize against unless the issuer is paying the acquirer fee on behalf of the cardholder.\n* `RISK_SCORE`: Mastercard only: Assessment by the network of the authentication risk level, with a higher value indicating a higher amount of risk.\n* `MESSAGE_CATEGORY`: The category of the authentication being processed.\n* `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address data with the cardholder KYC data if it exists. Valid values are `MATCH`, `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.",
+            "enum": [
+              "MCC",
+              "COUNTRY",
+              "CURRENCY",
+              "MERCHANT_ID",
+              "DESCRIPTOR",
+              "TRANSACTION_AMOUNT",
+              "RISK_SCORE",
+              "MESSAGE_CATEGORY",
+              "ADDRESS_MATCH"
+            ]
+          },
+          "operation": {
+            "$ref": "#/components/schemas/conditional-operation"
+          },
+          "value": {
+            "$ref": "#/components/schemas/conditional-value"
+          }
+        },
+        "required": [
+          "attribute",
+          "operation",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "action",
+    "conditions"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate-enrollment-document-review-request",
+  "title": "Simulate account holder enrollment document review request body",
+  "type": "object",
+  "properties": {
+    "document_upload_token": {
+      "description": "The account holder document upload which to perform the simulation upon.",
+      "type": "string"
+    },
+    "status": {
+      "description": "An account holder document's upload status for use within the simulation.",
+      "type": "string",
+      "enum": [
+        "UPLOADED",
+        "ACCEPTED",
+        "REJECTED",
+        "PARTIAL_APPROVAL"
+      ]
+    },
+    "status_reason": {
+      "$ref": "#/components/schemas/document-upload-status-reasons",
+      "description": "Status reason that will be associated with the simulated account holder status. Only required for a `REJECTED` status or `PARTIAL_APPROVAL` status."
+    },
+    "accepted_entity_status_reasons": {
+      "description": "A list of status reasons associated with a KYB account holder in PENDING_REVIEW",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "document_upload_token",
+    "status"
+  ]
+}

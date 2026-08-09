@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/book_transfer_category",
+  "title": "Book Transfer Category",
+  "type": "string",
+  "enum": [
+    "ADJUSTMENT",
+    "BALANCE_OR_FUNDING",
+    "DERECOGNITION",
+    "DISPUTE",
+    "FEE",
+    "INTERNAL",
+    "REWARD",
+    "PROGRAM_FUNDING",
+    "TRANSFER"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/fuel-unit-of-measure",
+  "title": "FuelUnitOfMeasure",
+  "description": "Unit of measure for fuel disbursement.",
+  "type": [
+    "string",
+    "null"
+  ],
+  "enum": [
+    "GALLONS",
+    "LITERS",
+    "POUNDS",
+    "KILOGRAMS",
+    "IMPERIAL_GALLONS",
+    "NOT_APPLICABLE",
+    "UNKNOWN",
+    null
+  ]
+}

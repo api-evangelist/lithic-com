@@ -1,0 +1,22 @@
+{
+  "operationId": "createEventSubscription",
+  "method": "POST",
+  "path": "/v1/event_subscriptions",
+  "summary": "Create event subscription",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "example": {
+        "description": "A subscription for all events",
+        "disabled": false,
+        "token": "ep_1srOrx2ZWZBpBUvZwXKQmoEYga1",
+        "url": "https://example.com/webhook",
+        "event_types": [
+          "dispute.updated"
+        ]
+      }
+    }
+  ]
+}

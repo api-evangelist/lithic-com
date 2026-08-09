@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule",
+  "title": "Auth Rule",
+  "type": "object",
+  "properties": {
+    "token": {
+      "$ref": "#/components/schemas/auth-rule-token"
+    },
+    "state": {
+      "$ref": "#/components/schemas/auth-rule-state"
+    },
+    "program_level": {
+      "$ref": "#/components/schemas/program-level"
+    },
+    "card_tokens": {
+      "$ref": "#/components/schemas/card-tokens"
+    },
+    "excluded_card_tokens": {
+      "$ref": "#/components/schemas/excluded-card-tokens"
+    },
+    "excluded_account_tokens": {
+      "$ref": "#/components/schemas/excluded-account-tokens"
+    },
+    "excluded_business_account_tokens": {
+      "$ref": "#/components/schemas/excluded-business-account-tokens"
+    },
+    "account_tokens": {
+      "$ref": "#/components/schemas/account-tokens"
+    },
+    "business_account_tokens": {
+      "$ref": "#/components/schemas/business-account-tokens"
+    },
+    "type": {
+      "$ref": "#/components/schemas/auth-rule-type"
+    },
+    "current_version": {
+      "$ref": "#/components/schemas/current-version"
+    },
+    "draft_version": {
+      "$ref": "#/components/schemas/draft-version"
+    },
+    "name": {
+      "$ref": "#/components/schemas/auth-rule-name"
+    },
+    "event_stream": {
+      "$ref": "#/components/schemas/event-stream"
+    },
+    "lithic_managed": {
+      "type": "boolean",
+      "description": "Indicates whether this auth rule is managed by Lithic. If true, the rule cannot be modified or deleted by the user"
+    }
+  },
+  "required": [
+    "token",
+    "state",
+    "program_level",
+    "card_tokens",
+    "account_tokens",
+    "business_account_tokens",
+    "type",
+    "current_version",
+    "draft_version",
+    "name",
+    "event_stream",
+    "lithic_managed"
+  ]
+}

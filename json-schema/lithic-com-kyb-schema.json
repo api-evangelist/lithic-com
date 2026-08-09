@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Kyb",
+  "title": "Kyb",
+  "properties": {
+    "beneficial_owner_individuals": {
+      "description": "You must submit a list of all direct and indirect individuals with 25% or more ownership in the company. A maximum of 4 beneficial owners can be submitted. If no individual owns 25% of the company you do not need to send beneficial owner information.\nSee [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background on individuals that should be included.",
+      "items": {
+        "$ref": "#/components/schemas/KybIndividual"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "business_entity": {
+      "$ref": "#/components/schemas/BusinessEntity",
+      "description": "Information for business for which the account is being opened and KYB is being run."
+    },
+    "control_person": {
+      "$ref": "#/components/schemas/KybIndividual",
+      "description": "An individual with significant responsibility for managing the legal entity (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating Officer,\nManaging Member, General Partner, President, Vice President, or Treasurer). This can be an executive, or someone who will have program-wide access\nto the cards that Lithic will provide. In some cases, this individual could also be a beneficial owner listed above.\nSee [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section II) for more background.\n"
+    },
+    "external_id": {
+      "description": "A user provided id that can be used to link an account holder with an external system",
+      "type": "string"
+    },
+    "kyb_passed_timestamp": {
+      "description": "An RFC 3339 timestamp indicating when precomputed KYB was completed on the business with a pass result.\n\nThis field is required only if workflow type is `KYB_BYO`.\n",
+      "example": "2018-05-29T21:16:05Z",
+      "type": "string"
+    },
+    "naics_code": {
+      "description": "6-digit North American Industry Classification System (NAICS) code for the business.",
+      "example": "541512",
+      "type": "string"
+    },
+    "nature_of_business": {
+      "description": "Short description of the company's line of business (i.e., what does the company do?). Values longer than 255 characters will be truncated before KYB verification",
+      "example": "Software company selling solutions to the restaurant industry",
+      "type": "string"
+    },
+    "tos_timestamp": {
+      "description": "An RFC 3339 timestamp indicating when the account holder accepted the applicable legal agreements (e.g., cardholder terms) as agreed upon during API customer's implementation with Lithic.",
+      "example": "2018-05-29T21:16:05Z",
+      "type": "string"
+    },
+    "website_url": {
+      "description": "Company website URL.",
+      "example": "www.mybusiness.com",
+      "type": "string"
+    },
+    "workflow": {
+      "description": "Specifies the type of KYB workflow to run.",
+      "enum": [
+        "KYB_BASIC",
+        "KYB_BYO"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "beneficial_owner_individuals",
+    "business_entity",
+    "control_person",
+    "nature_of_business",
+    "tos_timestamp",
+    "workflow"
+  ],
+  "type": "object"
+}

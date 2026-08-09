@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_payment_action_with_progress_to_request",
+  "title": "External Payment Action with Progress to Request",
+  "type": "object",
+  "properties": {
+    "memo": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "progress_to": {
+      "$ref": "#/components/schemas/external_payment_progress_to"
+    }
+  },
+  "required": [
+    "effective_date"
+  ]
+}

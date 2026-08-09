@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/rule_result",
+  "title": "Detailed Rule Result",
+  "type": "object",
+  "properties": {
+    "auth_rule_token": {
+      "description": "The Auth Rule Token associated with the rule from which the decline originated. If this is set to null, then the decline was not associated with a customer-configured Auth Rule. This may happen in cases where a transaction is declined due to a Lithic-configured security or compliance rule, for example.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "result": {
+      "description": "The detailed_result associated with this rule's decline.",
+      "$ref": "#/components/schemas/detailed_result"
+    },
+    "name": {
+      "description": "The name for the rule, if any was configured.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "explanation": {
+      "description": "A human-readable explanation outlining the motivation for the rule's decline.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "auth_rule_token",
+    "explanation",
+    "name",
+    "result"
+  ]
+}

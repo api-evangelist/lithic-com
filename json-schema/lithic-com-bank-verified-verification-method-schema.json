@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/bank_verified_verification_method",
+  "title": "Bank Verified Verification Methods",
+  "type": "string",
+  "enum": [
+    "MICRO_DEPOSIT",
+    "PRENOTE"
+  ]
+}

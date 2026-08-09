@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate_action_request",
+  "title": "Simulate Action Request",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "description": "Event Type",
+      "$ref": "#/components/schemas/supported_simulation_types"
+    },
+    "return_reason_code": {
+      "description": "Return Reason Code",
+      "type": "string"
+    },
+    "decline_reason": {
+      "description": "Decline reason",
+      "$ref": "#/components/schemas/supported_simulation_decline_reasons"
+    },
+    "return_addenda": {
+      "description": "Return Addenda",
+      "type": "string"
+    },
+    "date_of_death": {
+      "description": "Date of Death for ACH Return",
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "event_type"
+  ]
+}

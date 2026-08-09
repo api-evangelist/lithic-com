@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_payments_response",
+  "title": "External Payments Response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/external_payment_response"
+      }
+    },
+    "has_more": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

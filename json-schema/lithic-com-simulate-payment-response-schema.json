@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate_payment_response",
+  "title": "Simulate Payment Response",
+  "type": "object",
+  "properties": {
+    "result": {
+      "description": "Request Result",
+      "$ref": "#/components/schemas/result"
+    },
+    "transaction_event_token": {
+      "description": "Transaction Event Token",
+      "type": "string",
+      "format": "uuid"
+    },
+    "debugging_request_id": {
+      "description": "Debugging Request Id",
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "result",
+    "transaction_event_token",
+    "debugging_request_id"
+  ]
+}

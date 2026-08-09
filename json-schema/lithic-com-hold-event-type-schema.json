@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/hold_event_type",
+  "title": "Hold Event Type",
+  "description": "Type of hold lifecycle event",
+  "type": "string",
+  "enum": [
+    "HOLD_INITIATED",
+    "HOLD_VOIDED",
+    "HOLD_EXPIRED",
+    "HOLD_SETTLED"
+  ]
+}

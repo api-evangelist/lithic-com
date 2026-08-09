@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/bank_account_api_response_unlinked",
+  "title": "Bank Account Api Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "description": "A globally unique identifier for this record of an external bank account association. If a program links an external bank account to more than one end-user or to both the program and the end-user, then Lithic will return each record of the association",
+      "type": "string",
+      "format": "uuid"
+    },
+    "owner": {
+      "description": "Legal Name of the business or individual who owns the external account. This will appear in statements",
+      "type": "string"
+    },
+    "routing_number": {
+      "description": "Routing Number",
+      "type": "string"
+    },
+    "last_four": {
+      "description": "The last 4 digits of the bank account. Derived by Lithic from the account number passed",
+      "type": "string"
+    },
+    "name": {
+      "description": "The nickname for this External Bank Account",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "currency": {
+      "description": "currency of the external account 3-character alphabetic ISO 4217 code",
+      "type": "string"
+    },
+    "country": {
+      "description": "The country that the bank account is located in using ISO 3166-1. We will only accept USA bank accounts e.g., USA",
+      "type": "string"
+    },
+    "account_token": {
+      "description": "Indicates which Lithic account the external account is associated with. For external accounts that are associated with the program, account_token field returned will be null",
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "created": {
+      "description": "An ISO 8601 string representing when this funding source was added to the Lithic account.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "company_id": {
+      "description": "Optional field that helps identify bank accounts in receipts",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dob": {
+      "description": "Date of Birth of the Individual that owns the external bank account",
+      "title": "Date of Birth",
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "doing_business_as": {
+      "description": "Doing Business As",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "user_defined_id": {
+      "description": "User Defined ID",
+      "title": "User Defined ID",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_failed_reason": {
+      "description": "Optional free text description of the reason for the failed verification. For ACH micro-deposits returned, this field will display the reason return code sent by the ACH network",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_attempts": {
+      "description": "The number of attempts at verification",
+      "type": "integer"
+    },
+    "financial_account_token": {
+      "description": "The financial account token of the operating account to fund the micro deposits",
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "type": {
+      "description": "Account Type",
+      "$ref": "#/components/schemas/account_type"
+    },
+    "verification_method": {
+      "title": "Verification Method",
+      "description": "Verification Method",
+      "type": "string",
+      "enum": [
+        "MANUAL",
+        "MICRO_DEPOSIT",
+        "PLAID",
+        "PRENOTE"
+      ]
+    },
+    "owner_type": {
+      "title": "Owner Type",
+      "description": "Owner Type",
+      "type": "string",
+      "enum": [
+        "BUSINESS",
+        "INDIVIDUAL"
+      ]
+    },
+    "state": {
+      "description": "Account State",
+      "$ref": "#/components/schemas/account_state",
+      "x-stainless-naming": {
+        "java": {
+          "type_name": "State"
+        }
+      }
+    },
+    "verification_state": {
+      "description": "Verification State",
+      "$ref": "#/components/schemas/verification_state"
+    },
+    "address": {
+      "description": "Address",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/external_bank_account_address"
+        }
+      ]
+    }
+  },
+  "required": [
+    "token",
+    "type",
+    "verification_method",
+    "owner_type",
+    "owner",
+    "state",
+    "verification_state",
+    "routing_number",
+    "last_four",
+    "currency",
+    "country",
+    "created",
+    "verification_attempts"
+  ]
+}

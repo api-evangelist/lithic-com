@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/document-upload-status",
+  "title": "Account holder document upload status",
+  "description": "Status of an account holder's document upload.",
+  "type": "string",
+  "enum": [
+    "ACCEPTED",
+    "REJECTED",
+    "PENDING_UPLOAD",
+    "UPLOADED",
+    "PARTIAL_APPROVAL"
+  ]
+}

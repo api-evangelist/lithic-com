@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transfer_type",
+  "title": "Transfer Type",
+  "type": "string",
+  "enum": [
+    "ORIGINATION_CREDIT",
+    "ORIGINATION_DEBIT",
+    "RECEIPT_CREDIT",
+    "RECEIPT_DEBIT",
+    "WIRE_INBOUND_PAYMENT",
+    "WIRE_INBOUND_ADMIN",
+    "WIRE_OUTBOUND_PAYMENT",
+    "WIRE_OUTBOUND_ADMIN",
+    "WIRE_INBOUND_DRAWDOWN_REQUEST"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-decisioning-response",
+  "title": "tokenization-decisioning-response",
+  "description": "The response payload that a Tokenization Decisioning responder may respond with in response to a request.",
+  "type": "object",
+  "properties": {
+    "tokenization_decision": {
+      "description": "The decision for tokenization",
+      "type": "string",
+      "enum": [
+        "APPROVE",
+        "AUTHENTICATE",
+        "DECLINE"
+      ],
+      "example": "APPROVE"
+    },
+    "phone_number": {
+      "description": "Phone number of the end user attempting a tokenization. Lithic must pass this to the card networks to pass to the wallets to display for the user as they select an authentication option in their digital wallet. Lithic will always default to using this value for authentication over the account holder information on file. E.164 format without hyphens. For example, \"+15555555555\" for a US phone number.",
+      "type": "string",
+      "example": "15555555555"
+    },
+    "email": {
+      "description": "Email address of the end user attempting a tokenization to be used for authentication. Lithic must pass this to the card networks to pass to the wallets to display for the user as they select an authentication option in their digital wallet. Lithic will always default to using this value for authentication over the account holder information on file. Permitted values: Valid email address. For example, \"johnny@appleseed.com\".",
+      "type": "string",
+      "format": "email",
+      "example": "test@example.com"
+    },
+    "mobile_application_name": {
+      "description": "Name of the mobile application that the digital wallet will open for the end user to complete authentication. For example, \"Wells Fargo\".",
+      "type": "string",
+      "example": "Wells Fargo"
+    }
+  },
+  "required": [
+    "tokenization_decision",
+    "phone_number",
+    "email",
+    "mobile_application_name"
+  ],
+  "examples": [
+    {
+      "tokenization_decision": "AUTHENTICATE",
+      "phone_number": "+15555555555",
+      "email": "test@example.com",
+      "mobile_application_name": "Wells Fargo"
+    }
+  ]
+}

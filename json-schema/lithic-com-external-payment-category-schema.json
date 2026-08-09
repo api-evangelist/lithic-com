@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_payment_category",
+  "title": "External Payment Category",
+  "type": "string",
+  "enum": [
+    "EXTERNAL_WIRE",
+    "EXTERNAL_ACH",
+    "EXTERNAL_CHECK",
+    "EXTERNAL_FEDNOW",
+    "EXTERNAL_RTP",
+    "EXTERNAL_TRANSFER"
+  ]
+}

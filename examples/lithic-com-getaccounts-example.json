@@ -1,0 +1,30 @@
+{
+  "operationId": "getAccounts",
+  "method": "GET",
+  "path": "/v1/accounts",
+  "summary": "List accounts",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "getAccounts",
+      "example": {
+        "data": [
+          {
+            "cardholder_currency": "USD",
+            "spend_limit": {
+              "daily": 1000,
+              "lifetime": 10000,
+              "monthly": 4000
+            },
+            "state": "ACTIVE",
+            "token": "b68b7424-aa69-4cbc-a946-30d90181b621",
+            "created": "2024-01-11T19:50:36Z"
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ]
+}

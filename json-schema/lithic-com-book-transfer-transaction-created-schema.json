@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/book-transfer-transaction-created",
+  "title": "Book Transfer Transaction Created",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/book-transfer-transaction"
+    }
+  ],
+  "examples": [
+    {
+      "family": "TRANSFER",
+      "category": "BALANCE_OR_FUNDING",
+      "created": "2023-09-14T12:52:44Z",
+      "currency": "USD",
+      "events": [
+        {
+          "amount": 4103,
+          "created": "2023-09-14T12:52:44Z",
+          "result": "APPROVED",
+          "token": "f274f723-b156-5b15-a96d-5ba8d5241b09",
+          "type": "ACCOUNT_TO_ACCOUNT",
+          "subtype": "CUSTOM",
+          "detailed_results": [
+            "APPROVED"
+          ],
+          "memo": "Fund account"
+        }
+      ],
+      "from_financial_account_token": "b05c313e-35db-4b47-a33b-7b268d72b1f5",
+      "to_financial_account_token": "39ec6bf0-c101-520e-965a-a4fffce1d755",
+      "pending_amount": 0,
+      "result": "APPROVED",
+      "settled_amount": 4103,
+      "status": "SETTLED",
+      "token": "147595d7-45f4-4c91-a950-3436d16847e5",
+      "updated": "2023-09-14T12:52:44Z"
+    }
+  ]
+}

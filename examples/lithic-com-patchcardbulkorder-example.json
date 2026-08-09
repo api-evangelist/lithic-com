@@ -1,0 +1,15 @@
+{
+  "operationId": "patchCardBulkOrder",
+  "method": "PATCH",
+  "path": "/v1/card_bulk_orders/{bulk_order_token}",
+  "summary": "Update bulk order",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "example": {
+        "status": "LOCKED"
+      }
+    }
+  ],
+  "responseExamples": []
+}

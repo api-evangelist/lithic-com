@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_payment_response",
+  "title": "External Payment Response",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/base_transaction"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "const": "EXTERNAL_PAYMENT",
+          "description": "EXTERNAL_PAYMENT - External Payment Response"
+        },
+        "result": {
+          "$ref": "#/components/schemas/transaction_result"
+        },
+        "category": {
+          "$ref": "#/components/schemas/external_payment_category"
+        },
+        "settled_amount": {
+          "type": "integer"
+        },
+        "pending_amount": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/external_payment_event"
+          }
+        },
+        "user_defined_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "financial_account_token": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "payment_type": {
+          "$ref": "#/components/schemas/external_payment_direction"
+        }
+      }
+    }
+  ],
+  "required": [
+    "result",
+    "category",
+    "family",
+    "settled_amount",
+    "pending_amount",
+    "currency",
+    "events",
+    "financial_account_token",
+    "payment_type"
+  ]
+}

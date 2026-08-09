@@ -1,0 +1,78 @@
+{
+  "operationId": "postAccountHolderEntities",
+  "method": "POST",
+  "path": "/v1/account_holders/{account_holder_token}/entities",
+  "summary": "Create a new beneficial owner individual or replace the existing control person entity",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "createBeneficialOwner",
+      "example": {
+        "type": "BENEFICIAL_OWNER_INDIVIDUAL",
+        "first_name": "Timmy",
+        "last_name": "Turner",
+        "dob": "1991-03-08T08:00:00Z",
+        "email": "tim@left-earth.com",
+        "phone_number": "+15555555555",
+        "government_id": "211-23-1412",
+        "address": {
+          "address1": "300 Normal Forest Way",
+          "city": "Portland",
+          "country": "USA",
+          "postal_code": "90210",
+          "state": "OR"
+        }
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "replaceControlPerson",
+      "example": {
+        "type": "CONTROL_PERSON",
+        "first_name": "Tom",
+        "last_name": "Timothy",
+        "dob": "1991-03-08T08:00:00Z",
+        "email": "tom@middle-pluto.com",
+        "phone_number": "+15555555555",
+        "government_id": "111-23-1412",
+        "address": {
+          "address1": "451 New Forest Way",
+          "city": "Springfield",
+          "country": "USA",
+          "postal_code": "68022",
+          "state": "IL"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "acceptedResponse",
+      "example": {
+        "account_holder_token": "fa68ed76-9d02-4d45-8a3f-782f3b6a8b3f",
+        "status": "ACCEPTED",
+        "status_reasons": [],
+        "token": "49c978db-20c4-46d8-9db4-b0ef28c03533",
+        "created": "2024-09-16T20:13:41.865274",
+        "required_documents": []
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "pendingReviewResponse",
+      "example": {
+        "account_holder_token": "fa68ed76-9d02-4d45-8a3f-782f3b6a8b3f",
+        "status": "PENDING_REVIEW",
+        "status_reasons": [
+          "NAME_VERIFICATION_FAILURE"
+        ],
+        "token": "49c978db-20c4-46d8-9db4-b0ef28c03533",
+        "created": "2024-09-16T20:13:41.865274",
+        "required_documents": []
+      }
+    }
+  ]
+}

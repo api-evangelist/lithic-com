@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/loan_tape_rebuild_configuration",
+  "title": "Loan Tape Rebuild Configuration",
+  "description": "Configuration for building loan tapes",
+  "type": "object",
+  "properties": {
+    "rebuild_needed": {
+      "type": "boolean",
+      "description": "Whether the account's loan tapes need to be rebuilt or not"
+    },
+    "rebuild_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Date from which to start rebuilding from if the account requires a rebuild"
+    },
+    "last_rebuild": {
+      "type": "string",
+      "format": "date",
+      "description": "The date for which the account's loan tapes were last rebuilt"
+    }
+  },
+  "required": [
+    "rebuild_needed"
+  ]
+}

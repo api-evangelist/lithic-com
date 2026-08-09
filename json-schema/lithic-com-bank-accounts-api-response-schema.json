@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/bank_accounts_api_response",
+  "title": "Bank Accounts Api Response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/bank_account_api_response_unlinked"
+      }
+    },
+    "has_more": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

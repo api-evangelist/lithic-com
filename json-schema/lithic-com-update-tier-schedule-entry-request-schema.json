@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/update_tier_schedule_entry_request",
+  "title": "Update Tier Schedule Entry Request",
+  "description": "Entry in the Tier Schedule of an account",
+  "type": "object",
+  "properties": {
+    "tier_name": {
+      "type": "string",
+      "description": "Name of a tier contained in the credit product. Mutually exclusive with tier_rates"
+    },
+    "tier_rates": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "$ref": "#/components/schemas/category_tier"
+        }
+      },
+      "description": "Custom rates per category.  Mutually exclusive with tier_name"
+    },
+    "penalty_rates": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "$ref": "#/components/schemas/category_tier"
+        }
+      },
+      "description": "Custom rates per category for penalties"
+    }
+  }
+}

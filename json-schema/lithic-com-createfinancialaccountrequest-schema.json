@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateFinancialAccountRequest",
+  "title": "CreateFinancialAccountRequest",
+  "properties": {
+    "account_token": {
+      "format": "uuid",
+      "title": "Account token to create the new account under",
+      "type": "string"
+    },
+    "nickname": {
+      "maxLength": 256,
+      "title": "Nickname of the financial account",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "OPERATING"
+      ],
+      "title": "Account Type",
+      "type": "string"
+    },
+    "is_for_benefit_of": {
+      "title": "Is For Benefit Of",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "nickname",
+    "type"
+  ],
+  "type": "object"
+}

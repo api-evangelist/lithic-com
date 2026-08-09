@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/non_pci_card_response",
+  "title": "non_pci_card_response",
+  "description": "Card details without PCI information",
+  "type": "object",
+  "properties": {
+    "account_token": {
+      "description": "Globally unique identifier for the account to which the card belongs.",
+      "example": "f3f4918c-dee9-464d-a819-4aa42901d624",
+      "type": "string"
+    },
+    "auth_rule_tokens": {
+      "description": "List of identifiers for the Auth Rule(s) that are applied on the card. This field is deprecated and will no longer be populated in the `Card` object. The key will be removed from the schema in a future release. Use the `/auth_rules` endpoints to fetch Auth Rule information instead.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "deprecated": true
+    },
+    "card_program_token": {
+      "description": "Globally unique identifier for the card program on which the card exists.",
+      "example": "5e9483eb-8103-4e16-9794-2106111b2eca",
+      "type": "string"
+    },
+    "bulk_order_token": {
+      "description": "Globally unique identifier for the bulk order associated with this card. Only applicable to physical cards that are part of a bulk shipment",
+      "example": "5e9483eb-8103-4e16-9794-2106111b2eca",
+      "format": "uuid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "replacement_for": {
+      "description": "If the card is a replacement for another card, the globally unique identifier for the card that was replaced.",
+      "example": "5e9483eb-8103-4e16-9794-2106111b2eca",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cardholder_currency": {
+      "description": "3-character alphabetic ISO 4217 code for the currency of the cardholder.",
+      "example": "USD",
+      "type": "string"
+    },
+    "created": {
+      "description": "An RFC 3339 timestamp for when the card was created. UTC time zone.",
+      "example": "2021-06-28T22:53:15Z",
+      "format": "date-time",
+      "type": "string"
+    },
+    "digital_card_art_token": {
+      "description": "Specifies the digital card art to be displayed in the user's digital wallet after tokenization. This artwork must be approved by Mastercard and configured by Lithic to use.",
+      "example": "5e9483eb-8103-4e16-9794-2106111b2eca",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exp_month": {
+      "description": "Two digit (MM) expiry month.",
+      "example": "06",
+      "maxLength": 2,
+      "minLength": 2,
+      "type": "string"
+    },
+    "exp_year": {
+      "description": "Four digit (yyyy) expiry year.",
+      "example": "2027",
+      "maxLength": 4,
+      "minLength": 4,
+      "type": "string"
+    },
+    "funding": {
+      "description": "Deprecated: Funding account for the card.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/funding_account"
+        }
+      ]
+    },
+    "hostname": {
+      "description": "Hostname of card's locked merchant (will be empty if not applicable).",
+      "type": "string"
+    },
+    "last_four": {
+      "description": "Last four digits of the card number.",
+      "maxLength": 4,
+      "minLength": 4,
+      "type": "string"
+    },
+    "memo": {
+      "description": "Friendly name to identify the card.",
+      "example": "New Card",
+      "type": "string"
+    },
+    "network_program_token": {
+      "description": "Globally unique identifier for the card's network program. Null if the card is not associated with a network program. Currently applicable to Visa cards participating in Account Level Management only",
+      "example": "5e9483eb-8103-4e16-9794-2106111b2eca",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pending_commands": {
+      "description": "Indicates if there are offline PIN changes pending card interaction with an offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable only to cards issued in markets supporting offline PINs.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "pin_status": {
+      "description": "Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect attempts).",
+      "enum": [
+        "OK",
+        "BLOCKED",
+        "NOT_SET"
+      ],
+      "type": "string"
+    },
+    "product_id": {
+      "description": "Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic before use. Specifies the configuration (i.e., physical card art) that the card should be manufactured with.",
+      "example": "1",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spend_limit": {
+      "description": "Amount (in cents) to limit approved authorizations (e.g. 100000 would be a $1,000 limit). Transaction requests above the spend limit will be declined.",
+      "example": 1000,
+      "type": "integer"
+    },
+    "spend_limit_duration": {
+      "$ref": "#/components/schemas/spend_limit_duration"
+    },
+    "state": {
+      "description": "Card state values: * `CLOSED` - Card will no longer approve authorizations. Closing a card cannot be undone. * `OPEN` - Card will approve authorizations (if they match card and account parameters). * `PAUSED` - Card will decline authorizations, but can be resumed at a later time. * `PENDING_FULFILLMENT` - The initial state for cards of type `PHYSICAL`. The card is provisioned pending manufacturing and fulfillment. Cards in this state can accept authorizations for e-commerce purchases, but not for \"Card Present\" purchases where the physical card itself is present. * `PENDING_ACTIVATION` - At regular intervals, cards of type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production warehouse and updated to state `PENDING_ACTIVATION`. Similar to `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce transactions or can be added to mobile wallets. API clients should update the card's state to `OPEN` only after the cardholder confirms receipt of the card. In sandbox, the same daily batch fulfillment occurs, but no cards are actually manufactured.",
+      "enum": [
+        "CLOSED",
+        "OPEN",
+        "PAUSED",
+        "PENDING_ACTIVATION",
+        "PENDING_FULFILLMENT"
+      ],
+      "type": "string"
+    },
+    "substatus": {
+      "description": "Card state substatus values: * `LOST` - The physical card is no longer in the cardholder's possession due to being lost or never received by the cardholder. * `COMPROMISED` - Card information has been exposed, potentially leading to unauthorized access. This may involve physical card theft, cloning, or online data breaches. * `DAMAGED` - The physical card is not functioning properly, such as having chip failures or a demagnetized magnetic stripe. * `END_USER_REQUEST` - The cardholder requested the closure of the card for reasons unrelated to fraud or damage, such as switching to a different product or closing the account. * `ISSUER_REQUEST` - The issuer closed the card for reasons unrelated to fraud or damage, such as account inactivity, product or policy changes, or technology upgrades. * `NOT_ACTIVE` - The card hasn\u2019t had any transaction activity for a specified period, applicable to statuses like `PAUSED` or `CLOSED`. * `SUSPICIOUS_ACTIVITY` - The card has one or more suspicious transactions or activities that require review. This can involve prompting the cardholder to confirm legitimate use or report confirmed fraud. * `INTERNAL_REVIEW` - The card is temporarily paused pending further internal review. * `EXPIRED` - The card has expired and has been closed without being reissued. * `UNDELIVERABLE` - The card cannot be delivered to the cardholder and has been returned. * `OTHER` - The reason for the status does not fall into any of the above categories. A comment can be provided to specify the reason.",
+      "enum": [
+        "LOST",
+        "COMPROMISED",
+        "DAMAGED",
+        "END_USER_REQUEST",
+        "ISSUER_REQUEST",
+        "NOT_ACTIVE",
+        "SUSPICIOUS_ACTIVITY",
+        "INTERNAL_REVIEW",
+        "EXPIRED",
+        "UNDELIVERABLE",
+        "OTHER"
+      ],
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "comment": {
+      "description": "Additional context or information related to the card.",
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "example": "7ef7d65c-9023-4da3-b113-3b8583fd7951",
+      "type": "string"
+    },
+    "type": {
+      "description": "Card types: * `VIRTUAL` - Card will authorize at any merchant and can be added to a digital wallet like Apple Pay or Google Pay (if the card program is digital wallet-enabled). * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. * `SINGLE_USE` - Card is closed upon first successful authorization. * `MERCHANT_LOCKED` - Card is locked to the first merchant that successfully authorizes the card. * `UNLOCKED` - *[Deprecated]* Similar behavior to VIRTUAL cards, please use VIRTUAL instead. * `DIGITAL_WALLET` - *[Deprecated]* Similar behavior to VIRTUAL cards, please use VIRTUAL instead.",
+      "enum": [
+        "MERCHANT_LOCKED",
+        "PHYSICAL",
+        "SINGLE_USE",
+        "VIRTUAL",
+        "UNLOCKED",
+        "DIGITAL_WALLET"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_token",
+    "card_program_token",
+    "created",
+    "funding",
+    "last_four",
+    "pin_status",
+    "spend_limit",
+    "spend_limit_duration",
+    "state",
+    "token",
+    "type"
+  ]
+}

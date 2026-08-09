@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-account-credit-config",
+  "title": "Financial Account Credit Config",
+  "type": [
+    "object",
+    "null"
+  ],
+  "properties": {
+    "credit_limit": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "external_bank_account_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "credit_product_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Globally unique identifier for the credit product"
+    },
+    "tier": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Tier assigned to the financial account"
+    },
+    "auto_collection_configuration": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/auto-collection-configuration-response"
+        }
+      ]
+    }
+  },
+  "required": [
+    "credit_limit",
+    "external_bank_account_token",
+    "credit_product_token",
+    "tier",
+    "auto_collection_configuration"
+  ]
+}

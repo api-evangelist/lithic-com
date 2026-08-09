@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/document-upload-status-reasons",
+  "title": "Account holder document upload status reasons",
+  "description": "The status reasons for an account holder document upload that is not ACCEPTED",
+  "type": "string",
+  "enum": [
+    "DOCUMENT_MISSING_REQUIRED_DATA",
+    "DOCUMENT_UPLOAD_TOO_BLURRY",
+    "FILE_SIZE_TOO_LARGE",
+    "INVALID_DOCUMENT_TYPE",
+    "INVALID_DOCUMENT_UPLOAD",
+    "INVALID_ENTITY",
+    "DOCUMENT_EXPIRED",
+    "DOCUMENT_ISSUED_GREATER_THAN_30_DAYS",
+    "DOCUMENT_TYPE_NOT_SUPPORTED",
+    "UNKNOWN_FAILURE_REASON",
+    "UNKNOWN_ERROR"
+  ]
+}

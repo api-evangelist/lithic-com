@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate_origination_release_request",
+  "title": "Simulate Origination Release Request",
+  "type": "object",
+  "properties": {
+    "payment_token": {
+      "description": "Payment Token",
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "payment_token"
+  ]
+}

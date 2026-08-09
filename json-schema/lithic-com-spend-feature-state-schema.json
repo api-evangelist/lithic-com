@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/spend-feature-state",
+  "title": "Spend Feature State",
+  "type": "object",
+  "properties": {
+    "scope": {
+      "$ref": "#/components/schemas/velocity-scope"
+    },
+    "period": {
+      "$ref": "#/components/schemas/velocity-limit-period"
+    },
+    "filters": {
+      "$ref": "#/components/schemas/velocity-limit-filters"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Amount (in cents) for the given Auth Rule that is used as input for calculating the rule. \nFor Velocity Limit rules this would be the calculated Velocity. \nFor Conditional Rules using CARD_TRANSACTION_COUNT_* this will be 0"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of velocity impacting transactions matching the given scope, period and filters"
+        }
+      },
+      "required": [
+        "amount",
+        "count"
+      ]
+    }
+  },
+  "required": [
+    "scope",
+    "period",
+    "filters",
+    "value"
+  ]
+}

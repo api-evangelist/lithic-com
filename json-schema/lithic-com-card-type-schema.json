@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-type",
+  "title": "card-type",
+  "type": "string",
+  "enum": [
+    "SINGLE_USE",
+    "MERCHANT_LOCKED",
+    "UNLOCKED",
+    "PHYSICAL",
+    "DIGITAL_WALLET",
+    "VIRTUAL"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Event",
+  "title": "Event",
+  "description": "A single event that affects the transaction state and lifecycle.",
+  "properties": {
+    "created": {
+      "description": "An RFC 3339 timestamp for when the event was created. UTC time zone.\n\nIf no timezone is specified, UTC will be used.\n",
+      "format": "date-time",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/components/schemas/event_type"
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true,
+      "example": {}
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "example": "msg_1srOrx2ZWZBpBUvZwXKQmoEYga1",
+      "type": "string"
+    }
+  },
+  "required": [
+    "created",
+    "event_type",
+    "payload",
+    "token"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SettlementDetail",
+  "title": "SettlementDetail",
+  "properties": {
+    "account_token": {
+      "description": "Globally unique identifier denoting the account that the associated transaction occurred on.",
+      "example": "e34a817f-119d-4976-9fb3-8b020b8bbec3",
+      "format": "uuid",
+      "type": "string"
+    },
+    "card_program_token": {
+      "description": "Globally unique identifier denoting the card program that the associated transaction occurred on.",
+      "example": "e34a817f-119d-4976-9fb3-8b020b8bbec3",
+      "format": "uuid",
+      "type": "string"
+    },
+    "card_token": {
+      "description": "Globally unique identifier denoting the card that the associated transaction occurred on.",
+      "example": "e34a817f-119d-4976-9fb3-8b020b8bbec3",
+      "format": "uuid",
+      "type": "string"
+    },
+    "created": {
+      "description": "Date and time when the transaction first occurred. UTC time zone.",
+      "example": "2023-06-01T00:00:00",
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "description": "Three-character alphabetic ISO 4217 code.",
+      "example": "USD",
+      "maxLength": 3,
+      "minLength": 3,
+      "type": "string"
+    },
+    "disputes_gross_amount": {
+      "description": "The total gross amount of disputes settlements.",
+      "example": 0,
+      "type": "integer"
+    },
+    "event_tokens": {
+      "description": "Array of globally unique identifiers for the financial events that comprise this settlement. Use these tokens to access detailed event-level information.",
+      "example": [
+        "e34a817f-119d-4976-9fb3-8b020b8bbec3"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "fee_description": {
+      "description": "Network's description of a fee, only present on records with type `FEE`.",
+      "example": "INTERCHANGE COMPLIANCE ADJUSTMENT FOR : 11/12/24",
+      "type": "string"
+    },
+    "institution": {
+      "description": "The most granular ID the network settles with (e.g., ICA for Mastercard, FTSRE for Visa).",
+      "example": "00001",
+      "type": "string"
+    },
+    "interchange_fee_extended_precision": {
+      "description": "The total amount of interchange in six-digit extended precision.",
+      "example": -70000,
+      "type": "integer"
+    },
+    "interchange_gross_amount": {
+      "description": "The total amount of interchange.",
+      "example": -7,
+      "type": "integer"
+    },
+    "network": {
+      "description": "Card network where the transaction took place.",
+      "enum": [
+        "AMEX",
+        "INTERLINK",
+        "MAESTRO",
+        "MASTERCARD",
+        "UNKNOWN",
+        "VISA"
+      ],
+      "example": "MASTERCARD",
+      "type": "string"
+    },
+    "other_fees_details": {
+      "description": "The total gross amount of other fees by type.",
+      "properties": {
+        "ISA": {
+          "title": "ISA",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "other_fees_gross_amount": {
+      "description": "Total amount of gross other fees outside of interchange.",
+      "example": 0,
+      "type": "integer"
+    },
+    "report_date": {
+      "description": "Date of when the report was first generated.",
+      "example": "2023-06-01",
+      "type": "string"
+    },
+    "settlement_date": {
+      "description": "Date of when money movement is triggered for the transaction. One exception applies - for Mastercard dual message settlement, this is the settlement advisement date, which is distinct from the date of money movement.",
+      "example": "2023-06-01",
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier denoting the Settlement Detail.",
+      "example": "e34a817f-119d-4976-9fb3-8b020b8bbec3",
+      "format": "uuid",
+      "type": "string"
+    },
+    "transaction_token": {
+      "description": "Globally unique identifier denoting the associated transaction. For settlement records with type `CLEARING`, `FINANCIAL`, or `NON-FINANCIAL`, this references a card transaction token. For settlement records with type `CHARGEBACK`, `REPRESENTMENT`, `PREARBITRATION`, `ARBITRATION`, or `COLLABORATION`, this references the dispute transaction token. May be null for certain settlement types.",
+      "example": "e34a817f-119d-4976-9fb3-8b020b8bbec3",
+      "format": "uuid",
+      "type": "string"
+    },
+    "transactions_gross_amount": {
+      "description": "The total amount of settlement impacting transactions (excluding interchange, fees, and disputes).",
+      "example": 1900,
+      "type": "integer"
+    },
+    "type": {
+      "description": "The type of settlement record.",
+      "enum": [
+        "ADJUSTMENT",
+        "ARBITRATION",
+        "CHARGEBACK",
+        "CLEARING",
+        "COLLABORATION",
+        "FEE",
+        "FINANCIAL",
+        "NON-FINANCIAL",
+        "PREARBITRATION",
+        "REPRESENTMENT"
+      ],
+      "example": "CLEARING",
+      "type": "string"
+    },
+    "updated": {
+      "description": "Date and time when the transaction first occurred. UTC time zone.",
+      "example": "2023-06-01T00:00:00",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_token",
+    "card_program_token",
+    "card_token",
+    "created",
+    "currency",
+    "disputes_gross_amount",
+    "event_tokens",
+    "institution",
+    "interchange_fee_extended_precision",
+    "interchange_gross_amount",
+    "network",
+    "other_fees_details",
+    "other_fees_gross_amount",
+    "report_date",
+    "settlement_date",
+    "token",
+    "transaction_token",
+    "transactions_gross_amount",
+    "type",
+    "updated"
+  ],
+  "type": "object"
+}

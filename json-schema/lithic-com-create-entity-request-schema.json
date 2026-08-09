@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create-entity-request",
+  "title": "Account Holder Entity Create Request",
+  "description": "Request body for creating a new beneficial owner or replacing the control person entity on an existing KYB account holder.",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/individual"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/components/schemas/entity-type",
+          "description": "The type of entity to create on the account holder"
+        }
+      },
+      "required": [
+        "type",
+        "first_name",
+        "last_name",
+        "dob",
+        "email",
+        "phone_number",
+        "government_id",
+        "address"
+      ]
+    }
+  ]
+}

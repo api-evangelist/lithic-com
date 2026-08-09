@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/device",
+  "title": "device",
+  "type": "object",
+  "properties": {
+    "imei": {
+      "description": "The IMEI number of the device being provisioned. For Amex, this field contains device ID instead as IMEI is not provided",
+      "example": "123456789012345",
+      "maxLength": 64,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ip_address": {
+      "description": "The IP address of the device initiating the request",
+      "example": "1.1.1.1",
+      "maxLength": 64,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "location": {
+      "description": "Latitude and longitude where the device is located during the authorization attempt",
+      "example": "37.3860517/-122.0838511",
+      "maxLength": 64,
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "imei",
+    "ip_address",
+    "location"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/backtest-results",
+  "title": "Auth Rules Backtest Results",
+  "type": "object",
+  "properties": {
+    "backtest_token": {
+      "$ref": "#/components/schemas/backtest-token"
+    },
+    "simulation_parameters": {
+      "$ref": "#/components/schemas/backtest-simulation-parameters"
+    },
+    "results": {
+      "type": "object",
+      "properties": {
+        "current_version": {
+          "anyOf": [
+            {
+              "type": "null",
+              "description": "No results available for the current version."
+            },
+            {
+              "$ref": "#/components/schemas/backtest-stats"
+            }
+          ]
+        },
+        "draft_version": {
+          "anyOf": [
+            {
+              "type": "null",
+              "description": "No results available for the draft version."
+            },
+            {
+              "$ref": "#/components/schemas/backtest-stats"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "backtest_token",
+    "simulation_parameters",
+    "results"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-rule-result",
+  "title": "Tokenization Rule Result",
+  "type": "object",
+  "properties": {
+    "auth_rule_token": {
+      "description": "The Auth Rule Token associated with the rule. If this is set to null, then the result was not associated with a customer-configured rule. This may happen in cases where a tokenization is declined or requires TFA due to a Lithic-configured security or compliance rule, for example.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "result": {
+      "description": "The result associated with this rule",
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "DECLINED",
+        "REQUIRE_TFA",
+        "ERROR"
+      ]
+    },
+    "name": {
+      "description": "The name for the rule, if any was configured",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "explanation": {
+      "description": "A human-readable explanation outlining the motivation for the rule's result",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "auth_rule_token",
+    "result",
+    "name",
+    "explanation"
+  ]
+}

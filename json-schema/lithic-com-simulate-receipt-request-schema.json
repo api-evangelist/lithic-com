@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate_receipt_request",
+  "title": "Simulate Receipt Request",
+  "type": "object",
+  "properties": {
+    "financial_account_token": {
+      "description": "Financial Account Token",
+      "type": "string",
+      "format": "uuid"
+    },
+    "token": {
+      "description": "Customer-generated payment token used to uniquely identify the simulated payment",
+      "type": "string",
+      "format": "uuid"
+    },
+    "receipt_type": {
+      "description": "Receipt Type",
+      "type": "string",
+      "enum": [
+        "RECEIPT_CREDIT",
+        "RECEIPT_DEBIT"
+      ]
+    },
+    "amount": {
+      "description": "Amount",
+      "type": "integer",
+      "minimum": 0
+    },
+    "memo": {
+      "description": "Memo",
+      "type": "string"
+    }
+  },
+  "required": [
+    "financial_account_token",
+    "token",
+    "receipt_type",
+    "amount"
+  ]
+}

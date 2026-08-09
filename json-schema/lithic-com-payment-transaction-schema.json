@@ -1,0 +1,444 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/payment-transaction",
+  "title": "Payment Transaction",
+  "description": "Payment transaction",
+  "definitions": {
+    "AchMethodAttributes": {
+      "type": "object",
+      "properties": {
+        "sec_code": {
+          "type": "string",
+          "enum": [
+            "CCD",
+            "PPD",
+            "WEB",
+            "TEL",
+            "CIE",
+            "CTX"
+          ],
+          "description": "SEC code for ACH transaction"
+        },
+        "return_reason_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Return reason code if the transaction was returned"
+        },
+        "ach_hold_period": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Number of days the ACH transaction is on hold"
+        },
+        "retries": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Number of retries attempted"
+        },
+        "company_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Company ID for the ACH transaction"
+        },
+        "receipt_routing_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Receipt routing number"
+        },
+        "trace_numbers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Trace numbers for the ACH transaction"
+        },
+        "addenda": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Addenda information"
+        },
+        "override_company_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 512,
+          "description": "Value to override the configured company name with. Can only be used if allowed to override"
+        }
+      },
+      "required": [
+        "sec_code"
+      ]
+    },
+    "WireMethodAttributes": {
+      "type": "object",
+      "properties": {
+        "wire_network": {
+          "type": "string",
+          "enum": [
+            "FEDWIRE",
+            "SWIFT"
+          ],
+          "description": "Type of wire transfer"
+        },
+        "wire_message_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Type of wire message"
+        },
+        "debtor": {
+          "$ref": "#/components/schemas/wire_party_details"
+        },
+        "creditor": {
+          "$ref": "#/components/schemas/wire_party_details"
+        },
+        "message_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Point to point reference identifier, as assigned by the instructing party, used for tracking the message through the Fedwire system"
+        },
+        "remittance_information": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Payment details or invoice reference"
+        }
+      },
+      "required": [
+        "wire_network",
+        "wire_message_type"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/base_transaction"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "const": "PAYMENT",
+          "description": "PAYMENT - Payment Transaction"
+        },
+        "category": {
+          "$ref": "#/components/schemas/transaction_category",
+          "description": "Transaction category"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency of the transaction in ISO 4217 format",
+          "example": "USD"
+        },
+        "result": {
+          "$ref": "#/components/schemas/transaction_result",
+          "description": "Transaction result"
+        },
+        "method_attributes": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/AchMethodAttributes"
+            },
+            {
+              "$ref": "#/components/schemas/WireMethodAttributes"
+            }
+          ],
+          "description": "Method-specific attributes"
+        },
+        "financial_account_token": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Financial account token"
+        },
+        "external_bank_account_token": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid",
+          "description": "External bank account token"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "CREDIT",
+            "DEBIT"
+          ],
+          "description": "Transfer direction"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "LITHIC",
+            "EXTERNAL",
+            "CUSTOMER"
+          ],
+          "description": "Transaction source"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "ACH_NEXT_DAY",
+            "ACH_SAME_DAY",
+            "WIRE"
+          ],
+          "description": "Transfer method"
+        },
+        "settled_amount": {
+          "type": "integer",
+          "description": "Settled amount in cents",
+          "example": 500
+        },
+        "pending_amount": {
+          "type": "integer",
+          "description": "Pending amount in cents",
+          "example": 200
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/payment_event"
+          },
+          "description": "List of transaction events"
+        },
+        "descriptor": {
+          "type": "string",
+          "description": "Transaction descriptor"
+        },
+        "user_defined_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "User-defined identifier"
+        },
+        "expected_release_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Expected release date for the transaction"
+        },
+        "related_account_tokens": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/related_account_tokens"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Related account tokens for the transaction"
+        },
+        "type": {
+          "$ref": "#/components/schemas/transfer_type"
+        }
+      },
+      "required": [
+        "category",
+        "result",
+        "method_attributes",
+        "family",
+        "financial_account_token",
+        "direction",
+        "source",
+        "method",
+        "settled_amount",
+        "pending_amount",
+        "events",
+        "descriptor",
+        "related_account_tokens"
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "family": "PAYMENT",
+      "status": "PENDING",
+      "token": "bd4efddb-771b-49e3-9af9-49b077ab5eb8",
+      "created": "2025-10-27T20:12:22Z",
+      "updated": "2025-10-27T20:12:25Z",
+      "category": "ACH",
+      "result": "APPROVED",
+      "method_attributes": {
+        "sec_code": "CCD",
+        "return_reason_code": null,
+        "ach_hold_period": 1,
+        "retries": 0,
+        "company_id": "1111111111",
+        "receipt_routing_number": null,
+        "trace_numbers": [],
+        "addenda": null
+      },
+      "financial_account_token": "35b0c466-a3e3-519a-9549-ead6a6a2277d",
+      "external_bank_account_token": "feb4fee1-2414-4c38-a5f6-9deac293c8f4",
+      "direction": "CREDIT",
+      "source": "LITHIC",
+      "method": "ACH_NEXT_DAY",
+      "settled_amount": 0,
+      "pending_amount": -1588,
+      "currency": "USD",
+      "events": [
+        {
+          "amount": -1588,
+          "type": "ACH_ORIGINATION_INITIATED",
+          "result": "APPROVED",
+          "created": "2025-10-27T20:12:22Z",
+          "token": "327dccc3-fe42-54d2-962c-7f8135805464",
+          "detailed_results": [
+            "APPROVED"
+          ]
+        },
+        {
+          "amount": -1588,
+          "type": "ACH_ORIGINATION_REVIEWED",
+          "result": "APPROVED",
+          "created": "2025-10-27T20:12:25Z",
+          "token": "f9165477-7cfc-53c6-98f1-84e9ec856a60",
+          "detailed_results": [
+            "APPROVED"
+          ]
+        }
+      ],
+      "descriptor": "ach_origination_credit",
+      "user_defined_id": null,
+      "expected_release_date": null,
+      "related_account_tokens": null,
+      "type": "ORIGINATION_CREDIT"
+    },
+    {
+      "family": "PAYMENT",
+      "status": "PENDING",
+      "token": "cb35759d-8c18-4b7f-bb91-7c37936662c2",
+      "created": "2025-10-27T20:12:15Z",
+      "updated": "2025-10-27T20:12:18Z",
+      "category": "ACH",
+      "result": "APPROVED",
+      "method_attributes": {
+        "sec_code": "CCD",
+        "return_reason_code": null,
+        "ach_hold_period": 2,
+        "retries": 0,
+        "company_id": "1111111111",
+        "receipt_routing_number": null,
+        "trace_numbers": [],
+        "addenda": null
+      },
+      "financial_account_token": "f012262b-d18f-5c26-ad63-a09a11e633a6",
+      "external_bank_account_token": "feb4fee1-2414-4c38-a5f6-9deac293c8f4",
+      "direction": "DEBIT",
+      "source": "LITHIC",
+      "method": "ACH_NEXT_DAY",
+      "settled_amount": 0,
+      "pending_amount": 1588,
+      "currency": "USD",
+      "events": [
+        {
+          "amount": 1588,
+          "type": "ACH_ORIGINATION_INITIATED",
+          "result": "APPROVED",
+          "created": "2025-10-27T20:12:15Z",
+          "token": "38dc6bc5-d18f-594e-9ab9-ef1cfdcfbf82",
+          "detailed_results": [
+            "APPROVED"
+          ]
+        },
+        {
+          "amount": 1588,
+          "type": "ACH_ORIGINATION_REVIEWED",
+          "result": "APPROVED",
+          "created": "2025-10-27T20:12:18Z",
+          "token": "e466f34a-d648-5a8f-8bc7-1d4d1e703db3",
+          "detailed_results": [
+            "APPROVED"
+          ]
+        }
+      ],
+      "descriptor": "ach_origination_debit",
+      "user_defined_id": null,
+      "expected_release_date": null,
+      "related_account_tokens": {
+        "business_account_token": null,
+        "account_token": "d11bca22-39e2-475c-bbb3-6ba21e38b0d3"
+      },
+      "type": "ORIGINATION_DEBIT"
+    },
+    {
+      "family": "PAYMENT",
+      "status": "SETTLED",
+      "token": "dd72f435-9633-46f3-b871-47d4af684654",
+      "created": "2024-10-08T21:39:27Z",
+      "updated": "2024-10-08T21:39:28Z",
+      "category": "ACH",
+      "result": "APPROVED",
+      "method_attributes": {
+        "sec_code": "CCD",
+        "return_reason_code": null,
+        "ach_hold_period": 2,
+        "retries": 0,
+        "company_id": "1111111111",
+        "receipt_routing_number": "1234567890",
+        "trace_numbers": [
+          "316779406684861"
+        ],
+        "addenda": null
+      },
+      "financial_account_token": "0d6b1b9f-b90f-5f03-9c45-8930d5a6aac0",
+      "external_bank_account_token": null,
+      "direction": "DEBIT",
+      "source": "LITHIC",
+      "method": "ACH_SAME_DAY",
+      "settled_amount": 1000,
+      "pending_amount": 0,
+      "currency": "USD",
+      "events": [
+        {
+          "amount": 1000,
+          "type": "ACH_RECEIPT_PROCESSED",
+          "result": "APPROVED",
+          "created": "2024-10-08T21:39:27Z",
+          "token": "99ff8ea0-2355-57fc-aa9d-0e953f64ba4f",
+          "detailed_results": [
+            "APPROVED"
+          ]
+        },
+        {
+          "amount": 1000,
+          "type": "ACH_RECEIPT_SETTLED",
+          "result": "APPROVED",
+          "created": "2024-10-08T21:39:28Z",
+          "token": "33d0ae98-310c-5b50-a012-1bcd8edb9254",
+          "detailed_results": [
+            "APPROVED"
+          ]
+        }
+      ],
+      "descriptor": "ach_receipt_credit",
+      "user_defined_id": null,
+      "expected_release_date": null,
+      "related_account_tokens": null,
+      "type": "RECEIPT_CREDIT"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "operationId": "searchCardByPan",
+  "method": "POST",
+  "path": "/v1/cards/search_by_pan",
+  "summary": "Search for card by PAN",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "searchCardByPan",
+      "example": {
+        "pan": "4111111289144142"
+      }
+    }
+  ],
+  "responseExamples": []
+}

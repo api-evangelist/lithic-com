@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/required-document",
+  "title": "Account Holder Required Document",
+  "type": "object",
+  "properties": {
+    "entity_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for an entity."
+    },
+    "valid_documents": {
+      "type": "array",
+      "description": "A list of valid documents that will satisfy the KYC requirements for the specified entity.",
+      "items": {
+        "type": "string",
+        "description": "The name of a required document."
+      }
+    },
+    "status_reasons": {
+      "type": "array",
+      "description": "Provides the status reasons that will be satisfied by providing one of the valid documents.",
+      "items": {
+        "type": "string",
+        "description": "An account holder's status reason"
+      }
+    }
+  },
+  "required": [
+    "entity_token",
+    "valid_documents",
+    "status_reasons"
+  ]
+}

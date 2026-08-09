@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/externally_verified_verification_method",
+  "title": "Externally Verified Verification Methods",
+  "type": "string",
+  "enum": [
+    "EXTERNALLY_VERIFIED"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-parameters",
+  "title": "Auth Rule Parameters",
+  "description": "Parameters for the Auth Rule",
+  "anyOf": [
+    {
+      "$ref": "#/components/schemas/conditional-block-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/velocity-limit-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/merchant-lock-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/conditional-3ds-action-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/conditional-authorization-action-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/conditional-ach-action-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/conditional-tokenization-action-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/conditional-card-transaction-update-action-parameters"
+    },
+    {
+      "$ref": "#/components/schemas/typescript-code-parameters"
+    }
+  ]
+}

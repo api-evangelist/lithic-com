@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/simulate-enrollment-review-request",
+  "title": "Simulate account holder enrollment review request body",
+  "type": "object",
+  "properties": {
+    "account_holder_token": {
+      "description": "The account holder which to perform the simulation upon.",
+      "type": "string"
+    },
+    "status": {
+      "description": "An account holder's status for use within the simulation.",
+      "type": "string",
+      "enum": [
+        "ACCEPTED",
+        "REJECTED",
+        "PENDING_REVIEW"
+      ]
+    },
+    "status_reasons": {
+      "description": "Status reason that will be associated with the simulated account holder status. Only required for a `REJECTED` status.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE",
+          "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE",
+          "PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE",
+          "PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED",
+          "PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE",
+          "PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED",
+          "PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE",
+          "PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE",
+          "PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE",
+          "CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE",
+          "CONTROL_PERSON_ID_VERIFICATION_FAILURE",
+          "CONTROL_PERSON_DOB_VERIFICATION_FAILURE",
+          "CONTROL_PERSON_NAME_VERIFICATION_FAILURE",
+          "BENEFICIAL_OWNER_INDIVIDUAL_DOB_VERIFICATION_FAILURE",
+          "BENEFICIAL_OWNER_INDIVIDUAL_BLOCKLIST_ALERT_FAILURE",
+          "BENEFICIAL_OWNER_INDIVIDUAL_ID_VERIFICATION_FAILURE",
+          "BENEFICIAL_OWNER_INDIVIDUAL_NAME_VERIFICATION_FAILURE"
+        ]
+      }
+    }
+  }
+}

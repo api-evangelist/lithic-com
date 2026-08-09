@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/current-version",
+  "title": "Auth Rule Current Version",
+  "anyOf": [
+    {
+      "type": "null",
+      "description": "No current version."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "$ref": "#/components/schemas/auth-rule-parameters"
+        },
+        "version": {
+          "$ref": "#/components/schemas/auth-rule-version-id"
+        }
+      },
+      "required": [
+        "parameters",
+        "version"
+      ]
+    }
+  ]
+}

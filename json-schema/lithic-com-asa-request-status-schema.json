@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/asa_request_status",
+  "title": "asa_request_status",
+  "type": "string",
+  "description": "The type of authorization request that this request is for. Note that `CREDIT_AUTHORIZATION` and `FINANCIAL_CREDIT_AUTHORIZATION` is only available to users with credit decisioning via ASA enabled.",
+  "enum": [
+    "AUTHORIZATION",
+    "CREDIT_AUTHORIZATION",
+    "FINANCIAL_AUTHORIZATION",
+    "FINANCIAL_CREDIT_AUTHORIZATION",
+    "BALANCE_INQUIRY"
+  ]
+}

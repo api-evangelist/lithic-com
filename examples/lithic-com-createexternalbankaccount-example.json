@@ -1,0 +1,55 @@
+{
+  "operationId": "createExternalBankAccount",
+  "method": "POST",
+  "path": "/v1/external_bank_accounts",
+  "summary": "Create external bank account",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "createBankAccountViaMicroDeposits",
+      "example": {
+        "account_number": "13719713158835300",
+        "address": {
+          "address1": "5 Broad Street",
+          "city": "New York",
+          "country": "USA",
+          "postal_code": "10001",
+          "state": "NY"
+        },
+        "country": "USA",
+        "currency": "USD",
+        "name": "John Does Checking",
+        "financial_account_token": "dabadb3b-700c-41e3-8801-d5dfc84ebea0",
+        "owner": "John Doe",
+        "owner_type": "BUSINESS",
+        "routing_number": "011103093",
+        "type": "CHECKING",
+        "verification_method": "MICRO_DEPOSIT"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "createBankAccountViaPrenote",
+      "example": {
+        "account_number": "13719713158835300",
+        "address": {
+          "address1": "5 Broad Street",
+          "city": "New York",
+          "country": "USA",
+          "postal_code": "10001",
+          "state": "NY"
+        },
+        "country": "USA",
+        "currency": "USD",
+        "name": "John Does Checking",
+        "financial_account_token": "dabadb3b-700c-41e3-8801-d5dfc84ebea0",
+        "owner": "John Doe",
+        "owner_type": "BUSINESS",
+        "routing_number": "011103093",
+        "type": "CHECKING",
+        "verification_method": "PRENOTE"
+      }
+    }
+  ],
+  "responseExamples": []
+}

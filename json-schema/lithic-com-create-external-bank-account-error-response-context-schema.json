@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create_external_bank_account_error_response_context",
+  "title": "Create External Bank Account Api Response Context",
+  "type": "object",
+  "properties": {
+    "existing_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The existing external bank account token."
+    }
+  },
+  "required": [
+    "existing_token"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tax-data",
+  "title": "TaxData",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "title": "Amount",
+      "description": "The amount of tax collected.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "exempt": {
+      "title": "Exempt",
+      "$ref": "#/components/schemas/tax-exempt-indicator"
+    },
+    "merchant_tax_id": {
+      "title": "Merchant Tax ID",
+      "description": "The tax ID of the merchant.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

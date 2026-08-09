@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-version-id",
+  "title": "Auth Rule Version",
+  "type": "integer",
+  "description": "The version of the rule, this is incremented whenever the rule's parameters change.",
+  "readOnly": true
+}

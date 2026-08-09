@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/excluded-business-account-tokens",
+  "title": "Auth Rule Excluded Business Account Tokens",
+  "description": "Business account tokens to which the Auth Rule does not apply.",
+  "type": "array",
+  "items": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/wire_party_details",
+  "title": "Wire Party Details",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Name of the person or company"
+    },
+    "account_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Account number"
+    },
+    "agent_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Name of the financial institution"
+    },
+    "agent_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Routing number or BIC of the financial institution"
+    }
+  },
+  "required": []
+}

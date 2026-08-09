@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/funding_event_settlement",
+  "title": "Funding Event Settlement",
+  "type": "object",
+  "properties": {
+    "settled_gross_amount": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "network_settlement_date": {
+      "type": "string",
+      "example": "2024-01-01",
+      "format": "date"
+    }
+  },
+  "required": [
+    "settled_gross_amount",
+    "network_settlement_date"
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-result",
+  "title": "Tokenization Result",
+  "examples": [
+    {
+      "account_token": "00000000-0000-0000-0000-000000000002",
+      "card_token": "00000000-0000-0000-0000-000000000001",
+      "created": "2020-01-01T00:00:00Z",
+      "tokenization_result_details": {
+        "issuer_decision": "APPROVED",
+        "tokenization_decline_reasons": [
+          "ACCOUNT_SCORE_1",
+          "DEVICE_SCORE_1"
+        ],
+        "wallet_decision": "APPROVED"
+      },
+      "tokenization_token": "00000000-0000-0000-0000-000000000003"
+    }
+  ],
+  "properties": {
+    "account_token": {
+      "description": "Account token",
+      "example": "00000000-0000-0000-0000-000000000002",
+      "type": "string"
+    },
+    "card_token": {
+      "description": "Card token",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "type": "string"
+    },
+    "created": {
+      "description": "Created date",
+      "example": "2020-01-01T00:00:00Z",
+      "format": "date-time",
+      "type": "string"
+    },
+    "tokenization_result_details": {
+      "additionalProperties": false,
+      "description": "The result of the tokenization request.",
+      "properties": {
+        "customer_decision": {
+          "description": "The customer's tokenization decision if applicable.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "issuer_decision": {
+          "description": "Lithic's tokenization decision.",
+          "type": "string"
+        },
+        "token_activated_date_time": {
+          "description": "An RFC 3339 timestamp indicating when the tokenization succeeded.",
+          "example": "2020-01-01T00:00:00Z",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tokenization_decline_reasons": {
+          "description": "List of reasons why the tokenization was declined",
+          "example": [
+            "ACCOUNT_SCORE_1",
+            "DEVICE_SCORE_1"
+          ],
+          "items": {
+            "enum": [
+              "ACCOUNT_SCORE_1",
+              "ALL_WALLET_DECLINE_REASONS_PRESENT",
+              "CARD_EXPIRY_MONTH_MISMATCH",
+              "CARD_EXPIRY_YEAR_MISMATCH",
+              "CARD_INVALID_STATE",
+              "CUSTOMER_RED_PATH",
+              "CVC_MISMATCH",
+              "DEVICE_SCORE_1",
+              "GENERIC_DECLINE",
+              "INVALID_CUSTOMER_RESPONSE",
+              "NETWORK_FAILURE",
+              "WALLET_RECOMMENDED_DECISION_RED"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "tokenization_tfa_reasons": {
+          "description": "List of reasons why two-factor authentication was required",
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/tokenization-tfa-reason"
+          }
+        },
+        "rule_results": {
+          "description": "Results from rules that were evaluated for this tokenization",
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/tokenization-rule-result"
+          }
+        },
+        "wallet_decision": {
+          "description": "The wallet's recommended decision.",
+          "example": "APPROVED",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "issuer_decision",
+        "tokenization_decline_reasons"
+      ],
+      "type": "object"
+    },
+    "tokenization_token": {
+      "description": "Tokenization token",
+      "example": "00000000-0000-0000-0000-000000000003",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_token",
+    "card_token",
+    "created",
+    "tokenization_result_details",
+    "tokenization_token"
+  ],
+  "type": "object"
+}

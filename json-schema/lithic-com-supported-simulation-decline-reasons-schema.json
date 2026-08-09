@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/supported_simulation_decline_reasons",
+  "title": "Supported Simulation Decline Reasons",
+  "type": "string",
+  "enum": [
+    "PROGRAM_TRANSACTION_LIMIT_EXCEEDED",
+    "PROGRAM_DAILY_LIMIT_EXCEEDED",
+    "PROGRAM_MONTHLY_LIMIT_EXCEEDED"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/event-stream",
+  "title": "Event Stream Types",
+  "type": "string",
+  "enum": [
+    "AUTHORIZATION",
+    "THREE_DS_AUTHENTICATION",
+    "TOKENIZATION",
+    "ACH_CREDIT_RECEIPT",
+    "ACH_DEBIT_RECEIPT",
+    "CARD_TRANSACTION_UPDATE"
+  ],
+  "description": "The event stream during which the rule will be evaluated."
+}

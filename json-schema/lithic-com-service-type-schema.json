@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/service-type",
+  "title": "FuelServiceType",
+  "description": "The type of fuel service procured in a fleet transaction.",
+  "enum": [
+    "UNKNOWN",
+    "UNDEFINED",
+    "SELF_SERVICE",
+    "FULL_SERVICE",
+    "NON_FUEL_ONLY"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/limit_with_progress",
+  "title": "Limit With Progress",
+  "type": "object",
+  "properties": {
+    "limit": {
+      "description": "The limit amount",
+      "type": "integer",
+      "minimum": 0
+    },
+    "amount_originated": {
+      "description": "Amount originated towards limit",
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "limit"
+  ]
+}

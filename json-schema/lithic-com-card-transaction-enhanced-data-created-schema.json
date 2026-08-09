@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-transaction-enhanced-data-created",
+  "title": "Card Transaction Enhanced Data Created",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/enhanced-data"
+    }
+  ],
+  "examples": [
+    {
+      "token": "fda41769-2a3f-5532-898f-0d2034f2da85",
+      "transaction_token": "6b79924e-0f01-4bdf-9485-9f6da44b6be2",
+      "event_token": "49bbd49c-dfe1-56db-86ad-98c7c2bd75e4",
+      "common": {
+        "customer_reference_number": null,
+        "merchant_reference_number": null,
+        "order_date": null,
+        "line_items": [],
+        "tax": {
+          "merchant_tax_id": "521236050",
+          "amount": null,
+          "exempt": null
+        }
+      },
+      "fleet": [
+        {
+          "service_type": "SELF_SERVICE",
+          "driver_number": null,
+          "vehicle_number": "012345",
+          "odometer": 12345,
+          "amount_totals": {
+            "gross_sale": 104,
+            "discount": null,
+            "net_sale": 104
+          },
+          "fuel": {
+            "quantity": "0.24300",
+            "type": "PREMIUM_SUPER",
+            "unit_of_measure": "GALLONS",
+            "unit_price": 4300
+          }
+        }
+      ]
+    }
+  ]
+}

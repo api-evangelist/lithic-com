@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CardSpendLimits",
+  "title": "CardSpendLimits",
+  "properties": {
+    "available_spend_limit": {
+      "properties": {
+        "annually": {
+          "description": "The available spend limit (in cents) relative to the annual limit configured on the Card (e.g. 100000 would be a $1,000 limit).",
+          "example": 200000,
+          "type": "integer"
+        },
+        "forever": {
+          "description": "The available spend limit (in cents) relative to the forever limit configured on the Card.",
+          "example": 300000,
+          "type": "integer"
+        },
+        "monthly": {
+          "description": "The available spend limit (in cents) relative to the monthly limit configured on the Card.",
+          "example": 200000,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "spend_limit": {
+      "properties": {
+        "annually": {
+          "description": "The configured annual spend limit (in cents) on the Card.",
+          "example": 500000,
+          "type": "integer"
+        },
+        "forever": {
+          "description": "The configured forever spend limit (in cents) on the Card.",
+          "example": 500000,
+          "type": "integer"
+        },
+        "monthly": {
+          "description": "The configured monthly spend limit (in cents) on the Card.",
+          "example": 500000,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "spend_velocity": {
+      "properties": {
+        "annually": {
+          "description": "Current annual spend velocity (in cents) on the Card. Present if annual spend limit is set.",
+          "example": 300000,
+          "type": "integer"
+        },
+        "forever": {
+          "description": "Current forever spend velocity (in cents) on the Card. Present if forever spend limit is set.",
+          "example": 200000,
+          "type": "integer"
+        },
+        "monthly": {
+          "description": "Current monthly spend velocity (in cents) on the Card. Present if monthly spend limit is set.",
+          "example": 300000,
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "available_spend_limit"
+  ],
+  "type": "object"
+}

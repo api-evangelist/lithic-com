@@ -1,0 +1,24 @@
+{
+  "operationId": "getEvents",
+  "method": "GET",
+  "path": "/v1/events",
+  "summary": "List events",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "data": [
+          {
+            "created": "2020-07-08T17:57:36Z",
+            "event_type": "dispute.updated",
+            "payload": {},
+            "token": "msg_1srOrx2ZWZBpBUvZwXKQmoEYga1"
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ]
+}

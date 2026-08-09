@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/funding_event_response",
+  "title": "Funding Event Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "description": "Unique token ID",
+      "type": "string",
+      "example": "b68b7424-aa69-4cbc-a946-30d90181b621",
+      "format": "uuid"
+    },
+    "collection_tokens": {
+      "description": "IDs of collections, further information can be gathered from the appropriate collection API based on collection_resource_type",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "example": "b68b7424-aa69-4cbc-a946-30d90181b621",
+        "format": "uuid"
+      }
+    },
+    "previous_high_watermark": {
+      "description": "Time of the previous high watermark",
+      "type": "string",
+      "example": "2024-01-01T00:00:00Z",
+      "format": "date-time"
+    },
+    "high_watermark": {
+      "description": "Time of the high watermark",
+      "type": "string",
+      "example": "2024-01-01T00:00:00Z",
+      "format": "date-time"
+    },
+    "collection_resource_type": {
+      "description": "Collection resource type",
+      "type": "string",
+      "example": "PAYMENT",
+      "enum": [
+        "BOOK_TRANSFER",
+        "PAYMENT"
+      ]
+    },
+    "network_settlement_summary": {
+      "description": "Network settlement summary breakdown by network settlement date",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/funding_event_settlement"
+      }
+    },
+    "created": {
+      "description": "Time of the creation",
+      "type": "string",
+      "example": "2024-01-01T00:00:00Z",
+      "format": "date-time"
+    },
+    "updated": {
+      "description": "Time of the update",
+      "type": "string",
+      "example": "2024-01-01T00:00:00Z",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "token",
+    "previous_high_watermark",
+    "high_watermark",
+    "collection_resource_type",
+    "created",
+    "updated",
+    "network_settlement_summary",
+    "collection_tokens"
+  ]
+}

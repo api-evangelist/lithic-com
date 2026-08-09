@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auto-collection-configuration-response",
+  "title": "Auto Collection Configuration Response",
+  "type": "object",
+  "properties": {
+    "auto_collection_enabled": {
+      "type": "boolean",
+      "description": "If auto collection is enabled for this account"
+    }
+  },
+  "required": [
+    "auto_collection_enabled"
+  ]
+}

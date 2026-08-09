@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/kyb-patch-request",
+  "title": "Business Patch Request",
+  "type": "object",
+  "description": "The KYB request payload for updating a business.",
+  "properties": {
+    "beneficial_owner_individuals": {
+      "description": "You must submit a list of all direct and indirect individuals with 25% or more ownership in the company. A maximum of 4 beneficial owners can be submitted. If no individual owns 25% of the company you do not need to send beneficial owner information. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background on individuals that should be included.",
+      "items": {
+        "$ref": "#/components/schemas/kyb-individual-patch"
+      },
+      "minItems": 0,
+      "type": "array"
+    },
+    "business_entity": {
+      "description": "Information for business for which the account is being opened and KYB is being run.",
+      "$ref": "#/components/schemas/kyb-business-entity-patch"
+    },
+    "control_person": {
+      "description": "An individual with significant responsibility for managing the legal entity (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating Officer, Managing Member, General Partner, President, Vice President, or Treasurer). This can be an executive, or someone who will have program-wide access to the cards that Lithic will provide. In some cases, this individual could also be a beneficial owner listed above. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section II) for more background.",
+      "$ref": "#/components/schemas/kyb-individual-patch"
+    },
+    "external_id": {
+      "description": "A user provided id that can be used to link an account holder with an external system",
+      "type": "string"
+    },
+    "naics_code": {
+      "description": "6-digit North American Industry Classification System (NAICS) code for the business.",
+      "example": "541512",
+      "type": "string"
+    },
+    "nature_of_business": {
+      "description": "Short description of the company's line of business (i.e., what does the company do?). Values longer than 255 characters will be truncated before KYB verification",
+      "example": "Software company selling solutions to the restaurant industry",
+      "type": "string"
+    },
+    "website_url": {
+      "description": "Company website URL.",
+      "example": "www.mybusiness.com",
+      "type": "string"
+    }
+  }
+}

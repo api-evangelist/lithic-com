@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/register_account_number_request",
+  "title": "Register Account Number Request",
+  "type": "object",
+  "properties": {
+    "account_number": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_number"
+  ]
+}

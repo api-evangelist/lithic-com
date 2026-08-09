@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/challenge-response",
+  "title": "Challenge Response object",
+  "type": "object",
+  "description": "Response from Card Program to a 3DS Authentication challenge",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Globally unique identifier for 3DS Authentication that resulted in PENDING_CHALLENGE authentication result.",
+      "format": "uuid"
+    },
+    "challenge_response": {
+      "type": "string",
+      "description": "Whether the Cardholder has approved or declined the issued Challenge",
+      "enum": [
+        "APPROVE",
+        "DECLINE_BY_CUSTOMER"
+      ]
+    }
+  },
+  "required": [
+    "token",
+    "challenge_response"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/balance-updated",
+  "title": "Balance Updated",
+  "examples": [
+    {
+      "data": [
+        {
+          "available_amount": 10000,
+          "created": "2023-09-14T12:52:44Z",
+          "currency": "USD",
+          "last_transaction_event_token": "10265fe1-7058-451a-bfdf-db6f0ece177c",
+          "last_transaction_token": "1e338050-295e-477b-884a-4f87d7d4b648",
+          "pending_amount": 0,
+          "token": "1e338050-295e-477b-884a-4f87d7d4b648",
+          "total_amount": 10000,
+          "type": "ISSUING",
+          "updated": "2023-09-14T12:52:44Z"
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "data": {
+      "items": {
+        "$ref": "#/components/schemas/financial-account-balance"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "type": "object"
+}

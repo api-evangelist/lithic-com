@@ -1,0 +1,190 @@
+{
+  "operationId": "postAccountHolders",
+  "method": "POST",
+  "path": "/v1/account_holders",
+  "summary": "Create an individual or business account holder",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "kybRequest",
+      "example": {
+        "beneficial_owner_individuals": [
+          {
+            "address": {
+              "address1": "300 Normal Forest Way",
+              "city": "Portland",
+              "country": "USA",
+              "postal_code": "90210",
+              "state": "OR"
+            },
+            "dob": "1991-03-08T08:00:00Z",
+            "email": "tim@left-earth.com",
+            "first_name": "Timmy",
+            "government_id": "211-23-1412",
+            "last_name": "Turner",
+            "phone_number": "+15555555555"
+          }
+        ],
+        "business_entity": {
+          "address": {
+            "address1": "123 Old Forest Way",
+            "city": "Omaha",
+            "country": "USA",
+            "postal_code": "61022",
+            "state": "NE"
+          },
+          "dba_business_name": "Example Business Solutions",
+          "government_id": "12-3456789",
+          "legal_business_name": "Busy Business, Inc.",
+          "phone_numbers": [
+            "+15555555555"
+          ]
+        },
+        "control_person": {
+          "address": {
+            "address1": "451 New Forest Way",
+            "city": "Springfield",
+            "country": "USA",
+            "postal_code": "68022",
+            "state": "IL"
+          },
+          "birthdate": "1980-04-12",
+          "dob": "1991-03-08T08:00:00Z",
+          "email": "tom@middle-pluto.com",
+          "first_name": "Tom",
+          "government_id": "111-23-1412",
+          "last_name": "Timothy",
+          "phone_number": "+15555555555"
+        },
+        "kyb_passed_timestamp": "2022-03-08T08:00:00Z",
+        "naics_code": "541512",
+        "nature_of_business": "Software company selling solutions to the restaurant industry",
+        "tos_timestamp": "2022-03-08T08:00:00Z",
+        "website_url": "https://www.mybusiness.com",
+        "workflow": "KYB_BYO"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "kybDelegatedRequest",
+      "example": {
+        "business_entity": {
+          "address": {
+            "address1": "123 Old Forest Way",
+            "city": "Omaha",
+            "country": "USA",
+            "postal_code": "61022",
+            "state": "NE"
+          },
+          "legal_business_name": "Busy Business, Inc."
+        }
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "kycExemptRequest",
+      "example": {
+        "address": {
+          "address1": "123 Old Forest Way",
+          "city": "Omaha",
+          "country": "USA",
+          "postal_code": "68022",
+          "state": "NE"
+        },
+        "business_account_token": "e87db14a-4abf-4901-adad-5d5c9f46aff2",
+        "email": "tom@middle-earth.com",
+        "first_name": "Tom",
+        "kyc_exemption_type": "AUTHORIZED_USER",
+        "last_name": "Bombadil",
+        "phone_number": "+15555555555",
+        "workflow": "KYC_EXEMPT"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "kycRequest",
+      "example": {
+        "individual": {
+          "address": {
+            "address1": "123 Old Forest Way",
+            "city": "Omaha",
+            "country": "USA",
+            "postal_code": "68022",
+            "state": "NE"
+          },
+          "dob": "1991-03-08 08:00:00",
+          "email": "tom@middle-earth.com",
+          "first_name": "Tom",
+          "government_id": "111-23-1412",
+          "last_name": "Bombadil",
+          "phone_number": "+15555555555"
+        },
+        "tos_timestamp": "2022-03-08T08:00:00Z",
+        "workflow": "KYC_BASIC"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "acceptedEvaluationResponse",
+      "example": {
+        "account_token": "b68b7424-aa69-4cbc-a946-30d90181b621",
+        "status": "ACCEPTED",
+        "status_reasons": [],
+        "token": "12345678-aa69-4cbc-a946-30d90181b621",
+        "created": "2024-09-16T20:13:41.865274"
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "pendingResubmitResponse",
+      "example": {
+        "account_token": "b68b7424-aa69-4cbc-a946-30d90181b621",
+        "status": "PENDING_RESUBMIT",
+        "status_reasons": [
+          "NAME_VERIFICATION_FAILURE"
+        ],
+        "token": "12345678-aa69-4cbc-a946-30d90181b621",
+        "created": "2024-09-16T20:13:41.865274"
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "pendingKYBReviewResponse",
+      "example": {
+        "account_token": "6016af53-87d4-42aa-b021-0170644d6458",
+        "status": "PENDING_REVIEW",
+        "status_reasons": [
+          "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE"
+        ],
+        "token": "12345678-aa69-4cbc-a946-30d90181b621",
+        "created": "2024-09-16T20:13:41.865274",
+        "required_documents": [
+          {
+            "entity_token": "48afea0a-38b0-44e4-aaa7-c2b5413da9d3",
+            "valid_documents": [
+              "EIN_LETTER",
+              "TAX_RETURN",
+              "CERTIFICATE_OF_GOOD_STANDING",
+              "ARTICLES_OF_INCORPORATION",
+              "ARTICLES_OF_ORGANIZATION",
+              "CERTIFICATE_OF_FORMATION",
+              "BYLAWS",
+              "GOVERNMENT_BUSINESS_LICENSE",
+              "PARTNERSHIP_AGREEMENT",
+              "BANK_STATEMENT",
+              "UTILITY_BILL_STATEMENT"
+            ],
+            "status_reasons": [
+              "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

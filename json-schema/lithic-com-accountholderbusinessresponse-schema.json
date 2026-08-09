@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountHolderBusinessResponse",
+  "title": "AccountHolderBusinessResponse",
+  "properties": {
+    "address": {
+      "$ref": "#/components/schemas/Address",
+      "description": "Business's physical address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable.\n"
+    },
+    "dba_business_name": {
+      "description": "Any name that the business operates under that is not its legal business name (if applicable).",
+      "type": "string"
+    },
+    "government_id": {
+      "description": "Government-issued identification number. US Federal Employer Identification Numbers (EIN) are currently supported, entered as full nine-digits, with or without hyphens.\n",
+      "example": "114-123-1513",
+      "type": "string"
+    },
+    "legal_business_name": {
+      "description": "Legal (formal) business name.",
+      "example": "Acme, Inc.",
+      "type": "string"
+    },
+    "parent_company": {
+      "description": "Parent company name (if applicable).",
+      "type": "string"
+    },
+    "phone_numbers": {
+      "description": "One or more of the business's phone number(s), entered as a list in E.164 format.",
+      "items": {
+        "description": "Business phone number, entered in E.164 format.",
+        "example": "+15555555555",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "entity_token": {
+      "description": "Globally unique identifier for the entity.",
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "address",
+    "government_id",
+    "dba_business_name",
+    "legal_business_name",
+    "phone_numbers",
+    "entity_token"
+  ],
+  "type": "object"
+}

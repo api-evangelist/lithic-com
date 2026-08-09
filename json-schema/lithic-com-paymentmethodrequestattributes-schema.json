@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaymentMethodRequestAttributes",
+  "title": "PaymentMethodRequestAttributes",
+  "properties": {
+    "sec_code": {
+      "enum": [
+        "CCD",
+        "PPD",
+        "WEB"
+      ],
+      "title": "SEC Code",
+      "type": "string"
+    },
+    "ach_hold_period": {
+      "description": "Number of days to hold the ACH payment",
+      "example": 0,
+      "minimum": 0,
+      "title": "ACH Hold Period",
+      "type": "integer"
+    },
+    "addenda": {
+      "title": "Addenda",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "override_company_name": {
+      "description": "Value to override the configured company name with. Can only be used if allowed to override",
+      "maxLength": 512,
+      "title": "Override Company Name",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "sec_code"
+  ],
+  "type": "object"
+}

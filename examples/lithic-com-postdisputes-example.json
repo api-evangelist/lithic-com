@@ -1,0 +1,19 @@
+{
+  "operationId": "postDisputes",
+  "method": "POST",
+  "path": "/v1/disputes",
+  "summary": "Request chargeback",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "initiateDispute",
+      "example": {
+        "amount": 10000,
+        "customer_filed_date": "2021-06-28T22:53:15Z",
+        "reason": "FRAUD_CARD_PRESENT",
+        "transaction_token": "12345624-aa69-4cbc-a946-30d90181b621"
+      }
+    }
+  ],
+  "responseExamples": []
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/report-stats-v2",
+  "title": "Auth Rule Version Report Statistics",
+  "type": "object",
+  "properties": {
+    "version": {
+      "description": "The rule version number.",
+      "type": "integer"
+    },
+    "state": {
+      "description": "The evaluation mode of this version during the reported period.",
+      "$ref": "#/components/schemas/auth-rule-version-state"
+    },
+    "action_counts": {
+      "type": "object",
+      "description": "A mapping of action types to the number of times that action was returned by this version during the relevant period. Actions are the possible outcomes of a rule evaluation, such as DECLINE, CHALLENGE, REQUIRE_TFA, etc. In case rule didn't trigger any action, it's counted under NO_ACTION key.",
+      "additionalProperties": {
+        "type": "integer"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "Example events and their outcomes for this version.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_token": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The event token."
+          },
+          "transaction_token": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "The token of the transaction associated with the event"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp of the event."
+          },
+          "actions": {
+            "type": "array",
+            "description": "The actions taken by this version for this event.",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/result-authorization-action"
+                },
+                {
+                  "$ref": "#/components/schemas/result-authentication-3ds-action"
+                },
+                {
+                  "$ref": "#/components/schemas/tokenization-action"
+                },
+                {
+                  "$ref": "#/components/schemas/ach-action"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "event_token",
+          "timestamp",
+          "actions"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "state",
+    "action_counts",
+    "examples"
+  ]
+}

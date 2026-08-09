@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateFinancialAccountRequest",
+  "title": "UpdateFinancialAccountRequest",
+  "properties": {
+    "nickname": {
+      "maxLength": 256,
+      "title": "Nickname",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

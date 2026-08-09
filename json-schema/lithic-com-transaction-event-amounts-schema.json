@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transaction_event_amounts",
+  "title": "Transaction Event Amounts",
+  "type": "object",
+  "properties": {
+    "cardholder": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Amount of the event in the cardholder billing currency.",
+          "type": "integer",
+          "example": 1000
+        },
+        "conversion_rate": {
+          "description": "Exchange rate used to convert the merchant amount to the cardholder billing amount.",
+          "type": "string",
+          "example": "1.000000"
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "required": [
+        "amount",
+        "conversion_rate",
+        "currency"
+      ]
+    },
+    "merchant": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Amount of the event in the merchant currency.",
+          "type": "integer",
+          "example": 1000
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "settlement": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "amount": {
+          "description": "Amount of the event, if it is financial, in the settlement currency. Non-financial events do not contain this amount because they do not move funds.",
+          "type": "integer",
+          "example": 1000
+        },
+        "conversion_rate": {
+          "description": "Exchange rate used to convert the merchant amount to the settlement amount.",
+          "type": "string",
+          "example": "1.000000"
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "required": [
+        "amount",
+        "conversion_rate",
+        "currency"
+      ]
+    }
+  },
+  "required": [
+    "cardholder",
+    "merchant",
+    "settlement"
+  ]
+}

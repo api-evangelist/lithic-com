@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/challenge",
+  "title": "3DS Challenge object",
+  "type": "object",
+  "description": "Represents a challenge object for 3DS authentication",
+  "properties": {
+    "challenge_method_type": {
+      "type": "string",
+      "description": "The type of challenge method issued to the cardholder",
+      "enum": [
+        "OUT_OF_BAND"
+      ]
+    },
+    "start_time": {
+      "type": "string",
+      "description": "ISO-8601 time at which the challenge has started",
+      "format": "date-time"
+    },
+    "expiry_time": {
+      "type": "string",
+      "description": "ISO-8601 time at which the challenge expires",
+      "format": "date-time"
+    },
+    "app_requestor_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Fully qualified app URL of the merchant app. This should be used to redirect the cardholder back to the merchant app after completing an app-based challenge. This URL will only be populated if the 3DS Requestor App is provided to the 3DS SDK.",
+      "format": "uri"
+    }
+  },
+  "required": [
+    "challenge_method_type",
+    "start_time",
+    "expiry_time"
+  ]
+}

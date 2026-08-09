@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transaction_category",
+  "title": "Transaction Category",
+  "description": "Note: Inbound wire transfers are coming soon (availability varies by partner bank). The WIRE category is a preview. To learn more, contact your customer success manager.",
+  "type": "string",
+  "enum": [
+    "ACH",
+    "WIRE",
+    "BALANCE_OR_FUNDING",
+    "FEE",
+    "REWARD",
+    "ADJUSTMENT",
+    "DERECOGNITION",
+    "DISPUTE",
+    "CARD",
+    "EXTERNAL_ACH",
+    "EXTERNAL_CHECK",
+    "EXTERNAL_FEDNOW",
+    "EXTERNAL_RTP",
+    "EXTERNAL_TRANSFER",
+    "EXTERNAL_WIRE",
+    "MANAGEMENT_ADJUSTMENT",
+    "MANAGEMENT_DISPUTE",
+    "MANAGEMENT_FEE",
+    "MANAGEMENT_REWARD",
+    "MANAGEMENT_DISBURSEMENT",
+    "HOLD",
+    "PROGRAM_FUNDING"
+  ]
+}

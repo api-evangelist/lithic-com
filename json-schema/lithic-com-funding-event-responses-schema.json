@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/funding_event_responses",
+  "title": "Funding Event Responses",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Funding Event Response",
+      "items": {
+        "$ref": "#/components/schemas/funding_event_response"
+      }
+    },
+    "has_more": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

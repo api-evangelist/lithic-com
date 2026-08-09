@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebPushProvisioningResponseJws",
+  "title": "WebPushProvisioningResponseJws",
+  "properties": {
+    "header": {
+      "$ref": "#/components/schemas/WebPushProvisioningResponseHeader",
+      "description": "JWS unprotected headers containing header parameters that aren't integrity-protected by the JWS signature."
+    },
+    "protected": {
+      "description": "Base64url encoded JWS protected headers containing the header parameters that are integrity-protected by the JWS signature.",
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9",
+      "type": "string"
+    },
+    "payload": {
+      "description": "Base64url encoded JSON object containing the provisioning payload.",
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9",
+      "type": "string"
+    },
+    "signature": {
+      "description": "Base64url encoded signature of the JWS object.",
+      "example": "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/interest_details",
+  "title": "Interest Details",
+  "type": "object",
+  "properties": {
+    "prime_rate": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "interest_calculation_method": {
+      "$ref": "#/components/schemas/interest_calculation_method"
+    },
+    "effective_apr": {
+      "$ref": "#/components/schemas/category_details"
+    },
+    "interest_for_period": {
+      "$ref": "#/components/schemas/category_details"
+    },
+    "daily_balance_amounts": {
+      "$ref": "#/components/schemas/category_details"
+    },
+    "minimum_interest_charged": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "actual_interest_charged": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "prime_rate",
+    "interest_calculation_method",
+    "effective_apr",
+    "interest_for_period",
+    "actual_interest_charged",
+    "daily_balance_amounts"
+  ]
+}

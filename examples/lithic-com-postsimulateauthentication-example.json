@@ -1,0 +1,16 @@
+{
+  "operationId": "postSimulateAuthentication",
+  "method": "POST",
+  "path": "/v1/three_ds_authentication/simulate",
+  "summary": "Simulate 3DS authentication",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "example": {
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac"
+      }
+    }
+  ]
+}

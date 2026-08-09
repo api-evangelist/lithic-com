@@ -1,0 +1,50 @@
+{
+  "operationId": "postSimulateAuthorize",
+  "method": "POST",
+  "path": "/v1/simulate/authorize",
+  "summary": "Simulate authorization",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "simulateAuthorization",
+      "example": {
+        "amount": 3831,
+        "descriptor": "COFFEE SHOP",
+        "merchant_acceptor_city": "LOS ANGELES",
+        "merchant_acceptor_state": "CA",
+        "merchant_acceptor_country": "USA",
+        "pan": "4111111289144142"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "simulateBalanceInquiry",
+      "example": {
+        "amount": 0,
+        "descriptor": "NEIGHBORHOOD ATM",
+        "pan": "4111111289144142",
+        "status": "BALANCE_INQUIRY"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "simulateFinancialCreditAuthorization",
+      "example": {
+        "amount": 3831,
+        "descriptor": "COFFEE SHOP",
+        "pan": "4111111289144142",
+        "status": "FINANCIAL_CREDIT_AUTHORIZATION"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "example": {
+        "debugging_request_id": "d31645af-da9e-4952-b7dc-3ffb06618b39",
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac"
+      }
+    }
+  ]
+}

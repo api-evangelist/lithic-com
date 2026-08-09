@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/supported_simulation_types",
+  "title": "Supported Simulation Types",
+  "type": "string",
+  "enum": [
+    "ACH_ORIGINATION_REVIEWED",
+    "ACH_ORIGINATION_RELEASED",
+    "ACH_ORIGINATION_PROCESSED",
+    "ACH_ORIGINATION_SETTLED",
+    "ACH_RECEIPT_SETTLED",
+    "ACH_RECEIPT_RELEASED",
+    "ACH_RECEIPT_RELEASED_EARLY",
+    "ACH_RETURN_INITIATED",
+    "ACH_RETURN_PROCESSED",
+    "ACH_RETURN_SETTLED"
+  ]
+}

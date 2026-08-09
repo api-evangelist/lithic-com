@@ -1,0 +1,76 @@
+{
+  "operationId": "postCards",
+  "method": "POST",
+  "path": "/v1/cards",
+  "summary": "Create card",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "createCard",
+      "example": {
+        "memo": "New Card",
+        "spend_limit": 1000,
+        "spend_limit_duration": "TRANSACTION",
+        "state": "OPEN",
+        "type": "VIRTUAL"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "createPhysicalCard",
+      "example": {
+        "carrier": {
+          "qr_code_url": "https://lithic.com/activate-card/1"
+        },
+        "memo": "New physical card",
+        "product_id": "783991122",
+        "shipping_address": {
+          "address1": "123",
+          "city": "NEW YORK",
+          "country": "USA",
+          "first_name": "Johnny",
+          "last_name": "Appleseed",
+          "postal_code": "10001",
+          "state": "NY"
+        },
+        "state": "OPEN",
+        "type": "PHYSICAL"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "account_token": "f3f4918c-dee9-464d-a819-4aa42901d624",
+        "card_program_token": "5e9483eb-8103-4e16-9794-2106111b2eca",
+        "cardholder_currency": "USD",
+        "created": "2021-06-28T22:53:15Z",
+        "cvv": "776",
+        "exp_month": "06",
+        "exp_year": "2027",
+        "funding": {
+          "account_name": "Sandbox",
+          "created": "2020-07-08T17:57:36Z",
+          "last_four": "5263",
+          "nickname": "checking account",
+          "state": "ENABLED",
+          "token": "b0f0d91a-3697-46d8-85f3-20f0a585cbea",
+          "type": "DEPOSITORY_CHECKING"
+        },
+        "hostname": "",
+        "last_four": "4142",
+        "memo": "New Card",
+        "pan": "4111111289144142",
+        "replacement_for": null,
+        "spend_limit": 1000,
+        "spend_limit_duration": "TRANSACTION",
+        "state": "OPEN",
+        "token": "7ef7d65c-9023-4da3-b113-3b8583fd7951",
+        "type": "VIRTUAL",
+        "pin_status": "NOT_SET"
+      }
+    }
+  ]
+}

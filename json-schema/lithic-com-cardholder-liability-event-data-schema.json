@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cardholder-liability-event-data",
+  "title": "Cardholder Liability Event Data",
+  "description": "Details specific to cardholder liability events",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "Event type discriminator",
+      "type": "string",
+      "const": "CARDHOLDER_LIABILITY"
+    },
+    "action": {
+      "description": "Action taken regarding cardholder liability",
+      "type": "string",
+      "enum": [
+        "PROVISIONAL_CREDIT_GRANTED",
+        "PROVISIONAL_CREDIT_REVERSED",
+        "WRITTEN_OFF"
+      ]
+    },
+    "amount": {
+      "description": "Amount in minor units",
+      "type": "integer"
+    },
+    "reason": {
+      "description": "Reason for the action",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "action",
+    "amount",
+    "reason"
+  ]
+}

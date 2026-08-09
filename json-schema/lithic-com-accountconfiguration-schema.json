@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountConfiguration",
+  "title": "AccountConfiguration",
+  "properties": {
+    "account_holder": {
+      "properties": {
+        "business_account_token": {
+          "description": "Only applicable for customers using the KYC-Exempt workflow to enroll authorized users of businesses. Account_token of the enrolled business associated with an enrolled AUTHORIZED_USER individual.",
+          "example": "e87db14a-4abf-4901-adad-5d5c9f46aff2",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email address.",
+          "example": "jack@lithic.com",
+          "type": "string"
+        },
+        "phone_number": {
+          "description": "Phone number of the individual.",
+          "example": "+15555555555",
+          "type": "string"
+        },
+        "token": {
+          "description": "Globally unique identifier for the account holder.",
+          "example": "95e5f1b7-cfd5-4520-aa3c-2451bab8608d",
+          "type": "string"
+        }
+      },
+      "required": [
+        "business_account_token",
+        "email",
+        "phone_number",
+        "token"
+      ],
+      "type": "object"
+    },
+    "auth_rule_tokens": {
+      "description": "List of identifiers for the Auth Rule(s) that are applied on the account.\nThis field is deprecated and will no longer be populated in the `account_holder` object. The key will be removed from the schema in a future release. Use the `/auth_rules` endpoints to fetch Auth Rule information instead.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "deprecated": true
+    },
+    "cardholder_currency": {
+      "description": "3-character alphabetic ISO 4217 code for the currency of the cardholder.",
+      "example": "USD",
+      "type": "string"
+    },
+    "spend_limit": {
+      "description": "Spend limit information for the user containing the daily, monthly, and lifetime spend limit of the account. Any charges to a card owned by this account will be declined once their transaction volume has surpassed the value in the applicable time limit (rolling). A lifetime limit of 0 indicates that the lifetime limit feature is disabled.\n",
+      "properties": {
+        "daily": {
+          "description": "Daily spend limit (in cents).",
+          "example": 10000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "lifetime": {
+          "description": "Total spend limit over account lifetime (in cents).",
+          "example": 100000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "monthly": {
+          "description": "Monthly spend limit (in cents).",
+          "example": 40000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "daily",
+        "lifetime",
+        "monthly"
+      ],
+      "type": "object"
+    },
+    "state": {
+      "description": "Account state:\n  * `ACTIVE` - Account is able to transact and create new cards.\n  * `PAUSED` - Account will not be able to transact or create new cards. It can be set back\nto `ACTIVE`.\n  * `CLOSED` - Account will not be able to transact or create new cards. `CLOSED` accounts\nare unable to be transitioned to `ACTIVE` or `PAUSED` states. Accounts can be manually set to `CLOSED`, or this can be done by Lithic due to failure to pass KYB/KYC or for risk/compliance reasons. Please contact [support@lithic.com](mailto:support@lithic.com) if you believe this was done by mistake.",
+      "enum": [
+        "ACTIVE",
+        "PAUSED",
+        "CLOSED"
+      ],
+      "type": "string"
+    },
+    "substatus": {
+      "description": "Account state substatus values:\n* `FRAUD_IDENTIFIED` - The account has been recognized as being created or used with stolen or fabricated identity information, encompassing both true identity theft and synthetic identities.\n* `SUSPICIOUS_ACTIVITY` - The account has exhibited suspicious behavior, such as unauthorized access or fraudulent transactions, necessitating further investigation.\n* `RISK_VIOLATION` - The account has been involved in deliberate misuse by the legitimate account holder. Examples include disputing valid transactions without cause, falsely claiming non-receipt of goods, or engaging in intentional bust-out schemes to exploit account services.\n* `END_USER_REQUEST` - The account holder has voluntarily requested the closure of the account for personal reasons. This encompasses situations such as bankruptcy, other financial considerations, or the account holder's death.\n* `ISSUER_REQUEST` - The issuer has initiated the closure of the account due to business strategy, risk management, inactivity, product changes, regulatory concerns, or violations of terms and conditions.\n* `NOT_ACTIVE` - The account has not had any transactions or payment activity within a specified period. This status applies to accounts that are paused or closed due to inactivity.\n* `INTERNAL_REVIEW` - The account is temporarily paused pending further internal review. In future implementations, this status may prevent clients from activating the account via APIs until the review is completed.\n* `OTHER` - The reason for the account's current status does not fall into any of the above categories. A comment should be provided to specify the particular reason.\n",
+      "enum": [
+        "FRAUD_IDENTIFIED",
+        "SUSPICIOUS_ACTIVITY",
+        "RISK_VIOLATION",
+        "END_USER_REQUEST",
+        "ISSUER_REQUEST",
+        "NOT_ACTIVE",
+        "INTERNAL_REVIEW",
+        "OTHER"
+      ],
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "comment": {
+      "description": "Additional context or information related to the account.",
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier for the account. This is the same as the account_token returned by the enroll endpoint. If using this parameter, do not include pagination.\n",
+      "example": "b68b7424-aa69-4cbc-a946-30d90181b621",
+      "format": "uuid",
+      "type": "string"
+    },
+    "verification_address": {
+      "properties": {
+        "address1": {
+          "description": "Valid deliverable address (no PO boxes).",
+          "example": "124 Old Forest Way",
+          "type": "string"
+        },
+        "address2": {
+          "description": "Unit or apartment number (if applicable).",
+          "example": "Apt 21",
+          "type": "string"
+        },
+        "city": {
+          "description": "City name.",
+          "example": "Seattle",
+          "type": "string"
+        },
+        "country": {
+          "description": "Country name. Only USA is currently supported.",
+          "example": "USA",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "Valid postal code. Only USA postal codes (ZIP codes) are currently supported, entered as a five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.",
+          "example": "98109",
+          "type": "string"
+        },
+        "state": {
+          "description": "Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.",
+          "example": "WA",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address1",
+        "city",
+        "country",
+        "postal_code",
+        "state"
+      ],
+      "type": "object",
+      "deprecated": true
+    },
+    "created": {
+      "description": "Timestamp of when the account was created.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "spend_limit",
+    "state",
+    "token",
+    "created"
+  ],
+  "type": "object"
+}

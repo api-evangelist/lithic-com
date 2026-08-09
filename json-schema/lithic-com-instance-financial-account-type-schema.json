@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/instance-financial-account-type",
+  "title": "Instance Financial Account Type",
+  "description": "Type of instance financial account",
+  "type": "string",
+  "enum": [
+    "ISSUING",
+    "RESERVE",
+    "OPERATING",
+    "CHARGED_OFF_FEES",
+    "CHARGED_OFF_INTEREST",
+    "CHARGED_OFF_PRINCIPAL",
+    "SECURITY",
+    "PROGRAM_RECEIVABLES",
+    "COLLECTION",
+    "PROGRAM_BANK_ACCOUNTS_PAYABLE",
+    "EARLY_DIRECT_DEPOSIT_FLOAT",
+    "PROVISIONAL_CREDIT_ACCOUNT"
+  ]
+}

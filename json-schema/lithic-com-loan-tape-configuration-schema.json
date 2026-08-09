@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/loan_tape_configuration",
+  "title": "Loan Tape Configuration",
+  "description": "Configuration for loan tapes",
+  "type": "object",
+  "properties": {
+    "instance_token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "financial_account_token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "credit_product_token": {
+      "type": "string"
+    },
+    "loan_tape_rebuild_configuration": {
+      "$ref": "#/components/schemas/loan_tape_rebuild_configuration"
+    },
+    "tier_schedule_changed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "instance_token",
+    "financial_account_token",
+    "created_at",
+    "updated_at"
+  ]
+}

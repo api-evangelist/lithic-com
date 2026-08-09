@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/network_specific_data",
+  "title": "Network Specific Data",
+  "type": "object",
+  "properties": {
+    "mastercard": {
+      "$ref": "#/components/schemas/mastercard_network_specific_data"
+    },
+    "visa": {
+      "$ref": "#/components/schemas/visa_network_specific_data"
+    }
+  },
+  "required": [
+    "mastercard",
+    "visa"
+  ]
+}

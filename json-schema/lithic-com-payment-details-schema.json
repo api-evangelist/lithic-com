@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/payment_details",
+  "title": "Payment Details",
+  "description": "Breakdown of payments",
+  "type": "object",
+  "patternProperties": {
+    "^.*$": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "integer",
+          "description": "Amount in cents for this payment category and event type combination"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

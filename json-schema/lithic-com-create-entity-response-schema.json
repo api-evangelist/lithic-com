@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create-entity-response",
+  "title": "Account Holder Entity Create Response",
+  "type": "object",
+  "description": "Response body for creating a new beneficial owner or replacing the control person entity on an existing KYB account holder.",
+  "properties": {
+    "account_holder_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for the account holder"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the entity was created"
+    },
+    "status": {
+      "$ref": "#/components/schemas/entity-status",
+      "description": "Entity verification status"
+    },
+    "status_reasons": {
+      "type": "array",
+      "description": "Reason for the evaluation status",
+      "items": {
+        "$ref": "#/components/schemas/status-reasons"
+      }
+    },
+    "required_documents": {
+      "type": "array",
+      "description": "A list of documents required for the entity to be approved",
+      "items": {
+        "$ref": "#/components/schemas/required-document"
+      }
+    },
+    "token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for the entity"
+    }
+  },
+  "required": [
+    "account_holder_token",
+    "created",
+    "status",
+    "status_reasons",
+    "token",
+    "required_documents"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/prime_rates_response",
+  "title": "Prime Rates Response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "List of prime rates",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/interest_rate"
+      }
+    },
+    "has_more": {
+      "description": "Whether there are more prime rates",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

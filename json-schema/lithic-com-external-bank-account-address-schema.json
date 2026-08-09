@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_bank_account_address",
+  "title": "External Bank Account Address",
+  "type": "object",
+  "properties": {
+    "address1": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "address2": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "city": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "state": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "postal_code": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 10,
+      "pattern": "^[0-9]{5}(-[0-9]{4})?$",
+      "example": "11201"
+    },
+    "country": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3,
+      "pattern": "^[A-Z]{3}$",
+      "example": "USD"
+    }
+  },
+  "required": [
+    "address1",
+    "city",
+    "state",
+    "postal_code",
+    "country"
+  ]
+}

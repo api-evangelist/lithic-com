@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-result",
+  "title": "Auth Rule Result",
+  "description": "Result of an Auth Rule evaluation",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for the evaluation"
+    },
+    "auth_rule_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The Auth Rule token"
+    },
+    "event_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Token of the event that triggered the evaluation"
+    },
+    "evaluation_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the rule evaluation"
+    },
+    "rule_version": {
+      "type": "integer",
+      "description": "Version of the rule that was evaluated"
+    },
+    "transaction_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid",
+      "description": "The token of the transaction that triggered the rule evaluation"
+    },
+    "mode": {
+      "$ref": "#/components/schemas/auth-rule-state"
+    }
+  },
+  "oneOf": [
+    {
+      "title": "Authorization Result",
+      "properties": {
+        "event_stream": {
+          "const": "AUTHORIZATION",
+          "description": "The event stream during which the rule was evaluated"
+        },
+        "actions": {
+          "type": "array",
+          "description": "Actions returned by the rule evaluation",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/result-authorization-action"
+              },
+              {
+                "$ref": "#/components/schemas/action_explanation"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "token",
+        "auth_rule_token",
+        "event_token",
+        "transaction_token",
+        "evaluation_time",
+        "rule_version",
+        "mode",
+        "actions",
+        "event_stream"
+      ]
+    },
+    {
+      "title": "Authentication (3DS) Result",
+      "properties": {
+        "event_stream": {
+          "const": "THREE_DS_AUTHENTICATION",
+          "description": "The event stream during which the rule was evaluated"
+        },
+        "actions": {
+          "type": "array",
+          "description": "Actions returned by the rule evaluation",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/result-authentication-3ds-action"
+              },
+              {
+                "$ref": "#/components/schemas/action_explanation"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "token",
+        "auth_rule_token",
+        "event_token",
+        "transaction_token",
+        "evaluation_time",
+        "rule_version",
+        "mode",
+        "actions",
+        "event_stream"
+      ]
+    },
+    {
+      "title": "Tokenization Result",
+      "properties": {
+        "event_stream": {
+          "const": "TOKENIZATION",
+          "description": "The event stream during which the rule was evaluated"
+        },
+        "actions": {
+          "type": "array",
+          "description": "Actions returned by the rule evaluation",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/tokenization-action"
+              },
+              {
+                "$ref": "#/components/schemas/action_explanation"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "token",
+        "auth_rule_token",
+        "event_token",
+        "transaction_token",
+        "evaluation_time",
+        "rule_version",
+        "mode",
+        "actions",
+        "event_stream"
+      ]
+    },
+    {
+      "title": "ACH Result",
+      "properties": {
+        "event_stream": {
+          "type": "string",
+          "enum": [
+            "ACH_CREDIT_RECEIPT",
+            "ACH_DEBIT_RECEIPT"
+          ],
+          "description": "The event stream during which the rule was evaluated"
+        },
+        "actions": {
+          "type": "array",
+          "description": "Actions returned by the rule evaluation",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ach-action"
+              },
+              {
+                "$ref": "#/components/schemas/action_explanation"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "token",
+        "auth_rule_token",
+        "event_token",
+        "transaction_token",
+        "evaluation_time",
+        "rule_version",
+        "mode",
+        "actions",
+        "event_stream"
+      ]
+    }
+  ],
+  "$defs": {
+    "action_explanation": {
+      "type": "object",
+      "properties": {
+        "explanation": {
+          "type": "string",
+          "description": "Optional explanation for why this action was taken"
+        }
+      }
+    }
+  }
+}

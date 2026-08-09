@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/set_verification_method_allowed_verification_methods",
+  "title": "Set Verification Method Allowed Verification Methods",
+  "type": "string",
+  "enum": [
+    "MICRO_DEPOSIT",
+    "PRENOTE",
+    "EXTERNALLY_VERIFIED"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-updated",
+  "title": "Card Updated",
+  "examples": [
+    {
+      "previous_fields": {
+        "state": "PAUSED"
+      },
+      "state": "OPEN",
+      "card_token": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "properties": {
+    "previous_fields": {
+      "description": "The previous values of the fields that were updated.",
+      "example": {
+        "state": "PAUSED"
+      },
+      "type": "object"
+    },
+    "state": {
+      "description": "The current state of the card.",
+      "example": "OPEN",
+      "type": "string"
+    },
+    "card_token": {
+      "description": "The token of the card that was updated.",
+      "example": "00000000-0000-0000-0000-000000000000",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "previous_fields",
+    "state",
+    "card_token"
+  ],
+  "type": "object"
+}

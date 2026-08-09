@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/enhanced-data",
+  "title": "EnhancedData",
+  "required": [
+    "token",
+    "transaction_token",
+    "event_token",
+    "common",
+    "fleet"
+  ],
+  "type": "object",
+  "properties": {
+    "token": {
+      "title": "Token",
+      "description": "A unique identifier for the enhanced commercial data.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "transaction_token": {
+      "title": "Transaction Token",
+      "description": "The token of the transaction that the enhanced data is associated with.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "event_token": {
+      "title": "Event Token",
+      "description": "The token of the event that the enhanced data is associated with.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "common": {
+      "$ref": "#/components/schemas/common-data"
+    },
+    "fleet": {
+      "title": "Fleet",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/fleet"
+      }
+    }
+  }
+}

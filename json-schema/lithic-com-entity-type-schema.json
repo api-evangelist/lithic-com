@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/entity-type",
+  "title": "Account Holder Entity Type",
+  "description": "The type of entity associated with an account holder",
+  "type": "string",
+  "enum": [
+    "BENEFICIAL_OWNER_INDIVIDUAL",
+    "CONTROL_PERSON"
+  ]
+}

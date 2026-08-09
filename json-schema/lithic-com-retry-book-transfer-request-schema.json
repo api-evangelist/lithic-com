@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/retry_book_transfer_request",
+  "title": "Retry Book Transfer Request",
+  "type": "object",
+  "properties": {
+    "retry_token": {
+      "description": "Customer-provided token that will serve as an idempotency token. This token will become the transaction token.",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "retry_token"
+  ]
+}

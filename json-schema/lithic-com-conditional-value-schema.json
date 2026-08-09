@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/conditional-value",
+  "title": "Conditional Value",
+  "anyOf": [
+    {
+      "title": "Regex",
+      "type": "string",
+      "description": "A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`"
+    },
+    {
+      "title": "Number",
+      "type": "integer",
+      "format": "int64",
+      "description": "A number, to be used with `IS_GREATER_THAN`, `IS_GREATER_THAN_OR_EQUAL_TO`, `IS_LESS_THAN`, `IS_LESS_THAN_OR_EQUAL_TO`, `IS_EQUAL_TO`, or `IS_NOT_EQUAL_TO`"
+    },
+    {
+      "title": "List of Strings",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "An array of strings, to be used with `IS_ONE_OF` or `IS_NOT_ONE_OF`"
+    },
+    {
+      "title": "Timestamp",
+      "type": "string",
+      "format": "date-time",
+      "description": "A timestamp, to be used with `IS_AFTER` or `IS_BEFORE`"
+    }
+  ]
+}

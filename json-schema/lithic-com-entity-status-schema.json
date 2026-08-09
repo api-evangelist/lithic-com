@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/entity-status",
+  "title": "Account Holder Entity Status",
+  "description": "The status of an entity associated with an account holder",
+  "type": "string",
+  "enum": [
+    "ACCEPTED",
+    "INACTIVE",
+    "PENDING_REVIEW",
+    "REJECTED"
+  ]
+}

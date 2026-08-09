@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-two-factor-authentication-code",
+  "title": "Tokenization Two Factor Authentication Code",
+  "description": "Self Serve 2FA Code Schema",
+  "examples": [
+    {
+      "account_token": "00000000-0000-0000-0000-000000000002",
+      "activation_method": {
+        "type": "TEXT_TO_CARDHOLDER_NUMBER",
+        "value": "+15555555555"
+      },
+      "authentication_code": "123456",
+      "card_token": "00000000-0000-0000-0000-000000000001",
+      "created": "2020-01-01T00:00:00Z",
+      "tokenization_token": "00000000-0000-0000-0000-000000000003"
+    }
+  ],
+  "properties": {
+    "account_token": {
+      "description": "Unique identifier for the user tokenizing a card",
+      "example": "00000000-0000-0000-0000-000000000002",
+      "type": "string"
+    },
+    "activation_method": {
+      "description": "",
+      "properties": {
+        "type": {
+          "description": "The communication method that the user has selected to use to receive the authentication code.\nSupported Values: Sms = \"TEXT_TO_CARDHOLDER_NUMBER\". Email = \"EMAIL_TO_CARDHOLDER_ADDRESS\"",
+          "enum": [
+            "EMAIL_TO_CARDHOLDER_ADDRESS",
+            "TEXT_TO_CARDHOLDER_NUMBER"
+          ],
+          "example": "TEXT_TO_CARDHOLDER_NUMBER",
+          "type": "string"
+        },
+        "value": {
+          "description": "The location where the user wants to receive the authentication code.\nThe format depends on the ActivationMethod.Type field. If Type is Email, the Value will be the email address. If the Type is Sms, the Value will be the phone number.",
+          "example": "+15555555555",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "authentication_code": {
+      "description": "Authentication code to provide to the user tokenizing a card.",
+      "example": "123456",
+      "type": "string"
+    },
+    "card_token": {
+      "description": "Unique identifier for the card being tokenized",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "type": "string"
+    },
+    "created": {
+      "description": "Indicate when the request was received from Mastercard or Visa",
+      "example": "2020-01-01T00:00:00Z",
+      "format": "date-time",
+      "title": "Created",
+      "type": "string"
+    },
+    "tokenization_token": {
+      "description": "Unique identifier for the tokenization",
+      "example": "00000000-0000-0000-0000-000000000003",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_token",
+    "activation_method",
+    "authentication_code",
+    "card_token",
+    "created",
+    "tokenization_token"
+  ],
+  "type": "object"
+}

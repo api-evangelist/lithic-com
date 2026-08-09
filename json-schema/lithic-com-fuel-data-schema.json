@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/fuel-data",
+  "title": "FuelData",
+  "type": "object",
+  "properties": {
+    "type": {
+      "$ref": "#/components/schemas/fuel-type"
+    },
+    "quantity": {
+      "title": "Quantity",
+      "description": "The quantity of fuel purchased.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unit_price": {
+      "title": "Unit Price",
+      "description": "The price per unit of fuel.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "unit_of_measure": {
+      "$ref": "#/components/schemas/fuel-unit-of-measure"
+    }
+  }
+}

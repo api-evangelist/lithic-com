@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/line-item",
+  "title": "LineItem",
+  "description": "An L2/L3 enhanced commercial data line item.",
+  "type": "object",
+  "properties": {
+    "product_code": {
+      "title": "Product Code",
+      "description": "An identifier for the item purchased.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "title": "Description",
+      "description": "A human-readable description of the item.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "quantity": {
+      "title": "Quantity",
+      "description": "The quantity of the item purchased.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "amount": {
+      "title": "Amount",
+      "description": "The price of the item purchased in merchant currency.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

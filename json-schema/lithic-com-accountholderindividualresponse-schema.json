@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountHolderIndividualResponse",
+  "title": "AccountHolderIndividualResponse",
+  "description": "Information about an individual associated with an account holder. A subset of the information provided via KYC. For example, we do not return the government id.",
+  "properties": {
+    "address": {
+      "$ref": "#/components/schemas/Address",
+      "description": "Individual's current address"
+    },
+    "dob": {
+      "description": "Individual's date of birth, as an RFC 3339 date.",
+      "example": "1991-03-08 08:00:00",
+      "type": "string"
+    },
+    "email": {
+      "description": "Individual's email address.",
+      "example": "tom@middle-earth.com",
+      "type": "string"
+    },
+    "first_name": {
+      "description": "Individual's first name, as it appears on government-issued identity documents.",
+      "example": "Tom",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "Individual's last name, as it appears on government-issued identity documents.",
+      "example": "Bombadil",
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "Individual's phone number, entered in E.164 format.",
+      "example": "+15555555555",
+      "type": "string"
+    },
+    "entity_token": {
+      "description": "Globally unique identifier for the entity.",
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "type": "object",
+  "required": [
+    "address",
+    "dob",
+    "email",
+    "first_name",
+    "last_name",
+    "phone_number",
+    "entity_token"
+  ]
+}

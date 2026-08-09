@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tax-exempt-indicator",
+  "title": "TaxExemptIndicator",
+  "description": "A flag indicating whether the transaction is tax exempt or not.",
+  "type": [
+    "string",
+    "null"
+  ],
+  "enum": [
+    "TAX_INCLUDED",
+    "TAX_NOT_INCLUDED",
+    "NOT_SUPPORTED",
+    null
+  ]
+}

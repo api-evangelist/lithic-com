@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/backtest-stats",
+  "title": "Auth Rule Backtest Statistics",
+  "type": "object",
+  "properties": {
+    "version": {
+      "$ref": "#/components/schemas/auth-rule-version-id"
+    },
+    "approved": {
+      "type": "integer",
+      "description": "The total number of historical transactions approved by this rule during the backtest period, or the number of transactions that would have been approved if the rule was evaluated in shadow mode."
+    },
+    "declined": {
+      "type": "integer",
+      "description": "The total number of historical transactions declined by this rule during the backtest period, or the number of transactions that would have been declined if the rule was evaluated in shadow mode."
+    },
+    "challenged": {
+      "type": "integer",
+      "description": "The total number of historical transactions challenged by this rule during the backtest period, or the number of transactions that would have been challenged if the rule was evaluated in shadow mode. Currently applicable only for 3DS Auth Rules."
+    },
+    "examples": {
+      "type": "array",
+      "description": "Example events and their outcomes.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_token": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The event token."
+          },
+          "transaction_token": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "The token of the transaction associated with the event"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp of the event."
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "APPROVED",
+              "DECLINED",
+              "CHALLENGED"
+            ],
+            "description": "The decision made by the rule for this event."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "operationId": "postSimulateCreditAuthorizationAdvice",
+  "method": "POST",
+  "path": "/v1/simulate/credit_authorization_advice",
+  "summary": "Simulate credit authorization advice",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "simulateCreditAuthorizationAdvice",
+      "example": {
+        "amount": 3831,
+        "descriptor": "COFFEE SHOP",
+        "merchant_acceptor_id": "XRKGDPOWEWQRRWU",
+        "merchant_acceptor_city": "SEATTLE",
+        "merchant_acceptor_state": "WA",
+        "merchant_acceptor_country": "USA",
+        "pan": "4111111289144142"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "example": {
+        "debugging_request_id": "d31645af-da9e-4952-b7dc-3ffb06618b39",
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac"
+      }
+    }
+  ]
+}

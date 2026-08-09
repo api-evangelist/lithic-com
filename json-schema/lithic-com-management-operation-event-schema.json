@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/management_operation_event",
+  "title": "Management Operation Event",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "integer"
+    },
+    "type": {
+      "$ref": "#/components/schemas/management_operation_event_type"
+    },
+    "subtype": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "result": {
+      "$ref": "#/components/schemas/transaction_result"
+    },
+    "detailed_results": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/detailed_results"
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "memo": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "amount",
+    "type",
+    "result",
+    "detailed_results",
+    "created",
+    "token",
+    "memo",
+    "effective_date"
+  ]
+}

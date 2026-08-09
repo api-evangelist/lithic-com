@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/asa-response",
+  "title": "asa-response",
+  "description": "The Auth Stream Access response payload that an ASA responder may respond with in response to a request.",
+  "type": "object",
+  "properties": {
+    "result": {
+      "description": "Result of the Authorization decision. Provide `APPROVED` to accept the authorization. Any other response will decline the authorization. Result `CHALLENGE` is valid only for cardholder-initiated transactions. If a value not present in the enumeration is returned the transaction will be declined with the `CUSTOM_ASA_RESULT` detailed result.",
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "AVS_INVALID",
+        "CARD_PAUSED",
+        "INSUFFICIENT_FUNDS",
+        "UNAUTHORIZED_MERCHANT",
+        "VELOCITY_EXCEEDED",
+        "DRIVER_NUMBER_INVALID",
+        "VEHICLE_NUMBER_INVALID",
+        "SUSPECTED_FRAUD",
+        "CHALLENGE"
+      ]
+    },
+    "token": {
+      "type": "string",
+      "description": "The transaction token from the ASA request.",
+      "format": "uuid"
+    },
+    "approved_amount": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The amount approved for the transaction. Note that setting this implies a partial approval. This property should not be present if the intention is to fully approve the transaction. See: https://docs.lithic.com/docs/partial-approval#partial-approval"
+    },
+    "avs_result": {
+      "description": "The ASA responder may return an address verification (AVS) match indicator for evaluation by the acquirer. The merchant can choose whether to proceed with the transaction in the case of an approval with AVS failure. When they do not, this typically appears as a subsequent AUTHORIZATION_REVERSAL event following the AUTHORIZATION. Note that AVS data submitted by merchants can be variable in quality, and we recommend card programs exercise adjust their decisioning logic accordingly.",
+      "type": "string",
+      "enum": [
+        "FAIL",
+        "MATCH",
+        "MATCH_ADDRESS_ONLY",
+        "MATCH_ZIP_ONLY"
+      ]
+    },
+    "balance": {
+      "description": "Respective available amount and settled amount values (in cents). These values can be used by merchants for authorization decisions as well as balance display at point of sale or ATM.",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "format": "int64",
+              "description": "The balance held on the card."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "available": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "format": "int64",
+              "description": "The balance available for the cardholder to spend. This is calculated as the settled amount minus any pending authorizations on the card."
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "challenge_phone_number": {
+      "type": "string",
+      "description": "The phone number to use for sending an Authorization Challenge SMS. Relevant only when the result is `CHALLENGE`. The expected format is E.164 without hyphens. For example, \"+15555555555\" for a US phone number."
+    }
+  },
+  "required": [
+    "result"
+  ]
+}

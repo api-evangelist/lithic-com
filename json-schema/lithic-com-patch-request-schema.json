@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/patch-request",
+  "title": "Legacy Patch Request",
+  "type": "object",
+  "description": "The legacy request for updating an account holder.",
+  "properties": {
+    "email": {
+      "description": "Allowed for all Account Holders. Account holder's email address. The primary purpose of this field is for cardholder identification and verification during the digital wallet tokenization process.",
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "Allowed for all Account Holders. Account holder's phone number, entered in E.164 format. The primary purpose of this field is for cardholder identification and verification during the digital wallet tokenization process.",
+      "type": "string"
+    },
+    "address": {
+      "description": "Allowed for: KYC-Exempt, BYO-KYC, BYO-KYB.",
+      "$ref": "#/components/schemas/address-patch"
+    },
+    "business_account_token": {
+      "description": "Allowed for: KYC-Exempt, BYO-KYC. The token of the business account to which the account holder is associated.",
+      "type": "string"
+    },
+    "first_name": {
+      "description": "Allowed for KYC-Exempt, BYO-KYC. Account holder's first name.",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "Allowed for KYC-Exempt, BYO-KYC. Account holder's last name.",
+      "type": "string"
+    },
+    "legal_business_name": {
+      "description": "Allowed for BYO-KYB. Legal business name of the account holder.",
+      "type": "string"
+    }
+  }
+}

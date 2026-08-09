@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/liability-allocation",
+  "title": "Liability Allocation",
+  "description": "Current breakdown of how liability is allocated for the disputed amount",
+  "type": "object",
+  "properties": {
+    "original_amount": {
+      "description": "The initial amount disputed",
+      "type": "integer"
+    },
+    "recovered_amount": {
+      "description": "The amount that has been recovered from the merchant through the dispute process",
+      "type": "integer"
+    },
+    "written_off_amount": {
+      "description": "The amount the issuer has chosen to write off",
+      "type": "integer"
+    },
+    "denied_amount": {
+      "description": "The amount that has been denied to the cardholder",
+      "type": "integer"
+    },
+    "remaining_amount": {
+      "description": "Any disputed amount that is still outstanding, i.e. has not been recovered, written off, or denied",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "original_amount",
+    "recovered_amount",
+    "written_off_amount",
+    "denied_amount",
+    "remaining_amount"
+  ]
+}

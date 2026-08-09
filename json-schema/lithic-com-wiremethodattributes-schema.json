@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WireMethodAttributes",
+  "title": "WireMethodAttributes",
+  "type": "object",
+  "properties": {
+    "wire_network": {
+      "type": "string",
+      "enum": [
+        "FEDWIRE",
+        "SWIFT"
+      ],
+      "description": "Type of wire transfer"
+    },
+    "wire_message_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Type of wire message"
+    },
+    "debtor": {
+      "$ref": "#/components/schemas/wire_party_details"
+    },
+    "creditor": {
+      "$ref": "#/components/schemas/wire_party_details"
+    },
+    "message_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Point to point reference identifier, as assigned by the instructing party, used for tracking the message through the Fedwire system"
+    },
+    "remittance_information": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Payment details or invoice reference"
+    }
+  },
+  "required": [
+    "wire_network",
+    "wire_message_type"
+  ]
+}

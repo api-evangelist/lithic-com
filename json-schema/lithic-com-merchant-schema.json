@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/merchant",
+  "title": "Merchant",
+  "type": "object",
+  "properties": {
+    "acceptor_id": {
+      "description": "Unique alphanumeric identifier for the payment card acceptor (merchant).",
+      "example": "333301802529120",
+      "type": "string"
+    },
+    "acquiring_institution_id": {
+      "description": "Unique numeric identifier of the acquiring institution.",
+      "example": "191231",
+      "type": "string"
+    },
+    "city": {
+      "description": "City of card acceptor. Note that in many cases, particularly in card-not-present transactions, merchants may send through a phone number or URL in this field.",
+      "example": "NEW YORK",
+      "type": "string"
+    },
+    "country": {
+      "description": "Country or entity of card acceptor. Possible values are: (1) all ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for Netherlands Antilles.",
+      "example": "USA",
+      "type": "string"
+    },
+    "descriptor": {
+      "description": "Short description of card acceptor.",
+      "example": "COFFEE SHOP",
+      "type": "string"
+    },
+    "mcc": {
+      "description": "Merchant category code (MCC). A four-digit number listed in ISO 18245. An MCC is used to classify a business by the types of goods or services it provides.",
+      "example": "5812",
+      "type": "string"
+    },
+    "state": {
+      "description": "Geographic state of card acceptor.",
+      "example": "NY",
+      "type": "string"
+    }
+  },
+  "required": [
+    "acceptor_id",
+    "acquiring_institution_id",
+    "city",
+    "country",
+    "descriptor",
+    "mcc",
+    "state"
+  ]
+}

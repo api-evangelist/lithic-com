@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_resource_type",
+  "title": "ExternalResourceType",
+  "type": "string",
+  "enum": [
+    "STATEMENT",
+    "COLLECTION",
+    "DISPUTE",
+    "UNKNOWN"
+  ],
+  "description": "Type of external resource associated with the management operation"
+}

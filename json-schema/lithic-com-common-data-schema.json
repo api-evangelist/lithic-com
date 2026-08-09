@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/common-data",
+  "title": "CommonData",
+  "required": [
+    "tax",
+    "line_items"
+  ],
+  "type": "object",
+  "properties": {
+    "customer_reference_number": {
+      "title": "Customer Reference Number",
+      "description": "A customer identifier.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "merchant_reference_number": {
+      "title": "Merchant Reference Number",
+      "description": "A merchant identifier.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "order_date": {
+      "title": "Order Date",
+      "description": "The date of the order.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "tax": {
+      "$ref": "#/components/schemas/tax-data"
+    },
+    "line_items": {
+      "title": "Line Items",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/line-item"
+      }
+    }
+  }
+}

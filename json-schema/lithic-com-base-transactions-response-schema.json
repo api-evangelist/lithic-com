@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/base-transactions-response",
+  "title": "Activity Response",
+  "description": "A response containing a list of transactions",
+  "type": "object",
+  "properties": {
+    "has_more": {
+      "type": "boolean",
+      "description": "Indicates if there are more transactions available for pagination"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/base-transaction-response"
+      }
+    }
+  },
+  "required": [
+    "has_more",
+    "data"
+  ]
+}

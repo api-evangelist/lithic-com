@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/result-authorization-action",
+  "title": "Authorization Action (Result)",
+  "oneOf": [
+    {
+      "title": "Decline Action (Authorization)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "DECLINE"
+          ]
+        },
+        "code": {
+          "$ref": "#/components/schemas/detailed_result",
+          "description": "The detailed result code explaining the specific reason for the decline"
+        }
+      },
+      "required": [
+        "type",
+        "code"
+      ]
+    },
+    {
+      "title": "Challenge Action (Authorization)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CHALLENGE"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    }
+  ]
+}

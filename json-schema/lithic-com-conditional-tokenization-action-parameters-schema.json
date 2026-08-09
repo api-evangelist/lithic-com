@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/conditional-tokenization-action-parameters",
+  "title": "Conditional Action (Tokenization) Parameters",
+  "type": "object",
+  "properties": {
+    "action": {
+      "description": "The action to take if the conditions are met.",
+      "$ref": "#/components/schemas/tokenization-action"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "The attribute to target.\n\nThe following attributes may be targeted:\n* `TIMESTAMP`: The timestamp of the tokenization request in ISO 8601 format.\n* `TOKENIZATION_CHANNEL`: The channel through which the tokenization request was initiated. Valid values are `DIGITAL_WALLET`, `MERCHANT`.\n* `TOKENIZATION_SOURCE`: The source of the tokenization request. Valid values are `ACCOUNT_ON_FILE`, `MANUAL_PROVISION`, `PUSH_PROVISION`, `CHIP_DIP`, `CONTACTLESS_TAP`, `TOKEN`, `UNKNOWN`.\n* `TOKEN_REQUESTOR_NAME`: The name of the entity requesting the token. Valid values are `ALT_ID`, `AMAZON_ONE`, `AMERICAN_EXPRESS_TOKEN_SERVICE`, `ANDROID_PAY`, `APPLE_PAY`, `FACEBOOK`, `FITBIT_PAY`, `GARMIN_PAY`, `GOOGLE_PAY`, `GOOGLE_VCN`, `ISSUER_HCE`, `MICROSOFT_PAY`, `NETFLIX`, `SAMSUNG_PAY`, `UNKNOWN`, `VISA_CHECKOUT`.\n* `WALLET_ACCOUNT_SCORE`: Risk score for the account in the digital wallet. Numeric value where lower numbers indicate higher risk (e.g., 1 = high risk, 2 = medium risk).\n* `WALLET_DEVICE_SCORE`: Risk score for the device in the digital wallet. Numeric value where lower numbers indicate higher risk (e.g., 1 = high risk, 2 = medium risk).\n* `WALLET_RECOMMENDED_DECISION`: The decision recommended by the digital wallet provider. Valid values include APPROVE, DECLINE, REQUIRE_ADDITIONAL_AUTHENTICATION.\n* `WALLET_RECOMMENDATION_REASONS`: List of reasons provided by the digital wallet provider for the recommended decision. Valid values are:\n  - Common: `ACCOUNT_CARD_TOO_NEW`, `ACCOUNT_RECENTLY_CHANGED`, `ACCOUNT_TOO_NEW`, `ACCOUNT_TOO_NEW_SINCE_LAUNCH`, `DEVICE_RECENTLY_LOST`, `HAS_SUSPENDED_TOKENS`, `HIGH_RISK`, `INACTIVE_ACCOUNT`, `LOW_ACCOUNT_SCORE`, `LOW_DEVICE_SCORE`, `OUTSIDE_HOME_TERRITORY`, `SUSPICIOUS_ACTIVITY`, `TOO_MANY_DIFFERENT_CARDHOLDERS`, `TOO_MANY_RECENT_ATTEMPTS`, `TOO_MANY_RECENT_TOKENS`, `UNABLE_TO_ASSESS`\n  - Visa only: `ACCOUNT_DATA_RECENTLY_CHANGED`, `ACCOUNT_PAN_PAIRING_TOO_NEW`, `LOW_TRANSACTION_VOLUME`, `USER_ACCOUNT_DEVICE_TOO_NEW`, `WALLET_ACCOUNT_TOO_NEW`\n  - Amex only: `DEVICE_USING_VPN_PROXY`, `EXCESSIVE_BILLING_NAME_ATTEMPTS_MODERATE`, `EXCESSIVE_BILLING_NAME_ATTEMPTS_SEVERE`, `EXCESSIVE_CARD_PROVISION_ATTEMPTS_MODERATE`, `EXCESSIVE_CARD_PROVISION_ATTEMPTS_SEVERE`, `EXCESSIVE_WALLET_RESETS`, `EXCESSIVE_ZIP_ATTEMPTS_MODERATE`, `EXCESSIVE_ZIP_ATTEMPTS_SEVERE`, `USER_ID_CARD_PAIRING_TOO_NEW`, `USER_ID_DEVICE_ID_PAIRING_TOO_NEW`, `USER_ID_OS_ID_PAIRING_TOO_NEW`, `USER_ID_TOO_NEW`\n* `TOKEN_REQUESTOR_ID`: Unique identifier for the entity requesting the token.\n* `WALLET_TOKEN_STATUS`: The current status of the wallet token.\n* `CARD_STATE`: The state of the card being tokenized. Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`, `PENDING_FULFILLMENT`.",
+            "enum": [
+              "TIMESTAMP",
+              "TOKENIZATION_CHANNEL",
+              "TOKENIZATION_SOURCE",
+              "TOKEN_REQUESTOR_NAME",
+              "WALLET_ACCOUNT_SCORE",
+              "WALLET_DEVICE_SCORE",
+              "WALLET_RECOMMENDED_DECISION",
+              "WALLET_RECOMMENDATION_REASONS",
+              "TOKEN_REQUESTOR_ID",
+              "WALLET_TOKEN_STATUS",
+              "CARD_STATE"
+            ]
+          },
+          "operation": {
+            "$ref": "#/components/schemas/conditional-operation"
+          },
+          "value": {
+            "$ref": "#/components/schemas/conditional-value"
+          }
+        },
+        "required": [
+          "attribute",
+          "operation",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "action",
+    "conditions"
+  ]
+}

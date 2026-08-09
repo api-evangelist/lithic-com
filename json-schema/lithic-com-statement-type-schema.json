@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/statement_type",
+  "title": "Statement Type",
+  "type": "string",
+  "enum": [
+    "INITIAL",
+    "PERIOD_END",
+    "FINAL"
+  ]
+}

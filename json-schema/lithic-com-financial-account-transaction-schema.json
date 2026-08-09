@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-account-transaction",
+  "title": "financial-account-transaction",
+  "properties": {
+    "category": {
+      "description": "Status types:\n\n* `CARD` - Issuing card transaction.\n* `ACH` - Transaction over ACH.\n* `INTERNAL` - Transaction for internal adjustment.\n* `TRANSFER` - Internal transfer of funds between financial accounts in your program.\n",
+      "enum": [
+        "ACH",
+        "CARD",
+        "INTERNAL",
+        "TRANSFER"
+      ],
+      "type": "string"
+    },
+    "created": {
+      "description": "Date and time when the financial transaction first occurred. UTC time zone.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "description": "3-character alphabetic ISO 4217 code for the settling currency of the transaction.",
+      "type": "string"
+    },
+    "descriptor": {
+      "description": "A string that provides a description of the financial transaction; may be useful to display to users.",
+      "type": "string"
+    },
+    "events": {
+      "description": "A list of all financial events that have modified this financial transaction.",
+      "items": {
+        "$ref": "#/components/schemas/financial_event"
+      },
+      "type": "array"
+    },
+    "pending_amount": {
+      "description": "Pending amount of the transaction in the currency's smallest unit (e.g., cents), including any acquirer fees.\n\nThe value of this field will go to zero over time once the financial transaction is settled.\n",
+      "type": "integer"
+    },
+    "result": {
+      "description": "APPROVED transactions were successful while DECLINED transactions were declined by user, Lithic, or the network.",
+      "enum": [
+        "APPROVED",
+        "DECLINED"
+      ],
+      "type": "string"
+    },
+    "settled_amount": {
+      "description": "Amount of the transaction that has been settled in the currency's smallest unit (e.g., cents), including any acquirer fees. This may change over time.",
+      "type": "integer"
+    },
+    "status": {
+      "description": "Status types:\n\n* `DECLINED` - The transaction was declined.\n* `EXPIRED` - The authorization as it has passed its expiration time. Card transaction only.\n* `PENDING` - The transaction is expected to settle.\n* `RETURNED` - The transaction has been returned.\n* `SETTLED` - The transaction is completed.\n* `VOIDED` - The transaction was voided. Card transaction only.\n",
+      "enum": [
+        "DECLINED",
+        "EXPIRED",
+        "PENDING",
+        "RETURNED",
+        "SETTLED",
+        "VOIDED"
+      ],
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "updated": {
+      "description": "Date and time when the financial transaction was last updated. UTC time zone.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "category",
+    "created",
+    "currency",
+    "descriptor",
+    "events",
+    "pending_amount",
+    "result",
+    "settled_amount",
+    "status",
+    "token",
+    "updated"
+  ],
+  "type": "object"
+}

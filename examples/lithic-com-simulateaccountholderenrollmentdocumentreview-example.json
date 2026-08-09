@@ -1,0 +1,46 @@
+{
+  "operationId": "simulateAccountHolderEnrollmentDocumentReview",
+  "method": "POST",
+  "path": "/v1/simulate/account_holders/enrollment_document_review",
+  "summary": "Simulate an account holder document upload's review",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "simulateUploadedReviewRequest",
+      "example": {
+        "document_upload_token": "b11cd67b-0a52-4180-8365-314f3def5426",
+        "status": "UPLOADED"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "simulateAcceptedReviewRequest",
+      "example": {
+        "document_upload_token": "70bde493-66a7-454b-8e79-51a0d976a7d2",
+        "status": "ACCEPTED"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "simulateRejectedReviewRequest",
+      "example": {
+        "document_upload_token": "30a8fff6-941f-4143-9b7b-e7ac4cbeb91f",
+        "status": "REJECTED",
+        "status_reason": "DOCUMENT_MISSING_REQUIRED_DATA"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "simulatePartialApprovalReviewRequest",
+      "example": {
+        "document_upload_token": "30a8fff6-941f-4143-9b7b-e7ac4cbeb91f",
+        "status": "PARTIAL_APPROVAL",
+        "status_reason": "DOCUMENT_MISSING_REQUIRED_DATA",
+        "accepted_entity_status_reasons": [
+          "PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE"
+        ]
+      }
+    }
+  ],
+  "responseExamples": []
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/spend-velocity-filters",
+  "title": "Spend Velocity Filters",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/velocity-limit-filters"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "include_tags": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Tag key-value pairs to include in the velocity calculation. Only transactions matching all specified tag key-value pairs will be included in the calculated velocity."
+        },
+        "exclude_tags": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Tag key-value pairs to exclude from the velocity calculation. Transactions matching all specified tag key-value pairs will be excluded from the calculated velocity."
+        }
+      }
+    }
+  ]
+}

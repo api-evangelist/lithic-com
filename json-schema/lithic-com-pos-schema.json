@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/pos",
+  "title": "Point of Sale",
+  "type": "object",
+  "properties": {
+    "entry_mode": {
+      "$ref": "#/components/schemas/pos_entry_mode"
+    },
+    "terminal": {
+      "$ref": "#/components/schemas/pos_terminal"
+    }
+  },
+  "required": [
+    "entry_mode",
+    "terminal"
+  ]
+}

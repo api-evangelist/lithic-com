@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/update-financial-account-status-request",
+  "title": "Update financial account status request",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "#/components/schemas/financial-account-status"
+    },
+    "substatus": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/update-financial-account-substatus"
+        }
+      ]
+    },
+    "user_defined_status": {
+      "type": "string",
+      "description": "User-defined status for the financial account",
+      "pattern": "^[A-Z0-9_ ]*$",
+      "maxLength": 100
+    }
+  },
+  "required": [
+    "status",
+    "substatus"
+  ],
+  "examples": [
+    {
+      "status": "CLOSED",
+      "substatus": "END_USER_REQUEST"
+    }
+  ]
+}

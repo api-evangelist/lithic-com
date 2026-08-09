@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/error",
+  "title": "error",
+  "type": "object",
+  "properties": {
+    "debugging_request_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifier to help debug an error."
+    },
+    "message": {
+      "type": "string",
+      "description": "Explanation of error response."
+    }
+  },
+  "required": [
+    "debugging_request_id",
+    "message"
+  ]
+}

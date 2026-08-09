@@ -1,0 +1,63 @@
+{
+  "operationId": "postConvertPhysical",
+  "method": "POST",
+  "path": "/v1/cards/{card_token}/convert_physical",
+  "summary": "Convert virtual to physical card",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "convertPhysicalAddress",
+      "example": {
+        "carrier": {
+          "qr_code_url": "https://lithic.com/activate-card/1"
+        },
+        "product_id": "100",
+        "shipping_address": {
+          "address1": "5 Broad Street",
+          "address2": "Unit 5A",
+          "city": "NEW YORK",
+          "country": "USA",
+          "first_name": "Janet",
+          "last_name": "Yellen",
+          "postal_code": "10001",
+          "state": "NY"
+        },
+        "shipping_method": "STANDARD"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "account_token": "f3f4918c-dee9-464d-a819-4aa42901d624",
+        "card_program_token": "5e9483eb-8103-4e16-9794-2106111b2eca",
+        "cardholder_currency": "USD",
+        "created": "2021-06-28T22:53:15Z",
+        "cvv": "742",
+        "exp_month": "05",
+        "exp_year": "2027",
+        "funding": {
+          "account_name": "Sandbox",
+          "created": "2020-07-08T17:57:36Z",
+          "last_four": "5263",
+          "nickname": "checking account",
+          "state": "ENABLED",
+          "token": "b0f0d91a-3697-46d8-85f3-20f0a585cbea",
+          "type": "DEPOSITORY_CHECKING"
+        },
+        "hostname": "",
+        "last_four": "4938",
+        "memo": "Updated Name",
+        "pan": "4111111289144142",
+        "spend_limit": 100,
+        "spend_limit_duration": "FOREVER",
+        "state": "OPEN",
+        "token": "f5f905f5-8a8e-49bf-a9b4-c0adaa401456",
+        "type": "PHYSICAL",
+        "pin_status": "OK"
+      }
+    }
+  ]
+}

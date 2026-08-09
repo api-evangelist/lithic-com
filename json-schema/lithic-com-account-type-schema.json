@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account_type",
+  "title": "Searchable Account Type",
+  "type": "string",
+  "enum": [
+    "CHECKING",
+    "SAVINGS"
+  ],
+  "x-stainless-naming": {
+    "java": {
+      "type_name": "AccountType"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/extended_credit",
+  "title": "Extended Credit",
+  "type": "object",
+  "properties": {
+    "credit_extended": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "credit_extended"
+  ]
+}

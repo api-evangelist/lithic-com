@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/conditional-ach-action-parameters",
+  "title": "Conditional Action (ACH) Parameters",
+  "type": "object",
+  "properties": {
+    "action": {
+      "description": "The action to take if the conditions are met.",
+      "$ref": "#/components/schemas/ach-action"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "The attribute to target.\n\nThe following attributes may be targeted:\n* `COMPANY_NAME`: The name of the company initiating the ACH transaction.\n* `COMPANY_ID`: The company ID (also known as Standard Entry Class (SEC) Company ID) of the entity initiating the ACH transaction.\n* `TIMESTAMP`: The timestamp of the ACH transaction in ISO 8601 format.\n* `TRANSACTION_AMOUNT`: The amount of the ACH transaction in minor units (cents).\n* `SEC_CODE`: Standard Entry Class code indicating the type of ACH transaction. Valid values include PPD (Prearranged Payment and Deposit Entry), CCD (Corporate Credit or Debit Entry), WEB (Internet-Initiated/Mobile Entry), TEL (Telephone-Initiated Entry), and others.\n* `MEMO`: Optional memo or description field included with the ACH transaction.",
+            "enum": [
+              "COMPANY_NAME",
+              "COMPANY_ID",
+              "TIMESTAMP",
+              "TRANSACTION_AMOUNT",
+              "SEC_CODE",
+              "MEMO"
+            ]
+          },
+          "operation": {
+            "$ref": "#/components/schemas/conditional-operation"
+          },
+          "value": {
+            "$ref": "#/components/schemas/conditional-value"
+          }
+        },
+        "required": [
+          "attribute",
+          "operation",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "action",
+    "conditions"
+  ]
+}

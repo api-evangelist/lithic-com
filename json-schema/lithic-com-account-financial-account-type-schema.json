@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account-financial-account-type",
+  "title": "Account Financial Account Type",
+  "description": "Type of account financial account",
+  "type": "string",
+  "enum": [
+    "ISSUING",
+    "OPERATING"
+  ]
+}

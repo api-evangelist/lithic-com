@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/spend_limit_duration",
+  "title": "spend_limit_duration",
+  "description": "Spend limit duration values:\n\n* `ANNUALLY` - Card will authorize transactions up to spend limit for the trailing year.\n* `FOREVER` - Card will authorize only up to spend limit for the entire lifetime of the card.\n* `MONTHLY` - Card will authorize transactions up to spend limit for the trailing month. To support recurring monthly payments, which can occur on different day every month, the time window we consider for monthly velocity starts 6 days after the current calendar date one month prior.\n* `TRANSACTION` - Card will authorize multiple transactions if each individual transaction is under the spend limit.",
+  "type": "string",
+  "enum": [
+    "ANNUALLY",
+    "FOREVER",
+    "MONTHLY",
+    "TRANSACTION"
+  ]
+}

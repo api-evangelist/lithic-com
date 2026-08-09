@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/backtest-report",
+  "title": "Auth Rules Backtest Report",
+  "description": "Webhook payload for the auth_rules.backtest_report.created event.",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/backtest-results"
+    }
+  ]
+}

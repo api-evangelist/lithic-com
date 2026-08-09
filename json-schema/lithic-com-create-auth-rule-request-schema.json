@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create-auth-rule-request",
+  "title": "Auth Rule Parameters",
+  "type": "object",
+  "anyOf": [
+    {
+      "title": "Account Level Rule",
+      "properties": {
+        "account_tokens": {
+          "$ref": "#/components/schemas/account-tokens"
+        },
+        "business_account_tokens": {
+          "$ref": "#/components/schemas/business-account-tokens"
+        },
+        "type": {
+          "$ref": "#/components/schemas/auth-rule-type"
+        },
+        "parameters": {
+          "$ref": "#/components/schemas/auth-rule-parameters"
+        },
+        "name": {
+          "$ref": "#/components/schemas/auth-rule-name"
+        },
+        "event_stream": {
+          "$ref": "#/components/schemas/event-stream"
+        }
+      },
+      "required": [
+        "type",
+        "parameters"
+      ]
+    },
+    {
+      "title": "Card Level Rule",
+      "properties": {
+        "card_tokens": {
+          "$ref": "#/components/schemas/card-tokens"
+        },
+        "type": {
+          "$ref": "#/components/schemas/auth-rule-type"
+        },
+        "parameters": {
+          "$ref": "#/components/schemas/auth-rule-parameters"
+        },
+        "name": {
+          "$ref": "#/components/schemas/auth-rule-name"
+        },
+        "event_stream": {
+          "$ref": "#/components/schemas/event-stream"
+        }
+      },
+      "required": [
+        "type",
+        "parameters",
+        "card_tokens"
+      ]
+    },
+    {
+      "title": "Program Level Rule",
+      "properties": {
+        "program_level": {
+          "$ref": "#/components/schemas/program-level"
+        },
+        "excluded_card_tokens": {
+          "$ref": "#/components/schemas/excluded-card-tokens"
+        },
+        "excluded_account_tokens": {
+          "$ref": "#/components/schemas/excluded-account-tokens"
+        },
+        "excluded_business_account_tokens": {
+          "$ref": "#/components/schemas/excluded-business-account-tokens"
+        },
+        "type": {
+          "$ref": "#/components/schemas/auth-rule-type"
+        },
+        "parameters": {
+          "$ref": "#/components/schemas/auth-rule-parameters"
+        },
+        "name": {
+          "$ref": "#/components/schemas/auth-rule-name"
+        },
+        "event_stream": {
+          "$ref": "#/components/schemas/event-stream"
+        }
+      },
+      "required": [
+        "type",
+        "parameters",
+        "program_level"
+      ]
+    }
+  ]
+}

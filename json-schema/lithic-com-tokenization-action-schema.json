@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tokenization-action",
+  "title": "Tokenization Action",
+  "oneOf": [
+    {
+      "title": "Decline Action (Tokenization)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "DECLINE"
+          ],
+          "description": "Decline the tokenization request"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason code for declining the tokenization request",
+          "enum": [
+            "ACCOUNT_SCORE_1",
+            "DEVICE_SCORE_1",
+            "ALL_WALLET_DECLINE_REASONS_PRESENT",
+            "WALLET_RECOMMENDED_DECISION_RED",
+            "CVC_MISMATCH",
+            "CARD_EXPIRY_MONTH_MISMATCH",
+            "CARD_EXPIRY_YEAR_MISMATCH",
+            "CARD_INVALID_STATE",
+            "CUSTOMER_RED_PATH",
+            "INVALID_CUSTOMER_RESPONSE",
+            "NETWORK_FAILURE",
+            "GENERIC_DECLINE",
+            "DIGITAL_CARD_ART_REQUIRED"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "title": "Require TFA Action",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "REQUIRE_TFA"
+          ],
+          "description": "Require two-factor authentication for the tokenization request"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason code for requiring two-factor authentication",
+          "enum": [
+            "WALLET_RECOMMENDED_TFA",
+            "SUSPICIOUS_ACTIVITY",
+            "DEVICE_RECENTLY_LOST",
+            "TOO_MANY_RECENT_ATTEMPTS",
+            "TOO_MANY_RECENT_TOKENS",
+            "TOO_MANY_DIFFERENT_CARDHOLDERS",
+            "OUTSIDE_HOME_TERRITORY",
+            "HAS_SUSPENDED_TOKENS",
+            "HIGH_RISK",
+            "ACCOUNT_SCORE_LOW",
+            "DEVICE_SCORE_LOW",
+            "CARD_STATE_TFA",
+            "HARDCODED_TFA",
+            "CUSTOMER_RULE_TFA",
+            "DEVICE_HOST_CARD_EMULATION"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    }
+  ]
+}

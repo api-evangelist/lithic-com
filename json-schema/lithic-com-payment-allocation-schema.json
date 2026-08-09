@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/payment_allocation",
+  "title": "Payment Allocation",
+  "type": "object",
+  "properties": {
+    "interest": {
+      "type": "integer",
+      "description": "Amount allocated to interest in cents"
+    },
+    "principal": {
+      "type": "integer",
+      "description": "Amount allocated to principal in cents"
+    },
+    "fees": {
+      "type": "integer",
+      "description": "Amount allocated to fees in cents"
+    },
+    "interest_details": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/category_details"
+        }
+      ]
+    },
+    "principal_details": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/category_details"
+        }
+      ]
+    },
+    "fee_details": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/category_details"
+        }
+      ]
+    }
+  },
+  "required": [
+    "interest",
+    "principal",
+    "fees",
+    "interest_details",
+    "principal_details",
+    "fee_details"
+  ]
+}

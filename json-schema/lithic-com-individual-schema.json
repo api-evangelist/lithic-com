@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Individual",
+  "title": "Individual",
+  "properties": {
+    "address": {
+      "$ref": "#/components/schemas/Address",
+      "description": "Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.\n"
+    },
+    "dob": {
+      "description": "Individual's date of birth, as an RFC 3339 date.",
+      "example": "1991-03-08 08:00:00",
+      "type": "string"
+    },
+    "email": {
+      "description": "Individual's email address.\nIf utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.\n",
+      "example": "tom@middle-earth.com",
+      "type": "string"
+    },
+    "first_name": {
+      "description": "Individual's first name, as it appears on government-issued identity documents.",
+      "example": "Tom",
+      "type": "string"
+    },
+    "government_id": {
+      "description": "Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens\n",
+      "example": "111-23-1412",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "Individual's last name, as it appears on government-issued identity documents.",
+      "example": "Bombadil",
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "Individual's phone number, entered in E.164 format.\n",
+      "example": "+15555555555",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/statement_response",
+  "title": "Statement Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Globally unique identifier for a statement",
+      "title": "Statement Token"
+    },
+    "financial_account_token": {
+      "description": "Globally unique identifier for a financial account",
+      "type": "string",
+      "format": "uuid"
+    },
+    "statement_start_date": {
+      "description": "Date when the billing period began",
+      "type": "string",
+      "format": "date"
+    },
+    "statement_end_date": {
+      "description": "Date when the billing period ended",
+      "type": "string",
+      "format": "date"
+    },
+    "next_statement_end_date": {
+      "description": "Date when the next billing period will end",
+      "type": "string",
+      "format": "date"
+    },
+    "payment_due_date": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "description": "Date when the payment is due",
+          "type": "string",
+          "format": "date"
+        }
+      ]
+    },
+    "next_payment_due_date": {
+      "description": "Date when the next payment is due",
+      "type": "string",
+      "format": "date"
+    },
+    "days_in_billing_cycle": {
+      "description": "Number of days in the billing cycle",
+      "type": "integer"
+    },
+    "credit_limit": {
+      "description": "This is the maximum credit balance extended by the lender in cents",
+      "type": "integer"
+    },
+    "available_credit": {
+      "description": "Amount of credit available to spend in cents",
+      "type": "integer"
+    },
+    "starting_balance": {
+      "description": "Balance at the start of the billing period",
+      "type": "integer"
+    },
+    "ending_balance": {
+      "description": "Balance at the end of the billing period. For charge cards, this should be the same at the statement amount due in cents",
+      "type": "integer"
+    },
+    "period_totals": {
+      "$ref": "#/components/schemas/statement_totals"
+    },
+    "ytd_totals": {
+      "$ref": "#/components/schemas/statement_totals"
+    },
+    "statement_totals": {
+      "$ref": "#/components/schemas/statement_totals"
+    },
+    "created": {
+      "description": "Timestamp of when the statement was created",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "description": "Timestamp of when the statement was updated",
+      "type": "string",
+      "format": "date-time"
+    },
+    "credit_product_token": {
+      "description": "Globally unique identifier for a credit product",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "account_standing": {
+      "$ref": "#/components/schemas/account_standing"
+    },
+    "amount_due": {
+      "$ref": "#/components/schemas/amount_due"
+    },
+    "payoff_details": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/payoff_details"
+        }
+      ]
+    },
+    "interest_details": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/interest_details"
+        }
+      ]
+    },
+    "statement_type": {
+      "$ref": "#/components/schemas/statement_type"
+    }
+  },
+  "required": [
+    "token",
+    "financial_account_token",
+    "statement_start_date",
+    "statement_end_date",
+    "payment_due_date",
+    "days_in_billing_cycle",
+    "credit_limit",
+    "available_credit",
+    "starting_balance",
+    "ending_balance",
+    "amount_due",
+    "period_totals",
+    "ytd_totals",
+    "created",
+    "updated",
+    "credit_product_token",
+    "account_standing",
+    "statement_type"
+  ]
+}

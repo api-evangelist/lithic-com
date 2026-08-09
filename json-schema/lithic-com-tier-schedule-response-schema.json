@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tier_schedule_response",
+  "title": "Tier Schedule Response",
+  "description": "Tier Schedule of the given account.  Only applicable for credit products with v2 configuration",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/tier_schedule_entry"
+      }
+    },
+    "has_more": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

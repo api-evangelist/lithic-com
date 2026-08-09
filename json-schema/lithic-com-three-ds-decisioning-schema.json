@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/three-ds-decisioning",
+  "title": "3DS Decision Response object",
+  "type": "object",
+  "description": "Information on whether the Authentication should be approved, declined or challenged.",
+  "properties": {
+    "three_ds_authentication_decision": {
+      "type": "string",
+      "description": "* `APPROVE` - Approve the 3DS Transaction and proceed to Authorization\n* `DECLINE` - Decline the 3DS Transaction ending the transaction\n* `CHALLENGE_REQUESTED` - Conditional Approval for the 3DS Transaction where a follow-up Challenge will be triggered to further authenticate the Cardholder",
+      "enum": [
+        "APPROVE",
+        "DECLINE",
+        "CHALLENGE_REQUESTED"
+      ]
+    },
+    "oob_url": {
+      "type": "string",
+      "description": "URL which may be used in the presentation of a 3DS Challenge UI to the cardholder. This value will be used by the ACS as the OOB App URL. When applicable, this URL may be used for automatic app switching or rendered directly as an element in the Challenge UI.\nThis field is only used with CHALLENGE_REQUESTED decision and when customer orchestrates the 3DS challenge on their own."
+    }
+  },
+  "required": [
+    "three_ds_authentication_decision"
+  ]
+}

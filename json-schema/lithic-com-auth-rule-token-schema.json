@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-token",
+  "title": "Auth Rule Token",
+  "description": "Auth Rule Token",
+  "type": "string",
+  "format": "uuid"
+}

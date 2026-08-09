@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DigitalCardArt",
+  "title": "DigitalCardArt",
+  "properties": {
+    "card_program_token": {
+      "description": "Globally unique identifier for the card program.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "created": {
+      "description": "Timestamp of when card art was created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the card art.",
+      "type": "string"
+    },
+    "is_card_program_default": {
+      "description": "Whether the card art is the default card art to be added upon tokenization.",
+      "type": "boolean"
+    },
+    "is_enabled": {
+      "description": "Whether the card art is enabled.",
+      "type": "boolean"
+    },
+    "network": {
+      "description": "Card network.",
+      "enum": [
+        "MASTERCARD",
+        "VISA"
+      ],
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier for the card art.",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "card_program_token",
+    "created",
+    "description",
+    "is_enabled",
+    "network",
+    "token"
+  ],
+  "type": "object"
+}

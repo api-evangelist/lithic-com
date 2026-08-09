@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account_state",
+  "title": "Account State",
+  "type": "string",
+  "enum": [
+    "ENABLED",
+    "CLOSED",
+    "PAUSED"
+  ],
+  "x-stainless-naming": {
+    "java": {
+      "type_name": "State"
+    }
+  }
+}

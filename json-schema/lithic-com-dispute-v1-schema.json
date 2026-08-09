@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/dispute-v1",
+  "title": "Dispute",
+  "description": "Dispute.",
+  "properties": {
+    "amount": {
+      "description": "Amount under dispute. May be different from the original transaction amount.",
+      "type": "integer"
+    },
+    "arbitration_date": {
+      "description": "Date dispute entered arbitration.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created": {
+      "description": "Timestamp of when first Dispute was reported.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "customer_filed_date": {
+      "description": "Date that the dispute was filed by the customer making the dispute.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "customer_note": {
+      "description": "End customer description of the reason for the dispute.",
+      "maxLength": 10000,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "network_claim_ids": {
+      "description": "Unique identifiers for the dispute from the network.",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "network_filed_date": {
+      "description": "Date that the dispute was submitted to the network.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "network_reason_code": {
+      "description": "Network reason code used to file the dispute.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "prearbitration_date": {
+      "description": "Date dispute entered pre-arbitration.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "primary_claim_id": {
+      "description": "Unique identifier for the dispute from the network. If there are multiple, this will be the first claim id set by the network",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "description": "Dispute reason:\n* `ATM_CASH_MISDISPENSE`: ATM cash misdispense.\n* `CANCELLED`: Transaction was cancelled by the customer.\n* `DUPLICATED`: The transaction was a duplicate.\n* `FRAUD_CARD_NOT_PRESENT`: Fraudulent transaction, card not present.\n* `FRAUD_CARD_PRESENT`: Fraudulent transaction, card present.\n* `FRAUD_OTHER`: Fraudulent transaction, other types such as questionable merchant activity.\n* `GOODS_SERVICES_NOT_AS_DESCRIBED`: The goods or services were not as described.\n* `GOODS_SERVICES_NOT_RECEIVED`: The goods or services were not received.\n* `INCORRECT_AMOUNT`: The transaction amount was incorrect.\n* `MISSING_AUTH`: The transaction was missing authorization.\n* `OTHER`: Other reason.\n* `PROCESSING_ERROR`: Processing error.\n* `REFUND_NOT_PROCESSED`: The refund was not processed.\n* `RECURRING_TRANSACTION_NOT_CANCELLED`: The recurring transaction was not cancelled.\n",
+      "enum": [
+        "ATM_CASH_MISDISPENSE",
+        "CANCELLED",
+        "DUPLICATED",
+        "FRAUD_CARD_NOT_PRESENT",
+        "FRAUD_CARD_PRESENT",
+        "FRAUD_OTHER",
+        "GOODS_SERVICES_NOT_AS_DESCRIBED",
+        "GOODS_SERVICES_NOT_RECEIVED",
+        "INCORRECT_AMOUNT",
+        "MISSING_AUTH",
+        "OTHER",
+        "PROCESSING_ERROR",
+        "RECURRING_TRANSACTION_NOT_CANCELLED",
+        "REFUND_NOT_PROCESSED"
+      ],
+      "type": "string"
+    },
+    "representment_date": {
+      "description": "Date the representment was received.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolution_date": {
+      "description": "Date that the dispute was resolved.",
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolution_note": {
+      "description": "Note by Dispute team on the case resolution.",
+      "maxLength": 10000,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resolution_reason": {
+      "description": "Reason for the dispute resolution:\n* `CASE_LOST`: This case was lost at final arbitration.\n* `NETWORK_REJECTED`: Network rejected.\n* `NO_DISPUTE_RIGHTS_3DS`: No dispute rights, 3DS.\n* `NO_DISPUTE_RIGHTS_BELOW_THRESHOLD`: No dispute rights, below threshold.\n* `NO_DISPUTE_RIGHTS_CONTACTLESS`: No dispute rights, contactless.\n* `NO_DISPUTE_RIGHTS_HYBRID`: No dispute rights, hybrid.\n* `NO_DISPUTE_RIGHTS_MAX_CHARGEBACKS`: No dispute rights, max chargebacks.\n* `NO_DISPUTE_RIGHTS_OTHER`: No dispute rights, other.\n* `PAST_FILING_DATE`: Past filing date.\n* `PREARBITRATION_REJECTED`: Prearbitration rejected.\n* `PROCESSOR_REJECTED_OTHER`: Processor rejected, other.\n* `REFUNDED`: Refunded.\n* `REFUNDED_AFTER_CHARGEBACK`: Refunded after chargeback.\n* `WITHDRAWN`: Withdrawn.\n* `WON_ARBITRATION`: Won arbitration.\n* `WON_FIRST_CHARGEBACK`: Won first chargeback.\n* `WON_PREARBITRATION`: Won prearbitration.\n",
+      "enum": [
+        "CASE_LOST",
+        "NETWORK_REJECTED",
+        "NO_DISPUTE_RIGHTS_3DS",
+        "NO_DISPUTE_RIGHTS_BELOW_THRESHOLD",
+        "NO_DISPUTE_RIGHTS_CONTACTLESS",
+        "NO_DISPUTE_RIGHTS_HYBRID",
+        "NO_DISPUTE_RIGHTS_MAX_CHARGEBACKS",
+        "NO_DISPUTE_RIGHTS_OTHER",
+        "PAST_FILING_DATE",
+        "PREARBITRATION_REJECTED",
+        "PROCESSOR_REJECTED_OTHER",
+        "REFUNDED",
+        "REFUNDED_AFTER_CHARGEBACK",
+        "WITHDRAWN",
+        "WON_ARBITRATION",
+        "WON_FIRST_CHARGEBACK",
+        "WON_PREARBITRATION",
+        null
+      ],
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "description": "Status types:\n* `NEW` - New dispute case is opened.\n* `PENDING_CUSTOMER` - Lithic is waiting for customer to provide more information.\n* `SUBMITTED` - Dispute is submitted to the card network.\n* `REPRESENTMENT` - Case has entered second presentment.\n* `PREARBITRATION` - Case has entered prearbitration.\n* `ARBITRATION` - Case has entered arbitration.\n* `CASE_WON` - Case was won and credit will be issued.\n* `CASE_CLOSED` - Case was lost or withdrawn.\n",
+      "enum": [
+        "ARBITRATION",
+        "CASE_CLOSED",
+        "CASE_WON",
+        "NEW",
+        "PENDING_CUSTOMER",
+        "PREARBITRATION",
+        "REPRESENTMENT",
+        "SUBMITTED"
+      ],
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "transaction_token": {
+      "description": "The transaction that is being disputed. A transaction can only be disputed once but may have multiple dispute cases.",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "arbitration_date",
+    "created",
+    "customer_filed_date",
+    "customer_note",
+    "network_claim_ids",
+    "network_filed_date",
+    "network_reason_code",
+    "prearbitration_date",
+    "primary_claim_id",
+    "reason",
+    "representment_date",
+    "resolution_date",
+    "resolution_note",
+    "resolution_reason",
+    "status",
+    "token",
+    "transaction_token"
+  ],
+  "type": "object"
+}

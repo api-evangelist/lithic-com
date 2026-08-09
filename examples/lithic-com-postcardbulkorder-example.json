@@ -1,0 +1,25 @@
+{
+  "operationId": "postCardBulkOrder",
+  "method": "POST",
+  "path": "/v1/card_bulk_orders",
+  "summary": "Create bulk order",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "example": {
+        "shipping_address": {
+          "address1": "123 Main Street",
+          "city": "NEW YORK",
+          "country": "USA",
+          "first_name": "Johnny",
+          "last_name": "Appleseed",
+          "postal_code": "10001",
+          "state": "NY"
+        },
+        "shipping_method": "BULK_EXPEDITED",
+        "customer_product_id": "custom-card-design-123"
+      }
+    }
+  ],
+  "responseExamples": []
+}

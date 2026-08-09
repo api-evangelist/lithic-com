@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/individual-patch",
+  "title": "Individual",
+  "type": "object",
+  "properties": {
+    "entity_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for an entity."
+    },
+    "address": {
+      "$ref": "#/components/schemas/address-patch",
+      "description": "Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported."
+    },
+    "dob": {
+      "type": "string",
+      "example": "1991-03-08 08:00:00",
+      "description": "Individual's date of birth, as an RFC 3339 date."
+    },
+    "email": {
+      "type": "string",
+      "example": "tom@middle-earth.com",
+      "description": "Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution."
+    },
+    "first_name": {
+      "type": "string",
+      "example": "Tom",
+      "description": "Individual's first name, as it appears on government-issued identity documents."
+    },
+    "last_name": {
+      "type": "string",
+      "example": "Bombadil",
+      "description": "Individual's last name, as it appears on government-issued identity documents."
+    },
+    "phone_number": {
+      "type": "string",
+      "example": "+15555555555",
+      "description": "Individual's phone number, entered in E.164 format."
+    },
+    "government_id": {
+      "type": "string",
+      "example": "111-23-1412",
+      "description": "Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens",
+      "writeOnly": true
+    }
+  }
+}

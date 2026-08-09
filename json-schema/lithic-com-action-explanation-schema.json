@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/action_explanation",
+  "title": "action_explanation",
+  "type": "object",
+  "properties": {
+    "explanation": {
+      "type": "string",
+      "description": "Optional explanation for why this action was taken"
+    }
+  }
+}

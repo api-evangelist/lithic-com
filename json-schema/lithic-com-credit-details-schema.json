@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/credit_details",
+  "title": "Credit Details",
+  "description": "Breakdown of credits",
+  "type": "object",
+  "patternProperties": {
+    "^.*$": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "integer",
+          "description": "Amount in cents for this credit category and event type combination"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,22 @@
+{
+  "operationId": "updateEventSubscription",
+  "method": "PATCH",
+  "path": "/v1/event_subscriptions/{event_subscription_token}",
+  "summary": "Update event subscription",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "description": "A subscription for all events",
+        "disabled": false,
+        "token": "ep_1srOrx2ZWZBpBUvZwXKQmoEYga1",
+        "url": "https://example.com/webhook",
+        "event_types": [
+          "dispute.updated"
+        ]
+      }
+    }
+  ]
+}

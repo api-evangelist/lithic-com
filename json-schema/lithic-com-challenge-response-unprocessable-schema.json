@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/challenge-response-unprocessable",
+  "title": "Challenge Response Unprocessable",
+  "type": "object",
+  "description": "Error response when a challenge cannot be completed because it has already been marked complete. Common causes include challenge timeout, too many attempts, or cancellation. Refer to the message parameter for the specific reason",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Error message explaining why the challenge could not be completed"
+    }
+  },
+  "required": [
+    "message"
+  ]
+}

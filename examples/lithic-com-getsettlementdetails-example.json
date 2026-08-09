@@ -1,0 +1,42 @@
+{
+  "operationId": "getSettlementDetails",
+  "method": "GET",
+  "path": "/v1/reports/settlement/details/{report_date}",
+  "summary": "List settlement details",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "data": [
+          {
+            "account_token": "6c25d6a4-4ff3-46f0-8f9b-f2cbb7e20e09",
+            "card_program_token": "62135b36-324f-443a-a630-bab38fe86868",
+            "card_token": "047298ea-5789-46e4-95fa-154aeeab6af3",
+            "created": "2023-06-17T13:00:29.979106",
+            "currency": "USD",
+            "disputes_gross_amount": 0,
+            "event_tokens": [
+              "8fce9192-41ff-4a7a-8359-bd33b3e0a7c9"
+            ],
+            "institution": "00001",
+            "interchange_fee_extended_precision": -70000,
+            "interchange_gross_amount": -7,
+            "network": "VISA",
+            "other_fees_details": {},
+            "other_fees_gross_amount": 0,
+            "report_date": "2023-06-16",
+            "settlement_date": "2023-06-16",
+            "token": "e34a817f-119d-4976-9fb3-8b020b8bbec3",
+            "transaction_token": "0e98152b-3753-4a17-bfe2-c6f575c83b85",
+            "transactions_gross_amount": 1900,
+            "type": "CLEARING",
+            "updated": "2023-06-17T13:00:29.979106"
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ]
+}

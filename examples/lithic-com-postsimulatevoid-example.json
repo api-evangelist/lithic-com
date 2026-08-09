@@ -1,0 +1,35 @@
+{
+  "operationId": "postSimulateVoid",
+  "method": "POST",
+  "path": "/v1/simulate/void",
+  "summary": "Simulate void",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "simulateAuthorizationExpiry",
+      "example": {
+        "amount": 100,
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",
+        "type": "AUTHORIZATION_EXPIRY"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "simulateAuthorizationReversal",
+      "example": {
+        "amount": 100,
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",
+        "type": "AUTHORIZATION_REVERSAL"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "201",
+      "contentType": "application/json",
+      "example": {
+        "debugging_request_id": "3ec51ef1-b68d-4243-be6c-2204229b09cf"
+      }
+    }
+  ]
+}

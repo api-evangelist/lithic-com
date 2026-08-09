@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-version",
+  "title": "Auth Rule Version",
+  "type": "object",
+  "properties": {
+    "version": {
+      "$ref": "#/components/schemas/auth-rule-version-id"
+    },
+    "state": {
+      "$ref": "#/components/schemas/auth-rule-version-state"
+    },
+    "parameters": {
+      "$ref": "#/components/schemas/auth-rule-parameters"
+    },
+    "created": {
+      "description": "Timestamp of when this version was created.",
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "version",
+    "state",
+    "parameters",
+    "created"
+  ]
+}

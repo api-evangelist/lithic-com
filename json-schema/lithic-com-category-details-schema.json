@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/category_details",
+  "title": "Category Details",
+  "type": "object",
+  "properties": {
+    "purchases": {
+      "type": "string"
+    },
+    "cash_advances": {
+      "type": "string"
+    },
+    "balance_transfers": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "purchases",
+    "cash_advances",
+    "balance_transfers"
+  ]
+}

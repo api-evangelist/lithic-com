@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/backtest-token",
+  "title": "Auth Rule Backtest Token",
+  "description": "Auth Rule Backtest Token",
+  "type": "string",
+  "format": "uuid"
+}

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/dispute",
+  "title": "Dispute",
+  "description": "The Dispute object tracks the progression of a dispute throughout its lifecycle.",
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "description": "Identifier assigned by the network for this dispute.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "token": {
+      "description": "Token assigned by Lithic for the dispute, in UUID format.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "card_token": {
+      "description": "Token for the card used in the dispute, in UUID format.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "account_token": {
+      "description": "Token for the account associated with the dispute, in UUID format.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "network": {
+      "description": "Card network handling the dispute.",
+      "type": "string",
+      "enum": [
+        "VISA",
+        "MASTERCARD"
+      ]
+    },
+    "currency": {
+      "description": "Three-letter ISO 4217 currency code.",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "example": "USD"
+    },
+    "created": {
+      "description": "When the dispute was created.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "description": "When the dispute was last updated.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "merchant": {
+      "$ref": "#/components/schemas/merchant"
+    },
+    "transaction_series": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/transaction-series"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "liability_allocation": {
+      "$ref": "#/components/schemas/liability-allocation"
+    },
+    "status": {
+      "description": "Current status of the dispute.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "OPEN",
+        "CLOSED",
+        null
+      ]
+    },
+    "disposition": {
+      "description": "Dispute resolution outcome",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "WON",
+        "LOST",
+        "PARTIALLY_WON",
+        "WITHDRAWN",
+        "DENIED",
+        null
+      ]
+    },
+    "events": {
+      "description": "Chronological list of events that have occurred in the dispute lifecycle",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/event"
+      }
+    }
+  },
+  "required": [
+    "case_id",
+    "token",
+    "card_token",
+    "account_token",
+    "network",
+    "currency",
+    "created",
+    "updated",
+    "merchant",
+    "transaction_series",
+    "liability_allocation",
+    "status",
+    "disposition",
+    "events"
+  ]
+}

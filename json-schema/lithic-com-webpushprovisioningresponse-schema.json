@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebPushProvisioningResponse",
+  "title": "WebPushProvisioningResponse",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/AppleWebPushProvisioningResponse"
+    },
+    {
+      "$ref": "#/components/schemas/GoogleWebPushProvisioningResponse"
+    }
+  ]
+}

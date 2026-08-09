@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/pci_card_response",
+  "title": "pci_card_response",
+  "description": "Card details with potentially PCI sensitive information for Enterprise customers",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/non_pci_card_response"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "pan": {
+          "description": "Primary Account Number (PAN) (i.e. the card number). Customers must be PCI compliant to have PAN returned as a field in production. Please contact support@lithic.com for questions.",
+          "example": "4111111289144142",
+          "maxLength": 16,
+          "minLength": 16,
+          "type": "string"
+        },
+        "cvv": {
+          "description": "Three digit cvv printed on the back of the card.",
+          "example": "776",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      },
+      "examples": [
+        {
+          "pan": "4111111289144142",
+          "cvv": "776"
+        }
+      ]
+    }
+  ]
+}

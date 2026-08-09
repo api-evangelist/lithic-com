@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account-holder-verification",
+  "title": "Account Holder Verification",
+  "examples": [
+    {
+      "account_token": "00000000-0000-0000-0000-000000000001",
+      "created": "2023-09-26 16:41:40.530938",
+      "status": "ACCEPTED",
+      "status_reasons": [],
+      "token": "00000000-0000-0000-0000-000000000001"
+    }
+  ],
+  "properties": {
+    "account_token": {
+      "description": "The token of the account being verified.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    },
+    "created": {
+      "description": "When the account_holder verification status was updated",
+      "format": "date-time",
+      "type": "string"
+    },
+    "status": {
+      "description": "The status of the account_holder that was created",
+      "enum": [
+        "ACCEPTED",
+        "PENDING_REVIEW",
+        "REJECTED"
+      ],
+      "example": "ACCEPTED",
+      "type": "string"
+    },
+    "status_reasons": {
+      "items": {
+        "description": "If status is not ACCEPTED, status_reasons provides the reasons an account_holder was REJECTED or is PENDING_REVIEW.",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "token": {
+      "description": "The token of the account_holder being verified.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

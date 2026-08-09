@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/management_operation_action_request",
+  "title": "Management Operation Action Request",
+  "type": "object",
+  "properties": {
+    "memo": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "effective_date"
+  ]
+}

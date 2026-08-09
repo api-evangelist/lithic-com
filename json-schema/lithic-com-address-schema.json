@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Address",
+  "title": "Address",
+  "properties": {
+    "address1": {
+      "description": "Valid deliverable address (no PO boxes).",
+      "example": "123 Old Forest Way",
+      "type": "string"
+    },
+    "address2": {
+      "description": "Unit or apartment number (if applicable).",
+      "type": "string"
+    },
+    "city": {
+      "description": "Name of city.",
+      "example": "Omaha",
+      "type": "string"
+    },
+    "country": {
+      "description": "Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character format. Only USA is currently supported for all workflows. KYC_EXEMPT supports CAN additionally. ",
+      "example": "USA",
+      "type": "string"
+    },
+    "postal_code": {
+      "description": "Valid postal code. USA postal codes (ZIP codes) are supported, entered as a five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.  KYC_EXEMPT supports Canadian postal codes. ",
+      "example": "68022",
+      "type": "string"
+    },
+    "state": {
+      "description": "Valid state code. USA state codes are supported, entered in uppercase ISO 3166-2 two-character format. KYC_EXEMPT supports Canadian province codes.",
+      "example": "NE",
+      "type": "string"
+    }
+  },
+  "required": [
+    "address1",
+    "city",
+    "country",
+    "postal_code",
+    "state"
+  ],
+  "type": "object"
+}

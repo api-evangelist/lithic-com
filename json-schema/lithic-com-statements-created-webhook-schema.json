@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/statements_created_webhook",
+  "title": "Statement Webhook",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/statement_response"
+    }
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "statements.created"
+      ]
+    }
+  },
+  "required": [
+    "event_type"
+  ]
+}

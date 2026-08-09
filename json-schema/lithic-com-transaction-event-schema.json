@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transaction_event",
+  "title": "Transaction Event",
+  "type": "object",
+  "properties": {
+    "account_type": {
+      "$ref": "#/components/schemas/account_type"
+    },
+    "amount": {
+      "description": "Amount of the event in the settlement currency.",
+      "example": 1000,
+      "type": "integer",
+      "deprecated": true
+    },
+    "amounts": {
+      "$ref": "#/components/schemas/transaction_event_amounts"
+    },
+    "created": {
+      "description": "RFC 3339 date and time this event entered the system. UTC time zone.",
+      "example": "2023-09-26T21:14:28.637Z",
+      "format": "date-time",
+      "type": "string"
+    },
+    "network_info": {
+      "$ref": "#/components/schemas/network_info"
+    },
+    "network_specific_data": {
+      "$ref": "#/components/schemas/network_specific_data"
+    },
+    "detailed_results": {
+      "items": {
+        "$ref": "#/components/schemas/detailed_result"
+      },
+      "type": "array"
+    },
+    "rule_results": {
+      "items": {
+        "$ref": "#/components/schemas/rule_result"
+      },
+      "type": "array"
+    },
+    "effective_polarity": {
+      "description": "Indicates whether the transaction event is a credit or debit to the account.",
+      "example": "DEBIT",
+      "enum": [
+        "CREDIT",
+        "DEBIT"
+      ],
+      "type": "string"
+    },
+    "result": {
+      "$ref": "#/components/schemas/decline_result"
+    },
+    "token": {
+      "description": "Transaction event identifier.",
+      "example": "0c2adae9-f535-4505-8c35-421dad9bd0b6",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of transaction event",
+      "example": "CLEARING",
+      "enum": [
+        "AUTHORIZATION",
+        "AUTHORIZATION_ADVICE",
+        "AUTHORIZATION_EXPIRY",
+        "AUTHORIZATION_REVERSAL",
+        "BALANCE_INQUIRY",
+        "CLEARING",
+        "CORRECTION_CREDIT",
+        "CORRECTION_DEBIT",
+        "CREDIT_AUTHORIZATION",
+        "CREDIT_AUTHORIZATION_ADVICE",
+        "FINANCIAL_AUTHORIZATION",
+        "FINANCIAL_CREDIT_AUTHORIZATION",
+        "RETURN",
+        "RETURN_REVERSAL"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "amounts",
+    "created",
+    "detailed_results",
+    "effective_polarity",
+    "result",
+    "token",
+    "type",
+    "rule_results",
+    "network_info"
+  ]
+}

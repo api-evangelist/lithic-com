@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/token_info",
+  "title": "Token Info",
+  "type": [
+    "object",
+    "null"
+  ],
+  "properties": {
+    "wallet_type": {
+      "description": "The wallet_type field will indicate the source of the token. Possible token sources include digital wallets (Apple, Google, or Samsung Pay), merchant tokenization, and \u201cother\u201d sources like in-flight commerce. Masterpass is not currently supported and is included for future use.",
+      "enum": [
+        "APPLE_PAY",
+        "GOOGLE_PAY",
+        "MASTERPASS",
+        "MERCHANT",
+        "OTHER",
+        "SAMSUNG_PAY"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "wallet_type"
+  ]
+}

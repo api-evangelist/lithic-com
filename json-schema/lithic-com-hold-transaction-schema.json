@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/hold_transaction",
+  "title": "Hold Transaction",
+  "description": "A hold transaction representing reserved funds on a financial account. Holds move funds from available to pending balance in anticipation of future payments. They can be resolved via settlement (linked to payment), manual release, or expiration.",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/base_transaction"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "const": "HOLD",
+          "description": "HOLD - Hold Transaction"
+        },
+        "result": {
+          "$ref": "#/components/schemas/transaction_result"
+        },
+        "status": {
+          "$ref": "#/components/schemas/hold_status"
+        },
+        "financial_account_token": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "pending_amount": {
+          "type": "integer",
+          "description": "Current pending amount (0 when resolved)"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/hold_event"
+          }
+        },
+        "user_defined_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expiration_datetime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "description": "When the hold will auto-expire if not resolved"
+        }
+      }
+    }
+  ],
+  "required": [
+    "family",
+    "result",
+    "status",
+    "financial_account_token",
+    "pending_amount",
+    "currency",
+    "events",
+    "user_defined_id",
+    "expiration_datetime"
+  ]
+}

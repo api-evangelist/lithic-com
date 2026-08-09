@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/wallet-decisioning-info",
+  "title": "wallet-decisioning-info",
+  "type": "object",
+  "properties": {
+    "account_score": {
+      "description": "Score given to the account by the Wallet Provider",
+      "example": "100",
+      "maxLength": 64,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "device_score": {
+      "description": "Score given to the device by the Wallet Provider",
+      "example": "100",
+      "maxLength": 64,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recommendation_reasons": {
+      "description": "Reasons provided to the Wallet Provider on how the recommended decision was reached",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommended_decision": {
+      "description": "The decision recommended by the Wallet Provider",
+      "example": "Decision1",
+      "maxLength": 64,
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "account_score",
+    "device_score",
+    "recommended_decision"
+  ]
+}

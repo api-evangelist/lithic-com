@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/update-financial-account-substatus",
+  "title": "Update Financial Account Substatus",
+  "description": "Substatus for the financial account",
+  "type": "string",
+  "enum": [
+    "CHARGED_OFF_FRAUD",
+    "END_USER_REQUEST",
+    "BANK_REQUEST",
+    "CHARGED_OFF_DELINQUENT",
+    "INTEREST_AND_FEES_PAUSED",
+    "DELINQUENT"
+  ]
+}

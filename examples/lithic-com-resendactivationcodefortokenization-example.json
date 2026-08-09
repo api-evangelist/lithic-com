@@ -1,0 +1,16 @@
+{
+  "operationId": "resendActivationCodeForTokenization",
+  "method": "POST",
+  "path": "/v1/tokenizations/{tokenization_token}/resend_activation_code",
+  "summary": "Resend activation code for a card tokenization",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "resendActivationCodeSms",
+      "example": {
+        "activation_method_type": "TEXT_TO_CARDHOLDER_NUMBER"
+      }
+    }
+  ],
+  "responseExamples": []
+}

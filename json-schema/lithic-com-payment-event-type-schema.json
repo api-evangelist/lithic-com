@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/payment_event_type",
+  "title": "Payment Event Type",
+  "description": "Note: Inbound wire transfers are coming soon (availability varies by partner bank). Wire-related event types below are a preview. To learn more, contact your customer success manager.\n\nEvent types:\n\nACH events:\n* `ACH_ORIGINATION_INITIATED` - ACH origination received and pending approval/release from an ACH hold.\n* `ACH_ORIGINATION_REVIEWED` - ACH origination has completed the review process.\n* `ACH_ORIGINATION_CANCELLED` - ACH origination has been cancelled.\n* `ACH_ORIGINATION_PROCESSED` - ACH origination has been processed and sent to the Federal Reserve.\n* `ACH_ORIGINATION_SETTLED` - ACH origination has settled.\n* `ACH_ORIGINATION_RELEASED` - ACH origination released from pending to available balance.\n* `ACH_ORIGINATION_REJECTED` - ACH origination was rejected and not sent to the Federal Reserve.\n* `ACH_RECEIPT_PROCESSED` - ACH receipt pending release from an ACH holder.\n* `ACH_RECEIPT_SETTLED` - ACH receipt funds have settled.\n* `ACH_RECEIPT_RELEASED` - ACH receipt released from pending to available balance.\n* `ACH_RECEIPT_RELEASED_EARLY` - ACH receipt released early from pending to available balance.\n* `ACH_RETURN_INITIATED` - ACH initiated return for an ACH receipt.\n* `ACH_RETURN_PROCESSED` - ACH receipt returned by the Receiving Depository Financial Institution.\n* `ACH_RETURN_SETTLED` - ACH return settled by the Receiving Depository Financial Institution.\n* `ACH_RETURN_REJECTED` - ACH return was rejected by the Receiving Depository Financial Institution.\n\nWire transfer events:\n* `WIRE_TRANSFER_INBOUND_RECEIVED` - Inbound wire transfer received from the Federal Reserve and pending release to available balance.\n* `WIRE_TRANSFER_INBOUND_SETTLED` - Inbound wire transfer funds released from pending to available balance.\n* `WIRE_TRANSFER_INBOUND_BLOCKED` - Inbound wire transfer blocked and funds frozen for regulatory review.\n\nWire return events:\n* `WIRE_RETURN_OUTBOUND_INITIATED` - Outbound wire return initiated to return funds from an inbound wire transfer.\n* `WIRE_RETURN_OUTBOUND_SENT` - Outbound wire return sent to the Federal Reserve and pending acceptance.\n* `WIRE_RETURN_OUTBOUND_SETTLED` - Outbound wire return accepted by the Federal Reserve and funds returned to sender.\n* `WIRE_RETURN_OUTBOUND_REJECTED` - Outbound wire return rejected by the Federal Reserve.",
+  "type": "string",
+  "enum": [
+    "ACH_ORIGINATION_CANCELLED",
+    "ACH_ORIGINATION_INITIATED",
+    "ACH_ORIGINATION_PROCESSED",
+    "ACH_ORIGINATION_REJECTED",
+    "ACH_ORIGINATION_RELEASED",
+    "ACH_ORIGINATION_REVIEWED",
+    "ACH_ORIGINATION_SETTLED",
+    "ACH_RECEIPT_PROCESSED",
+    "ACH_RECEIPT_RELEASED",
+    "ACH_RECEIPT_RELEASED_EARLY",
+    "ACH_RECEIPT_SETTLED",
+    "ACH_RETURN_INITIATED",
+    "ACH_RETURN_PROCESSED",
+    "ACH_RETURN_REJECTED",
+    "ACH_RETURN_SETTLED",
+    "WIRE_TRANSFER_INBOUND_RECEIVED",
+    "WIRE_TRANSFER_INBOUND_SETTLED",
+    "WIRE_TRANSFER_INBOUND_BLOCKED",
+    "WIRE_RETURN_OUTBOUND_INITIATED",
+    "WIRE_RETURN_OUTBOUND_SENT",
+    "WIRE_RETURN_OUTBOUND_SETTLED",
+    "WIRE_RETURN_OUTBOUND_REJECTED"
+  ]
+}

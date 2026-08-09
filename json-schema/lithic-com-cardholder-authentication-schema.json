@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/cardholder_authentication",
+  "title": "Cardholder Authentication",
+  "type": "object",
+  "properties": {
+    "authentication_result": {
+      "description": "Indicates the outcome of the 3DS authentication process.",
+      "enum": [
+        "ATTEMPTS",
+        "DECLINE",
+        "NONE",
+        "SUCCESS"
+      ],
+      "example": "SUCCESS",
+      "type": "string"
+    },
+    "authentication_method": {
+      "description": "Indicates the method used to authenticate the cardholder.",
+      "enum": [
+        "FRICTIONLESS",
+        "CHALLENGE",
+        "NONE"
+      ],
+      "example": "FRICTIONLESS",
+      "type": "string"
+    },
+    "decision_made_by": {
+      "description": "Indicates which party made the 3DS authentication decision.",
+      "enum": [
+        "CUSTOMER_RULES",
+        "CUSTOMER_ENDPOINT",
+        "LITHIC_DEFAULT",
+        "LITHIC_RULES",
+        "NETWORK",
+        "UNKNOWN"
+      ],
+      "example": "LITHIC_RULES",
+      "type": "string"
+    },
+    "liability_shift": {
+      "description": "Indicates whether chargeback liability shift applies to the transaction. Possible enum values:\n  * `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D Secure flow, chargeback liability shift applies.\n  * `NONE`: Chargeback liability shift has not shifted to the issuer, i.e. the merchant is liable.\n  * `TOKEN_AUTHENTICATED`: The transaction was a tokenized payment with validated cryptography, possibly recurring. Chargeback liability shift to the issuer applies.\n",
+      "example": "3DS_AUTHENTICATED",
+      "enum": [
+        "3DS_AUTHENTICATED",
+        "TOKEN_AUTHENTICATED",
+        "NONE"
+      ],
+      "type": "string"
+    },
+    "three_ds_authentication_token": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "3DS authentication token not available."
+        },
+        {
+          "type": "string",
+          "example": "a6e372d0-b40a-43eb-b0d1-4e1aebef5875",
+          "format": "uuid",
+          "description": "Unique identifier you can use to match a given 3DS authentication (available via the three_ds_authentication.created event webhook) and the transaction. Note that in cases where liability shift does not occur, this token is matched to the transaction on a best-effort basis."
+        }
+      ]
+    }
+  },
+  "required": [
+    "authentication_result",
+    "authentication_method",
+    "decision_made_by",
+    "liability_shift",
+    "three_ds_authentication_token"
+  ]
+}

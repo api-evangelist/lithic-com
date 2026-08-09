@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account_standing",
+  "title": "Account Standing",
+  "type": "object",
+  "properties": {
+    "period_state": {
+      "$ref": "#/components/schemas/period_state"
+    },
+    "period_number": {
+      "description": "Current overall period number",
+      "type": "integer"
+    },
+    "consecutive_minimum_payments_made": {
+      "description": "Number of consecutive minimum payments made",
+      "type": "integer"
+    },
+    "consecutive_minimum_payments_missed": {
+      "description": "Number of consecutive minimum payments missed",
+      "type": "integer"
+    },
+    "consecutive_full_payments_made": {
+      "description": "Number of consecutive full payments made",
+      "type": "integer"
+    },
+    "days_past_due": {
+      "description": "Number of days past due",
+      "type": "integer"
+    },
+    "has_grace": {
+      "description": "Whether the account currently has grace or not",
+      "type": "boolean"
+    },
+    "financial_account_state": {
+      "$ref": "#/components/schemas/financial_account_state"
+    }
+  },
+  "required": [
+    "period_state",
+    "period_number",
+    "consecutive_minimum_payments_made",
+    "consecutive_minimum_payments_missed",
+    "consecutive_full_payments_made",
+    "days_past_due",
+    "has_grace",
+    "financial_account_state"
+  ]
+}

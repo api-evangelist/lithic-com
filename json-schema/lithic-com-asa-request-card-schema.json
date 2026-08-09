@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/asa_request_card",
+  "title": "asa_request_card",
+  "description": "Card object in ASA",
+  "type": "object",
+  "required": [
+    "last_four",
+    "memo",
+    "spend_limit",
+    "spend_limit_duration",
+    "state",
+    "token",
+    "type"
+  ],
+  "properties": {
+    "last_four": {
+      "description": "Last four digits of the card number",
+      "type": "string"
+    },
+    "memo": {
+      "description": "Customizable name to identify the card",
+      "type": "string"
+    },
+    "spend_limit": {
+      "description": "Amount (in cents) to limit approved authorizations. Purchase requests above the spend limit will be declined (refunds and credits will be approved).\n\nNote that while spend limits are enforced based on authorized and settled volume on a card, they are not recommended to be used for balance or reconciliation-level accuracy. Spend limits also cannot block force posted charges (i.e., when a merchant sends a clearing message without a prior authorization).",
+      "type": "integer",
+      "format": "int64"
+    },
+    "spend_limit_duration": {
+      "description": "Note that to support recurring monthly payments, which can occur on different day every month, the time window we consider for MONTHLY velocity starts 6 days after the current calendar date one month prior.",
+      "type": "string",
+      "enum": [
+        "ANNUALLY",
+        "FOREVER",
+        "MONTHLY",
+        "TRANSACTION"
+      ]
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "CLOSED",
+        "OPEN",
+        "PAUSED",
+        "PENDING_ACTIVATION",
+        "PENDING_FULFILLMENT"
+      ]
+    },
+    "type": {
+      "$ref": "#/components/schemas/card-type"
+    },
+    "token": {
+      "description": "Globally unique identifier for the card.",
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

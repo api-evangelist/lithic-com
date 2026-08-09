@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/business-account-tokens",
+  "title": "Auth Rule Business Account Tokens",
+  "description": "Business Account tokens to which the Auth Rule applies.",
+  "type": "array",
+  "items": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

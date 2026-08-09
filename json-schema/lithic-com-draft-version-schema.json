@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/draft-version",
+  "title": "Auth Rule Draft Version",
+  "anyOf": [
+    {
+      "type": "null",
+      "description": "No draft version."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "$ref": "#/components/schemas/auth-rule-parameters"
+        },
+        "version": {
+          "$ref": "#/components/schemas/auth-rule-version-id"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "SHADOWING",
+            "ERROR"
+          ],
+          "description": "The state of the draft version. Most rules are created synchronously and the state is immediately `SHADOWING`. Rules backed by TypeScript code are compiled asynchronously \u2014 the state starts as `PENDING` and transitions to `SHADOWING` on success or `ERROR` on failure.\n\n- `PENDING`: Compilation of the rule is in progress (TypeScript rules only).\n- `SHADOWING`: The draft version is ready and evaluating in shadow mode alongside the current active version. It can be promoted to the active version.\n- `ERROR`: Compilation of the rule failed. Check the `error` field for details."
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "An error message if the draft version failed compilation. Populated when `state` is `ERROR`, `null` otherwise."
+        }
+      },
+      "required": [
+        "parameters",
+        "version",
+        "state",
+        "error"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "operationId": "get-v2auth-rulesresults",
+  "method": "GET",
+  "path": "/v2/auth_rules/results",
+  "summary": "List rule evaluation results",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "data": [
+          {
+            "token": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "auth_rule_token": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+            "event_token": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+            "transaction_token": "d4e5f6a7-b8c9-0123-defa-234567890123",
+            "evaluation_time": "2026-01-15T09:30:00Z",
+            "rule_version": 1,
+            "mode": "ACTIVE",
+            "event_stream": "AUTHORIZATION",
+            "actions": [
+              {
+                "type": "DECLINE",
+                "code": "CARD_SPEND_LIMIT_EXCEEDED",
+                "explanation": "Transaction declined due to velocity limit"
+              }
+            ]
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ]
+}

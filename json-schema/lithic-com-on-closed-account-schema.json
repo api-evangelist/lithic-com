@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/on_closed_account",
+  "title": "On Closed Account",
+  "description": "What to do if the financial account is closed when posting an operation",
+  "type": "string",
+  "enum": [
+    "FAIL",
+    "USE_SUSPENSE"
+  ],
+  "default": "FAIL"
+}

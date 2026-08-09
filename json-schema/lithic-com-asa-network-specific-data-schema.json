@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/asa_network_specific_data",
+  "title": "Network Specific Data",
+  "description": "Contains raw data provided by the card network, including attributes that provide further context about the authorization. If populated by the network, data is organized by Lithic and passed through without further modification. Please consult the official network documentation for more details about these values and how to use them. This object is only available to certain programs- contact your Customer Success Manager to discuss enabling access.",
+  "type": [
+    "object",
+    "null"
+  ],
+  "properties": {
+    "mastercard": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "There was no Mastercard-specific data available for this transaction."
+        },
+        {
+          "$ref": "#/components/schemas/asa_network_specific_data_mastercard"
+        }
+      ]
+    },
+    "visa": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "There was no Visa-specific data available for this transaction."
+        },
+        {
+          "$ref": "#/components/schemas/asa_network_specific_data_visa"
+        }
+      ]
+    }
+  }
+}

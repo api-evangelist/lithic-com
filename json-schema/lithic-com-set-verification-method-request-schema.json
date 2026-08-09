@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/set_verification_method_request",
+  "title": "Set Verification Method Request",
+  "type": "object",
+  "properties": {
+    "verification_method": {
+      "description": "The verification method to set for the external bank account",
+      "type": "string",
+      "$ref": "#/components/schemas/set_verification_method_allowed_verification_methods"
+    },
+    "financial_account_token": {
+      "description": "The financial account token of the operating account to fund the micro deposits. Required when verification_method is MICRO_DEPOSIT or PRENOTE.",
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "verification_method"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transfer_limits_response",
+  "title": "Transfer Limits Response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "description": "List of transfer limits",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/transfer_limit_item"
+      }
+    },
+    "has_more": {
+      "description": "Whether there are more transfer limits",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "data",
+    "has_more"
+  ]
+}

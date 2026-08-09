@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/program-level",
+  "title": "Auth Rule Program Level Parameter",
+  "type": "boolean",
+  "description": "Whether the Auth Rule applies to all authorizations on the card program."
+}

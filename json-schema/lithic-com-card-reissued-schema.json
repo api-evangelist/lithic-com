@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-reissued",
+  "title": "Card Reissued",
+  "examples": [
+    {
+      "card_token": "00000000-0000-0000-0000-000000000001"
+    }
+  ],
+  "properties": {
+    "card_token": {
+      "description": "The token of the card that was reissued.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

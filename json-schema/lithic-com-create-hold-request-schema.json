@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create_hold_request",
+  "title": "Create Hold Request",
+  "description": "Request to create a new hold on a financial account",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Amount to hold in cents"
+    },
+    "memo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Reason for the hold"
+    },
+    "token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Customer-provided token for idempotency. Becomes the hold token."
+    },
+    "expiration_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the hold should auto-expire"
+    },
+    "user_defined_id": {
+      "type": "string",
+      "description": "User-provided identifier for the hold"
+    }
+  },
+  "required": [
+    "amount"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/payment_event",
+  "title": "Payment Event",
+  "description": "Note: Inbound wire transfers are coming soon (availability varies by partner bank). Wire-related fields below are a preview. To learn more, contact your customer success manager.\n\nPayment Event",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "Amount of the financial event that has been settled in the currency's smallest unit (e.g., cents).",
+      "type": "integer"
+    },
+    "created": {
+      "description": "Date and time when the financial event occurred. UTC time zone.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "detailed_results": {
+      "description": "More detailed reasons for the event",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "APPROVED",
+          "DECLINED",
+          "FUNDS_INSUFFICIENT",
+          "ACCOUNT_INVALID",
+          "PROGRAM_TRANSACTION_LIMIT_EXCEEDED",
+          "PROGRAM_DAILY_LIMIT_EXCEEDED",
+          "PROGRAM_MONTHLY_LIMIT_EXCEEDED"
+        ]
+      }
+    },
+    "result": {
+      "description": "APPROVED financial events were successful while DECLINED financial events were declined by user, Lithic, or the network.",
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "DECLINED"
+      ]
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "$ref": "#/components/schemas/payment_event_type"
+    },
+    "external_id": {
+      "description": "Payment event external ID. For ACH transactions, this is the ACH trace number.\nFor inbound wire transfers, this is the IMAD (Input Message Accountability Data).\n",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "amount",
+    "created",
+    "result",
+    "token",
+    "type"
+  ]
+}

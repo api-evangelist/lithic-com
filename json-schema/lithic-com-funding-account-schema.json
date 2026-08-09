@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/funding_account",
+  "title": "funding_account",
+  "description": "Funding account for a card",
+  "type": "object",
+  "properties": {
+    "account_name": {
+      "description": "Account name identifying the funding source. This may be `null`.",
+      "type": "string"
+    },
+    "created": {
+      "description": "An RFC 3339 string representing when this funding source was added to the Lithic account. This may be `null`. UTC time zone.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "last_four": {
+      "description": "The last 4 digits of the account (e.g. bank account, debit card) associated with this FundingAccount. This may be null.",
+      "maxLength": 4,
+      "minLength": 4,
+      "type": "string"
+    },
+    "nickname": {
+      "description": "The nickname given to the `FundingAccount` or `null` if it has no nickname.",
+      "maxLength": 255,
+      "minLength": 1,
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "description": "State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification. * `DELETED` - The founding account has been deleted.",
+      "enum": [
+        "DELETED",
+        "ENABLED",
+        "PENDING"
+      ],
+      "type": "string"
+    },
+    "token": {
+      "description": "A globally unique identifier for this FundingAccount.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "Types of funding source: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.",
+      "enum": [
+        "DEPOSITORY_CHECKING",
+        "DEPOSITORY_SAVINGS"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "created",
+    "last_four",
+    "state",
+    "token",
+    "type"
+  ]
+}

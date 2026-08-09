@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-event-data",
+  "title": "Financial Event Data",
+  "description": "Details specific to financial events",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "Event type discriminator",
+      "type": "string",
+      "const": "FINANCIAL"
+    },
+    "stage": {
+      "description": "Stage at which the financial event occurred",
+      "type": "string",
+      "enum": [
+        "CHARGEBACK",
+        "REPRESENTMENT",
+        "PREARBITRATION",
+        "ARBITRATION",
+        "COLLABORATION"
+      ]
+    },
+    "amount": {
+      "description": "Amount in minor units",
+      "type": "integer"
+    },
+    "polarity": {
+      "description": "Direction of funds flow",
+      "type": "string",
+      "enum": [
+        "CREDIT",
+        "DEBIT"
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "stage",
+    "amount",
+    "polarity"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/hold_status",
+  "title": "Hold Status",
+  "description": "Status of a hold transaction",
+  "type": "string",
+  "enum": [
+    "PENDING",
+    "SETTLED",
+    "EXPIRED",
+    "VOIDED"
+  ]
+}

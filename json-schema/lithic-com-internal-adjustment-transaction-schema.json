@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/internal_adjustment_transaction",
+  "title": "Internal Adjustment Transaction",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "result": {
+      "$ref": "#/components/schemas/transaction_result"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "INTERNAL"
+      ]
+    },
+    "status": {
+      "$ref": "#/components/schemas/transaction_status"
+    },
+    "settled_amount": {
+      "type": "integer"
+    },
+    "pending_amount": {
+      "type": "integer"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/internal_adjustment_event"
+      }
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "descriptor": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "result",
+    "category",
+    "status",
+    "settled_amount",
+    "pending_amount",
+    "currency",
+    "events",
+    "created",
+    "updated",
+    "descriptor"
+  ]
+}

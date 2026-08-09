@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/excluded-card-tokens",
+  "title": "Auth Rule Excluded Card Tokens",
+  "description": "Card tokens to which the Auth Rule does not apply.",
+  "type": "array",
+  "items": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

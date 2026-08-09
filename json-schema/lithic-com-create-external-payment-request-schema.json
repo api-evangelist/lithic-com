@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create_external_payment_request",
+  "title": "Create External Payment Request",
+  "type": "object",
+  "properties": {
+    "category": {
+      "$ref": "#/components/schemas/external_payment_category"
+    },
+    "financial_account_token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "memo": {
+      "type": "string"
+    },
+    "user_defined_id": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "token": {
+      "description": "Customer-provided token that will serve as an idempotency token. This token will become the transaction token.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "payment_type": {
+      "$ref": "#/components/schemas/external_payment_direction"
+    },
+    "progress_to": {
+      "$ref": "#/components/schemas/external_payment_progress_to"
+    }
+  },
+  "required": [
+    "category",
+    "financial_account_token",
+    "amount",
+    "effective_date",
+    "payment_type"
+  ]
+}

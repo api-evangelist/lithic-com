@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_payment_progress_to",
+  "title": "External Payment Progress To",
+  "type": "string",
+  "enum": [
+    "SETTLED",
+    "RELEASED"
+  ]
+}

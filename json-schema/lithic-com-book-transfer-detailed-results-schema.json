@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/book_transfer_detailed_results",
+  "title": "Book Transfer Detailed Results",
+  "type": "string",
+  "enum": [
+    "APPROVED",
+    "FUNDS_INSUFFICIENT"
+  ]
+}

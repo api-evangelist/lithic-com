@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/tier_schedule_entry",
+  "title": "Tier Schedule Entry",
+  "description": "Entry in the Tier Schedule of an account",
+  "type": "object",
+  "properties": {
+    "tier_name": {
+      "type": "string",
+      "description": "Name of a tier contained in the credit product. Mutually exclusive with tier_rates"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the tier should be effective in YYYY-MM-DD format"
+    },
+    "tier_rates": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "$ref": "#/components/schemas/category_tier"
+        }
+      },
+      "description": "Custom rates per category.  Mutually exclusive with tier_name"
+    },
+    "penalty_rates": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "$ref": "#/components/schemas/category_tier"
+        }
+      },
+      "description": "Custom rates per category for penalties"
+    },
+    "credit_product_token": {
+      "type": "string",
+      "description": "Globally unique identifier for a credit product"
+    }
+  },
+  "required": [
+    "effective_date",
+    "credit_product_token"
+  ]
+}

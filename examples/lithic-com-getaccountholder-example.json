@@ -1,0 +1,120 @@
+{
+  "operationId": "getAccountHolder",
+  "method": "GET",
+  "path": "/v1/account_holders/{account_holder_token}",
+  "summary": "Get an individual or business account holder",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "kycAcceptedReview",
+      "example": {
+        "token": "b68b7424-aa69-4cbc-a946-30d90181b621",
+        "account_token": "6b67b340-ed11-4463-a33d-0d7f7fdcd28c",
+        "business_account_token": "5310469f-3a16-44ce-89f8-cdc4446fcfdf",
+        "external_id": "",
+        "created": "2024-01-11T19:50:36.105449",
+        "user_type": "INDIVIDUAL",
+        "verification_application": {
+          "created": "2024-01-11T19:50:36.105449",
+          "updated": "2024-01-11T19:50:36.105449",
+          "status": "ACCEPTED",
+          "status_reasons": []
+        },
+        "individual": {
+          "address": {
+            "address1": "451 New Forest Way",
+            "city": "Springfield",
+            "state": "IL",
+            "postal_code": "68022",
+            "country": "USA"
+          },
+          "dob": "1991-03-08T08:00:00Z",
+          "email": "john@appleseed.com",
+          "first_name": "John",
+          "last_name": "Appleseed",
+          "phone_number": "+15555555555",
+          "entity_token": "fd771a07-c5c2-42f3-a53c-a6c79c6c0d07"
+        },
+        "email": "john@appleseed.com",
+        "phone_number": "+15555555555",
+        "status": "ACCEPTED"
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "kybBasicPendingReview",
+      "example": {
+        "token": "fa68ed76-9d02-4d45-8a3f-782f3b6a8b3f",
+        "account_token": "732f7328-a2d7-4281-a264-e8cb5af8d392",
+        "business_account_token": "00000000-0000-0000-0000-000000000000",
+        "external_id": "",
+        "created": "2024-01-11T19:50:36.105449",
+        "user_type": "BUSINESS",
+        "verification_application": {
+          "created": "2024-01-11T19:50:36.105449",
+          "updated": "2024-01-11T19:50:36.105449",
+          "status": "PENDING_REVIEW",
+          "status_reasons": [
+            "ADDRESS_VERIFICATION_FAILURE"
+          ]
+        },
+        "required_documents": [
+          {
+            "entity_token": "83cf25ae-c14f-4d10-9fa2-0119f36c7286",
+            "status_reasons": [
+              "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE"
+            ],
+            "valid_documents": [
+              "EIN_LETTER",
+              "TAX_RETURN",
+              "CERTIFICATE_OF_GOOD_STANDING",
+              "ARTICLES_OF_INCORPORATION",
+              "ARTICLES_OF_ORGANIZATION",
+              "CERTIFICATE_OF_FORMATION",
+              "BYLAWS",
+              "GOVERNMENT_BUSINESS_LICENSE",
+              "PARTNERSHIP_AGREEMENT",
+              "BANK_STATEMENT",
+              "UTILITY_BILL_STATEMENT"
+            ]
+          }
+        ],
+        "business_entity": {
+          "address": {
+            "address1": "22 Street North",
+            "city": "New York",
+            "state": "NY",
+            "postal_code": "10004",
+            "country": "USA"
+          },
+          "dba_business_name": "Busy Business, Inc.",
+          "government_id": "98-7654321",
+          "legal_business_name": "Busy Business, Inc.",
+          "parent_company": "Example company",
+          "phone_numbers": [
+            "+15555555555"
+          ],
+          "entity_token": "05cc03c9-dea6-4d17-a11e-0f3ea57d51a5"
+        },
+        "control_person": {
+          "address": {
+            "address1": "451 New Forest Way",
+            "city": "Springfield",
+            "state": "IL",
+            "postal_code": "68022",
+            "country": "USA"
+          },
+          "dob": "1991-03-08T08:00:00Z",
+          "email": "john@appleseed.com",
+          "first_name": "John",
+          "last_name": "Appleseed",
+          "phone_number": "+15555555555",
+          "entity_token": "fd771a07-c5c2-42f3-a53c-a6c79c6c0d07"
+        }
+      }
+    }
+  ]
+}

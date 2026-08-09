@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/management_operation_event_type",
+  "title": "Management Operation Event Type",
+  "type": "string",
+  "enum": [
+    "LOSS_WRITE_OFF",
+    "CASH_BACK",
+    "CASH_BACK_REVERSAL",
+    "CURRENCY_CONVERSION",
+    "CURRENCY_CONVERSION_REVERSAL",
+    "INTEREST",
+    "INTEREST_REVERSAL",
+    "LATE_PAYMENT",
+    "LATE_PAYMENT_REVERSAL",
+    "BILLING_ERROR",
+    "BILLING_ERROR_REVERSAL",
+    "PROVISIONAL_CREDIT",
+    "PROVISIONAL_CREDIT_REVERSAL",
+    "RETURNED_PAYMENT",
+    "RETURNED_PAYMENT_REVERSAL",
+    "DISPUTE_WON",
+    "DISPUTE_WON_REVERSAL",
+    "DISBURSE",
+    "DISBURSE_REVERSAL",
+    "ANNUAL",
+    "ANNUAL_REVERSAL",
+    "QUARTERLY",
+    "QUARTERLY_REVERSAL",
+    "MONTHLY",
+    "MONTHLY_REVERSAL"
+  ]
+}

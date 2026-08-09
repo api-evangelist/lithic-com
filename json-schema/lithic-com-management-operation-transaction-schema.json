@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/management_operation_transaction",
+  "title": "Management Operation Transaction",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/base_transaction"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "const": "MANAGEMENT_OPERATION",
+          "description": "MANAGEMENT_OPERATION - Management Operation Transaction"
+        },
+        "result": {
+          "$ref": "#/components/schemas/transaction_result"
+        },
+        "category": {
+          "$ref": "#/components/schemas/management_operation_category"
+        },
+        "settled_amount": {
+          "type": "integer"
+        },
+        "pending_amount": {
+          "type": "integer"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/management_operation_event"
+          }
+        },
+        "user_defined_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "financial_account_token": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "direction": {
+          "$ref": "#/components/schemas/management_operation_direction"
+        },
+        "transaction_series": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/transaction_series"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "external_resource": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/external_resource"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "required": [
+    "result",
+    "category",
+    "family",
+    "settled_amount",
+    "pending_amount",
+    "currency",
+    "events",
+    "financial_account_token",
+    "direction",
+    "transaction_series"
+  ]
+}

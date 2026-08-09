@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/amount",
+  "title": "Amount",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "Amount in the smallest unit of the applicable currency (e.g., cents)",
+      "type": "integer"
+    },
+    "currency": {
+      "$ref": "#/components/schemas/currency"
+    }
+  },
+  "required": [
+    "amount",
+    "currency"
+  ]
+}

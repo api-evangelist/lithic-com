@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/verification_method",
+  "title": "Verification Method",
+  "type": "string",
+  "enum": [
+    "MANUAL",
+    "MICRO_DEPOSIT",
+    "PRENOTE",
+    "EXTERNALLY_VERIFIED",
+    "UNVERIFIED"
+  ]
+}

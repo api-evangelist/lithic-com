@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/pos_entry_mode",
+  "title": "Point of Sale Entry Mode",
+  "type": "object",
+  "properties": {
+    "card": {
+      "type": "string",
+      "enum": [
+        "NOT_PRESENT",
+        "PREAUTHORIZED",
+        "PRESENT",
+        "UNKNOWN"
+      ],
+      "description": "Card presence indicator"
+    },
+    "cardholder": {
+      "type": "string",
+      "enum": [
+        "DEFERRED_BILLING",
+        "ELECTRONIC_ORDER",
+        "INSTALLMENT",
+        "MAIL_ORDER",
+        "NOT_PRESENT",
+        "PREAUTHORIZED",
+        "PRESENT",
+        "REOCCURRING",
+        "TELEPHONE_ORDER",
+        "UNKNOWN"
+      ],
+      "description": "Cardholder presence indicator"
+    },
+    "pan": {
+      "type": "string",
+      "enum": [
+        "AUTO_ENTRY",
+        "BAR_CODE",
+        "CONTACTLESS",
+        "CREDENTIAL_ON_FILE",
+        "ECOMMERCE",
+        "ERROR_KEYED",
+        "ERROR_MAGNETIC_STRIPE",
+        "ICC",
+        "KEY_ENTERED",
+        "MAGNETIC_STRIPE",
+        "MANUAL",
+        "OCR",
+        "SECURE_CARDLESS",
+        "UNKNOWN",
+        "UNSPECIFIED"
+      ],
+      "description": "Method of entry for the PAN"
+    },
+    "pin_entered": {
+      "type": "boolean",
+      "description": "Indicates whether the cardholder entered the PIN. True if the PIN was entered."
+    }
+  },
+  "required": [
+    "card",
+    "cardholder",
+    "pan",
+    "pin_entered"
+  ]
+}

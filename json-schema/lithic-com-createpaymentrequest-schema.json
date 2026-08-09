@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreatePaymentRequest",
+  "title": "CreatePaymentRequest",
+  "properties": {
+    "amount": {
+      "minimum": 1,
+      "title": "Amount",
+      "type": "integer"
+    },
+    "external_bank_account_token": {
+      "format": "uuid",
+      "title": "External Bank Account Token",
+      "type": "string"
+    },
+    "financial_account_token": {
+      "format": "uuid",
+      "title": "Financial Account Token",
+      "type": "string"
+    },
+    "memo": {
+      "maxLength": 512,
+      "pattern": "^[0-9A-Za-z \\x20-\\x7e\\x40-\\xff]*$",
+      "title": "Memo",
+      "type": "string"
+    },
+    "method": {
+      "enum": [
+        "ACH_NEXT_DAY",
+        "ACH_SAME_DAY"
+      ],
+      "title": "Payment Method",
+      "type": "string"
+    },
+    "method_attributes": {
+      "$ref": "#/components/schemas/PaymentMethodRequestAttributes"
+    },
+    "token": {
+      "description": "Customer-provided token that will serve as an idempotency token. This token will become the transaction token.",
+      "format": "uuid",
+      "title": "Token",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "COLLECTION",
+        "PAYMENT"
+      ],
+      "title": "Payment Type",
+      "type": "string"
+    },
+    "user_defined_id": {
+      "maxLength": 512,
+      "title": "User Defined Id",
+      "type": "string"
+    },
+    "hold": {
+      "description": "Optional hold to settle when this payment is initiated.",
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "Token of the hold to settle when this payment is initiated.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "token"
+      ]
+    }
+  },
+  "required": [
+    "amount",
+    "external_bank_account_token",
+    "financial_account_token",
+    "method",
+    "method_attributes",
+    "type"
+  ],
+  "type": "object"
+}

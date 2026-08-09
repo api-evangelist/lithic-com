@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/balances",
+  "title": "Balances",
+  "type": "object",
+  "properties": {
+    "past_due": {
+      "description": "Amount not paid off on previous due dates",
+      "$ref": "#/components/schemas/category_balances"
+    },
+    "due": {
+      "description": "Amount due for the prior billing cycle. Any amounts not fully paid off on this due date will be considered past due the next day",
+      "$ref": "#/components/schemas/category_balances"
+    },
+    "past_statements_due": {
+      "description": "Amount due for the past billing cycles.",
+      "$ref": "#/components/schemas/category_balances"
+    },
+    "next_statement_due": {
+      "description": "Amount due for the current billing cycle. Any amounts not paid off by early payments or credits will be considered due at the end of the current billing period",
+      "$ref": "#/components/schemas/category_balances"
+    }
+  },
+  "required": [
+    "past_due",
+    "due",
+    "past_statements_due",
+    "next_statement_due"
+  ]
+}

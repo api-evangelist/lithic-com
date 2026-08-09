@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_resource",
+  "title": "ExternalResource",
+  "type": "object",
+  "required": [
+    "external_resource_type",
+    "external_resource_token"
+  ],
+  "properties": {
+    "external_resource_type": {
+      "$ref": "#/components/schemas/external_resource_type"
+    },
+    "external_resource_token": {
+      "type": "string",
+      "description": "Token identifying the external resource"
+    },
+    "external_resource_sub_token": {
+      "type": "string",
+      "description": "Token identifying the external resource sub-resource"
+    }
+  },
+  "description": "External resource associated with the management operation",
+  "additionalProperties": false
+}

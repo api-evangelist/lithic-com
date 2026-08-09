@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/velocity-scope",
+  "title": "Velocity Limits Scope",
+  "type": "string",
+  "enum": [
+    "CARD",
+    "ACCOUNT"
+  ],
+  "description": "The scope the velocity is calculated for"
+}

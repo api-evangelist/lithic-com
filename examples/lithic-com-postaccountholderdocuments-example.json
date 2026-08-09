@@ -1,0 +1,17 @@
+{
+  "operationId": "postAccountHolderDocuments",
+  "method": "POST",
+  "path": "/v1/account_holders/{account_holder_token}/documents",
+  "summary": "Initiate account holder document upload",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "recieveLinkForDriversLicense",
+      "example": {
+        "entity_token": "83cf25ae-c14f-4d10-9fa2-0119f36c7286",
+        "document_type": "EIN_LETTER"
+      }
+    }
+  ],
+  "responseExamples": []
+}

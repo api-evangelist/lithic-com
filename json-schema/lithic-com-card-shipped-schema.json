@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-shipped",
+  "title": "Card Shipped",
+  "examples": [
+    {
+      "card_token": "00000000-0000-0000-0000-000000000001",
+      "shipping_method": "USPS without tracking envelope",
+      "tracking_number": "1Z9999999999999999",
+      "bulk_order_token": null
+    }
+  ],
+  "properties": {
+    "card_token": {
+      "description": "The token of the card that was shipped.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    },
+    "bulk_order_token": {
+      "description": "The token of the bulk order associated with this card shipment, if applicable.",
+      "example": "00000000-0000-0000-0000-000000000002",
+      "format": "uuid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "shipping_method": {
+      "description": "The specific shipping method used to ship the card.",
+      "enum": [
+        "Ex-US expedited with tracking",
+        "Ex-US standard with tracking",
+        "Ex-US standard without tracking",
+        "FedEx 2 days",
+        "FedEx express",
+        "FedEx overnight",
+        "USPS priority",
+        "USPS with tracking",
+        "USPS without tracking envelope",
+        "USPS without tracking envelope non-machine",
+        "USPS without tracking flat"
+      ],
+      "example": "USPS without tracking envelope",
+      "type": "string"
+    },
+    "tracking_number": {
+      "description": "The tracking number of the shipment.",
+      "example": "1Z9999999999999999",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "card_token",
+    "bulk_order_token",
+    "shipping_method",
+    "tracking_number"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/KybIndividual",
+  "title": "KybIndividual",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Individual"
+    },
+    {
+      "required": [
+        "address",
+        "dob",
+        "email",
+        "first_name",
+        "government_id",
+        "last_name"
+      ],
+      "type": "object"
+    }
+  ],
+  "description": "Individuals associated with a KYB application. Phone number is optional."
+}

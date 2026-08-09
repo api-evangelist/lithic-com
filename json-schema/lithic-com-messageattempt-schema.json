@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessageAttempt",
+  "title": "MessageAttempt",
+  "description": "A subscription to specific event types.",
+  "properties": {
+    "created": {
+      "description": "An RFC 3339 timestamp for when the event was created. UTC time zone.\n\nIf no timezone is specified, UTC will be used.\n",
+      "format": "date-time",
+      "type": "string"
+    },
+    "event_subscription_token": {
+      "description": "Globally unique identifier.",
+      "example": "ep_1srOrx2ZWZBpBUvZwXKQmoEYga1",
+      "type": "string"
+    },
+    "event_token": {
+      "description": "Globally unique identifier.",
+      "example": "msg_1srOrx2ZWZBpBUvZwXKQmoEYga1",
+      "type": "string"
+    },
+    "response": {
+      "description": "The response body from the event subscription's URL.",
+      "type": "string"
+    },
+    "response_status_code": {
+      "description": "The response status code from the event subscription's URL.",
+      "type": "integer"
+    },
+    "status": {
+      "description": "The status of the event attempt.",
+      "enum": [
+        "FAILED",
+        "PENDING",
+        "SENDING",
+        "SUCCESS"
+      ],
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "example": "atmpt_1srOrx2ZWZBpBUvZwXKQmoEYga2",
+      "type": "string"
+    },
+    "url": {
+      "format": "uri",
+      "type": "string"
+    }
+  },
+  "required": [
+    "created",
+    "event_subscription_token",
+    "event_token",
+    "response",
+    "response_status_code",
+    "status",
+    "token",
+    "url"
+  ],
+  "type": "object"
+}

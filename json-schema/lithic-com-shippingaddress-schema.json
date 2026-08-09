@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingAddress",
+  "title": "ShippingAddress",
+  "properties": {
+    "address1": {
+      "description": "Valid USPS routable address.",
+      "example": "5 Broad Street",
+      "maxLength": 40,
+      "minLength": 1,
+      "type": "string"
+    },
+    "address2": {
+      "description": "Unit number (if applicable).",
+      "example": "Unit 25A",
+      "maxLength": 40,
+      "minLength": 1,
+      "type": "string"
+    },
+    "city": {
+      "description": "City",
+      "example": "NEW YORK",
+      "maxLength": 30,
+      "minLength": 1,
+      "type": "string"
+    },
+    "country": {
+      "description": "Uppercase ISO 3166-1 alpha-3 three character abbreviation.",
+      "example": "USA",
+      "maxLength": 3,
+      "minLength": 3,
+      "type": "string"
+    },
+    "email": {
+      "description": "Email address to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.",
+      "example": "johnny@appleseed.com",
+      "maxLength": 50,
+      "minLength": 5,
+      "type": "string"
+    },
+    "first_name": {
+      "description": "Customer's first name. This will be the first name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.",
+      "example": "Michael",
+      "maxLength": 24,
+      "minLength": 1,
+      "type": "string"
+    },
+    "last_name": {
+      "description": "Customer's surname (family name). This will be the last name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.",
+      "example": "Bluth",
+      "maxLength": 24,
+      "minLength": 1,
+      "type": "string"
+    },
+    "line2_text": {
+      "description": "Text to be printed on line two of the physical card. Use of this field requires additional permissions.",
+      "example": "The Bluth Company",
+      "maxLength": 26,
+      "minLength": 0,
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "Cardholder's phone number in E.164 format to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.",
+      "example": "+15555555555",
+      "maxLength": 16,
+      "minLength": 8,
+      "type": "string"
+    },
+    "postal_code": {
+      "description": "Postal code (formerly zipcode). For US addresses, either five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.",
+      "example": "10001-1809",
+      "maxLength": 12,
+      "minLength": 1,
+      "type": "string"
+    },
+    "state": {
+      "description": "Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.",
+      "example": "NY",
+      "maxLength": 24,
+      "minLength": 0,
+      "type": "string"
+    }
+  },
+  "required": [
+    "address1",
+    "city",
+    "country",
+    "first_name",
+    "last_name",
+    "postal_code",
+    "state"
+  ],
+  "type": "object"
+}

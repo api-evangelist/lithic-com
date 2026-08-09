@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/network_totals_list",
+  "title": "Network Totals Response",
+  "type": "object",
+  "required": [
+    "data",
+    "has_more"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/network_total"
+      }
+    },
+    "has_more": {
+      "description": "Indicates whether there are more network total records to be retrieved.",
+      "type": "boolean"
+    }
+  },
+  "examples": [
+    {
+      "data": [
+        {
+          "token": "12cf7505-06a8-435e-b1c7-4c430d02f6c3",
+          "network": "VISA",
+          "institution_id": "1000000000",
+          "settlement_institution_id": "1000000001",
+          "settlement_service": "015",
+          "report_date": "2025-02-25",
+          "currency": "CAD",
+          "is_complete": true,
+          "amounts": {
+            "gross_settlement": 100,
+            "interchange_fees": -25,
+            "visa_charges": 10,
+            "net_settlement": 85
+          },
+          "created": "2025-02-25T13:07:31.419631Z",
+          "updated": "2025-02-25T13:07:31.419631Z"
+        },
+        {
+          "token": "0604c316-17f0-456d-9ac7-7d94252acb1a",
+          "network": "INTERLINK",
+          "institution_id": "1000000000",
+          "settlement_institution_id": "1000000001",
+          "settlement_service": "001",
+          "report_date": "2025-02-25",
+          "currency": "USD",
+          "is_complete": true,
+          "amounts": {
+            "gross_settlement": 200,
+            "interchange_fees": -50,
+            "visa_charges": 10,
+            "net_settlement": 160
+          },
+          "created": "2025-02-25T13:07:31.419631Z",
+          "updated": "2025-02-25T13:07:31.419631Z"
+        },
+        {
+          "token": "700a1c78-04ed-47e2-8160-b1e18914ec7b",
+          "network": "MASTERCARD",
+          "institution_id": "031511",
+          "settlement_institution_id": "031511",
+          "settlement_service": "US00000001",
+          "report_date": "2025-02-25",
+          "currency": "USD",
+          "cycle": 1,
+          "is_complete": false,
+          "amounts": {
+            "gross_settlement": 100,
+            "interchange_fees": -25,
+            "net_settlement": 75
+          },
+          "created": "2025-02-25T13:07:31.419631Z",
+          "updated": "2025-02-25T13:07:31.419631Z"
+        },
+        {
+          "token": "e05d5448-210e-4cc3-bd0d-d54d3c6c9a9f",
+          "network": "MASTERCARD",
+          "institution_id": "031511",
+          "settlement_institution_id": "031511",
+          "settlement_service": "US00000001",
+          "report_date": "2025-02-25",
+          "currency": "USD",
+          "cycle": 2,
+          "is_complete": true,
+          "amounts": {
+            "gross_settlement": 100,
+            "interchange_fees": -25,
+            "net_settlement": 75
+          },
+          "created": "2025-02-25T13:07:31.419631Z",
+          "updated": "2025-02-25T13:07:31.419631Z"
+        }
+      ],
+      "has_more": false
+    }
+  ]
+}

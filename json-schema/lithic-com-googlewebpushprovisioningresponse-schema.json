@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GoogleWebPushProvisioningResponse",
+  "title": "GoogleWebPushProvisioningResponse",
+  "properties": {
+    "google_opc": {
+      "description": "A base64 encoded and encrypted payload representing card data for the Google Pay UWPP FPAN flow.",
+      "example": "WW91ciBTdHJpbmcgSGVyZQ==",
+      "type": "string"
+    },
+    "tsp_opc": {
+      "description": "A base64 encoded and encrypted payload representing card data for the Google Pay UWPP tokenization flow.",
+      "example": "WW91ciBTdHJpbmcgSGVyZQ==",
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "not": {
+    "properties": {
+      "jws": {}
+    },
+    "required": [
+      "jws"
+    ]
+  }
+}

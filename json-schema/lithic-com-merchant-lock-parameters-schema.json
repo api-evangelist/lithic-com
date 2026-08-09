@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/merchant-lock-parameters",
+  "title": "Merchant Lock Inputs",
+  "type": "object",
+  "properties": {
+    "merchants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "merchant_id": {
+            "type": "string",
+            "description": "Unique alphanumeric identifier for the payment card acceptor (merchant). This attribute specifies the merchant entity that will be locked or referenced for authorization rules."
+          },
+          "descriptor": {
+            "type": "string",
+            "description": "Short description of the merchant, often used to provide more human-readable context about the transaction merchant. This is typically the name or label shown on transaction summaries."
+          },
+          "comment": {
+            "type": "string",
+            "description": "A comment or explanation about the merchant, used internally for rule management purposes."
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "merchant_id"
+            ]
+          },
+          {
+            "required": [
+              "descriptor"
+            ]
+          }
+        ],
+        "description": "Represents a specific merchant lock based on their ID or descriptor. Each merchant object allows transaction rules to work at a granular level and requires at least one of merchant_id or descriptor."
+      },
+      "description": "A list of merchant locks defining specific merchants or groups of merchants (based on descriptors or IDs) that the lock applies to."
+    }
+  },
+  "required": [
+    "merchants"
+  ]
+}

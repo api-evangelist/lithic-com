@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/avs",
+  "title": "Address Verification Service",
+  "type": "object",
+  "properties": {
+    "address": {
+      "description": "Cardholder address",
+      "type": "string"
+    },
+    "zipcode": {
+      "description": "Cardholder ZIP code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "address",
+    "zipcode"
+  ]
+}

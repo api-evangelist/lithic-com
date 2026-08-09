@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial_account_state",
+  "title": "Financial Account State",
+  "description": "Information about the financial account state",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "#/components/schemas/financial-account-status"
+    },
+    "substatus": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/financial-account-substatus"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "status"
+  ]
+}

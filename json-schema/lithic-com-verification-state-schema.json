@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/verification_state",
+  "title": "Verification State",
+  "type": "string",
+  "enum": [
+    "PENDING",
+    "ENABLED",
+    "FAILED_VERIFICATION",
+    "INSUFFICIENT_FUNDS"
+  ]
+}

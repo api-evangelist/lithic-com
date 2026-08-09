@@ -1,0 +1,24 @@
+{
+  "operationId": "getEventSubscriptions",
+  "method": "GET",
+  "path": "/v1/event_subscriptions",
+  "summary": "List event subscriptions",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "example": {
+        "data": [
+          {
+            "description": "A subscription for all events",
+            "disabled": false,
+            "token": "ep_1srOrx2ZWZBpBUvZwXKQmoEYga1",
+            "url": "https://example.com/webhook"
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ]
+}

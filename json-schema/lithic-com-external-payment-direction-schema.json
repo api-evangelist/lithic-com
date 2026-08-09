@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/external_payment_direction",
+  "title": "External Payment Direction",
+  "type": "string",
+  "enum": [
+    "DEPOSIT",
+    "WITHDRAWAL"
+  ]
+}

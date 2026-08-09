@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/performance-report-v2",
+  "title": "Auth Rule Performance Report V2",
+  "type": "object",
+  "properties": {
+    "auth_rule_token": {
+      "$ref": "#/components/schemas/auth-rule-token"
+    },
+    "begin": {
+      "description": "The start date (UTC) of the report.",
+      "type": "string",
+      "format": "date"
+    },
+    "end": {
+      "description": "The end date (UTC) of the report.",
+      "type": "string",
+      "format": "date"
+    },
+    "daily_statistics": {
+      "description": "Daily evaluation statistics for the Auth Rule.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "description": "The date (UTC) for which the statistics are reported.",
+            "type": "string",
+            "format": "date"
+          },
+          "versions": {
+            "description": "Statistics for each version of the rule that was evaluated during the reported day.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/report-stats-v2"
+            }
+          }
+        },
+        "required": [
+          "date",
+          "versions"
+        ]
+      }
+    }
+  },
+  "required": [
+    "auth_rule_token",
+    "begin",
+    "end",
+    "daily_statistics"
+  ]
+}

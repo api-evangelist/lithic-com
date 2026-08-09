@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create-bulk-order-request",
+  "title": "Create Bulk Order Request",
+  "description": "Request to create a new bulk order for physical card shipments. Please work with your Customer Success Manager and card personalization bureau to ensure bulk shipping is supported for your program.",
+  "type": "object",
+  "properties": {
+    "shipping_address": {
+      "description": "Shipping address for all cards in this bulk order",
+      "type": "object"
+    },
+    "shipping_method": {
+      "description": "Shipping method for all cards in this bulk order. BULK_PRIORITY, BULK_2_DAY, and BULK_EXPRESS are only available with Perfect Plastic Printing",
+      "enum": [
+        "BULK_EXPEDITED",
+        "BULK_PRIORITY",
+        "BULK_2_DAY",
+        "BULK_EXPRESS"
+      ],
+      "type": "string"
+    },
+    "customer_product_id": {
+      "description": "Customer-specified product configuration for physical card manufacturing. This must be configured with Lithic before use",
+      "example": "custom-card-design-123",
+      "type": "string"
+    }
+  },
+  "required": [
+    "shipping_address",
+    "shipping_method",
+    "customer_product_id"
+  ]
+}

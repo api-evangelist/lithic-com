@@ -1,0 +1,1029 @@
+"""
+Lithic GraphQL Schema
+Conceptual schema for the Lithic card-issuing and program-management platform.
+Source: https://docs.lithic.com/docs/
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum CardState {
+  OPEN
+  PAUSED
+  CLOSED
+  PENDING_FULFILLMENT
+  PENDING_ACTIVATION
+}
+
+enum CardType {
+  VIRTUAL
+  PHYSICAL
+  MERCHANT_LOCKED
+  SINGLE_USE
+}
+
+enum SpendLimitDuration {
+  ANNUALLY
+  FOREVER
+  MONTHLY
+  TRANSACTION
+}
+
+enum AccountState {
+  ACTIVE
+  PAUSED
+  CLOSED
+}
+
+enum TransactionResult {
+  APPROVED
+  DECLINED
+}
+
+enum TransactionType {
+  AUTHORIZATION
+  CLEARING
+  REFUND
+  REVERSAL
+  CREDIT_AUTHORIZATION
+  CREDIT_AUTHORIZATION_ADVICE
+  FINANCIAL_AUTHORIZATION
+  FINANCIAL_CREDIT_AUTHORIZATION
+  VOID
+  CORRECTION_DEBIT
+  CORRECTION_CREDIT
+  RETURN
+  RETURN_REVERSAL
+}
+
+enum EventType {
+  CARD_CREATED
+  CARD_RENEWED
+  CARD_REISSUED
+  CARD_SHIPPED
+  CARD_STATUS_UPDATED
+  ACCOUNT_HOLDER_CREATED
+  ACCOUNT_HOLDER_UPDATED
+  ACCOUNT_HOLDER_VERIFICATION
+  DISPUTE_UPDATED
+  DIGITAL_WALLET_TOKENIZATION_APPROVAL_REQUEST
+  DIGITAL_WALLET_TOKENIZATION_RESULT
+  DIGITAL_WALLET_TOKENIZATION_TWO_FACTOR_AUTHENTICATION_CODE
+  PAYMENT_TRANSACTION_CREATED
+  PAYMENT_TRANSACTION_UPDATED
+  BOOK_TRANSFER_TRANSACTION_CREATED
+  BOOK_TRANSFER_TRANSACTION_UPDATED
+  FINANCIAL_ACCOUNT_STATEMENT_CREATED
+  THREE_DS_AUTHENTICATION_CREATED
+}
+
+enum AuthRuleState {
+  ACTIVE
+  INACTIVE
+}
+
+enum ConditionAttribute {
+  MCC
+  COUNTRY
+  CURRENCY
+  MERCHANT_ID
+  DESCRIPTOR
+  LIABILITY_SHIFT
+  PAN_ENTRY_MODE
+  TRANSACTION_AMOUNT
+  RISK_SCORE
+}
+
+enum ConditionOperation {
+  IS_ONE_OF
+  IS_NOT_ONE_OF
+  MATCHES
+  DOES_NOT_MATCH
+  IS_GREATER_THAN
+  IS_LESS_THAN
+}
+
+enum PaymentMethod {
+  ACH_NEXT_DAY
+  ACH_SAME_DAY
+  WIRE
+}
+
+enum PaymentDirection {
+  CREDIT
+  DEBIT
+}
+
+enum PaymentState {
+  PENDING
+  VOIDED
+  SETTLED
+  DECLINED
+  EXPIRED
+}
+
+enum KycStatus {
+  ACCEPTED
+  PENDING_REVIEW
+  PENDING_DOCUMENT
+  REJECTED
+}
+
+enum KybStatus {
+  ACCEPTED
+  PENDING_REVIEW
+  PENDING_DOCUMENT
+  REJECTED
+}
+
+enum DocumentType {
+  DRIVERS_LICENSE
+  PASSPORT
+  PASSPORT_CARD
+  EIN_LETTER
+  TAX_RETURN
+  OPERATING_AGREEMENT
+  CERTIFICATE_OF_FORMATION
+  CERTIFICATE_OF_GOOD_STANDING
+  ARTICLES_OF_INCORPORATION
+  UTILITY_BILL
+  GOVERNMENT_LETTER
+  BANK_STATEMENT
+  UNKNOWN
+}
+
+enum WebhookState {
+  ACTIVE
+  INACTIVE
+}
+
+enum FinancialAccountType {
+  ISSUING
+  RESERVE
+  OPERATING
+}
+
+enum StatementCycleType {
+  MONTHLY
+  CUSTOM
+}
+
+enum TransferState {
+  PENDING
+  SETTLED
+  VOIDED
+  DECLINED
+}
+
+# ---------------------------------------------------------------------------
+# Core Types
+# ---------------------------------------------------------------------------
+
+"""A card issued on the Lithic platform."""
+type Card {
+  token: ID!
+  accountToken: ID!
+  cardProgramToken: ID
+  created: DateTime!
+  lastModified: DateTime!
+  state: CardState!
+  type: CardType!
+  hostname: String
+  memo: String
+  spendLimit: Int!
+  spendLimitDuration: SpendLimitDuration!
+  authRuleTokens: [ID!]
+  digitalCardArtToken: ID
+  account: Account
+  cardProgram: CardProgram
+}
+
+"""Sensitive card details including PAN, CVV, and expiry. Requires elevated auth scope."""
+type CardDetails {
+  token: ID!
+  pan: String!
+  cvv: String!
+  expMonth: String!
+  expYear: String!
+  billingAddress: BillingAddress
+}
+
+"""Mailing address used for physical card delivery or billing."""
+type BillingAddress {
+  address1: String!
+  address2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+}
+
+"""Spend control attached directly to a card."""
+type SpendLimit {
+  amount: Int!
+  duration: SpendLimitDuration!
+}
+
+"""Memo label on a card."""
+type CardMemo {
+  token: ID!
+  memo: String!
+}
+
+"""Token representing a card in a digital wallet (Apple Pay, Google Pay, Samsung Pay)."""
+type CardToken {
+  token: ID!
+  cardToken: ID!
+  status: String!
+  tokenRequestorName: String
+  tokenSuffix: String
+  created: DateTime!
+  lastModified: DateTime!
+}
+
+"""A virtual card — no physical form factor."""
+type VirtualCard {
+  token: ID!
+  state: CardState!
+  spendLimit: Int!
+  spendLimitDuration: SpendLimitDuration!
+  memo: String
+}
+
+"""A physical card that can be shipped to a cardholder."""
+type PhysicalCard {
+  token: ID!
+  state: CardState!
+  shippingAddress: BillingAddress
+  shippingMethod: String
+  carrier: String
+  trackingNumber: String
+  memo: String
+}
+
+"""A card digitized into a device wallet."""
+type DigitalCard {
+  token: ID!
+  state: CardState!
+  walletProvider: String
+  deviceName: String
+}
+
+# ---------------------------------------------------------------------------
+# Card Program
+# ---------------------------------------------------------------------------
+
+"""A card program groups cards under a shared BIN and configuration."""
+type CardProgram {
+  token: ID!
+  name: String!
+  created: DateTime!
+  panRangeStart: String
+  panRangeEnd: String
+}
+
+"""Detailed configuration for a card program."""
+type CardProgramDetails {
+  token: ID!
+  name: String!
+  created: DateTime!
+  panRangeStart: String
+  panRangeEnd: String
+  cardCount: Int
+  accountCount: Int
+}
+
+# ---------------------------------------------------------------------------
+# Account
+# ---------------------------------------------------------------------------
+
+"""A Lithic account that holds cards and a balance."""
+type Account {
+  token: ID!
+  created: DateTime!
+  state: AccountState!
+  accountHolderToken: ID
+  spendLimit: AccountSpendLimit
+  verificationAddress: BillingAddress
+  cards: [Card!]
+}
+
+"""Extended account information."""
+type AccountDetails {
+  token: ID!
+  created: DateTime!
+  state: AccountState!
+  accountHolderToken: ID
+  spendLimit: AccountSpendLimit
+  verificationAddress: BillingAddress
+  kyc: Kyc
+  kyb: KybInfo
+}
+
+"""Balance information for an account."""
+type AccountBalance {
+  token: ID!
+  available: Int!
+  pending: Int!
+  lastTransactionToken: ID
+  lastTransactionEventToken: ID
+  financialAccountType: FinancialAccountType!
+  updated: DateTime!
+}
+
+"""Aggregate spend controls applied at the account level."""
+type AccountSpendLimit {
+  daily: Int
+  monthly: Int
+  lifetime: Int
+}
+
+# ---------------------------------------------------------------------------
+# Transaction
+# ---------------------------------------------------------------------------
+
+"""A transaction record on the Lithic platform."""
+type Transaction {
+  token: ID!
+  accountToken: ID!
+  cardToken: ID!
+  created: DateTime!
+  settledAmount: Int!
+  pendingAmount: Int!
+  result: TransactionResult!
+  status: String!
+  currency: String!
+  merchant: Merchant
+  events: [TransactionDetails!]
+  mcc: MCC
+  networkTransactionId: String
+}
+
+"""A single event within a transaction lifecycle."""
+type TransactionDetails {
+  token: ID!
+  transactionToken: ID!
+  type: TransactionType!
+  amount: Int!
+  currency: String!
+  created: DateTime!
+  result: TransactionResult!
+}
+
+"""Outcome of a transaction or authorization."""
+type TransactionResult {
+  approved: Boolean!
+  declineReason: String
+}
+
+"""An authorization hold placed on a card."""
+type Authorization {
+  token: ID!
+  cardToken: ID!
+  accountToken: ID!
+  amount: Int!
+  currency: String!
+  merchant: Merchant!
+  created: DateTime!
+  approved: Boolean!
+  declineReason: String
+}
+
+"""Clearing event that settles a prior authorization."""
+type Clearing {
+  token: ID!
+  authorizationToken: ID!
+  amount: Int!
+  currency: String!
+  created: DateTime!
+}
+
+"""A credit posted to a card following a merchant return."""
+type Refund {
+  token: ID!
+  transactionToken: ID!
+  amount: Int!
+  currency: String!
+  created: DateTime!
+}
+
+"""Cancellation of a prior authorization or clearing."""
+type Reversal {
+  token: ID!
+  transactionToken: ID!
+  amount: Int!
+  currency: String!
+  created: DateTime!
+}
+
+"""Fee assessed on a card or account."""
+type Fee {
+  token: ID!
+  amount: Int!
+  currency: String!
+  type: String!
+  description: String
+  created: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Merchant
+# ---------------------------------------------------------------------------
+
+"""Merchant category code (ISO 18245)."""
+type MCC {
+  code: String!
+  description: String!
+  category: String!
+}
+
+"""Basic merchant identity attached to a transaction."""
+type Merchant {
+  acceptorId: String
+  city: String
+  country: String
+  descriptor: String
+  mcc: String
+  state: String
+}
+
+"""Extended merchant information including enhanced data."""
+type MerchantDetails {
+  acceptorId: String
+  city: String
+  country: String
+  descriptor: String
+  mcc: String
+  state: String
+  enhancedData: EnhancedMerchantData
+}
+
+"""Level 2 / Level 3 merchant data returned on qualifying transactions."""
+type EnhancedMerchantData {
+  fleet: JSON
+  fuel: JSON
+  lodging: JSON
+  airline: JSON
+  customerReferenceIdentifier: String
+  orderDate: String
+  uniqueValueAddedTaxInvoiceReferenceNumber: String
+}
+
+# ---------------------------------------------------------------------------
+# Financial Accounts
+# ---------------------------------------------------------------------------
+
+"""A financial account (issuing, reserve, or operating) that backs the ledger."""
+type FinancialAccount {
+  token: ID!
+  accountToken: ID
+  type: FinancialAccountType!
+  routingNumber: String
+  accountNumber: String
+  created: DateTime!
+  lastModified: DateTime!
+  nickname: String
+}
+
+"""Detailed financial account information."""
+type FinancialAccountDetails {
+  token: ID!
+  accountToken: ID
+  type: FinancialAccountType!
+  routingNumber: String
+  accountNumber: String
+  created: DateTime!
+  lastModified: DateTime!
+  nickname: String
+  balance: AccountBalance
+}
+
+"""A periodic statement for a financial account."""
+type Statement {
+  token: ID!
+  financialAccountToken: ID!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  cycleType: StatementCycleType!
+  totalCredits: Int!
+  totalDebits: Int!
+  statementBalance: Int!
+}
+
+"""Detailed statement with line items."""
+type StatementDetails {
+  token: ID!
+  financialAccountToken: ID!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+  cycleType: StatementCycleType!
+  totalCredits: Int!
+  totalDebits: Int!
+  statementBalance: Int!
+  lines: [StatementLine!]
+}
+
+"""A single line item on a statement."""
+type StatementLine {
+  financialTransactionToken: ID!
+  financialTransactionEventToken: ID!
+  amount: Int!
+  currency: String!
+  descriptor: String
+  transactionDate: DateTime!
+  category: String
+}
+
+"""Loan tape record for credit programs."""
+type LoanTape {
+  token: ID!
+  financialAccountToken: ID!
+  date: String!
+  startingBalance: Int!
+  endingBalance: Int!
+  creditLimit: Int!
+  availableCredit: Int!
+  totalCredits: Int!
+  totalDebits: Int!
+  fees: Int!
+  interest: Int!
+  minimumPaymentBalance: Int!
+  paymentAllocation: JSON
+}
+
+"""A financial transaction (ledger entry) on a financial account."""
+type FinancialTransaction {
+  token: ID!
+  financialAccountToken: ID!
+  amount: Int!
+  currency: String!
+  descriptor: String
+  result: String!
+  status: String!
+  category: String!
+  created: DateTime!
+  lastModified: DateTime!
+  events: [ManagementOperation!]
+}
+
+"""A management operation event within a financial transaction."""
+type ManagementOperation {
+  token: ID!
+  financialTransactionToken: ID!
+  amount: Int!
+  currency: String!
+  subtype: String
+  result: String!
+  type: String!
+  created: DateTime!
+  userDefinedId: String
+}
+
+# ---------------------------------------------------------------------------
+# Payments and Transfers
+# ---------------------------------------------------------------------------
+
+"""An ACH or wire payment initiated from a financial account."""
+type Payment {
+  token: ID!
+  financialAccountToken: ID!
+  externalBankAccountToken: ID
+  amount: Int!
+  currency: String!
+  direction: PaymentDirection!
+  method: PaymentMethod!
+  state: PaymentState!
+  created: DateTime!
+  lastModified: DateTime!
+  userDefinedId: String
+}
+
+"""Detailed payment with associated financial transaction."""
+type PaymentDetails {
+  token: ID!
+  financialAccountToken: ID!
+  externalBankAccountToken: ID
+  amount: Int!
+  currency: String!
+  direction: PaymentDirection!
+  method: PaymentMethod!
+  state: PaymentState!
+  created: DateTime!
+  lastModified: DateTime!
+  userDefinedId: String
+  financialTransaction: FinancialTransaction
+}
+
+"""A book transfer between two Lithic financial accounts."""
+type Transfer {
+  token: ID!
+  fromFinancialAccountToken: ID!
+  toFinancialAccountToken: ID!
+  amount: Int!
+  currency: String!
+  state: TransferState!
+  created: DateTime!
+}
+
+"""Transfer with full financial transaction detail."""
+type TransferDetails {
+  token: ID!
+  fromFinancialAccountToken: ID!
+  toFinancialAccountToken: ID!
+  amount: Int!
+  currency: String!
+  state: TransferState!
+  created: DateTime!
+  fromFinancialAccount: FinancialAccount
+  toFinancialAccount: FinancialAccount
+  financialTransaction: FinancialTransaction
+}
+
+# ---------------------------------------------------------------------------
+# Authorization Rules
+# ---------------------------------------------------------------------------
+
+"""An authorization rule that controls card transaction approval."""
+type AuthRule {
+  token: ID!
+  state: AuthRuleState!
+  name: String
+  cardTokens: [ID!]
+  accountTokens: [ID!]
+  programLevel: Boolean!
+  conditions: [Condition!]
+  created: DateTime!
+  lastModified: DateTime!
+}
+
+"""Detailed auth rule including evaluation context."""
+type AuthRuleDetails {
+  token: ID!
+  state: AuthRuleState!
+  name: String
+  cardTokens: [ID!]
+  accountTokens: [ID!]
+  programLevel: Boolean!
+  conditions: [Condition!]
+  created: DateTime!
+  lastModified: DateTime!
+  version: Int!
+}
+
+"""A single condition evaluated by an auth rule."""
+type Condition {
+  attribute: ConditionAttribute!
+  operation: ConditionOperation!
+  value: JSON!
+}
+
+# ---------------------------------------------------------------------------
+# KYC / KYB
+# ---------------------------------------------------------------------------
+
+"""KYC result for an individual account holder."""
+type Kyc {
+  accountHolderToken: ID!
+  status: KycStatus!
+  statusReasons: [String!]
+  workflow: String
+}
+
+"""KYB information for a business account holder."""
+type KybInfo {
+  accountHolderToken: ID!
+  status: KybStatus!
+  statusReasons: [String!]
+  businessName: String
+  doingBusinessAs: String
+  website: String
+  ein: String
+}
+
+"""A document submitted for identity or business verification."""
+type Document {
+  token: ID!
+  accountHolderToken: ID!
+  type: DocumentType!
+  requiredDocumentUploads: [String!]
+}
+
+"""A document upload submitted by an account holder."""
+type UserDocument {
+  token: ID!
+  accountHolderToken: ID!
+  documentType: DocumentType!
+  created: DateTime!
+  status: String!
+  statusReasons: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# Events and Webhooks
+# ---------------------------------------------------------------------------
+
+"""An event emitted by the Lithic platform."""
+type Event {
+  token: ID!
+  type: EventType!
+  payload: JSON!
+  created: DateTime!
+}
+
+"""Extended event details including delivery attempts."""
+type EventDetails {
+  token: ID!
+  type: EventType!
+  payload: JSON!
+  created: DateTime!
+  attempts: [WebhookEvent!]
+}
+
+"""A webhook endpoint registered to receive Lithic events."""
+type Webhook {
+  token: ID!
+  url: String!
+  state: WebhookState!
+  description: String
+  eventTypes: [EventType!]
+  created: DateTime!
+  lastModified: DateTime!
+}
+
+"""A single delivery attempt of an event to a webhook endpoint."""
+type WebhookEvent {
+  eventToken: ID!
+  webhookToken: ID!
+  created: DateTime!
+  statusCode: Int
+  response: String
+  nextAttemptAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# API Keys and Tokens
+# ---------------------------------------------------------------------------
+
+"""An API key for authenticating requests to the Lithic API."""
+type APIKey {
+  token: ID!
+  state: String!
+  created: DateTime!
+  lastModified: DateTime!
+  programToken: ID
+}
+
+"""A network token for card digitization in a device wallet."""
+type Token {
+  token: ID!
+  cardToken: ID!
+  status: String!
+  tokenRequestorName: String
+  tokenSuffix: String
+  walletType: String
+  created: DateTime!
+  lastModified: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input CreateCardInput {
+  accountToken: ID!
+  type: CardType!
+  memo: String
+  spendLimit: Int
+  spendLimitDuration: SpendLimitDuration
+  cardProgramToken: ID
+  shippingAddress: BillingAddressInput
+  shippingMethod: String
+  digitalCardArtToken: ID
+}
+
+input UpdateCardInput {
+  state: CardState
+  memo: String
+  spendLimit: Int
+  spendLimitDuration: SpendLimitDuration
+  digitalCardArtToken: ID
+}
+
+input BillingAddressInput {
+  address1: String!
+  address2: String
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+}
+
+input CreateAccountInput {
+  accountHolderToken: ID
+  spendLimit: AccountSpendLimitInput
+  verificationAddress: BillingAddressInput
+}
+
+input AccountSpendLimitInput {
+  daily: Int
+  monthly: Int
+  lifetime: Int
+}
+
+input SpendLimitInput {
+  daily: Int
+  monthly: Int
+  lifetime: Int
+}
+
+input CreatePaymentInput {
+  financialAccountToken: ID!
+  externalBankAccountToken: ID!
+  amount: Int!
+  direction: PaymentDirection!
+  method: PaymentMethod!
+  userDefinedId: String
+}
+
+input CreateTransferInput {
+  fromFinancialAccountToken: ID!
+  toFinancialAccountToken: ID!
+  amount: Int!
+  userDefinedId: String
+}
+
+input CreateAuthRuleInput {
+  name: String
+  cardTokens: [ID!]
+  accountTokens: [ID!]
+  programLevel: Boolean
+  conditions: [ConditionInput!]!
+}
+
+input UpdateAuthRuleInput {
+  name: String
+  state: AuthRuleState
+  conditions: [ConditionInput!]
+}
+
+input ConditionInput {
+  attribute: ConditionAttribute!
+  operation: ConditionOperation!
+  value: JSON!
+}
+
+input CreateWebhookInput {
+  url: String!
+  description: String
+  eventTypes: [EventType!]
+}
+
+input UpdateWebhookInput {
+  url: String
+  description: String
+  eventTypes: [EventType!]
+  state: WebhookState
+}
+
+input KycInput {
+  workflow: String!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: String!
+  address: BillingAddressInput!
+  governmentId: String!
+  email: String!
+  phoneNumber: String!
+  tosTimestamp: String!
+}
+
+input KybInput {
+  workflow: String!
+  businessName: String!
+  doingBusinessAs: String
+  website: String!
+  ein: String!
+  address: BillingAddressInput!
+  beneficialOwnerEntities: [KybEntityInput!]
+  beneficialOwnerIndividuals: [KycInput!]
+  controlPerson: KycInput!
+  natureOfBusiness: String!
+  tosTimestamp: String!
+}
+
+input KybEntityInput {
+  name: String!
+  address: BillingAddressInput!
+  governmentId: String!
+  phoneNumber: String!
+}
+
+# ---------------------------------------------------------------------------
+# Connection / Pagination Types
+# ---------------------------------------------------------------------------
+
+type CardConnection {
+  nodes: [Card!]!
+  pageInfo: PageInfo!
+}
+
+type TransactionConnection {
+  nodes: [Transaction!]!
+  pageInfo: PageInfo!
+}
+
+type EventConnection {
+  nodes: [Event!]!
+  pageInfo: PageInfo!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+
+# ---------------------------------------------------------------------------
+# Query Root
+# ---------------------------------------------------------------------------
+
+type Query {
+  card(token: ID!): Card
+  cards(accountToken: ID, state: CardState, after: String, first: Int): CardConnection!
+  cardDetails(token: ID!): CardDetails
+  cardToken(token: ID!): CardToken
+  virtualCard(token: ID!): VirtualCard
+  physicalCard(token: ID!): PhysicalCard
+  digitalCard(token: ID!): DigitalCard
+  cardProgram(token: ID!): CardProgram
+  cardPrograms: [CardProgram!]!
+  account(token: ID!): Account
+  accountDetails(token: ID!): AccountDetails
+  accountBalance(token: ID!): AccountBalance
+  transaction(token: ID!): Transaction
+  transactions(accountToken: ID, cardToken: ID, result: TransactionResult, after: String, first: Int): TransactionConnection!
+  authorization(token: ID!): Authorization
+  clearing(token: ID!): Clearing
+  refund(token: ID!): Refund
+  reversal(token: ID!): Reversal
+  fee(token: ID!): Fee
+  financialAccount(token: ID!): FinancialAccount
+  financialAccounts(accountToken: ID): [FinancialAccount!]!
+  statement(token: ID!): Statement
+  statements(financialAccountToken: ID!): [Statement!]!
+  statementDetails(token: ID!): StatementDetails
+  loanTape(token: ID!): LoanTape
+  loanTapes(financialAccountToken: ID!): [LoanTape!]!
+  financialTransaction(token: ID!): FinancialTransaction
+  financialTransactions(financialAccountToken: ID!): [FinancialTransaction!]!
+  payment(token: ID!): Payment
+  payments(financialAccountToken: ID): [Payment!]!
+  transfer(token: ID!): Transfer
+  transfers(financialAccountToken: ID): [Transfer!]!
+  authRule(token: ID!): AuthRule
+  authRules: [AuthRule!]!
+  event(token: ID!): Event
+  events(eventType: EventType, after: String, first: Int): EventConnection!
+  eventDetails(token: ID!): EventDetails
+  webhook(token: ID!): Webhook
+  webhooks: [Webhook!]!
+  kyc(accountHolderToken: ID!): Kyc
+  kyb(accountHolderToken: ID!): KybInfo
+  document(token: ID!): Document
+  documents(accountHolderToken: ID!): [Document!]!
+  apiKey(token: ID!): APIKey
+  apiKeys: [APIKey!]!
+  token(token: ID!): Token
+  tokens(cardToken: ID!): [Token!]!
+}
+
+# ---------------------------------------------------------------------------
+# Mutation Root
+# ---------------------------------------------------------------------------
+
+type Mutation {
+  createCard(input: CreateCardInput!): Card!
+  updateCard(token: ID!, input: UpdateCardInput!): Card!
+  pauseCard(token: ID!): Card!
+  closeCard(token: ID!): Card!
+  createAccount(input: CreateAccountInput!): Account!
+  updateAccountSpendLimit(token: ID!, input: SpendLimitInput!): Account!
+  createPayment(input: CreatePaymentInput!): Payment!
+  createTransfer(input: CreateTransferInput!): Transfer!
+  createAuthRule(input: CreateAuthRuleInput!): AuthRule!
+  updateAuthRule(token: ID!, input: UpdateAuthRuleInput!): AuthRule!
+  applyAuthRule(token: ID!, cardTokens: [ID!], accountTokens: [ID!]): AuthRule!
+  removeAuthRule(token: ID!): AuthRule!
+  createWebhook(input: CreateWebhookInput!): Webhook!
+  updateWebhook(token: ID!, input: UpdateWebhookInput!): Webhook!
+  deleteWebhook(token: ID!): Boolean!
+  submitKyc(input: KycInput!): Kyc!
+  submitKyb(input: KybInput!): KybInfo!
+}

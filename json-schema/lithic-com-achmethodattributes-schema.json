@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AchMethodAttributes",
+  "title": "AchMethodAttributes",
+  "type": "object",
+  "properties": {
+    "sec_code": {
+      "type": "string",
+      "enum": [
+        "CCD",
+        "PPD",
+        "WEB",
+        "TEL",
+        "CIE",
+        "CTX"
+      ],
+      "description": "SEC code for ACH transaction"
+    },
+    "return_reason_code": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Return reason code if the transaction was returned"
+    },
+    "ach_hold_period": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "Number of days the ACH transaction is on hold"
+    },
+    "retries": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "Number of retries attempted"
+    },
+    "company_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Company ID for the ACH transaction"
+    },
+    "receipt_routing_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Receipt routing number"
+    },
+    "trace_numbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Trace numbers for the ACH transaction"
+    },
+    "addenda": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Addenda information"
+    },
+    "override_company_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 512,
+      "description": "Value to override the configured company name with. Can only be used if allowed to override"
+    }
+  },
+  "required": [
+    "sec_code"
+  ]
+}

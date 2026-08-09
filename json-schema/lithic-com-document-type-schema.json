@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/document-type",
+  "title": "Account Holder document types",
+  "description": "Type of documentation to be submitted for verification of an account holder",
+  "type": "string",
+  "enum": [
+    "DRIVERS_LICENSE",
+    "PASSPORT",
+    "PASSPORT_CARD",
+    "EIN_LETTER",
+    "TAX_RETURN",
+    "OPERATING_AGREEMENT",
+    "CERTIFICATE_OF_FORMATION",
+    "CERTIFICATE_OF_GOOD_STANDING",
+    "ARTICLES_OF_INCORPORATION",
+    "ARTICLES_OF_ORGANIZATION",
+    "BYLAWS",
+    "GOVERNMENT_BUSINESS_LICENSE",
+    "PARTNERSHIP_AGREEMENT",
+    "SS4_FORM",
+    "BANK_STATEMENT",
+    "UTILITY_BILL_STATEMENT",
+    "SSN_CARD",
+    "ITIN_LETTER",
+    "FINCEN_BOI_REPORT"
+  ]
+}

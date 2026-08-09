@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-account-status",
+  "title": "Financial Account Status",
+  "description": "Status of the financial account",
+  "type": "string",
+  "enum": [
+    "OPEN",
+    "CLOSED",
+    "SUSPENDED",
+    "PENDING"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/backtest-list-item",
+  "title": "Backtest List Item",
+  "type": "object",
+  "properties": {
+    "backtest_token": {
+      "$ref": "#/components/schemas/backtest-token"
+    },
+    "simulation_parameters": {
+      "$ref": "#/components/schemas/backtest-simulation-parameters"
+    },
+    "status": {
+      "$ref": "#/components/schemas/backtest-status"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the backtest was created"
+    }
+  },
+  "required": [
+    "backtest_token",
+    "simulation_parameters",
+    "status",
+    "created"
+  ]
+}

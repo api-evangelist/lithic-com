@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/category_tier",
+  "title": "Category Tier",
+  "description": "Rate and rate cap for interest on a category",
+  "type": "object",
+  "properties": {
+    "rate": {
+      "type": "string",
+      "description": "Interest rate for this category, e.g. '0.0525' for 5.25%"
+    },
+    "cap_rate": {
+      "type": "string",
+      "description": "Maximum interest rate for this category, e.g. '0.0525' for 5.25%"
+    }
+  }
+}

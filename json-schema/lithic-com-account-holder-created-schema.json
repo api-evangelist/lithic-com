@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account-holder-created",
+  "title": "Account Holder Created",
+  "examples": [
+    {
+      "account_token": "00000000-0000-0000-0000-000000000001",
+      "created": "2023-09-26 16:41:40.530987",
+      "status": "ACCEPTED",
+      "status_reason": [],
+      "token": "00000000-0000-0000-0000-000000000001",
+      "required_documents": []
+    },
+    {
+      "account_token": "00000000-0000-0000-0000-000000000001",
+      "created": "2023-09-26 16:41:40.530987",
+      "status": "PENDING_REVIEW",
+      "status_reason": [
+        "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE"
+      ],
+      "token": "00000000-0000-0000-0000-000000000001",
+      "required_documents": [
+        {
+          "entity_token": "83cf25ae-c14f-4d10-9fa2-0119f36c7286",
+          "status_reasons": [
+            "PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE"
+          ],
+          "valid_documents": [
+            "EIN_LETTER",
+            "TAX_RETURN",
+            "CERTIFICATE_OF_GOOD_STANDING",
+            "ARTICLES_OF_INCORPORATION",
+            "ARTICLES_OF_ORGANIZATION",
+            "CERTIFICATE_OF_FORMATION",
+            "BYLAWS",
+            "GOVERNMENT_BUSINESS_LICENSE",
+            "PARTNERSHIP_AGREEMENT",
+            "BANK_STATEMENT",
+            "UTILITY_BILL_STATEMENT"
+          ]
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "account_token": {
+      "description": "The token of the account that was created.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    },
+    "created": {
+      "description": "When the account_holder was created",
+      "format": "date-time",
+      "type": "string"
+    },
+    "status": {
+      "description": "The status of the account_holder that was created.",
+      "enum": [
+        "ACCEPTED",
+        "PENDING_REVIEW"
+      ],
+      "example": "ACCEPTED",
+      "type": "string"
+    },
+    "status_reason": {
+      "items": {
+        "description": "If status is not ACCEPTED, status_reason provides the reasons an account_holder is REJECTED or PENDING_REVIEW.",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "token": {
+      "description": "The token of the account_holder that was created.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    },
+    "required_documents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/required-document"
+      }
+    }
+  },
+  "type": "object"
+}

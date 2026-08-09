@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transfer_limit_item",
+  "title": "Transfer Limit Item",
+  "type": "object",
+  "properties": {
+    "company_id": {
+      "description": "Company ID",
+      "type": "string"
+    },
+    "is_fbo": {
+      "description": "Whether the company is a FBO; based on the company ID prefix",
+      "type": "boolean"
+    },
+    "date": {
+      "description": "The date for the limit view (ISO format)",
+      "type": "string",
+      "format": "date"
+    },
+    "program_limit_per_transaction": {
+      "description": "Program transaction limits",
+      "$ref": "#/components/schemas/directional_limits"
+    },
+    "daily_limit": {
+      "description": "Daily limits with progress",
+      "$ref": "#/components/schemas/directional_limits"
+    },
+    "monthly_limit": {
+      "description": "Monthly limits with progress",
+      "$ref": "#/components/schemas/directional_limits"
+    }
+  },
+  "required": [
+    "company_id",
+    "is_fbo",
+    "date",
+    "program_limit_per_transaction",
+    "daily_limit",
+    "monthly_limit"
+  ]
+}

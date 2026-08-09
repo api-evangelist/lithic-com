@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/currency",
+  "title": "Currency",
+  "description": "3-character alphabetic ISO 4217 currency",
+  "example": "USD",
+  "type": "string"
+}

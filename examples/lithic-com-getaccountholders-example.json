@@ -1,0 +1,100 @@
+{
+  "operationId": "getAccountHolders",
+  "method": "GET",
+  "path": "/v1/account_holders",
+  "summary": "Get a list of individual or business account holders",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "getAccountHoldersResponse",
+      "example": {
+        "data": [
+          {
+            "account_token": "6b67b340-ed11-4463-a33d-0d7f7fdcd28c",
+            "business_account_token": "00000000-0000-0000-0000-000000000000",
+            "created": "2024-01-11T19:50:36.105448",
+            "email": "john@appleseed.com",
+            "exemption_type": "AUTHORIZED_USER",
+            "external_id": "+15555555555",
+            "individual": {
+              "address": {
+                "address1": "123 Main Street",
+                "city": "New York",
+                "country": "USA",
+                "postal_code": "10128",
+                "state": "NY"
+              },
+              "dob": "2000-01-01",
+              "email": "john@appleseed.com",
+              "first_name": "John",
+              "last_name": "Appleseed",
+              "phone_number": "+15555555555",
+              "entity_token": "49c978db-20c4-46d8-9db4-b0ef28c03533"
+            },
+            "phone_number": "+15555555555",
+            "status": "ACCEPTED",
+            "token": "b68b7424-aa69-4cbc-a946-30d90181b621",
+            "user_type": "INDIVIDUAL",
+            "verification_application": {
+              "created": "2024-01-11T19:58:24.821848",
+              "status": "ACCEPTED",
+              "status_reasons": [],
+              "updated": "2024-01-11T19:58:24.821848"
+            }
+          },
+          {
+            "account_token": "732f7328-a2d7-4281-a264-e8cb5af8d392",
+            "business_account_token": "00000000-0000-0000-0000-000000000000",
+            "business_entity": {
+              "address": {
+                "address1": "22 Street North",
+                "city": "New York",
+                "country": "USA",
+                "postal_code": "10004",
+                "state": "NY"
+              },
+              "dba_business_name": "Busy Business, Inc.",
+              "government_id": "98-7654321",
+              "legal_business_name": "Busy Business, Inc.",
+              "parent_company": "Example company",
+              "phone_numbers": [
+                "+15555555555"
+              ],
+              "entity_token": "f360a3c0-24e6-4852-ae82-27916a5c4e86"
+            },
+            "control_person": {
+              "address": {
+                "address1": "451 New Forest Way",
+                "city": "Springfield",
+                "country": "USA",
+                "postal_code": "68022",
+                "state": "IL"
+              },
+              "dob": "1991-03-08T08:00:00Z",
+              "email": "john@busybusiness.com",
+              "first_name": "John",
+              "last_name": "Appleseed",
+              "phone_number": "+15555555555",
+              "entity_token": "9d657ba0-7c8a-4946-a596-f99d978a4137"
+            },
+            "created": "2024-01-11T19:50:36.105449",
+            "exemption_type": "AUTHORIZED_USER",
+            "external_id": "851030f1-9b7b-4939-8ac9-161bd972d26f",
+            "naics_code": "541512",
+            "token": "fa68ed76-9d02-4d45-8a3f-782f3b6a8b3f",
+            "user_type": "BUSINESS",
+            "verification_application": {
+              "created": "2024-01-11T19:50:36.105449",
+              "status": "PENDING_REVIEW",
+              "status_reasons": [],
+              "updated": "2024-01-11T19:50:36.105449"
+            }
+          }
+        ],
+        "has_more": false
+      }
+    }
+  ]
+}

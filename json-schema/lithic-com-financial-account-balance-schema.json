@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-account-balance",
+  "title": "Financial Account Balance",
+  "description": "Balance of a Financial Account",
+  "properties": {
+    "available_amount": {
+      "description": "Funds available for spend in the currency's smallest unit (e.g., cents for USD)",
+      "type": "integer"
+    },
+    "created": {
+      "description": "Date and time for when the balance was first created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "description": "3-character alphabetic ISO 4217 code for the local currency of the balance.",
+      "type": "string"
+    },
+    "token": {
+      "description": "Globally unique identifier for the financial account that holds this balance.",
+      "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "format": "uuid",
+      "type": "string"
+    },
+    "type": {
+      "description": "Type of financial account.",
+      "enum": [
+        "ISSUING",
+        "OPERATING",
+        "RESERVE",
+        "SECURITY"
+      ],
+      "type": "string"
+    },
+    "last_transaction_event_token": {
+      "description": "Globally unique identifier for the last financial transaction event that impacted this balance.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "last_transaction_token": {
+      "description": "Globally unique identifier for the last financial transaction that impacted this balance.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "pending_amount": {
+      "description": "Funds not available for spend due to card authorizations or pending ACH release. Shown in the currency's smallest unit (e.g., cents for USD).",
+      "type": "integer"
+    },
+    "total_amount": {
+      "description": "The sum of available and pending balance in the currency's smallest unit (e.g., cents for USD).",
+      "type": "integer"
+    },
+    "updated": {
+      "description": "Date and time for when the balance was last updated.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "available_amount",
+    "created",
+    "currency",
+    "token",
+    "type",
+    "last_transaction_event_token",
+    "last_transaction_token",
+    "pending_amount",
+    "total_amount",
+    "updated"
+  ],
+  "type": "object"
+}

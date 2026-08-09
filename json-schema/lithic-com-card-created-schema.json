@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/card-created",
+  "title": "Card Created",
+  "examples": [
+    {
+      "card_token": "00000000-0000-0000-0000-000000000001",
+      "replacement_for": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "properties": {
+    "card_token": {
+      "description": "The token of the card that was created.",
+      "example": "00000000-0000-0000-0000-000000000001",
+      "format": "uuid",
+      "type": "string"
+    },
+    "replacement_for": {
+      "description": "The token of the card that was replaced, if the new card is a replacement card.",
+      "example": "00000000-0000-0000-0000-000000000000",
+      "format": "uuid",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "card_token"
+  ],
+  "type": "object"
+}

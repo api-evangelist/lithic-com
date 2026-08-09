@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transaction_amounts",
+  "title": "Transaction Amounts",
+  "type": "object",
+  "properties": {
+    "cardholder": {
+      "properties": {
+        "amount": {
+          "description": "The estimated settled amount of the transaction in the cardholder billing currency.",
+          "type": "integer",
+          "example": -1000
+        },
+        "conversion_rate": {
+          "description": "The exchange rate used to convert the merchant amount to the cardholder billing amount.",
+          "type": "string",
+          "example": "1.000000"
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "type": "object",
+      "required": [
+        "amount",
+        "conversion_rate",
+        "currency"
+      ]
+    },
+    "hold": {
+      "properties": {
+        "amount": {
+          "description": "The pending amount of the transaction in the anticipated settlement currency.",
+          "type": "integer",
+          "example": 0
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "merchant": {
+      "properties": {
+        "amount": {
+          "description": "The settled amount of the transaction in the merchant currency.",
+          "type": "integer",
+          "example": -1000
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ]
+    },
+    "settlement": {
+      "properties": {
+        "amount": {
+          "description": "The settled amount of the transaction in the settlement currency.",
+          "type": "integer",
+          "example": -1000
+        },
+        "currency": {
+          "$ref": "#/components/schemas/currency"
+        }
+      },
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ]
+    }
+  },
+  "required": [
+    "cardholder",
+    "hold",
+    "merchant",
+    "settlement"
+  ]
+}

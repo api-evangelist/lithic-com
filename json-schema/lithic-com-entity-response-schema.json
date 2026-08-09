@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/entity-response",
+  "title": "Account Holder Entity",
+  "type": "object",
+  "description": "Information about an entity associated with an account holder",
+  "properties": {
+    "account_holder_token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for the account holder"
+    },
+    "token": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Globally unique identifier for the entity"
+    },
+    "type": {
+      "$ref": "#/components/schemas/entity-type",
+      "description": "The type of entity"
+    },
+    "status": {
+      "$ref": "#/components/schemas/entity-status",
+      "description": "The status of the entity"
+    },
+    "first_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Individual's first name, as it appears on government-issued identity documents",
+      "example": "Tom"
+    },
+    "last_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Individual's last name, as it appears on government-issued identity documents",
+      "example": "Bombadil"
+    },
+    "email": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Individual's email address",
+      "example": "tom@middle-earth.com"
+    },
+    "phone_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Individual's phone number, entered in E.164 format",
+      "example": "+15555555555"
+    },
+    "dob": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Individual's date of birth, as an RFC 3339 date",
+      "example": "1991-03-08 08:00:00"
+    },
+    "address": {
+      "$ref": "#/components/schemas/address",
+      "description": "Individual's current address"
+    }
+  },
+  "required": [
+    "account_holder_token",
+    "token",
+    "type",
+    "status",
+    "first_name",
+    "last_name",
+    "email",
+    "phone_number",
+    "dob",
+    "address"
+  ]
+}

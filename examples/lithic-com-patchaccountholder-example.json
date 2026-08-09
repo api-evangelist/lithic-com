@@ -1,0 +1,55 @@
+{
+  "operationId": "patchAccountHolder",
+  "method": "PATCH",
+  "path": "/v1/account_holders/{account_holder_token}",
+  "summary": "Update account holder information and possibly resubmit for evaluation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "kybRequest",
+      "example": {
+        "business_entity": {
+          "entity_token": "83cf25ae-c14f-4d10-9fa2-0119f36c7286",
+          "address": {
+            "postal_code": "61023"
+          }
+        },
+        "control_person": {
+          "entity_token": "fd771a07-c5c2-42f3-a53c-a6c79c6c0d07",
+          "address": {
+            "postal_code": "68023"
+          }
+        },
+        "naics_code": "541512",
+        "website_url": "https://www.mynewbusiness.com"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "kycExemptRequest",
+      "example": {
+        "individual": {
+          "entity_token": "fd771a07-c5c2-42f3-a53c-a6c79c6c0d07",
+          "address": {
+            "postal_code": "68023"
+          },
+          "phone_number": "+15555555555"
+        }
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "kycRequest",
+      "example": {
+        "individual": {
+          "entity_token": "fd771a07-c5c2-42f3-a53c-a6c79c6c0d07",
+          "address": {
+            "postal_code": "68023"
+          },
+          "government_id": "111-23-1413"
+        }
+      }
+    }
+  ],
+  "responseExamples": []
+}

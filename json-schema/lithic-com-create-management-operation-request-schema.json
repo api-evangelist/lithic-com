@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/create_management_operation_request",
+  "title": "Create Management Operation Request",
+  "type": "object",
+  "properties": {
+    "category": {
+      "$ref": "#/components/schemas/management_operation_category"
+    },
+    "event_type": {
+      "$ref": "#/components/schemas/management_operation_event_type"
+    },
+    "subtype": {
+      "type": "string"
+    },
+    "financial_account_token": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "amount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "memo": {
+      "type": "string"
+    },
+    "user_defined_id": {
+      "type": "string"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "token": {
+      "description": "Customer-provided token that will serve as an idempotency token. This token will become the transaction token.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "direction": {
+      "$ref": "#/components/schemas/management_operation_direction"
+    },
+    "on_closed_account": {
+      "$ref": "#/components/schemas/on_closed_account"
+    }
+  },
+  "required": [
+    "category",
+    "event_type",
+    "financial_account_token",
+    "amount",
+    "effective_date",
+    "direction"
+  ]
+}

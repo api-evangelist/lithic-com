@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/fleet",
+  "title": "Fleet",
+  "required": [
+    "fuel",
+    "amount_totals"
+  ],
+  "type": "object",
+  "properties": {
+    "service_type": {
+      "description": "The type of fuel service.",
+      "$ref": "#/components/schemas/service-type"
+    },
+    "odometer": {
+      "title": "Odometer",
+      "description": "The odometer reading entered into the terminal at the time of sale.",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "vehicle_number": {
+      "title": "Vehicle Number",
+      "description": "The vehicle number entered into the terminal at the time of sale, with leading zeros stripped.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "driver_number": {
+      "title": "Driver Number",
+      "description": "The driver number entered into the terminal at the time of sale, with leading zeros stripped.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fuel": {
+      "$ref": "#/components/schemas/fuel-data"
+    },
+    "amount_totals": {
+      "$ref": "#/components/schemas/amount-totals"
+    }
+  }
+}

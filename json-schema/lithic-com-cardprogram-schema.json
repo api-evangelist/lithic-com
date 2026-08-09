@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CardProgram",
+  "title": "CardProgram",
+  "properties": {
+    "account_level_management_enabled": {
+      "description": "Whether the card program is participating in Account Level Management. Currently applicable to Visa card programs only.",
+      "type": "boolean"
+    },
+    "cardholder_currency": {
+      "description": "3-character alphabetic ISO 4217 code for the currency of the cardholder.",
+      "example": "USD",
+      "type": "string"
+    },
+    "created": {
+      "description": "Timestamp of when the card program was created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the card program.",
+      "example": "My Prepaid Program",
+      "type": "string"
+    },
+    "pan_range_end": {
+      "description": "The first digits of the card number that this card program ends with.",
+      "example": "52304803",
+      "type": "string"
+    },
+    "pan_range_start": {
+      "description": "The first digits of the card number that this card program starts with.",
+      "example": "52304803",
+      "type": "string"
+    },
+    "settlement_currencies": {
+      "description": "List of 3-character alphabetic ISO 4217 codes for the currencies that the card program supports for settlement.",
+      "example": [
+        "USD",
+        "CAD"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_level_management_enabled",
+    "created",
+    "name",
+    "pan_range_end",
+    "pan_range_start",
+    "token"
+  ],
+  "type": "object"
+}

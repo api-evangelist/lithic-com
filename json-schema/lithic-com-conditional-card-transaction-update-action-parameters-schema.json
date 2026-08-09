@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/conditional-card-transaction-update-action-parameters",
+  "title": "Conditional Action (Card Transaction Update) Parameters",
+  "type": "object",
+  "properties": {
+    "action": {
+      "description": "The action to take if the conditions are met.",
+      "$ref": "#/components/schemas/card-transaction-update-action"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "The attribute to target.\n\nThe following attributes may be targeted:\n* `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a business by the types of goods or services it provides.\n* `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for Netherlands Antilles.\n* `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of the transaction.\n* `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor (merchant).\n* `DESCRIPTOR`: Short description of card acceptor.\n* `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer fee field in the settlement/cardholder billing currency. This is the amount the issuer should authorize against unless the issuer is paying the acquirer fee on behalf of the cardholder.\n* `RISK_SCORE`: Network-provided score assessing risk level associated with a given authorization. Scores are on a range of 0-999, with 0 representing the lowest risk and 999 representing the highest risk. For Visa transactions, where the raw score has a range of 0-99, Lithic will normalize the score by multiplying the raw score by 10x.\n* `TRANSACTION_STATUS`: The status of the transaction. Valid values are `PENDING`, `VOIDED`, `SETTLING`, `SETTLED`, `BOUNCED`, `RETURNED`, `DECLINED`, `EXPIRED`.\n* `LAST_EVENT_TYPE`: The type of the most recent event on the transaction. Valid values are `AUTHORIZATION`, `AUTHORIZATION_ADVICE`, `AUTHORIZATION_EXPIRY`, `AUTHORIZATION_REVERSAL`, `BALANCE_INQUIRY`, `CLEARING`, `CORRECTION_CREDIT`, `CORRECTION_DEBIT`, `CREDIT_AUTHORIZATION`, `CREDIT_AUTHORIZATION_ADVICE`, `FINANCIAL_AUTHORIZATION`, `FINANCIAL_CREDIT_AUTHORIZATION`, `RETURN`, `RETURN_REVERSAL`.\n* `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or `TOKEN_AUTHENTICATED`.\n* `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`, `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`, `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`, `UNKNOWN`, or `CREDENTIAL_ON_FILE`.\n* `WALLET_TYPE`: For transactions using a digital wallet token, indicates the source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`, `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.\n* `CARD_AGE`: The age of the card in seconds at the time of the transaction.\n* `ACCOUNT_AGE`: The age of the account in seconds at the time of the transaction.\n* `SPEND_VELOCITY_COUNT`: The number of transactions matching the specified filters within the given period. Requires `parameters` with `scope`, `period`, and optional `filters`.\n* `SPEND_VELOCITY_AMOUNT`: The total spend amount (in cents) of transactions matching the specified filters within the given period. Requires `parameters` with `scope`, `period`, and optional `filters`.",
+            "enum": [
+              "MCC",
+              "COUNTRY",
+              "CURRENCY",
+              "MERCHANT_ID",
+              "DESCRIPTOR",
+              "TRANSACTION_AMOUNT",
+              "RISK_SCORE",
+              "TRANSACTION_STATUS",
+              "LAST_EVENT_TYPE",
+              "LIABILITY_SHIFT",
+              "PAN_ENTRY_MODE",
+              "WALLET_TYPE",
+              "CARD_AGE",
+              "ACCOUNT_AGE",
+              "SPEND_VELOCITY_COUNT",
+              "SPEND_VELOCITY_AMOUNT"
+            ]
+          },
+          "parameters": {
+            "type": "object",
+            "description": "Additional parameters for spend velocity attributes. Required when `attribute` is\n`SPEND_VELOCITY_COUNT` or `SPEND_VELOCITY_AMOUNT`. Not used for other attributes.",
+            "properties": {
+              "scope": {
+                "type": "string",
+                "description": "The entity scope to evaluate the attribute against.",
+                "enum": [
+                  "CARD",
+                  "ACCOUNT",
+                  "GLOBAL"
+                ]
+              },
+              "period": {
+                "description": "The time period over which to calculate the spend velocity.",
+                "$ref": "#/components/schemas/velocity-limit-period"
+              },
+              "filters": {
+                "$ref": "#/components/schemas/spend-velocity-filters"
+              }
+            }
+          },
+          "operation": {
+            "$ref": "#/components/schemas/conditional-operation"
+          },
+          "value": {
+            "$ref": "#/components/schemas/conditional-value"
+          }
+        },
+        "required": [
+          "attribute",
+          "operation",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "action",
+    "conditions"
+  ]
+}

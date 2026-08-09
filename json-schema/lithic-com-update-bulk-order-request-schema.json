@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/update-bulk-order-request",
+  "title": "Update Bulk Order Request",
+  "description": "Request to update a bulk order, primarily to lock it",
+  "type": "object",
+  "properties": {
+    "status": {
+      "description": "Status to update the bulk order to. Use LOCKED to finalize the order",
+      "enum": [
+        "LOCKED"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "status"
+  ]
+}

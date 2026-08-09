@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/account-holder-response",
+  "title": "Account Holder",
+  "type": "object",
+  "properties": {
+    "token": {
+      "description": "Globally unique identifier for the account holder.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "account_token": {
+      "description": "Globally unique identifier for the account.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "business_account_token": {
+      "description": "Only applicable for customers using the KYC-Exempt workflow to enroll authorized users of businesses. Pass the account_token of the enrolled business associated with the AUTHORIZED_USER in this field.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "created": {
+      "description": "Timestamp of when the account holder was created.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "exemption_type": {
+      "description": "The type of KYC exemption for a KYC-Exempt Account Holder. `null` if the account holder is not KYC-Exempt.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "AUTHORIZED_USER",
+        "PREPAID_CARD_USER"
+      ]
+    },
+    "external_id": {
+      "description": "Customer-provided token that indicates a relationship with an object outside of the Lithic ecosystem.",
+      "type": "string"
+    },
+    "user_type": {
+      "description": "The type of Account Holder. If the type is \"INDIVIDUAL\", the \"individual\" attribute will be present.\n\nIf the type is \"BUSINESS\" then the \"business_entity\", \"control_person\", \"beneficial_owner_individuals\",\n\"naics_code\", \"nature_of_business\", and \"website_url\" attributes will be present.",
+      "type": "string",
+      "enum": [
+        "BUSINESS",
+        "INDIVIDUAL"
+      ]
+    },
+    "verification_application": {
+      "$ref": "#/components/schemas/verification-application",
+      "description": "Information about the most recent identity verification attempt"
+    },
+    "individual": {
+      "$ref": "#/components/schemas/individual",
+      "description": "Only present when user_type == \"INDIVIDUAL\". Information about the individual for which the account is being opened and KYC is being run."
+    },
+    "business_entity": {
+      "$ref": "#/components/schemas/kyb-business-entity",
+      "description": "Only present when user_type == \"BUSINESS\". Information about the business for which the account is being opened and KYB is being run."
+    },
+    "beneficial_owner_individuals": {
+      "description": "Only present when user_type == \"BUSINESS\". You must submit a list of all direct and indirect individuals with 25% or more ownership in the company. A maximum of 4 beneficial owners can be submitted. If no individual owns 25% of the company you do not need to send beneficial owner information. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background on individuals that should be included.",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/individual"
+      },
+      "minItems": 0
+    },
+    "control_person": {
+      "$ref": "#/components/schemas/individual",
+      "description": "Only present when user_type == \"BUSINESS\".\n\nAn individual with significant responsibility for managing the legal entity (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating Officer,\n\nManaging Member, General Partner, President, Vice President, or Treasurer). This can be an executive, or someone who will have program-wide access\n\nto the cards that Lithic will provide. In some cases, this individual could also be a beneficial owner listed above."
+    },
+    "naics_code": {
+      "description": "Only present when user_type == \"BUSINESS\". 6-digit North American Industry Classification System (NAICS) code for the business.",
+      "type": "string"
+    },
+    "nature_of_business": {
+      "description": "Only present when user_type == \"BUSINESS\". User-submitted description of the business.",
+      "type": "string"
+    },
+    "website_url": {
+      "description": "Only present when user_type == \"BUSINESS\". Business's primary website.",
+      "type": "string"
+    },
+    "email": {
+      "description": "(Deprecated. Use control_person.email when user_type == \"BUSINESS\".\nUse individual.phone_number when user_type == \"INDIVIDUAL\".)\nPrimary email of Account Holder.\n",
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "(Deprecated. Use control_person.phone_number when user_type == \"BUSINESS\".\nUse individual.phone_number when user_type == \"INDIVIDUAL\".)\nPrimary phone of Account Holder, entered in E.164 format.\n",
+      "type": "string"
+    },
+    "status": {
+      "description": "(Deprecated. Use verification_application.status instead)\nKYC and KYB evaluation states.\n\nNote: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the `ADVANCED` workflow.\n\n",
+      "$ref": "#/components/schemas/status"
+    },
+    "status_reasons": {
+      "description": "(Deprecated. Use verification_application.status_reasons)\nReason for the evaluation status.",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/status-reasons"
+      }
+    },
+    "required_documents": {
+      "description": "Only present for \"KYB_BASIC\" and \"KYC_ADVANCED\" workflows. A list of documents required for the account holder to be approved.",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/required-document"
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/velocity-limit-period",
+  "title": "Velocity Limit Period",
+  "oneOf": [
+    {
+      "title": "Trailing Window Object",
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "description": "The size of the trailing window to calculate Spend Velocity over in seconds. The minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).",
+          "minimum": 10,
+          "maximum": 2678400
+        },
+        "type": {
+          "type": "string",
+          "const": "CUSTOM"
+        }
+      },
+      "required": [
+        "duration",
+        "type"
+      ]
+    },
+    {
+      "title": "Fixed Window Day",
+      "type": "object",
+      "description": "Velocity over the current day since 00:00 / 12 AM in Eastern Time",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "DAY"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "title": "Fixed Window Week",
+      "type": "object",
+      "description": "Velocity over the current week since 00:00 / 12 AM in Eastern Time on specified `day_of_week`",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "WEEK"
+        },
+        "day_of_week": {
+          "type": "integer",
+          "description": "The day of the week to start the week from. Following ISO-8601, 1 is Monday and 7 is Sunday. Defaults to Monday if not specified.",
+          "minimum": 1,
+          "maximum": 7,
+          "default": 1
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "title": "Fixed Window Month",
+      "type": "object",
+      "description": "Velocity over the current month since 00:00 / 12 AM in Eastern Time on specified `day_of_month`.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "MONTH"
+        },
+        "day_of_month": {
+          "type": "integer",
+          "description": "The day of the month to start from. Accepts values from 1 to 31, and will reset at the end of the month if the day exceeds the number of days in the month. Defaults to the 1st of the month if not specified.",
+          "minimum": 1,
+          "maximum": 31,
+          "default": 1
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "title": "Fixed Window Year",
+      "type": "object",
+      "description": "Velocity over the current year since 00:00 / 12 AM in Eastern Time on specified `month` and `day_of_month`. This validates the month and day of the year to start from is a real date. In the event that February 29th is selected, in non-leap years, the window will start from February 28th.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "YEAR"
+        },
+        "day_of_month": {
+          "type": "integer",
+          "description": "The day of the month to start from. Defaults to the 1st of the month if not specified.",
+          "minimum": 1,
+          "maximum": 31,
+          "default": 1
+        },
+        "month": {
+          "type": "integer",
+          "description": "The month to start from. 1 is January and 12 is December. Defaults to January if not specified.",
+          "minimum": 1,
+          "maximum": 12,
+          "default": 1
+        }
+      },
+      "required": [
+        "type"
+      ]
+    }
+  ]
+}

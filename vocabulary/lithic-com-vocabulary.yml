@@ -1,0 +1,34 @@
+name: Lithic Domain Vocabulary
+provider: Lithic
+providerId: lithic
+description: Tag-derived vocabulary for the Lithic API surface; sourced from openapi/ tags.
+terms:
+- term: 3DS
+- term: Account
+- term: Account Holder
+- term: Auth Stream Access (ASA)
+- term: Auth Rules
+- term: Balance
+- term: Book Transfer
+- term: Card
+- term: Card Bulk Orders
+- term: Credit Product
+- term: Chargeback
+- term: Event
+- term: External Bank Account
+- term: External Payments
+- term: Financial Account
+- term: Fraud Report
+- term: Funding Events
+- term: Hold
+- term: Managed Disputes
+- term: Management Operations
+- term: Network Program
+- term: Payment
+- term: Responder Endpoints
+- term: Settlement Report
+- term: Statements
+- term: Status
+- term: Tokenization
+- term: Transaction
+- term: Transfer Limits

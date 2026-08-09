@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/kyc-patch-request",
+  "title": "Individual Patch Request",
+  "type": "object",
+  "description": "The KYC request payload for updating an account holder.",
+  "properties": {
+    "individual": {
+      "$ref": "#/components/schemas/kyc-individual-patch",
+      "description": "Information on the individual for whom the account is being opened and KYC is being run."
+    },
+    "external_id": {
+      "description": "A user provided id that can be used to link an account holder with an external system",
+      "type": "string"
+    }
+  }
+}

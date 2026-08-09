@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/converted_amount",
+  "title": "Converted Amount",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "Amount in the smallest unit of the applicable currency (e.g., cents)",
+      "type": "integer"
+    },
+    "conversion_rate": {
+      "description": "Exchange rate used for currency conversion",
+      "type": "string",
+      "example": "1.000000"
+    },
+    "currency": {
+      "$ref": "#/components/schemas/currency"
+    }
+  },
+  "required": [
+    "amount",
+    "conversion_rate",
+    "currency"
+  ]
+}

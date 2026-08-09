@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/micro_deposit_verification_request",
+  "title": "Micro Deposit Verification Request",
+  "type": "object",
+  "properties": {
+    "micro_deposits": {
+      "type": "array",
+      "title": "Micro Deposits",
+      "maxItems": 2,
+      "minItems": 2,
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "required": [
+    "micro_deposits"
+  ]
+}

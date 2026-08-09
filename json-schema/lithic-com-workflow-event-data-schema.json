@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/workflow-event-data",
+  "title": "Workflow Event Data",
+  "description": "Details specific to workflow events",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "Event type discriminator",
+      "type": "string",
+      "const": "WORKFLOW"
+    },
+    "stage": {
+      "description": "Current stage of the dispute workflow",
+      "type": "string",
+      "enum": [
+        "CLAIM"
+      ]
+    },
+    "action": {
+      "description": "Action taken in this stage",
+      "type": "string",
+      "enum": [
+        "OPENED",
+        "CLOSED",
+        "REOPENED"
+      ]
+    },
+    "reason": {
+      "description": "Reason for the action",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "amount": {
+      "description": "Amount in minor units",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "disposition": {
+      "description": "Dispute resolution outcome",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "WON",
+        "LOST",
+        "PARTIALLY_WON",
+        "WITHDRAWN",
+        "DENIED",
+        null
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "stage",
+    "action",
+    "reason",
+    "amount",
+    "disposition"
+  ]
+}

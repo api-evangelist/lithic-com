@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/update_bank_account_api_request",
+  "title": "Update Bank Account Api Request",
+  "type": "object",
+  "properties": {
+    "owner": {
+      "description": "Legal Name of the business or individual who owns the external account. This will appear in statements",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[!-~ ]*$"
+    },
+    "owner_type": {
+      "description": "Owner Type",
+      "$ref": "#/components/schemas/owner_type"
+    },
+    "name": {
+      "description": "The nickname for this External Bank Account",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^[!-~ ]*$"
+    },
+    "company_id": {
+      "description": "Optional field that helps identify bank accounts in receipts",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10,
+      "pattern": "^[a-zA-Z0-9]*$"
+    },
+    "address": {
+      "description": "Address",
+      "$ref": "#/components/schemas/external_bank_account_address"
+    },
+    "dob": {
+      "description": "Date of Birth of the Individual that owns the external bank account",
+      "title": "Date of Birth",
+      "type": "string",
+      "format": "date"
+    },
+    "doing_business_as": {
+      "description": "Doing Business As",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "user_defined_id": {
+      "description": "User Defined ID",
+      "title": "User Defined ID",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "type": {
+      "$ref": "#/components/schemas/account_type_external"
+    }
+  }
+}

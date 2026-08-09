@@ -1,0 +1,16 @@
+{
+  "operationId": "postCardProvision",
+  "method": "POST",
+  "path": "/v1/cards/{card_token}/provision",
+  "summary": "Provision card (Digital Wallet)",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "provisionGoogleCard",
+      "example": {
+        "digital_wallet": "GOOGLE_PAY"
+      }
+    }
+  ],
+  "responseExamples": []
+}

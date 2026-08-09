@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/velocity-limit-filters",
+  "title": "Velocity Limits Filters",
+  "type": "object",
+  "properties": {
+    "include_mccs": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{4}$",
+        "example": "5542"
+      },
+      "description": "Merchant Category Codes to include in the velocity calculation. Transactions not matching this MCC will not be included in the calculated velocity."
+    },
+    "exclude_mccs": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{4}$",
+        "example": "5542"
+      },
+      "description": "Merchant Category Codes to exclude from the velocity calculation. Transactions matching this MCC will be excluded from the calculated velocity."
+    },
+    "include_countries": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$",
+        "example": "USD"
+      },
+      "description": "ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation. Transactions not matching any of the provided will not be included in the calculated velocity."
+    },
+    "exclude_countries": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$",
+        "example": "USD"
+      },
+      "description": "ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation. Transactions matching any of the provided will be excluded from the calculated velocity."
+    },
+    "include_pan_entry_modes": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "AUTO_ENTRY",
+          "BAR_CODE",
+          "CONTACTLESS",
+          "CREDENTIAL_ON_FILE",
+          "ECOMMERCE",
+          "ERROR_KEYED",
+          "ERROR_MAGNETIC_STRIPE",
+          "ICC",
+          "KEY_ENTERED",
+          "MAGNETIC_STRIPE",
+          "MANUAL",
+          "OCR",
+          "SECURE_CARDLESS",
+          "UNSPECIFIED",
+          "UNKNOWN"
+        ]
+      },
+      "description": "PAN entry modes to include in the velocity calculation. Transactions not matching any of the provided will not be included in the calculated velocity."
+    }
+  }
+}

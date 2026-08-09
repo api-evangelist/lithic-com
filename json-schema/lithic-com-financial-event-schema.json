@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial_event",
+  "title": "Financial Event",
+  "description": "Financial Event",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "Amount of the financial event that has been settled in the currency's smallest unit (e.g., cents).",
+      "type": "integer"
+    },
+    "created": {
+      "description": "Date and time when the financial event occurred. UTC time zone.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "result": {
+      "description": "APPROVED financial events were successful while DECLINED financial events were declined by user, Lithic, or the network.",
+      "type": "string",
+      "enum": [
+        "APPROVED",
+        "DECLINED"
+      ]
+    },
+    "token": {
+      "description": "Globally unique identifier.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "type": {
+      "$ref": "#/components/schemas/financial_event_type"
+    }
+  }
+}

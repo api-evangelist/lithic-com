@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/void_hold_request",
+  "title": "Void Hold Request",
+  "description": "Request to void an active hold",
+  "type": "object",
+  "properties": {
+    "memo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Reason for voiding the hold"
+    }
+  }
+}

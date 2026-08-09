@@ -1,0 +1,20 @@
+{
+  "operationId": "getNetworkProgram",
+  "method": "GET",
+  "path": "/v1/network_programs/{network_program_token}",
+  "summary": "Get network program",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "getNetworkProgramResponse",
+      "example": {
+        "token": "94644cff-d693-4881-b472-3a51e742ea47",
+        "registered_program_identification_number": "00000000",
+        "name": "Visa Signature Preferred Credit Card",
+        "default_product_code": "D"
+      }
+    }
+  ]
+}

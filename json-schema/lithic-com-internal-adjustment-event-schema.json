@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/internal_adjustment_event",
+  "title": "Internal Adjustment Event",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "INTERNAL_ADJUSTMENT"
+      ]
+    },
+    "result": {
+      "$ref": "#/components/schemas/transaction_result"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "token": {
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "amount",
+    "type",
+    "result",
+    "created",
+    "token"
+  ]
+}

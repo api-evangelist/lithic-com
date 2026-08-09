@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/interest_rate",
+  "title": "Interest Rate",
+  "type": "object",
+  "properties": {
+    "effective_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the rate goes into effect"
+    },
+    "rate": {
+      "type": "string",
+      "description": "The rate in decimal format"
+    }
+  },
+  "required": [
+    "effective_date",
+    "rate"
+  ]
+}

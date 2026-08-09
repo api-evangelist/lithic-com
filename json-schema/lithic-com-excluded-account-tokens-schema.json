@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/excluded-account-tokens",
+  "title": "Auth Rule Excluded Account Tokens",
+  "description": "Account tokens to which the Auth Rule does not apply.",
+  "type": "array",
+  "items": {
+    "type": "string",
+    "format": "uuid"
+  }
+}

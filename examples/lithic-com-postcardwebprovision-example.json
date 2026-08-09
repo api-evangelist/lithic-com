@@ -1,0 +1,52 @@
+{
+  "operationId": "postCardWebProvision",
+  "method": "POST",
+  "path": "/v1/cards/{card_token}/web_provision",
+  "summary": "Web Push Provision card (Digital Wallet)",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "webProvisionAppleCard",
+      "example": {
+        "digital_wallet": "APPLE_PAY"
+      }
+    },
+    {
+      "contentType": "application/json",
+      "name": "webProvisionGoogleCard",
+      "example": {
+        "digital_wallet": "GOOGLE_PAY",
+        "server_session_id": "d3538acf-e5df-4446-8ce6-588fa4472ac1",
+        "client_device_id": "d3538acf-e5df-4446-8ce6-588fa4472ac1",
+        "client_wallet_account_id": "d3538acf-e5df-4446-8ce6-588fa4472ac1"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "applePayResponse",
+      "example": {
+        "jws": {
+          "header": {
+            "kid": "8dc7aed4-29e3-41e4-9cdb-673a05e6615c"
+          },
+          "protected": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9",
+          "payload": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9",
+          "signature": "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        },
+        "state": "3cc4c292-727b-4ca8-b9a8-f96c15485f4e"
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "googlePayResponse",
+      "example": {
+        "google_opc": "WW91ciBTdHJpbmcgSGVyZQ==",
+        "tsp_opc": "WW91ciBTdHJpbmcgSGVyZQ=="
+      }
+    }
+  ]
+}

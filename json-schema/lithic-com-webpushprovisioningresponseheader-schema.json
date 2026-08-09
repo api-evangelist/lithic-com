@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebPushProvisioningResponseHeader",
+  "title": "WebPushProvisioningResponseHeader",
+  "properties": {
+    "kid": {
+      "description": "The ID for the JWS Public Key of the key pair used to generate the signature.",
+      "example": "8dc7aed4-29e3-41e4-9cdb-673a05e6615c",
+      "type": "string"
+    }
+  }
+}

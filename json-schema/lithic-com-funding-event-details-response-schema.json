@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/funding_event_details_response",
+  "title": "Funding Event Details Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "description": "Unique token ID",
+      "type": "string",
+      "example": "b68b7424-aa69-4cbc-a946-30d90181b621",
+      "format": "uuid"
+    },
+    "settlement_summary_url": {
+      "description": "URL of the settlement summary",
+      "type": "string",
+      "format": "uri"
+    },
+    "settlement_details_url": {
+      "description": "URL of the settlement details",
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "required": [
+    "token",
+    "settlement_details_url",
+    "settlement_summary_url"
+  ]
+}

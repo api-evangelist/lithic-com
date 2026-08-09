@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/retry_micro_deposit_verification_request",
+  "title": "Retry Micro Deposit Verification Request",
+  "type": "object",
+  "properties": {
+    "financial_account_token": {
+      "type": "string",
+      "format": "uuid"
+    }
+  }
+}

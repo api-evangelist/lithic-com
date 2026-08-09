@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/auth-rule-state",
+  "title": "Auth Rule State",
+  "type": "string",
+  "description": "The state of the Auth Rule",
+  "enum": [
+    "ACTIVE",
+    "INACTIVE"
+  ]
+}

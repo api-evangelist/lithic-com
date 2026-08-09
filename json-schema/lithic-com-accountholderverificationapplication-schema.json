@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountHolderVerificationApplication",
+  "title": "AccountHolderVerificationApplication",
+  "description": "Represents the status of an identity verification application for an account holder",
+  "properties": {
+    "created": {
+      "description": "Timestamp of when the application was created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "status": {
+      "description": "KYC and KYB evaluation states.\n\nNote:\n* `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.\n",
+      "enum": [
+        "ACCEPTED",
+        "PENDING_REVIEW",
+        "PENDING_DOCUMENT",
+        "PENDING_RESUBMIT",
+        "REJECTED"
+      ],
+      "type": "string"
+    },
+    "status_reasons": {
+      "description": "Reason for the evaluation status.",
+      "items": {
+        "enum": [
+          "ADDRESS_VERIFICATION_FAILURE",
+          "AGE_THRESHOLD_FAILURE",
+          "COMPLETE_VERIFICATION_FAILURE",
+          "DOB_VERIFICATION_FAILURE",
+          "ID_VERIFICATION_FAILURE",
+          "MAX_DOCUMENT_ATTEMPTS",
+          "MAX_RESUBMISSION_ATTEMPTS",
+          "NAME_VERIFICATION_FAILURE",
+          "OTHER_VERIFICATION_FAILURE",
+          "RISK_THRESHOLD_FAILURE",
+          "WATCHLIST_ALERT_FAILURE"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "updated": {
+      "description": "Timestamp of when the application was last updated.",
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

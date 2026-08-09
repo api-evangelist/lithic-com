@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/financial-account-response",
+  "title": "Financial Account Response",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Globally unique identifier for the account",
+      "example": "b68b7424-aa69-4cbc-a946-30d90181b621",
+      "format": "uuid"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "$ref": "#/components/schemas/instance-financial-account-type"
+        },
+        {
+          "$ref": "#/components/schemas/account-financial-account-type"
+        }
+      ]
+    },
+    "routing_number": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "account_number": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nickname": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "account_token": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "status": {
+      "$ref": "#/components/schemas/financial-account-status"
+    },
+    "substatus": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/components/schemas/financial-account-substatus"
+        }
+      ]
+    },
+    "user_defined_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "User-defined status for the financial account"
+    },
+    "is_for_benefit_of": {
+      "type": "boolean",
+      "description": "Whether financial account is for the benefit of another entity"
+    },
+    "credit_configuration": {
+      "$ref": "#/components/schemas/financial-account-credit-config"
+    }
+  },
+  "required": [
+    "token",
+    "created",
+    "updated",
+    "type",
+    "nickname",
+    "is_for_benefit_of",
+    "account_token",
+    "credit_configuration",
+    "status",
+    "substatus",
+    "user_defined_status"
+  ]
+}

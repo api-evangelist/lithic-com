@@ -1,0 +1,16 @@
+{
+  "operationId": "post-v1three-ds-decisioningsimulateenter-otp",
+  "method": "POST",
+  "path": "/v1/three_ds_decisioning/simulate/enter_otp",
+  "summary": "Simulate entering OTP into 3DS Challenge UI",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "example": {
+        "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",
+        "otp": "123456"
+      }
+    }
+  ],
+  "responseExamples": []
+}

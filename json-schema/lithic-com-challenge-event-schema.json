@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/challenge-event",
+  "title": "3DS Challenge webhook event",
+  "type": "object",
+  "description": "Represents a challenge event that is emitted after issuing a 3DS challenge",
+  "properties": {
+    "authentication_object": {
+      "$ref": "#/components/schemas/authentication"
+    },
+    "challenge": {
+      "$ref": "#/components/schemas/challenge"
+    },
+    "event_type": {
+      "const": "three_ds_authentication.challenge"
+    }
+  },
+  "required": [
+    "authentication_object",
+    "challenge",
+    "event_type"
+  ]
+}

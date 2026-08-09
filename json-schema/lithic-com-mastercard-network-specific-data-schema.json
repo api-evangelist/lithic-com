@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/mastercard_network_specific_data",
+  "title": "Mastercard Network Specific Data",
+  "type": "object",
+  "properties": {
+    "transaction_type_identifier": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "Transaction type identifier not available."
+        },
+        {
+          "type": "string",
+          "description": "Indicates the type of additional transaction purpose.",
+          "minLength": 3,
+          "maxLength": 3
+        }
+      ]
+    },
+    "ecommerce_security_level_indicator": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "Electronic commerce security level indicator not available."
+        },
+        {
+          "type": "string",
+          "description": "Indicates the electronic commerce security level and UCAF collection.",
+          "minLength": 3,
+          "maxLength": 3
+        }
+      ]
+    },
+    "on_behalf_service_result": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "On-behalf service result not available."
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "service": {
+                "type": "string",
+                "description": "Indicates the service performed on the transaction.",
+                "minLength": 2,
+                "maxLength": 2
+              },
+              "result_1": {
+                "type": "string",
+                "description": "Indicates the results of the service processing.",
+                "minLength": 1,
+                "maxLength": 1
+              },
+              "result_2": {
+                "type": "string",
+                "description": "Identifies the results of the service processing.",
+                "minLength": 1,
+                "maxLength": 1
+              }
+            },
+            "required": [
+              "service",
+              "result_1",
+              "result_2"
+            ]
+          },
+          "description": "The On-behalf Service performed on the transaction and the results. Contains all applicable, on-behalf service results that were performed on a given transaction.",
+          "maxItems": 10
+        }
+      ]
+    }
+  },
+  "required": [
+    "transaction_type_identifier",
+    "ecommerce_security_level_indicator",
+    "on_behalf_service_result"
+  ]
+}

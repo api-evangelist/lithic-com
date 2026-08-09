@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/customer-tokenization-decision",
+  "title": "customer-tokenization-decision",
+  "description": "Contains the metadata for the customer tokenization decision.",
+  "type": "object",
+  "properties": {
+    "latency": {
+      "description": "Time in ms it took for the customer's URL to respond",
+      "example": "100",
+      "type": "string"
+    },
+    "outcome": {
+      "description": "The outcome of the customer's decision",
+      "enum": [
+        "APPROVED",
+        "DECLINED",
+        "ERROR",
+        "INVALID_RESPONSE",
+        "REQUIRE_ADDITIONAL_AUTHENTICATION",
+        "TIMEOUT"
+      ],
+      "example": "APPROVED",
+      "type": "string"
+    },
+    "responder_url": {
+      "description": "The customer's subscribed URL",
+      "example": "https://example.com",
+      "type": "string"
+    },
+    "response_code": {
+      "description": "The response code that the customer provided",
+      "example": "123456",
+      "type": "string"
+    }
+  },
+  "required": [
+    "outcome",
+    "responder_url"
+  ]
+}

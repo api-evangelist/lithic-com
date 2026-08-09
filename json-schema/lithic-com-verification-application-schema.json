@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/verification-application",
+  "title": "Verification Application",
+  "type": "object",
+  "description": "Represents the status of an identity verification application for an account holder",
+  "properties": {
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the application was created."
+    },
+    "status": {
+      "description": "KYC and KYB evaluation states.\n\nNote: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the `ADVANCED` workflow.",
+      "$ref": "#/components/schemas/status"
+    },
+    "status_reasons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/status-reasons"
+      },
+      "description": "Reason for the evaluation status."
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the application was last updated."
+    },
+    "ky_passed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when the application passed the verification process. Only present if `status` is `ACCEPTED`"
+    }
+  },
+  "required": [
+    "created",
+    "status",
+    "status_reasons",
+    "updated"
+  ]
+}

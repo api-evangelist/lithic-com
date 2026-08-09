@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/transaction_merchant",
+  "title": "Transaction Merchant",
+  "description": "Merchant information including full location details.",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/merchant"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "postal_code": {
+          "description": "Postal code of card acceptor.",
+          "example": "10001",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "street_address": {
+          "description": "Street address of card acceptor.",
+          "example": "123 MAIN ST",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phone_number": {
+          "description": "Phone number of card acceptor.",
+          "example": "5551234567",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "postal_code",
+        "street_address",
+        "phone_number"
+      ]
+    }
+  ]
+}
