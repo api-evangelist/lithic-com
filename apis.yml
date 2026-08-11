@@ -2638,6 +2638,18 @@ apis:
   - type: APIReference
     url: https://docs.lithic.com/reference/getfraudreport
 common:
+- type: MCPServer
+  url: https://docs.lithic.com/docs/mcp
+- type: StatusPage
+  url: https://status.lithic.com
+- type: ChangeLog
+  url: https://docs.lithic.com/changelog
+- type: PrivacyPolicy
+  url: https://lithic.com/privacy-policy
+- type: TermsOfService
+  url: https://lithic.com/legal/terms
+- type: GettingStarted
+  url: https://docs.lithic.com/docs/Quickstart
 - type: AgenticAccess
   url: agentic-access/lithic-com-agentic-access.yml
 - type: TrustCenter
