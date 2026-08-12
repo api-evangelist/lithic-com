@@ -8,6 +8,18 @@ description: Lithic is a card issuing and issuer-processor API platform for buil
   ACH payments, ledgered financial accounts, and settlement reporting. Lithic publishes a full OpenAPI
   3.1 specification (github.com/lithic-com/lithic-openapi) backing official Node, Python, Go, Java, and
   Kotlin SDKs, with a sandbox at sandbox.lithic.com that mirrors production functionality.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-11'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
