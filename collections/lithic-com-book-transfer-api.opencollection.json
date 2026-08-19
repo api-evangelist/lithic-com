@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Book Transfer API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Book Transfer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Transfer funds within Lithic",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/transfer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Transfer funds between two financial accounts or between a financial account and card"
+        },
+        {
+          "info": {
+            "name": "List book transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/book_transfers"
+          },
+          "docs": "List book transfers"
+        },
+        {
+          "info": {
+            "name": "Create book transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/book_transfers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Book transfer funds between two financial accounts or between a financial account and card"
+        },
+        {
+          "info": {
+            "name": "Get book transfer by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/book_transfers/:book_transfer_token",
+            "params": [
+              {
+                "name": "book_transfer_token",
+                "value": "",
+                "type": "path",
+                "description": "Id of the book transfer to retrieve"
+              }
+            ]
+          },
+          "docs": "Get book transfer by token"
+        },
+        {
+          "info": {
+            "name": "Retry book transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/book_transfers/:book_transfer_token/retry",
+            "params": [
+              {
+                "name": "book_transfer_token",
+                "value": "",
+                "type": "path",
+                "description": "Token of the book transfer to retry"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retry a book transfer that has been declined"
+        },
+        {
+          "info": {
+            "name": "Reverse book transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/book_transfers/:book_transfer_token/reverse",
+            "params": [
+              {
+                "name": "book_transfer_token",
+                "value": "",
+                "type": "path",
+                "description": "Id of the book transfer to retrieve"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reverse a book transfer"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

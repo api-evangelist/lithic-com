@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Balance API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/balances"
+          },
+          "docs": "Get the balances for a program, business, or a given end-user account"
+        },
+        {
+          "info": {
+            "name": "Get balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/balances"
+          },
+          "docs": "Get the balances for a given financial account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

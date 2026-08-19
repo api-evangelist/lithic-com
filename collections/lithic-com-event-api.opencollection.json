@@ -1,0 +1,301 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Event API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List event subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/event_subscriptions"
+          },
+          "docs": "List all the event subscriptions."
+        },
+        {
+          "info": {
+            "name": "Create event subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/event_subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new event subscription."
+        },
+        {
+          "info": {
+            "name": "Get event subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ]
+          },
+          "docs": "Get an event subscription."
+        },
+        {
+          "info": {
+            "name": "Update event subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an event subscription."
+        },
+        {
+          "info": {
+            "name": "Delete event subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete an event subscription."
+        },
+        {
+          "info": {
+            "name": "List message attempts for an event subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token/attempts"
+          },
+          "docs": "List all the message attempts for a given event subscription."
+        },
+        {
+          "info": {
+            "name": "Resend failed messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token/recover",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resend all failed messages since a given time."
+        },
+        {
+          "info": {
+            "name": "Replay missing messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token/replay_missing",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ]
+          },
+          "docs": "Replays messages to the endpoint. Only messages that were created after `begin` will be sent. Messages that were previously sent to the endpoint are not resent. Message will be retried if endpoint responds with a non-2xx status code. See [Retry Schedule](https://docs.lithic.com/docs/events-api#retry"
+        },
+        {
+          "info": {
+            "name": "Get event subscription secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token/secret",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ]
+          },
+          "docs": "Get the secret for an event subscription."
+        },
+        {
+          "info": {
+            "name": "Rotate event subscription secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/event_subscriptions/:event_subscription_token/secret/rotate",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ]
+          },
+          "docs": "Rotate the secret for an event subscription. The previous secret will be valid for the next 24 hours."
+        },
+        {
+          "info": {
+            "name": "List events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/events"
+          },
+          "docs": "List all events."
+        },
+        {
+          "info": {
+            "name": "Get event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/events/:event_token",
+            "params": [
+              {
+                "name": "event_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_token."
+              }
+            ]
+          },
+          "docs": "Get an event."
+        },
+        {
+          "info": {
+            "name": "List message attempts for an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/events/:event_token/attempts"
+          },
+          "docs": "List all the message attempts for a given event."
+        },
+        {
+          "info": {
+            "name": "Resend event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/events/:event_token/event_subscriptions/:event_subscription_token/resend",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              },
+              {
+                "name": "event_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resend an event to an event subscription."
+        },
+        {
+          "info": {
+            "name": "Send event type example message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/event_subscriptions/:event_subscription_token/send_example",
+            "params": [
+              {
+                "name": "event_subscription_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the event_subscription_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an example message for event."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,264 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Card API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch card signals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token/signals",
+            "params": [
+              {
+                "name": "card_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the card to fetch signals for."
+              }
+            ]
+          },
+          "docs": "Returns behavioral feature state derived from a card's transaction history. These signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients"
+        },
+        {
+          "info": {
+            "name": "List card programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/card_programs"
+          },
+          "docs": "List card programs."
+        },
+        {
+          "info": {
+            "name": "Get card program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/card_programs/:card_program_token"
+          },
+          "docs": "Get card program."
+        },
+        {
+          "info": {
+            "name": "List cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards"
+          },
+          "docs": "List cards."
+        },
+        {
+          "info": {
+            "name": "Create card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new virtual or physical card. Parameters `shipping_address` and `product_id` only apply to physical cards."
+        },
+        {
+          "info": {
+            "name": "Search for card by PAN",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/search_by_pan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get card configuration such as spend limit and state. Customers must be PCI compliant to use this endpoint. Please contact [support.lithic.com](https://support.lithic.com/) for questions. *Note: this is a `POST` endpoint because it is more secure to send sensitive data in a request body than in a UR"
+        },
+        {
+          "info": {
+            "name": "Get card",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token"
+          },
+          "docs": "Get card configuration such as spend limit and state."
+        },
+        {
+          "info": {
+            "name": "Update card",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/cards/:card_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the specified properties of the card. Unsupplied properties will remain unchanged. *Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*"
+        },
+        {
+          "info": {
+            "name": "Get card balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token/balances"
+          },
+          "docs": "Get the balances for a given card."
+        },
+        {
+          "info": {
+            "name": "List card financial transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token/financial_transactions"
+          },
+          "docs": "List the financial transactions for a given card."
+        },
+        {
+          "info": {
+            "name": "Get card financial transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token/financial_transactions/:financial_transaction_token"
+          },
+          "docs": "Get the card financial transaction for the provided token."
+        },
+        {
+          "info": {
+            "name": "Provision card (Digital Wallet)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/provision",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app. This requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information."
+        },
+        {
+          "info": {
+            "name": "Web Push Provision card (Digital Wallet)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/web_provision",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allow your cardholders to directly add payment cards to the device's digital wallet from a browser on the web. This requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information."
+        },
+        {
+          "info": {
+            "name": "Reissue physical card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/reissue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiate print and shipment of a duplicate physical card (e.g. card is physically damaged). The PAN, expiry, and CVC2 will remain the same and the original card can continue to be used until the new card is activated. Only applies to cards of type `PHYSICAL`. A card can be reissued or renewed a to"
+        },
+        {
+          "info": {
+            "name": "Renew a card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/renew",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies to card types `PHYSICAL` and `VIRTUAL`. For `PHYSICAL`, creates a new card with the same card token and PAN, but updated expiry and CVC2 code. The original card will keep working for card-present transactions until the new card is activated. For card-not-present transactions, the original ca"
+        },
+        {
+          "info": {
+            "name": "Convert virtual to physical card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/cards/:card_token/convert_physical",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a virtual card into a physical card and manufacture it. Customer must supply relevant fields for physical card creation including `product_id`, `carrier`, `shipping_method`, and `shipping_address`. The card token will be unchanged. The card's type will be altered to `PHYSICAL`. The card wil"
+        },
+        {
+          "info": {
+            "name": "Get card's available spend limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/cards/:card_token/spend_limits"
+          },
+          "docs": "Get a Card's available spend limit, which is based on the spend limit configured on the Card and the amount already spent over the spend limit's duration. For example, if the Card has a monthly spend limit of $1000 configured, and has spent $600 in the last month, the available spend limit returned"
+        },
+        {
+          "info": {
+            "name": "Embedded card UI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/embed/card"
+          },
+          "docs": "Handling full card PANs and CVV codes requires that you comply with the Payment Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce their compliance obligations by leveraging our embedded card UI solution documented below. In this setup, PANs and CVV codes are presented t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

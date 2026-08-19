@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Network Program API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Program",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List network programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/network_programs"
+          },
+          "docs": "List network programs."
+        },
+        {
+          "info": {
+            "name": "Get network program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/network_programs/:network_program_token",
+            "params": [
+              {
+                "name": "network_program_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the network program."
+              }
+            ]
+          },
+          "docs": "Get network program."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

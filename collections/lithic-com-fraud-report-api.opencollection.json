@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Fraud Report API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fraud Report",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a fraud report for a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/fraud/transactions/:transaction_token",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the transaction that the enhanced data is associated with."
+              }
+            ]
+          },
+          "docs": "Retrieve a fraud report for a specific transaction identified by its unique transaction token."
+        },
+        {
+          "info": {
+            "name": "Create or update a fraud report for a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/fraud/transactions/:transaction_token",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the transaction that the enhanced data is associated with."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Report fraud for a specific transaction token by providing details such as fraud type, fraud status, and any additional comments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS External Payments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "External Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List external payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/external_payments"
+          },
+          "docs": "List external payments"
+        },
+        {
+          "info": {
+            "name": "Create external payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create external payment"
+        },
+        {
+          "info": {
+            "name": "Get external payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/external_payments/:external_payment_token",
+            "params": [
+              {
+                "name": "external_payment_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the external payment"
+              }
+            ]
+          },
+          "docs": "Get external payment"
+        },
+        {
+          "info": {
+            "name": "Settle external payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_payments/:external_payment_token/settle",
+            "params": [
+              {
+                "name": "external_payment_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the external payment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Settle external payment"
+        },
+        {
+          "info": {
+            "name": "Release external payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_payments/:external_payment_token/release",
+            "params": [
+              {
+                "name": "external_payment_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the external payment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Release external payment"
+        },
+        {
+          "info": {
+            "name": "Cancel external payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_payments/:external_payment_token/cancel",
+            "params": [
+              {
+                "name": "external_payment_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the external payment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel external payment"
+        },
+        {
+          "info": {
+            "name": "Reverse external payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_payments/:external_payment_token/reverse",
+            "params": [
+              {
+                "name": "external_payment_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the external payment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reverse external payment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Card Authorizations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card Authorizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Respond to Authorization Challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/card_authorizations/:event_token/challenge_response",
+            "params": [
+              {
+                "name": "event_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the authorization event that triggered the challenge"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Card program's response to Authorization Challenge. Programs that have Authorization Challenges configured as Out of Band receive a [card_authorization.challenge](https://docs.lithic.com/reference/post_card-authorization-challenge) webhook when an authorization attempt triggers a challenge. The card"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

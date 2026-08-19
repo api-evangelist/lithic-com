@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Account Holder API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Holder",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of individual or business account holders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_holders"
+          },
+          "docs": "Get a list of individual or business account holders and their KYC or KYB evaluation status."
+        },
+        {
+          "info": {
+            "name": "Create an individual or business account holder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/account_holders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an account holder and initiate the appropriate onboarding workflow. Account holders and accounts have a 1:1 relationship. When an account holder is successfully created an associated account is also created. All calls to this endpoint will return a synchronous response. The response time wil"
+        },
+        {
+          "info": {
+            "name": "Get an individual or business account holder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token"
+          },
+          "docs": "Get an Individual or Business Account Holder and/or their KYC or KYB evaluation status."
+        },
+        {
+          "info": {
+            "name": "Update account holder information and possibly resubmit for evaluation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the information associated with a particular account holder (including business owners and control persons associated to a business account). If Lithic is performing KYB or KYC and additional verification is required we will run the individual's or business's updated information again and ret"
+        },
+        {
+          "info": {
+            "name": "Get account holder document uploads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token/documents"
+          },
+          "docs": "Retrieve the status of account holder document uploads, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event you"
+        },
+        {
+          "info": {
+            "name": "Initiate account holder document upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to identify which type of supported government-issued documentation you will upload for further verification. It will return two URLs to upload your document images to - one for the front image and one for the back image. This endpoint is only valid for evaluations in a `PENDING_D"
+        },
+        {
+          "info": {
+            "name": "Get account holder document upload status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token/documents/:document_token"
+          },
+          "docs": "Check the status of an account holder document upload, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event your"
+        },
+        {
+          "info": {
+            "name": "Create a new beneficial owner individual or replace the existing control person entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token/entities",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new beneficial owner individual or replace the control person entity on an existing KYB account holder. This endpoint is only applicable for account holders enrolled through a KYB workflow with the Persona KYB provider. A new control person can only replace the existing one. A maximum of 4"
+        },
+        {
+          "info": {
+            "name": "Deactivate a beneficial owner individual",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/account_holders/:account_holder_token/entities/:entity_token"
+          },
+          "docs": "Deactivate a beneficial owner individual on an existing KYB account holder. Only beneficial owner individuals can be deactivated."
+        },
+        {
+          "info": {
+            "name": "Simulate an account holder's enrollment review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/account_holders/enrollment_review",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates an enrollment review for an account holder. This endpoint is only applicable for workflows that may required intervention such as `KYB_BASIC`."
+        },
+        {
+          "info": {
+            "name": "Simulate an account holder document upload's review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/account_holders/enrollment_document_review",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates a review for an account holder document upload."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

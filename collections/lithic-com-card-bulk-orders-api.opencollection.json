@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Card Bulk Orders API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card Bulk Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List bulk orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/card_bulk_orders"
+          },
+          "docs": "List bulk orders for physical card shipments"
+        },
+        {
+          "info": {
+            "name": "Create bulk order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/card_bulk_orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new bulk order for physical card shipments. Cards can be added to the order via the POST /v1/cards endpoint by specifying the bulk_order_token. Lock the order via PATCH /v1/card_bulk_orders/{bulk_order_token} to prepare for shipment. Please work with your Customer Success Manager and card p"
+        },
+        {
+          "info": {
+            "name": "Get bulk order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/card_bulk_orders/:bulk_order_token",
+            "params": [
+              {
+                "name": "bulk_order_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the bulk order"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific bulk order by token"
+        },
+        {
+          "info": {
+            "name": "Update bulk order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/card_bulk_orders/:bulk_order_token",
+            "params": [
+              {
+                "name": "bulk_order_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the bulk order"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a bulk order. Primarily used to lock the order, preventing additional cards from being added"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

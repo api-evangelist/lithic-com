@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Management Operations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Management Operations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List management operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/management_operations"
+          },
+          "docs": "List management operations"
+        },
+        {
+          "info": {
+            "name": "Create management operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/management_operations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create management operation"
+        },
+        {
+          "info": {
+            "name": "Get management operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/management_operations/:management_operation_token",
+            "params": [
+              {
+                "name": "management_operation_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the management operation"
+              }
+            ]
+          },
+          "docs": "Get management operation"
+        },
+        {
+          "info": {
+            "name": "Reverse management operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/management_operations/:management_operation_token/reverse",
+            "params": [
+              {
+                "name": "management_operation_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the management operation"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reverse a management operation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

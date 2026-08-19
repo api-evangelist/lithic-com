@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Account API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts"
+          },
+          "docs": "List account configurations."
+        },
+        {
+          "info": {
+            "name": "Get account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts/:account_token"
+          },
+          "docs": "Get account configuration such as spend limits."
+        },
+        {
+          "info": {
+            "name": "Update account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/accounts/:account_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update account configuration such as state or spend limits. Can only be run on accounts that are part of the program managed by this API key. Accounts that are in the `PAUSED` state will not be able to transact or create new cards."
+        },
+        {
+          "info": {
+            "name": "Get account's available spend limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts/:account_token/spend_limits"
+          },
+          "docs": "Get an Account's available spend limits, which is based on the spend limit configured on the Account and the amount already spent over the spend limit's duration. For example, if the Account has a daily spend limit of $1000 configured, and has spent $600 in the last 24 hours, the available spend lim"
+        },
+        {
+          "info": {
+            "name": "Fetch account signals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/accounts/:account_token/signals",
+            "params": [
+              {
+                "name": "account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the account to fetch signals for."
+              }
+            ]
+          },
+          "docs": "Returns behavioral feature state derived from an account's transaction history. These signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: ACCOUNT`, `IS_NEW_COUNTRY` with `scope: ACCOUNT`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowin"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

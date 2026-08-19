@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Settlement Report API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Settlement Report",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List settlement details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/reports/settlement/details/:report_date",
+            "params": [
+              {
+                "name": "report_date",
+                "value": "",
+                "type": "path",
+                "description": "Date of the settlement report to retrieve. Not available in sandbox."
+              }
+            ]
+          },
+          "docs": "List details."
+        },
+        {
+          "info": {
+            "name": "Get settlement summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/reports/settlement/summary/:report_date",
+            "params": [
+              {
+                "name": "report_date",
+                "value": "",
+                "type": "path",
+                "description": "Date of the settlement report to retrieve."
+              }
+            ]
+          },
+          "docs": "Get the settlement report for a specified report date. Not available in sandbox."
+        },
+        {
+          "info": {
+            "name": "List network totals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/reports/settlement/network_totals"
+          },
+          "docs": "List network total records with optional filters. Not available in sandbox."
+        },
+        {
+          "info": {
+            "name": "Get network total",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/reports/settlement/network_totals/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Token of the network total record to retrieve"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific network total record by token. Not available in sandbox."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

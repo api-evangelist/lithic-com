@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Responder Endpoints API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Responder Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check the status of a responder endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/responder_endpoints"
+          },
+          "docs": "Check the status of a responder endpoint"
+        },
+        {
+          "info": {
+            "name": "Enroll a responder endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/responder_endpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enroll a responder endpoint"
+        },
+        {
+          "info": {
+            "name": "Disenroll a responder endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/responder_endpoints"
+          },
+          "docs": "Disenroll a responder endpoint"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

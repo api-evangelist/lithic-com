@@ -1,0 +1,279 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Statements API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List statements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/statements",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account."
+              }
+            ]
+          },
+          "docs": "List the statements for a given financial account."
+        },
+        {
+          "info": {
+            "name": "Get statement by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/statements/:statement_token",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account."
+              },
+              {
+                "name": "statement_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for statements."
+              }
+            ]
+          },
+          "docs": "Get a specific statement for a given financial account."
+        },
+        {
+          "info": {
+            "name": "List line items for a statement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/statements/:statement_token/line_items",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account."
+              },
+              {
+                "name": "statement_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for statements."
+              }
+            ]
+          },
+          "docs": "List the line items for a given statement within a given financial account."
+        },
+        {
+          "info": {
+            "name": "List loan tapes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/loan_tapes",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account."
+              }
+            ]
+          },
+          "docs": "List the loan tapes for a given financial account."
+        },
+        {
+          "info": {
+            "name": "Get loan tape by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/loan_tapes/:loan_tape_token",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account."
+              },
+              {
+                "name": "loan_tape_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for loan tape."
+              }
+            ]
+          },
+          "docs": "Get a specific loan tape for a given financial account."
+        },
+        {
+          "info": {
+            "name": "Get loan tape configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/loan_tape_configuration",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account."
+              }
+            ]
+          },
+          "docs": "Get the loan tape configuration for a given financial account."
+        },
+        {
+          "info": {
+            "name": "List interest tier schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/interest_tier_schedule",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account"
+              }
+            ]
+          },
+          "docs": "List interest tier schedules for a financial account with optional date filtering. If no date parameters are provided, returns all tier schedules. If date parameters are provided, uses filtering to return matching schedules (max 100). - for_date: Returns exact match (takes precedence over other dat"
+        },
+        {
+          "info": {
+            "name": "Create interest tier schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/interest_tier_schedule",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new interest tier schedule entry for a supported financial account"
+        },
+        {
+          "info": {
+            "name": "Get interest tier schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/interest_tier_schedule/:effective_date",
+            "params": [
+              {
+                "name": "effective_date",
+                "value": "",
+                "type": "path",
+                "description": "Effective date in ISO format (YYYY-MM-DD)"
+              },
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account"
+              }
+            ]
+          },
+          "docs": "Get a specific interest tier schedule by effective date"
+        },
+        {
+          "info": {
+            "name": "Update interest tier schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/interest_tier_schedule/:effective_date",
+            "params": [
+              {
+                "name": "effective_date",
+                "value": "",
+                "type": "path",
+                "description": "Effective date in ISO format (YYYY-MM-DD)"
+              },
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing interest tier schedule"
+        },
+        {
+          "info": {
+            "name": "Delete interest tier schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/interest_tier_schedule/:effective_date",
+            "params": [
+              {
+                "name": "effective_date",
+                "value": "",
+                "type": "path",
+                "description": "Effective date in ISO format (YYYY-MM-DD)"
+              },
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for financial account"
+              }
+            ]
+          },
+          "docs": "Delete an interest tier schedule entry. Returns: - 400 Bad Request: Invalid effective_date format OR attempting to delete the earliest tier schedule entry for a non-PENDING account - 404 Not Found: Tier schedule entry not found for the given effective_date OR ledger account not found Note: PENDI"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

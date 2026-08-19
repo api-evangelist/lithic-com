@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Hold API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Hold",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List holds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/holds",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the financial account."
+              }
+            ]
+          },
+          "docs": "List holds for a financial account."
+        },
+        {
+          "info": {
+            "name": "Create hold",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/financial_accounts/:financial_account_token/holds",
+            "params": [
+              {
+                "name": "financial_account_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the financial account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a hold on a financial account. Holds reserve funds by moving them from available to pending balance. They can be resolved via settlement (linked to a payment or book transfer), voiding, or expiration."
+        },
+        {
+          "info": {
+            "name": "Get hold",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/holds/:hold_token",
+            "params": [
+              {
+                "name": "hold_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the hold."
+              }
+            ]
+          },
+          "docs": "Get hold by token."
+        },
+        {
+          "info": {
+            "name": "Void hold",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/holds/:hold_token/void",
+            "params": [
+              {
+                "name": "hold_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the hold."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Void an active hold. This returns the held funds from pending back to available balance. Only holds in PENDING status can be voided."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

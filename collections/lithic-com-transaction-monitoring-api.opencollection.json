@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Transaction Monitoring API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction Monitoring",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List cases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases"
+          },
+          "docs": "Lists transaction monitoring cases, optionally filtered."
+        },
+        {
+          "info": {
+            "name": "Get case",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token"
+          },
+          "docs": "Retrieves a single transaction monitoring case."
+        },
+        {
+          "info": {
+            "name": "Update case",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a transaction monitoring case."
+        },
+        {
+          "info": {
+            "name": "List case activity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/activity"
+          },
+          "docs": "Lists the activity feed for a case."
+        },
+        {
+          "info": {
+            "name": "List case transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/transactions"
+          },
+          "docs": "Lists the transactions associated with a case."
+        },
+        {
+          "info": {
+            "name": "List case cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/cards"
+          },
+          "docs": "Lists the cards involved in a case, with per-card transaction counts."
+        },
+        {
+          "info": {
+            "name": "Add case comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/comments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a comment to a case."
+        },
+        {
+          "info": {
+            "name": "Update case comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/comments/:comment_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edits an existing comment on a case."
+        },
+        {
+          "info": {
+            "name": "Delete case comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/comments/:comment_token"
+          },
+          "docs": "Deletes a comment from a case."
+        },
+        {
+          "info": {
+            "name": "List case files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/files"
+          },
+          "docs": "Lists the files attached to a case."
+        },
+        {
+          "info": {
+            "name": "Create case file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/files",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a file record and returns a presigned URL for uploading the file to the case."
+        },
+        {
+          "info": {
+            "name": "Get case file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/files/:file_token"
+          },
+          "docs": "Retrieves a single file attached to a case, including a presigned download URL when the file is ready."
+        },
+        {
+          "info": {
+            "name": "Delete case file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/cases/:case_token/files/:file_token"
+          },
+          "docs": "Deletes a file from a case."
+        },
+        {
+          "info": {
+            "name": "List queues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/queues"
+          },
+          "docs": "Lists transaction monitoring queues."
+        },
+        {
+          "info": {
+            "name": "Create queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/queues",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new queue for grouping transaction monitoring cases."
+        },
+        {
+          "info": {
+            "name": "Get queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/queues/:queue_token"
+          },
+          "docs": "Retrieves a single transaction monitoring queue."
+        },
+        {
+          "info": {
+            "name": "Update queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/queues/:queue_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a transaction monitoring queue."
+        },
+        {
+          "info": {
+            "name": "Delete queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/transaction_monitoring/queues/:queue_token"
+          },
+          "docs": "Deletes a transaction monitoring queue."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

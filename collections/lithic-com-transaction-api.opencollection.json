@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Transaction API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List enhanced commercial data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transactions/:transaction_token/enhanced_commercial_data",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the transaction that the enhanced data is associated with."
+              }
+            ]
+          },
+          "docs": "Get all L2/L3 enhanced commercial data associated with a transaction. Not available in sandbox."
+        },
+        {
+          "info": {
+            "name": "Expire an authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/transactions/:transaction_token/expire_authorization",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the transaction to expire."
+              }
+            ]
+          },
+          "docs": "Expire authorization"
+        },
+        {
+          "info": {
+            "name": "Route a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/transactions/:transaction_token/route",
+            "params": [
+              {
+                "name": "transaction_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the transaction to route."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Route a card transaction to a financial account. Only available for select use cases and programs."
+        },
+        {
+          "info": {
+            "name": "Get enhanced commercial data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transactions/events/:event_token/enhanced_commercial_data",
+            "params": [
+              {
+                "name": "event_token",
+                "value": "",
+                "type": "path",
+                "description": "The token of the transaction event that the enhanced data is associated with."
+              }
+            ]
+          },
+          "docs": "Get L2/L3 enhanced commercial data associated with a transaction event. Not available in sandbox."
+        },
+        {
+          "info": {
+            "name": "Simulate authorization advice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/authorization_advice",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates an authorization advice from the card network as if it came from a merchant acquirer. An authorization advice changes the pending amount of the transaction."
+        },
+        {
+          "info": {
+            "name": "Simulate authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/authorize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates an authorization request from the card network as if it came from a merchant acquirer. If you are configured for ASA, simulating authorizations requires your ASA client to be set up properly, i.e. be able to respond to the ASA request with a valid JSON. For users that are not configured fo"
+        },
+        {
+          "info": {
+            "name": "Simulate clearing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/clearing",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Clears an existing authorization, either debit or credit. After this event, the transaction transitions from `PENDING` to `SETTLED` status. If `amount` is not set, the full amount of the transaction will be cleared. Transactions that have already cleared, either partially or fully, cannot be cleare"
+        },
+        {
+          "info": {
+            "name": "Simulate credit authorization advice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/credit_authorization_advice",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates a credit authorization advice from the card network. This message indicates that the network approved a credit authorization on your behalf."
+        },
+        {
+          "info": {
+            "name": "Simulate return",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/return",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns, or refunds, an amount back to a card. Returns simulated via this endpoint clear immediately, without prior authorization, and result in a `SETTLED` transaction status."
+        },
+        {
+          "info": {
+            "name": "Simulate return reversal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/return_reversal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reverses a return, i.e. a credit transaction with a `SETTLED` status. Returns can be financial credit authorizations, or credit authorizations that have cleared."
+        },
+        {
+          "info": {
+            "name": "Simulate void",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/void",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Voids a pending authorization. If `amount` is not set, the full amount will be voided. Can be used on partially voided transactions but not partially cleared transactions. _Simulating an authorization expiry on credit authorizations or credit authorization advice is not currently supported but will"
+        },
+        {
+          "info": {
+            "name": "List card transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transactions"
+          },
+          "docs": "List card transactions. All amounts are in the smallest unit of their respective currency (e.g., cents for USD) and inclusive of any acquirer fees."
+        },
+        {
+          "info": {
+            "name": "Get card transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/transactions/:transaction_token"
+          },
+          "docs": "Get a specific card transaction. All amounts are in the smallest unit of their respective currency (e.g., cents for USD)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

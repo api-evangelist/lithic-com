@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS External Bank Account API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "External Bank Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List external bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/external_bank_accounts"
+          },
+          "docs": "List all the external bank accounts for the provided search criteria."
+        },
+        {
+          "info": {
+            "name": "Create external bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an external bank account within a program or Lithic account."
+        },
+        {
+          "info": {
+            "name": "Get external bank account by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ]
+          },
+          "docs": "Get the external bank account by token."
+        },
+        {
+          "info": {
+            "name": "Update external bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the external bank account by token."
+        },
+        {
+          "info": {
+            "name": "Verify external bank account via micro deposit amounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/micro_deposits",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify the external bank account by providing the micro deposit amounts."
+        },
+        {
+          "info": {
+            "name": "Pause external bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/pause",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ]
+          },
+          "docs": "Pause an external bank account"
+        },
+        {
+          "info": {
+            "name": "Retry external bank account via micro deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/retry_micro_deposits",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retry external bank account micro deposit verification."
+        },
+        {
+          "info": {
+            "name": "Retry external bank account via prenote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/retry_prenote",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retry external bank account prenote verification."
+        },
+        {
+          "info": {
+            "name": "Set verification method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/set_verification_method",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the verification method for an external bank account. Verification method can only be updated if the `verification_state` is `PENDING`."
+        },
+        {
+          "info": {
+            "name": "Unpause external bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/external_bank_accounts/:external_bank_account_token/unpause",
+            "params": [
+              {
+                "name": "external_bank_account_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the external_bank_account_token."
+              }
+            ]
+          },
+          "docs": "Unpause an external bank account"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

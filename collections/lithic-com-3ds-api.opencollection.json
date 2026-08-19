@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "3DS",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Simulate 3DS authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/three_ds_authentication/simulate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates a 3DS authentication request from the payment network as if it came from an ACS. If you're configured for 3DS Customer Decisioning, simulating authentications requires your customer decisioning endpoint to be set up properly (respond with a valid JSON). If the authentication decision is to"
+        },
+        {
+          "info": {
+            "name": "Simulate entering OTP into 3DS Challenge UI",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/three_ds_decisioning/simulate/enter_otp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint for simulating entering OTP into 3DS Challenge UI. A call to [/v1/three_ds_authentication/simulate](https://docs.lithic.com/reference/postsimulateauthentication) that resulted in triggered SMS-OTP challenge must precede. Only a single attempt is supported; upon entering OTP, the challenge i"
+        },
+        {
+          "info": {
+            "name": "Get 3DS authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/three_ds_authentication/:three_ds_authentication_token",
+            "params": [
+              {
+                "name": "three_ds_authentication_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for the 3DS authentication."
+              }
+            ]
+          },
+          "docs": "Get 3DS Authentication by token"
+        },
+        {
+          "info": {
+            "name": "Retrieve the 3DS Decisioning HMAC secret key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/three_ds_decisioning/secret"
+          },
+          "docs": "Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify 3DS Decisioning requests) will begin appearing shortly after calling this endpoint for the first time. See [this page](htt"
+        },
+        {
+          "info": {
+            "name": "Rotate the 3DS Decisioning HMAC secret key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/three_ds_decisioning/secret/rotate"
+          },
+          "docs": "Generate a new 3DS Decisioning HMAC secret key. The old secret key will be deactivated 24 hours after a successful request to this endpoint. Make a [`GET /three_ds_decisioning/secret`](https://docs.lithic.com/reference/getthreedsdecisioningsecret) request to retrieve the new secret key."
+        },
+        {
+          "info": {
+            "name": "Respond to a Challenge Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/three_ds_decisioning/challenge_response",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Card program's response to a 3DS Challenge Request. Challenge Request is emitted as a webhook [three_ds_authentication.challenge](https://docs.lithic.com/reference/post_three-ds-authentication-challenge) and your Card Program needs to be configured with Out of Band (OOB) Challenges in order to recei"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

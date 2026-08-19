@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Funding Events API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Funding Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List funding events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/funding_events"
+          },
+          "docs": "Get all funding events for program"
+        },
+        {
+          "info": {
+            "name": "Get funding event by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/funding_events/:funding_event_token",
+            "params": [
+              {
+                "name": "funding_event_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for funding event."
+              }
+            ]
+          },
+          "docs": "Get funding event for program by id"
+        },
+        {
+          "info": {
+            "name": "Get funding event details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/funding_events/:funding_event_token/details",
+            "params": [
+              {
+                "name": "funding_event_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for funding event."
+              }
+            ]
+          },
+          "docs": "Get funding event details by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

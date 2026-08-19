@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Payment API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/payments"
+          },
+          "docs": "List all the payments for the provided search criteria."
+        },
+        {
+          "info": {
+            "name": "Create payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a payment between a financial account and an external bank account."
+        },
+        {
+          "info": {
+            "name": "Get payment by token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/payments/:payment_token",
+            "params": [
+              {
+                "name": "payment_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the payment_token."
+              }
+            ]
+          },
+          "docs": "Get the payment by token."
+        },
+        {
+          "info": {
+            "name": "Retry payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/payments/:payment_token/retry",
+            "params": [
+              {
+                "name": "payment_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the payment_token."
+              }
+            ]
+          },
+          "docs": "Retry an origination which has been returned."
+        },
+        {
+          "info": {
+            "name": "Return payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/payments/:payment_token/return",
+            "params": [
+              {
+                "name": "payment_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the payment_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return an ACH payment with a specified return reason code. Returns must be initiated within the time window specified by NACHA rules for each return code (typically 2 banking days for most codes, 60 calendar days for unauthorized debits). For a complete list of return codes and their meanings, see t"
+        },
+        {
+          "info": {
+            "name": "Simulate receipt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/payments/receipt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates a receipt of a Payment."
+        },
+        {
+          "info": {
+            "name": "Simulate release payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/payments/release",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates a release of a Payment."
+        },
+        {
+          "info": {
+            "name": "Simulate return payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/payments/return",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulates a return of a Payment."
+        },
+        {
+          "info": {
+            "name": "Simulate payment lifecycle event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/simulate/payments/:payment_token/action",
+            "params": [
+              {
+                "name": "payment_token",
+                "value": "",
+                "type": "path",
+                "description": "The token identifying the payment_token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Simulate payment lifecycle event"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

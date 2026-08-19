@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Chargeback API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chargeback",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List chargeback requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/disputes"
+          },
+          "docs": "List chargeback requests."
+        },
+        {
+          "info": {
+            "name": "Request chargeback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/disputes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a chargeback."
+        },
+        {
+          "info": {
+            "name": "Get chargeback request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token"
+          },
+          "docs": "Get chargeback request."
+        },
+        {
+          "info": {
+            "name": "Update chargeback request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update chargeback request. Can only be modified if status is `NEW`."
+        },
+        {
+          "info": {
+            "name": "Withdraw chargeback request",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token"
+          },
+          "docs": "Withdraw chargeback request."
+        },
+        {
+          "info": {
+            "name": "List evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token/evidences"
+          },
+          "docs": "List evidence for a chargeback request."
+        },
+        {
+          "info": {
+            "name": "Upload evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token/evidences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this endpoint to upload evidence for a chargeback request. It will return a URL to upload your documents to. The URL will expire in 30 minutes. Uploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be less than 5 GiB."
+        },
+        {
+          "info": {
+            "name": "Get evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token/evidences/:evidence_token"
+          },
+          "docs": "Get evidence for a chargeback request."
+        },
+        {
+          "info": {
+            "name": "Delete evidence",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lithic.com/v1/disputes/:dispute_token/evidences/:evidence_token"
+          },
+          "docs": "Soft delete evidence for a chargeback request. Evidence will not be reviewed or submitted by Lithic after it is withdrawn."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

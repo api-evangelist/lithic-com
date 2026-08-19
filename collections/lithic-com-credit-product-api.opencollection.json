@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lithic 3DS Credit Product API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get extended credit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/credit_products/:credit_product_token/extended_credit",
+            "params": [
+              {
+                "name": "credit_product_token",
+                "value": "",
+                "type": "path",
+                "description": "Credit Product Token"
+              }
+            ]
+          },
+          "docs": "Get the extended credit for a given credit product under a program"
+        },
+        {
+          "info": {
+            "name": "Get Credit Product Prime Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lithic.com/v1/credit_products/:credit_product_token/prime_rates",
+            "params": [
+              {
+                "name": "credit_product_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for credit products."
+              }
+            ]
+          },
+          "docs": "Get Credit Product Prime Rates"
+        },
+        {
+          "info": {
+            "name": "Post Credit Product Prime Rate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lithic.com/v1/credit_products/:credit_product_token/prime_rates",
+            "params": [
+              {
+                "name": "credit_product_token",
+                "value": "",
+                "type": "path",
+                "description": "Globally unique identifier for credit products."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post Credit Product Prime Rate"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
