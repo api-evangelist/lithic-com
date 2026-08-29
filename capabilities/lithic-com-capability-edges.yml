@@ -1,0 +1,155 @@
+slug: lithic-com
+provider: Lithic
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 14
+edges:
+- tag: Transaction
+  spec_file: lithic-com-transaction-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.9
+  evidence: GET /v1/transactions List card transactions; POST /v1/simulate/authorize Simulate authorization;
+    POST /v1/simulate/clearing Simulate clearing
+  reason: Card authorization, clearing, void/return and routing of card transactions — card transaction
+    processing by an issuer-processor.
+- tag: Card
+  spec_file: lithic-com-card-api-openapi.yml
+  capability_id: BC-1340.60
+  capability_id_l1: BC-1340
+  capability_name: Card Issuance Management
+  confidence: 0.85
+  evidence: POST /v1/cards  Create card; POST /v1/cards/{card_token}/provision  Provision card (Digital
+    Wallet); GET /v1/card_programs  List card programs
+  reason: Issuance and lifecycle of virtual/physical cards including creation, update, and digital wallet
+    provisioning is card issuance management.
+- tag: Chargeback
+  spec_file: lithic-com-chargeback-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.85
+  evidence: POST /v1/disputes  Request chargeback; POST /v1/disputes/{dispute_token}/evidences  Upload
+    evidence
+  reason: Chargeback/dispute filing, withdrawal and evidence handling is explicitly within card transaction
+    processing (chargebacks).
+- tag: Event
+  spec_file: lithic-com-event-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.82
+  evidence: POST /v1/event_subscriptions createEventSubscription 'Create event subscription'; 'Resend
+    failed messages'; 'Rotate event subscription secret'
+  reason: Operations manage outbound event/webhook subscriptions, delivery attempts, replay of missing
+    messages and signing secrets — integration plumbing for event delivery, not a banking business process.
+    Best fits webhook & event subscription lifecycle management.
+- tag: Fraud Report
+  spec_file: lithic-com-fraud-report-api-openapi.yml
+  capability_id: BC-1400.30
+  capability_id_l1: BC-1400
+  capability_name: Fraud Detection & Investigation Management
+  confidence: 0.82
+  evidence: POST /v1/fraud/transactions/{transaction_token} createUpdateFraudReport 'Create or update
+    a fraud report for a transaction'
+  reason: Recording and retrieving fraud reports against card transactions is transaction fraud detection/investigation
+    on the issuing platform.
+- tag: 3DS
+  spec_file: lithic-com-3ds-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.8
+  evidence: POST /v1/three_ds_authentication/simulate  Simulate 3DS authentication; POST /v1/three_ds_decisioning/challenge_response  Respond
+    to a Challenge Request
+  reason: 3-D Secure cardholder authentication and challenge decisioning is part of card transaction authorisation/fraud
+    screening on an issuer-processor platform.
+- tag: Account Holder
+  spec_file: lithic-com-account-holder-api-openapi.yml
+  capability_id: BC-1300.20
+  capability_id_l1: BC-1300
+  capability_name: KYC & Customer Due Diligence Management
+  confidence: 0.8
+  evidence: POST /v1/account_holders/{account_holder_token}/entities  Create a new beneficial owner individual
+    or replace the existing control person entity; Simulate an account holder's enrollment review
+  reason: KYC/KYB onboarding of individual and business account holders with document upload, beneficial
+    owner capture and enrolment review is customer due diligence.
+- tag: Card Authorizations
+  spec_file: lithic-com-card-authorizations-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.8
+  evidence: POST /v1/card_authorizations/{event_token}/challenge_response  Respond to Authorization Challenge
+  reason: Responding to a card authorisation challenge event is part of authorisation/fraud screening
+    in card transaction processing.
+- tag: Card Bulk Orders
+  spec_file: lithic-com-card-bulk-orders-api-openapi.yml
+  capability_id: BC-1340.60
+  capability_id_l1: BC-1340
+  capability_name: Card Issuance Management
+  confidence: 0.8
+  evidence: POST /v1/card_bulk_orders  Create bulk order; GET /v1/card_bulk_orders/{bulk_order_token}  Get
+    bulk order
+  reason: Bulk ordering of cards drives card production/personalisation and dispatch, i.e. card issuance
+    management.
+- tag: Payment
+  spec_file: lithic-com-payment-api-openapi.yml
+  capability_id: BC-1340
+  capability_id_l1: BC-1340
+  capability_name: Payments & Card Management
+  confidence: 0.8
+  evidence: POST /v1/payments createPayment 'Create payment'; 'Retry payment'; 'Return payment'; vendor
+    description cites 'ACH payments'
+  reason: Creation, retry and return of ACH payment instructions is core payment initiation/processing;
+    kept at L1 since the surface spans initiation, returns and simulated lifecycle events.
+- tag: Auth Rules
+  spec_file: lithic-com-auth-rules-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.75
+  evidence: POST /v2/auth_rules  Create a new rule; POST /v2/auth_rules/{auth_rule_token}/backtests  Request
+    a backtest
+  reason: Programmable card authorisation rules with versioning, performance reports and backtesting govern
+    authorisation/fraud screening decisions in card transaction processing.
+- tag: Settlement Report
+  spec_file: lithic-com-settlement-report-api-openapi.yml
+  capability_id: BC-1340.30
+  capability_id_l1: BC-1340
+  capability_name: Clearing & Settlement Management
+  confidence: 0.72
+  evidence: GET /v1/reports/settlement/summary/{report_date} Get settlement summary; GET /v1/reports/settlement/network_totals
+    List network totals
+  reason: Card network settlement reporting (summaries, details, network totals) for an issuer-processor
+    — settlement side of card clearing and settlement within Payments & Card Management.
+- tag: External Payments
+  spec_file: lithic-com-external-payments-api-openapi.yml
+  capability_id: BC-1340
+  capability_id_l1: BC-1340
+  capability_name: Payments & Card Management
+  confidence: 0.7
+  evidence: POST /v1/external_payments postExternalPayments 'Create external payment'; 'Settle external
+    payment'; 'Reverse external payment'
+  reason: Creates and drives the lifecycle (settle, release, cancel, reverse) of payment objects — payment
+    processing on the issuer-processor platform. Sub-capability ambiguous between initiation and processing/settlement.
+- tag: Managed Disputes
+  spec_file: lithic-com-managed-disputes-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.7
+  evidence: GET /v2/disputes getDisputesV2 'List disputes'; vendor describes 'disputes' alongside authorization
+    and clearing
+  reason: Card dispute/chargeback records on an issuer-processor map to card transaction processing (chargebacks);
+    only read operations so confidence moderate.

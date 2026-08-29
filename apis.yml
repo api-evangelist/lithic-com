@@ -2652,6 +2652,9 @@ apis:
   - type: APIReference
     url: https://docs.lithic.com/reference/getfraudreport
 common:
+- type: CapabilityMap
+  url: capabilities/lithic-com-capability-edges.yml
+  name: Lithic Business Capability Map
 - type: MCPServer
   url: https://docs.lithic.com/docs/mcp
 - type: StatusPage
