@@ -1,0 +1,39 @@
+generated: '2026-09-11'
+method: probed
+source: https://www.lithic.com/blog/mcp-server-agentic-payments
+status: published
+server:
+  name: lithic-com
+  transport: http
+  url: https://docs.lithic.com/mcp
+deployment:
+  mode: remote
+  endpoint: https://docs.lithic.com/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-11 (endpoint found in the provider's own documentation, then probed)
+tools_count: 10
+tools:
+- name: list-endpoints
+  description: ''
+- name: get-endpoint
+  description: ''
+- name: search-endpoints
+  description: ''
+- name: execute-request
+  description: ''
+- name: search
+  description: ''
+- name: fetch
+  description: ''
+- name: lithic-sandbox-setup
+  description: ''
+- name: lithic-simulate-transaction
+  description: ''
+- name: lithic-auth-rule-lifecycle
+  description: ''
+- name: lithic-query-data
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
