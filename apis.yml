@@ -559,6 +559,8 @@ apis:
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
+  - Cards
+  tags_raw:
   - Card
   properties:
   - type: OpenAPI
@@ -811,6 +813,8 @@ apis:
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
+  - Chargebacks
+  tags_raw:
   - Chargeback
   properties:
   - type: OpenAPI
@@ -1820,6 +1824,8 @@ apis:
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
+  - Payments
+  tags_raw:
   - Payment
   properties:
   - type: OpenAPI
@@ -2577,6 +2583,8 @@ apis:
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
+  - 3D
+  tags_raw:
   - 3 DS
   properties:
   - type: OpenAPI
