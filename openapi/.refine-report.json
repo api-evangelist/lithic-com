@@ -1,37 +1,7 @@
 {
   "provider": "lithic-com",
   "sources": [
-    "lithic-com-3ds-api-openapi.yml",
-    "lithic-com-account-api-openapi.yml",
-    "lithic-com-account-holder-api-openapi.yml",
-    "lithic-com-auth-rules-api-openapi.yml",
-    "lithic-com-auth-stream-access-asa-api-openapi.yml",
-    "lithic-com-balance-api-openapi.yml",
-    "lithic-com-book-transfer-api-openapi.yml",
-    "lithic-com-card-api-openapi.yml",
-    "lithic-com-card-authorizations-api-openapi.yml",
-    "lithic-com-card-bulk-orders-api-openapi.yml",
-    "lithic-com-chargeback-api-openapi.yml",
-    "lithic-com-credit-product-api-openapi.yml",
-    "lithic-com-event-api-openapi.yml",
-    "lithic-com-external-bank-account-api-openapi.yml",
-    "lithic-com-external-payments-api-openapi.yml",
-    "lithic-com-financial-account-api-openapi.yml",
-    "lithic-com-fraud-report-api-openapi.yml",
-    "lithic-com-funding-events-api-openapi.yml",
-    "lithic-com-hold-api-openapi.yml",
-    "lithic-com-managed-disputes-api-openapi.yml",
-    "lithic-com-management-operations-api-openapi.yml",
-    "lithic-com-network-program-api-openapi.yml",
-    "lithic-com-payment-api-openapi.yml",
-    "lithic-com-responder-endpoints-api-openapi.yml",
-    "lithic-com-settlement-report-api-openapi.yml",
-    "lithic-com-statements-api-openapi.yml",
-    "lithic-com-status-api-openapi.yml",
-    "lithic-com-tokenization-api-openapi.yml",
-    "lithic-com-transaction-api-openapi.yml",
-    "lithic-com-transaction-monitoring-api-openapi.yml",
-    "lithic-com-transfer-limits-api-openapi.yml"
+    "_original/lithic-com-openapi.yml"
   ],
   "outputs": [
     "lithic-com-3ds-api-openapi.yml",
@@ -66,11 +36,51 @@
     "lithic-com-transaction-monitoring-api-openapi.yml",
     "lithic-com-transfer-limits-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [
-    "lithic-com-transfer-limits-api-openapi.yml: dangling $ref: #/components/schemas/TransferLimits"
+    "lithic-com-openapi.yml: dangling $ref: #/components/schemas/TransferLimits"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lithic-com-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "lithic-com-openapi.yml: declared missing tag: Transfer Limits",
+    "superseded outputs removed: lithic-com-3-ds-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 31 total)"
+  ],
+  "skipped": [
+    "lithic-com-3-ds-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-account-holder-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-auth-rules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-auth-stream-access-asa-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-balance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-book-transfer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-card-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-card-authorizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-card-bulk-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-chargeback-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-credit-product-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-event-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-external-bank-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-external-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-financial-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-fraud-report-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-funding-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-hold-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-managed-disputes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-management-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-network-program-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-payment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-responder-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-settlement-report-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-statements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-tokenization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-transaction-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-transaction-monitoring-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lithic-com-transfer-limits-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

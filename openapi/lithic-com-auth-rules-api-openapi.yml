@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lithic 3DS Auth Rules API
-  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  title: Lithic Auth Rules API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction…
   version: 1.0.0
   contact:
     name: Lithic
@@ -44,6 +44,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: postV2AuthRules
+      x-operation-id-source: derived
     get:
       tags:
       - Auth Rules
@@ -60,6 +62,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRules
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}:
     get:
       tags:
@@ -77,6 +81,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesByAuthRuleToken
+      x-operation-id-source: derived
     patch:
       tags:
       - Auth Rules
@@ -100,6 +106,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: patchV2AuthRulesByAuthRuleToken
+      x-operation-id-source: derived
     delete:
       tags:
       - Auth Rules
@@ -116,6 +124,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: deleteV2AuthRulesByAuthRuleToken
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/draft:
     post:
       tags:
@@ -140,6 +150,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: postV2AuthRulesByAuthRuleTokenDraft
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/features:
     get:
       tags:
@@ -157,6 +169,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesByAuthRuleTokenFeatures
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/promote:
     post:
       tags:
@@ -174,6 +188,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: postV2AuthRulesByAuthRuleTokenPromote
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/versions:
     get:
       tags:
@@ -191,6 +207,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesByAuthRuleTokenVersions
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/report:
     get:
       tags:
@@ -208,6 +226,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesByAuthRuleTokenReport
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/backtests:
     get:
       tags:
@@ -225,6 +245,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesByAuthRuleTokenBacktests
+      x-operation-id-source: derived
     post:
       tags:
       - Auth Rules
@@ -248,6 +270,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: postV2AuthRulesByAuthRuleTokenBacktests
+      x-operation-id-source: derived
   /v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}:
     get:
       tags:
@@ -265,6 +289,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesByAuthRuleTokenBacktestsByAuthRuleBacktestToken
+      x-operation-id-source: derived
   /v2/auth_rules/results:
     get:
       tags:
@@ -282,12 +308,9 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      operationId: getV2AuthRulesResults
+      x-operation-id-source: derived
 components:
-  responses:
-    ValidationError:
-      description: The request failed validation.
-    Unauthorized:
-      description: Missing or invalid API key.
   schemas:
     AuthRules:
       type: object
@@ -301,6 +324,11 @@ components:
           type: string
           format: date-time
       additionalProperties: true
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

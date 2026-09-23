@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lithic 3DS External Payments API
-  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction monitoring. This document curates the real, published Lithic OpenAPI 3.1 definitions (https://github.com/lithic-com/lithic-openapi) into the endpoint surface referenced by this apis.yml, expressed as OpenAPI 3.0.3 with lightweight response schemas. Requests are authenticated with an API key sent as the raw value of the Authorization header (not a Bearer token).
+  title: Lithic External Payments API
+  description: The Lithic API is a card issuing and issuer-processor platform for issuing virtual and physical cards, authorizing and clearing transactions, moving money across ledgered financial accounts, and managing the full card lifecycle - KYC/KYB account holder onboarding, authorization rules and real-time Auth Stream Access (ASA) decisioning, disputes, tokenization into digital wallets, 3DS authentication, ACH payments, book transfers, external payments, settlement reporting, and fraud/transaction…
   version: 1.0.0
   contact:
     name: Lithic
@@ -26,7 +26,6 @@ paths:
       tags:
       - External Payments
       summary: List external payments
-      description: List external payments
       responses:
         '200':
           description: Successful response.
@@ -43,7 +42,6 @@ paths:
       tags:
       - External Payments
       summary: Create external payment
-      description: Create external payment
       requestBody:
         required: true
         content:
@@ -68,7 +66,6 @@ paths:
       tags:
       - External Payments
       summary: Get external payment
-      description: Get external payment
       parameters:
       - name: external_payment_token
         in: path
@@ -93,7 +90,6 @@ paths:
       tags:
       - External Payments
       summary: Settle external payment
-      description: Settle external payment
       parameters:
       - name: external_payment_token
         in: path
@@ -125,7 +121,6 @@ paths:
       tags:
       - External Payments
       summary: Release external payment
-      description: Release external payment
       parameters:
       - name: external_payment_token
         in: path
@@ -157,7 +152,6 @@ paths:
       tags:
       - External Payments
       summary: Cancel external payment
-      description: Cancel external payment
       parameters:
       - name: external_payment_token
         in: path
@@ -189,7 +183,6 @@ paths:
       tags:
       - External Payments
       summary: Reverse external payment
-      description: Reverse external payment
       parameters:
       - name: external_payment_token
         in: path
