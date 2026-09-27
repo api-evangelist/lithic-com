@@ -120,10 +120,10 @@ paths:
           $ref: '#/components/responses/ValidationError'
 components:
   responses:
-    ValidationError:
-      description: The request failed validation.
     Unauthorized:
       description: Missing or invalid API key.
+    ValidationError:
+      description: The request failed validation.
   schemas:
     CardBulkOrders:
       type: object
