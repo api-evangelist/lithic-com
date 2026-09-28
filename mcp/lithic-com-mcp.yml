@@ -16,24 +16,37 @@ deployment:
 tools_count: 10
 tools:
 - name: list-endpoints
-  description: ''
+  description: Lists all API paths and their HTTP methods with summaries, organized by path. Results can
+    be passed directly into 'get-endpoint'.
 - name: get-endpoint
-  description: ''
+  description: Gets detailed information about a specific API endpoint, including security schemes and
+    servers
 - name: search-endpoints
-  description: ''
+  description: Performs a deep search through paths, operations, and parameters to discover relevant API
+    endpoints. Use this tool to find specific API capabilities, required parameters, or data models based
+    on search keywords. Results can be passed direct
 - name: execute-request
-  description: ''
+  description: Executes an API request with a given HAR request object.
 - name: search
-  description: ''
+  description: Searches through documentation with the given search query, returning a list of results
+    with ID, title, and URL.
 - name: fetch
-  description: ''
+  description: Gets detailed content for documentation by ID returned from the `search` tool.
 - name: lithic-sandbox-setup
-  description: ''
+  description: Call once at the start of any Lithic sandbox task, before making API requests. Loads base
+    URL, auth, unit conventions, and how to avoid oversized schema lookups.
 - name: lithic-simulate-transaction
-  description: ''
+  description: Use whenever simulating card transactions in sandbox (authorize, clearing, void, return,
+    advice). Simulate endpoints do not return the approval outcome, so this encodes the required verify
+    step.
 - name: lithic-auth-rule-lifecycle
-  description: ''
+  description: Use when creating, editing, or testing Authorization Rules in sandbox. A newly created
+    rule does nothing until it is promoted; this encodes the draft/promote lifecycle and how to confirm
+    a rule takes effect.
 - name: lithic-query-data
-  description: ''
+  description: Use when listing or searching sandbox data (transactions, cards, accounts, rule results).
+    Keeps responses small and filtered.
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
