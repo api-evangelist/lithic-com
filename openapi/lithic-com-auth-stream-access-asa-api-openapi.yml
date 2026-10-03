@@ -57,6 +57,11 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
   schemas:
     AuthStreamAccessASA:
       type: object
@@ -70,11 +75,6 @@ components:
           type: string
           format: date-time
       additionalProperties: true
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-    ValidationError:
-      description: The request failed validation.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
