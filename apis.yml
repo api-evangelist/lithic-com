@@ -35,6 +35,9 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lithic-com.png
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-10-03
 tags:
 - Fintech
 - Card Issuing
@@ -2584,6 +2587,8 @@ apis:
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
+  - 3D
+  tags_raw:
   - 3 DS
   properties:
   - type: OpenAPI
