@@ -312,10 +312,10 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
-    ValidationError:
-      description: The request failed validation.
     Unauthorized:
       description: Missing or invalid API key.
+    ValidationError:
+      description: The request failed validation.
   schemas:
     AuthRules:
       type: object

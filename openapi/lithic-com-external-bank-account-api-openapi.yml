@@ -297,6 +297,11 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+    ValidationError:
+      description: The request failed validation.
   schemas:
     ExternalBankAccount:
       type: object
@@ -310,11 +315,6 @@ components:
           type: string
           format: date-time
       additionalProperties: true
-  responses:
-    ValidationError:
-      description: The request failed validation.
-    Unauthorized:
-      description: Missing or invalid API key.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

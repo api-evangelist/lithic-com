@@ -406,6 +406,11 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  responses:
+    ValidationError:
+      description: The request failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
   schemas:
     Event:
       type: object
@@ -419,11 +424,6 @@ components:
           type: string
           format: date-time
       additionalProperties: true
-  responses:
-    ValidationError:
-      description: The request failed validation.
-    Unauthorized:
-      description: Missing or invalid API key.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -2587,8 +2587,6 @@ apis:
   humanURL: https://docs.lithic.com/docs/account-holders-kyc
   baseURL: https://api.lithic.com/v1
   tags:
-  - 3D
-  tags_raw:
   - 3 DS
   properties:
   - type: OpenAPI
