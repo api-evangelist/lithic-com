@@ -1,21 +1,176 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/lithic-com-openapi.yml
+source: openapi/lithic-com-3-ds-api-openapi.yml, openapi/lithic-com-account-api-openapi.yml,
+  openapi/lithic-com-account-holder-api-openapi.yml, openapi/lithic-com-auth-rules-api-openapi.yml,
+  openapi/lithic-com-auth-stream-access-asa-api-openapi.yml, openapi/lithic-com-balance-api-openapi.yml,
+  openapi/lithic-com-book-transfer-api-openapi.yml, openapi/lithic-com-card-api-openapi.yml,
+  openapi/lithic-com-card-authorizations-api-openapi.yml, openapi/lithic-com-card-bulk-orders-api-openapi.yml,
+  openapi/lithic-com-chargeback-api-openapi.yml, openapi/lithic-com-credit-product-api-openapi.yml,
+  openapi/lithic-com-event-api-openapi.yml, openapi/lithic-com-external-bank-account-api-openapi.yml,
+  openapi/lithic-com-external-payments-api-openapi.yml, openapi/lithic-com-financial-account-api-openapi.yml,
+  openapi/lithic-com-fraud-report-api-openapi.yml, openapi/lithic-com-funding-events-api-openapi.yml,
+  openapi/lithic-com-hold-api-openapi.yml, openapi/lithic-com-managed-disputes-api-openapi.yml,
+  openapi/lithic-com-management-operations-api-openapi.yml, openapi/lithic-com-network-program-api-openapi.yml,
+  openapi/lithic-com-payment-api-openapi.yml, openapi/lithic-com-responder-endpoints-api-openapi.yml,
+  openapi/lithic-com-settlement-report-api-openapi.yml, openapi/lithic-com-statements-api-openapi.yml,
+  openapi/lithic-com-status-api-openapi.yml, openapi/lithic-com-tokenization-api-openapi.yml,
+  openapi/lithic-com-transaction-api-openapi.yml, openapi/lithic-com-transaction-monitoring-api-openapi.yml,
+  openapi/lithic-com-transfer-limits-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 215
   by_action_class:
-    connected: 106
-    acting: 109
+    acting: 108
+    connected: 107
   by_consequence:
-    read: 106
-    write: 77
+    write: 76
+    read: 107
     safety-critical: 1
     physical: 31
   human_in_the_loop_required: 1
 operations:
+- path: /v1/three_ds_authentication/simulate
+  method: post
+  operationId: postSimulateAuthentication
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/three_ds_decisioning/simulate/enter_otp
+  method: post
+  operationId: postV1ThreeDsDecisioningSimulateEnterOtp
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/three_ds_authentication/{three_ds_authentication_token}
+  method: get
+  operationId: getThreeDsAuthenticationByToken
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/three_ds_decisioning/secret
+  method: get
+  operationId: getThreeDsDecisioningSecret
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/three_ds_decisioning/secret/rotate
+  method: post
+  operationId: rotateThreeDsDecisioningSecret
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/three_ds_decisioning/challenge_response
+  method: post
+  operationId: postV1ThreeDsDecisioningChallengeResponse
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/accounts
+  method: get
+  operationId: getAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/accounts/{account_token}
+  method: get
+  operationId: getAccountByToken
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/accounts/{account_token}
+  method: patch
+  operationId: patchAccountByToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/accounts/{account_token}/spend_limits
+  method: get
+  operationId: getAccountSpendLimits
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/accounts/{account_token}/signals
+  method: get
+  operationId: getAccountSignals
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v1/account_holders
   method: get
   operationId: getAccountHolders
@@ -136,29 +291,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/accounts
-  method: get
-  operationId: getAccounts
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/accounts/{account_token}
-  method: get
-  operationId: getAccountByToken
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/accounts/{account_token}
-  method: patch
-  operationId: patchAccountByToken
+- path: /v1/simulate/account_holders/enrollment_review
+  method: post
+  operationId: simulateAccountHolderEnrollmentReview
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -172,18 +307,25 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/accounts/{account_token}/spend_limits
-  method: get
-  operationId: getAccountSpendLimits
+- path: /v1/simulate/account_holders/enrollment_document_review
+  method: post
+  operationId: simulateAccountHolderEnrollmentDocumentReview
   x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
     token:
-      max-ttl: 3600
-    audit: none
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /v2/auth_rules
   method: post
+  operationId: postV2AuthRules
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -199,6 +341,7 @@ operations:
     audit: required
 - path: /v2/auth_rules
   method: get
+  operationId: getV2AuthRules
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -208,6 +351,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/{auth_rule_token}
   method: get
+  operationId: getV2AuthRulesByAuthRuleToken
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -217,6 +361,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/{auth_rule_token}
   method: patch
+  operationId: patchV2AuthRulesByAuthRuleToken
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -232,6 +377,7 @@ operations:
     audit: required
 - path: /v2/auth_rules/{auth_rule_token}
   method: delete
+  operationId: deleteV2AuthRulesByAuthRuleToken
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -247,6 +393,7 @@ operations:
     audit: required
 - path: /v2/auth_rules/{auth_rule_token}/draft
   method: post
+  operationId: postV2AuthRulesByAuthRuleTokenDraft
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -262,6 +409,7 @@ operations:
     audit: required
 - path: /v2/auth_rules/{auth_rule_token}/features
   method: get
+  operationId: getV2AuthRulesByAuthRuleTokenFeatures
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -271,6 +419,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/{auth_rule_token}/promote
   method: post
+  operationId: postV2AuthRulesByAuthRuleTokenPromote
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -286,6 +435,7 @@ operations:
     audit: required
 - path: /v2/auth_rules/{auth_rule_token}/versions
   method: get
+  operationId: getV2AuthRulesByAuthRuleTokenVersions
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -295,6 +445,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/{auth_rule_token}/report
   method: get
+  operationId: getV2AuthRulesByAuthRuleTokenReport
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -304,6 +455,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/{auth_rule_token}/backtests
   method: get
+  operationId: getV2AuthRulesByAuthRuleTokenBacktests
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -313,6 +465,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/{auth_rule_token}/backtests
   method: post
+  operationId: postV2AuthRulesByAuthRuleTokenBacktests
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -328,6 +481,7 @@ operations:
     audit: required
 - path: /v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}
   method: get
+  operationId: getV2AuthRulesByAuthRuleTokenBacktestsByAuthRuleBacktestToken
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -337,26 +491,7 @@ operations:
     audit: none
 - path: /v2/auth_rules/results
   method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/cards/{card_token}/signals
-  method: get
-  operationId: getCardSignals
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/accounts/{account_token}/signals
-  method: get
-  operationId: getAccountSignals
+  operationId: getV2AuthRulesResults
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -393,6 +528,118 @@ operations:
 - path: /v1/balances
   method: get
   operationId: getBalances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/financial_accounts/{financial_account_token}/balances
+  method: get
+  operationId: getBalance
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/transfer
+  method: post
+  operationId: postTransfer
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/book_transfers
+  method: get
+  operationId: getBookTransfers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/book_transfers
+  method: post
+  operationId: postBookTransfers
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/book_transfers/{book_transfer_token}
+  method: get
+  operationId: getBookTransfer
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/book_transfers/{book_transfer_token}/retry
+  method: post
+  operationId: retryBookTransfer
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/book_transfers/{book_transfer_token}/reverse
+  method: post
+  operationId: reverseBookTransfer
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/cards/{card_token}/signals
+  method: get
+  operationId: getCardSignals
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -450,18 +697,12 @@ operations:
   method: post
   operationId: searchCardByPan
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /v1/cards/{card_token}
   method: get
   operationId: getCardByToken
@@ -612,6 +853,16 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /v1/embed/card
+  method: get
+  operationId: getEmbedCard
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v1/card_authorizations/{event_token}/challenge_response
   method: post
   operationId: respondToAuthorizationChallenge
@@ -684,26 +935,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/digital_card_art
-  method: get
-  operationId: getDigitalCardArt
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/digital_card_art/{digital_card_art_token}
-  method: get
-  operationId: getDigitalCardArtByToken
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v1/disputes
   method: get
   operationId: getDisputes
@@ -834,9 +1065,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/embed/card
+- path: /v1/credit_products/{credit_product_token}/extended_credit
   method: get
-  operationId: getEmbedCard
+  operationId: getExtendedCredit
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -844,9 +1075,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/fraud/transactions/{transaction_token}
+- path: /v1/credit_products/{credit_product_token}/prime_rates
   method: get
-  operationId: getFraudReport
+  operationId: getPrimeRates
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -854,9 +1085,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/fraud/transactions/{transaction_token}
+- path: /v1/credit_products/{credit_product_token}/prime_rates
   method: post
-  operationId: createUpdateFraudReport
+  operationId: createPrimeRates
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -870,58 +1101,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/transactions/{transaction_token}/enhanced_commercial_data
-  method: get
-  operationId: listEnhancedTransactionData
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/transactions/{transaction_token}/expire_authorization
-  method: post
-  operationId: expireAuthorization
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/transactions/{transaction_token}/route
-  method: post
-  operationId: routeTransaction
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/transactions/events/{event_token}/enhanced_commercial_data
-  method: get
-  operationId: getEnhancedTransactionData
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v1/event_subscriptions
   method: get
   operationId: getEventSubscriptions
@@ -1108,6 +1287,24 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v1/simulate/event_subscriptions/{event_subscription_token}/send_example
+  method: post
+  operationId: sendEventSubscriptionExample
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /v1/external_bank_accounts
   method: get
   operationId: searchExternalBankAccounts
@@ -1260,9 +1457,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/credit_products/{credit_product_token}/extended_credit
+- path: /v1/external_payments
   method: get
-  operationId: getExtendedCredit
+  operationId: getExternalPayments
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1270,26 +1467,100 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/credit_products/{credit_product_token}/prime_rates
-  method: get
-  operationId: getPrimeRates
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/credit_products/{credit_product_token}/prime_rates
+- path: /v1/external_payments
   method: post
-  operationId: createPrimeRates
+  operationId: postExternalPayments
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/external_payments/{external_payment_token}
+  method: get
+  operationId: getExternalPayment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/external_payments/{external_payment_token}/settle
+  method: post
+  operationId: settleExternalPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/external_payments/{external_payment_token}/release
+  method: post
+  operationId: releaseExternalPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/external_payments/{external_payment_token}/cancel
+  method: post
+  operationId: cancelExternalPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/external_payments/{external_payment_token}/reverse
+  method: post
+  operationId: reverseExternalPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
@@ -1348,16 +1619,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/financial_accounts/{financial_account_token}/balances
-  method: get
-  operationId: getBalance
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v1/financial_accounts/{financial_account_token}/credit_configuration
   method: get
   operationId: getAccountCreditConfiguration
@@ -1420,6 +1681,98 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v1/financial_accounts/{financial_account_token}/update_status
+  method: post
+  operationId: updateFinancialAccountStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/account_activity
+  method: get
+  operationId: listAccountActivity
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/account_activity/{transaction_token}
+  method: get
+  operationId: getAccountActivity
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/fraud/transactions/{transaction_token}
+  method: get
+  operationId: getFraudReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/fraud/transactions/{transaction_token}
+  method: post
+  operationId: createUpdateFraudReport
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/funding_events
+  method: get
+  operationId: getFundingEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/funding_events/{funding_event_token}
+  method: get
+  operationId: getFundingEventById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/funding_events/{funding_event_token}/details
+  method: get
+  operationId: getFundingEventDetailsById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v1/financial_accounts/{financial_account_token}/holds
   method: get
   operationId: getFinancialAccountHolds
@@ -1472,6 +1825,326 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v2/disputes
+  method: get
+  operationId: getDisputesV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/disputes/{dispute_token}
+  method: get
+  operationId: getDisputeByTokenV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/management_operations
+  method: get
+  operationId: getManagementOperations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/management_operations
+  method: post
+  operationId: postManagementOperations
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/management_operations/{management_operation_token}
+  method: get
+  operationId: getManagementOperation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/management_operations/{management_operation_token}/reverse
+  method: post
+  operationId: reverseManagementOperation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/network_programs
+  method: get
+  operationId: getNetworkPrograms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/network_programs/{network_program_token}
+  method: get
+  operationId: getNetworkProgram
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/payments
+  method: get
+  operationId: searchPayments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/payments
+  method: post
+  operationId: createPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/payments/{payment_token}
+  method: get
+  operationId: getPaymentByToken
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/payments/{payment_token}/retry
+  method: post
+  operationId: retryPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/payments/{payment_token}/return
+  method: post
+  operationId: returnPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/payments/receipt
+  method: post
+  operationId: simulatePaymentsReceipt
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/payments/release
+  method: post
+  operationId: simulatePaymentsRelease
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/payments/return
+  method: post
+  operationId: simulatePaymentsReturn
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/payments/{payment_token}/action
+  method: post
+  operationId: simulatePaymentAction
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/responder_endpoints
+  method: delete
+  operationId: deleteResponderEndpoint
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/responder_endpoints
+  method: get
+  operationId: getResponderEndpoints
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/responder_endpoints
+  method: post
+  operationId: postResponderEndpoints
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/reports/settlement/details/{report_date}
+  method: get
+  operationId: getSettlementDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reports/settlement/summary/{report_date}
+  method: get
+  operationId: getSummary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reports/settlement/network_totals
+  method: get
+  operationId: listNetworkTotals
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/reports/settlement/network_totals/{token}
+  method: get
+  operationId: getNetworkTotal
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /v1/financial_accounts/{financial_account_token}/statements
   method: get
   operationId: getStatements
@@ -1600,448 +2273,6 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/financial_accounts/{financial_account_token}/update_status
-  method: post
-  operationId: updateFinancialAccountStatus
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/account_activity
-  method: get
-  operationId: listAccountActivity
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/account_activity/{transaction_token}
-  method: get
-  operationId: getAccountActivity
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/payments
-  method: get
-  operationId: searchPayments
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/payments
-  method: post
-  operationId: createPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/payments/{payment_token}
-  method: get
-  operationId: getPaymentByToken
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/payments/{payment_token}/retry
-  method: post
-  operationId: retryPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/payments/{payment_token}/return
-  method: post
-  operationId: returnPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/reports/settlement/details/{report_date}
-  method: get
-  operationId: getSettlementDetails
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/reports/settlement/summary/{report_date}
-  method: get
-  operationId: getSummary
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/reports/settlement/network_totals
-  method: get
-  operationId: listNetworkTotals
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/reports/settlement/network_totals/{token}
-  method: get
-  operationId: getNetworkTotal
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/responder_endpoints
-  method: delete
-  operationId: deleteResponderEndpoint
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/responder_endpoints
-  method: get
-  operationId: getResponderEndpoints
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/responder_endpoints
-  method: post
-  operationId: postResponderEndpoints
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/authorization_advice
-  method: post
-  operationId: postSimulateAuthorizationAdvice
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/authorize
-  method: post
-  operationId: postSimulateAuthorize
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/clearing
-  method: post
-  operationId: postSimulateClearing
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/credit_authorization_advice
-  method: post
-  operationId: postSimulateCreditAuthorizationAdvice
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/event_subscriptions/{event_subscription_token}/send_example
-  method: post
-  operationId: sendEventSubscriptionExample
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/payments/receipt
-  method: post
-  operationId: simulatePaymentsReceipt
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/payments/release
-  method: post
-  operationId: simulatePaymentsRelease
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/payments/return
-  method: post
-  operationId: simulatePaymentsReturn
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/payments/{payment_token}/action
-  method: post
-  operationId: simulatePaymentAction
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/return
-  method: post
-  operationId: postSimulateReturn
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/return_reversal
-  method: post
-  operationId: postSimulateReturnReversal
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/tokenizations
-  method: post
-  operationId: postSimulateTokenizations
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/void
-  method: post
-  operationId: postSimulateVoid
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/account_holders/enrollment_review
-  method: post
-  operationId: simulateAccountHolderEnrollmentReview
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/simulate/account_holders/enrollment_document_review
-  method: post
-  operationId: simulateAccountHolderEnrollmentDocumentReview
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /v1/status
   method: get
   operationId: getStatus
@@ -2052,40 +2283,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/three_ds_authentication/simulate
-  method: post
-  operationId: postSimulateAuthentication
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/three_ds_decisioning/simulate/enter_otp
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/three_ds_authentication/{three_ds_authentication_token}
+- path: /v1/digital_card_art
   method: get
-  operationId: getThreeDsAuthenticationByToken
+  operationId: getDigitalCardArt
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -2093,9 +2293,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/three_ds_decisioning/secret
+- path: /v1/digital_card_art/{digital_card_art_token}
   method: get
-  operationId: getThreeDsDecisioningSecret
+  operationId: getDigitalCardArtByToken
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -2103,24 +2303,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v1/three_ds_decisioning/secret/rotate
+- path: /v1/simulate/tokenizations
   method: post
-  operationId: rotateThreeDsDecisioningSecret
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/three_ds_decisioning/challenge_response
-  method: post
+  operationId: postSimulateTokenizations
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -2265,6 +2450,170 @@ operations:
 - path: /v1/tokenizations/{tokenization_token}/update_digital_card_art
   method: post
   operationId: updateDigitalCardArtForTokenization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/transactions/{transaction_token}/enhanced_commercial_data
+  method: get
+  operationId: listEnhancedTransactionData
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/transactions/{transaction_token}/expire_authorization
+  method: post
+  operationId: expireAuthorization
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/transactions/{transaction_token}/route
+  method: post
+  operationId: routeTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/transactions/events/{event_token}/enhanced_commercial_data
+  method: get
+  operationId: getEnhancedTransactionData
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/simulate/authorization_advice
+  method: post
+  operationId: postSimulateAuthorizationAdvice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/authorize
+  method: post
+  operationId: postSimulateAuthorize
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/clearing
+  method: post
+  operationId: postSimulateClearing
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/credit_authorization_advice
+  method: post
+  operationId: postSimulateCreditAuthorizationAdvice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/return
+  method: post
+  operationId: postSimulateReturn
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/return_reversal
+  method: post
+  operationId: postSimulateReturnReversal
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/simulate/void
+  method: post
+  operationId: postSimulateVoid
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -2532,333 +2881,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v1/transfer
-  method: post
-  operationId: postTransfer
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /v1/transfer_limits
   method: get
   operationId: getTransferLimits
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/book_transfers
-  method: get
-  operationId: getBookTransfers
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/book_transfers
-  method: post
-  operationId: postBookTransfers
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/book_transfers/{book_transfer_token}
-  method: get
-  operationId: getBookTransfer
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/book_transfers/{book_transfer_token}/retry
-  method: post
-  operationId: retryBookTransfer
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/book_transfers/{book_transfer_token}/reverse
-  method: post
-  operationId: reverseBookTransfer
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/external_payments
-  method: get
-  operationId: getExternalPayments
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/external_payments
-  method: post
-  operationId: postExternalPayments
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/external_payments/{external_payment_token}
-  method: get
-  operationId: getExternalPayment
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/external_payments/{external_payment_token}/settle
-  method: post
-  operationId: settleExternalPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/external_payments/{external_payment_token}/release
-  method: post
-  operationId: releaseExternalPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/external_payments/{external_payment_token}/cancel
-  method: post
-  operationId: cancelExternalPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/external_payments/{external_payment_token}/reverse
-  method: post
-  operationId: reverseExternalPayment
-  x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/management_operations
-  method: get
-  operationId: getManagementOperations
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/management_operations
-  method: post
-  operationId: postManagementOperations
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/management_operations/{management_operation_token}
-  method: get
-  operationId: getManagementOperation
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/management_operations/{management_operation_token}/reverse
-  method: post
-  operationId: reverseManagementOperation
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/network_programs
-  method: get
-  operationId: getNetworkPrograms
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/network_programs/{network_program_token}
-  method: get
-  operationId: getNetworkProgram
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/funding_events
-  method: get
-  operationId: getFundingEvents
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/funding_events/{funding_event_token}
-  method: get
-  operationId: getFundingEventById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/funding_events/{funding_event_token}/details
-  method: get
-  operationId: getFundingEventDetailsById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/disputes
-  method: get
-  operationId: getDisputesV2
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/disputes/{dispute_token}
-  method: get
-  operationId: getDisputeByTokenV2
   x-agentic-access:
     action-class: connected
     consequence: read
